@@ -15,7 +15,7 @@
   "connections": null,
   "object_events": [
     {
-      "graphics_id": "EVENT_OBJ_GFX_TATE",
+      "graphics_id": "EVENT_OBJ_GFX_LEONARD",
       "x": 23,
       "y": 7,
       "elevation": 0,
@@ -119,7 +119,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "EVENT_OBJ_GFX_LIZA",
+      "graphics_id": "EVENT_OBJ_GFX_MATHIAS",
       "x": 24,
       "y": 7,
       "elevation": 0,

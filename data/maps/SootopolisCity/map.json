@@ -286,7 +286,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE",
-            "graphics_id": "EVENT_OBJ_GFX_WALLACE",
+            "graphics_id": "EVENT_OBJ_GFX_KEVIN",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",

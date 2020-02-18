@@ -63,31 +63,34 @@ $(EVENTOBJGFXDIR)/people/frontier_brains/tucker.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/chris.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
-$(EVENTOBJGFXDIR)/people/gym_leaders/christian.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
-$(EVENTOBJGFXDIR)/people/gym_leaders/juan.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
-$(EVENTOBJGFXDIR)/people/gym_leaders/liza.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
-$(EVENTOBJGFXDIR)/people/gym_leaders/norman.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
 $(EVENTOBJGFXDIR)/people/gym_leaders/martin.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/tate.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/chris.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/gym_leaders/maria.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/winona.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/christian.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/minna.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/dan.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/mathias.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/calvillo.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/leonard.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+$(EVENTOBJGFXDIR)/people/gym_leaders/kevin.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 
@@ -342,7 +345,7 @@ $(EVENTOBJGFXDIR)/people/scientist_1.4bpp: %.4bpp: %.png
 $(EVENTOBJGFXDIR)/people/scientist_2.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/scott.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/clair.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/steven.4bpp: %.4bpp: %.png
@@ -370,9 +373,6 @@ $(EVENTOBJGFXDIR)/people/union_room_attendant.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/unused_woman.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 4
-
-$(EVENTOBJGFXDIR)/people/wallace.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/wally.4bpp: %.4bpp: %.png
