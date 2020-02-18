@@ -3037,3 +3037,8 @@ static const u8 sSteelStoneDesc[] = _(
     "A beautiful yet\n"
     "plain feather that\n"
     "does nothing.");
+
+static const u8 sShinyCharmDesc[] = _(
+	"A charm that will\n"
+    "raise the chance\n"
+    "of Shiny Pokémon.");

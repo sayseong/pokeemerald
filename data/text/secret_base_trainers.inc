@@ -86,13 +86,8 @@ SecretBase_Text_Trainer1PreChampion: @ 8274D69
     .string "I waited a long time for it to open.\n"
     .string "I finally got to use it!$"
 
-<<<<<<< HEAD
-SecretBase_Text_Trainer6PreBattle: @ 8274DD2
-    .string "Welcome to my Pokémon LAB.\p"
-=======
 SecretBase_Text_Trainer6Intro: @ 8274DD2
     .string "Welcome to my Pokémon LAB.\p"
->>>>>>> 6c71f9b57b090eff72d3d37883868dee8cde04cc
     .string "I carry out research on battling in\n"
     .string "secrecy.\p"
     .string "Would you like to see how strong I am?$"
