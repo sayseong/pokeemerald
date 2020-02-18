@@ -61,6 +61,7 @@ static void DecryptBoxMon(struct BoxPokemon *boxMon);
 static void sub_806E6CC(u8 taskId);
 static bool8 ShouldGetStatBadgeBoost(u16 flagId, u8 battlerId);
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
+static bool8 ShouldSkipFriendshipChange(void);
 
 // EWRAM vars
 EWRAM_DATA static u8 sLearningMoveTableID = 0;
@@ -73,7 +74,21 @@ EWRAM_DATA struct Unknown_806F160_Struct *gUnknown_020249B4[2] = {NULL};
 
 // const rom data
 #include "data/battle_moves.h"
-static const u8 sUnreferencedData[] = {0x34, 0x00, 0x10, 0x00, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00};
+
+// Used in an unreferenced function in RS.
+// Unreferenced here and in FRLG.
+struct CombinedMove
+{
+    u16 move1;
+    u16 move2;
+    u16 newMove;
+};
+
+static const struct CombinedMove sCombinedMoves[2] =
+{
+    {MOVE_EMBER, MOVE_GUST, MOVE_HEAT_WAVE},
+    {0xFFFF, 0xFFFF, 0xFFFF}
+};
 
 #define SPECIES_TO_HOENN(name)      [SPECIES_##name - 1] = HOENN_DEX_##name
 #define SPECIES_TO_NATIONAL(name)   [SPECIES_##name - 1] = NATIONAL_DEX_##name
@@ -1340,7 +1355,7 @@ const struct SpindaSpot gSpindaSpotGraphics[] =
 
 #include "data/pokemon/item_effects.h"
 
-const s8 gNatureStatTable[][5] =
+const s8 gNatureStatTable[][NUM_EV_STATS] =
 {
     // Atk Def Spd Sp.Atk Sp.Def
     {    0,  0,  0,     0,     0}, // Hardy
@@ -1827,12 +1842,12 @@ const u8 gStatStageRatios[][2] =
 
 static const u8 sBonded_AlakazamBaseStats[] =
 {
-    50, // Hp
-    95, // Attack
-    90, // Defense
-    180, // Speed
-    95, // Sp.Attack
-    90, // Sp.Defense
+    [STAT_HP]    = 50,
+    [STAT_ATK]   = 95,
+    [STAT_DEF]   = 90,
+    [STAT_SPEED] = 180,
+    [STAT_SPATK] = 95,
+    [STAT_SPDEF] = 90,
 };
 
 const u16 gLinkPlayerFacilityClasses[] =
@@ -1977,22 +1992,25 @@ static const u8 sGetMonDataEVConstants[] =
     MON_DATA_SPATK_EV
 };
 
-static const u8 gUnknown_08329EC8[] =
+// For stat-raising items
+static const u8 sStatsToRaise[] =
 {
     STAT_ATK, STAT_ATK, STAT_SPEED, STAT_DEF, STAT_SPATK, STAT_ACC
 };
 
-static const s8 gUnknown_08329ECE[][3] =
+// 3 modifiers each for how much to change friendship for different ranges
+// 0-99, 100-199, 200+
+static const s8 sFriendshipEventModifiers[][3] =
 {
-    { 5,  3,  2},
-    { 5,  3,  2},
-    { 1,  1,  0},
-    { 3,  2,  1},
-    { 1,  1,  0},
-    { 1,  1,  1},
-    {-1, -1, -1},
-    {-5, -5, -10},
-    {-5, -5, -10},
+    [FRIENDSHIP_EVENT_GROW_LEVEL]      = { 5,  3,  2},
+    [FRIENDSHIP_EVENT_VITAMIN]         = { 5,  3,  2},
+    [FRIENDSHIP_EVENT_BATTLE_ITEM]     = { 1,  1,  0},
+    [FRIENDSHIP_EVENT_LEAGUE_BATTLE]   = { 3,  2,  1},
+    [FRIENDSHIP_EVENT_LEARN_TMHM]      = { 1,  1,  0},
+    [FRIENDSHIP_EVENT_WALKING]         = { 1,  1,  1},
+    [FRIENDSHIP_EVENT_FAINT_SMALL]     = {-1, -1, -1},
+    [FRIENDSHIP_EVENT_FAINT_FIELD_PSN] = {-5, -5, -10},
+    [FRIENDSHIP_EVENT_FAINT_LARGE]     = {-5, -5, -10},
 };
 
 static const u16 sHMMoves[] =
@@ -4361,7 +4379,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                 gBattleMons[battlerId].status2 &= ~STATUS2_INFATUATION;
                 retVal = FALSE;
             }
-            if ((itemEffect[cmdIndex] & ITEM0_HIGH_CRIT)
+            if ((itemEffect[cmdIndex] & ITEM0_DIRE_HIT)
              && !(gBattleMons[gActiveBattler].status2 & STATUS2_FOCUS_ENERGY))
             {
                 gBattleMons[gActiveBattler].status2 |= STATUS2_FOCUS_ENERGY;
@@ -4415,7 +4433,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
             }
             break;
         case 3:
-            if ((itemEffect[cmdIndex] & ITEM3_MIST)
+            if ((itemEffect[cmdIndex] & ITEM3_GUARD_SPEC)
              && gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer == 0)
             {
                 gSideTimers[GetBattlerSide(gActiveBattler)].mistTimer = 5;
@@ -4750,7 +4768,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         }
                         break;
                     case 5:
-                        if (GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) < 100 && (retVal == 0 || var_28 != 0) && !sub_806F104() && var_34 == 0)
+                        if (GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) < 100 && (retVal == 0 || var_28 != 0) && !ShouldSkipFriendshipChange() && var_34 == 0)
                         {
                             var_34 = itemEffect[var_3C];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
@@ -4760,15 +4778,15 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += var_34;
                             if (var_34 > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;
                             }
                             if (friendship < 0)
                                 friendship = 0;
-                            if (friendship > 255)
-                                friendship = 255;
+                            if (friendship > MAX_FRIENDSHIP)
+                                friendship = MAX_FRIENDSHIP;
                             SetMonData(mon, MON_DATA_FRIENDSHIP, &friendship);
                             retVal = FALSE;
                         }
@@ -4776,7 +4794,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         break;
                     case 6:
                         if (GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) >= 100 && GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) < 200
-                         && (retVal == 0 || var_28 != 0) && !sub_806F104() && var_34 == 0)
+                         && (retVal == 0 || var_28 != 0) && !ShouldSkipFriendshipChange() && var_34 == 0)
                         {
                             var_34 = itemEffect[var_3C];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
@@ -4786,22 +4804,22 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += var_34;
                             if (var_34 > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;
                             }
                             if (friendship < 0)
                                 friendship = 0;
-                            if (friendship > 255)
-                                friendship = 255;
+                            if (friendship > MAX_FRIENDSHIP)
+                                friendship = MAX_FRIENDSHIP;
                             SetMonData(mon, MON_DATA_FRIENDSHIP, &friendship);
                             retVal = FALSE;
                         }
                         var_3C++;
                         break;
                     case 7:
-                        if (GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) >= 200 && (retVal == 0 || var_28 != 0) && !sub_806F104() && var_34 == 0)
+                        if (GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) >= 200 && (retVal == 0 || var_28 != 0) && !ShouldSkipFriendshipChange() && var_34 == 0)
                         {
                             var_34 = itemEffect[var_3C];
                             friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
@@ -4811,15 +4829,15 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 friendship += var_34;
                             if (var_34 > 0)
                             {
-                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == 11)
+                                if (GetMonData(mon, MON_DATA_POKEBALL, NULL) == ITEM_LUXURY_BALL)
                                     friendship++;
                                 if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
                                     friendship++;
                             }
                             if (friendship < 0)
                                 friendship = 0;
-                            if (friendship > 255)
-                                friendship = 255;
+                            if (friendship > MAX_FRIENDSHIP)
+                                friendship = MAX_FRIENDSHIP;
                             SetMonData(mon, MON_DATA_FRIENDSHIP, &friendship);
                             retVal = FALSE;
                         }
@@ -4967,15 +4985,15 @@ u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit)
     return offset;
 }
 
-static void sub_806CF24(s32 arg0)
+static void BufferStatRoseMessage(s32 arg0)
 {
     gBattlerTarget = gBattlerInMenuId;
-    StringCopy(gBattleTextBuff1, gStatNamesTable[gUnknown_08329EC8[arg0]]);
+    StringCopy(gBattleTextBuff1, gStatNamesTable[sStatsToRaise[arg0]]);
     StringCopy(gBattleTextBuff2, gText_StatRose);
     BattleStringExpandPlaceholdersToDisplayedString(gText_PkmnsStatChanged2);
 }
 
-u8 *sub_806CF78(u16 itemId)
+u8 *UseStatIncreaseItem(u16 itemId)
 {
     int i;
     const u8 *itemEffect;
@@ -4996,13 +5014,14 @@ u8 *sub_806CF78(u16 itemId)
 
     for (i = 0; i < 3; i++)
     {
-        if (itemEffect[i] & 0xF)
-            sub_806CF24(i * 2);
-        if (itemEffect[i] & 0xF0)
+        if (itemEffect[i] & (ITEM0_X_ATTACK | ITEM1_X_SPEED | ITEM2_X_SPATK))
+            BufferStatRoseMessage(i * 2);
+
+        if (itemEffect[i] & (ITEM0_DIRE_HIT | ITEM1_X_DEFEND | ITEM2_X_ACCURACY))
         {
-            if (i)
+            if (i != 0) // Dire Hit is the only ITEM0 above
             {
-                sub_806CF24(i * 2 + 1);
+                BufferStatRoseMessage(i * 2 + 1);
             }
             else
             {
@@ -5012,7 +5031,7 @@ u8 *sub_806CF78(u16 itemId)
         }
     }
 
-    if (itemEffect[3] & ITEM3_MIST)
+    if (itemEffect[3] & ITEM3_GUARD_SPEC)
     {
         gBattlerAttacker = gBattlerInMenuId;
         BattleStringExpandPlaceholdersToDisplayedString(gText_PkmnShroudedInMist);
@@ -5421,7 +5440,8 @@ u8 GetTrainerEncounterMusicId(u16 trainerOpponentId)
 
 u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex)
 {
-    if (statIndex < 1 || statIndex > 5)
+    // Dont modify HP, Accuracy, or Evasion by nature
+    if (statIndex <= STAT_HP || statIndex > NUM_EV_STATS)
     {
         // Should just be "return n", but it wouldn't match without this.
         u16 retVal = n;
@@ -5441,12 +5461,18 @@ u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex)
     return n;
 }
 
+#define IS_LEAGUE_BATTLE                                                                \
+    ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)                                           \
+    && (gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_ELITE_FOUR    \
+     || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER        \
+     || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_CHAMPION))    \
+
 void AdjustFriendship(struct Pokemon *mon, u8 event)
 {
     u16 species, heldItem;
     u8 holdEffect;
 
-    if (sub_806F104())
+    if (ShouldSkipFriendshipChange())
         return;
 
     species = GetMonData(mon, MON_DATA_SPECIES2, 0);
@@ -5468,18 +5494,16 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     {
         u8 friendshipLevel = 0;
         s16 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, 0);
+
         if (friendship > 99)
             friendshipLevel++;
         if (friendship > 199)
             friendshipLevel++;
-        if ((event != 5 || !(Random() & 1))
-         && (event != 3
-          || ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-           && (gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_ELITE_FOUR
-            || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_LEADER
-            || gTrainers[gTrainerBattleOpponent_A].trainerClass == TRAINER_CLASS_CHAMPION))))
+
+        if ((event != FRIENDSHIP_EVENT_WALKING || !(Random() & 1))
+         && (event != FRIENDSHIP_EVENT_LEAGUE_BATTLE || IS_LEAGUE_BATTLE))
         {
-            s8 mod = gUnknown_08329ECE[event][friendshipLevel];
+            s8 mod = sFriendshipEventModifiers[event][friendshipLevel];
             if (mod > 0 && holdEffect == HOLD_EFFECT_HAPPINESS_UP)
                 mod = (150 * mod) / 100;
             friendship += mod;
@@ -5492,8 +5516,8 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
             }
             if (friendship < 0)
                 friendship = 0;
-            if (friendship > 255)
-                friendship = 255;
+            if (friendship > MAX_FRIENDSHIP)
+                friendship = MAX_FRIENDSHIP;
             SetMonData(mon, MON_DATA_FRIENDSHIP, &friendship);
         }
     }
@@ -6166,51 +6190,60 @@ static s32 GetWildMonTableIdInAlteringCave(u16 species)
 
 void SetWildMonHeldItem(void)
 {
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER | BATTLE_TYPE_PYRAMID | BATTLE_TYPE_PIKE)))
+    u16 rnd, species, var1, var2, i, count;
+    if (gBattleTypeFlags & (BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER | BATTLE_TYPE_PYRAMID | BATTLE_TYPE_PIKE))
+        return;
+
+    count = (WILD_DOUBLE_BATTLE) ? 2 : 1;
+    if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG, 0)
+        && GetMonAbility(&gPlayerParty[0]) == ABILITY_COMPOUND_EYES)
     {
-        u16 rnd = Random() % 100;
-        u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, 0);
-        u16 var1 = 45;
-        u16 var2 = 95;
-        if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG, 0)
-            && GetMonAbility(&gPlayerParty[0]) == ABILITY_COMPOUND_EYES)
-        {
-            var1 = 20;
-            var2 = 80;
-        }
+        var1 = 20;
+        var2 = 80;
+    }
+    else
+    {
+        var1 = 45;
+        var2 = 95;
+    }
+
+    for (i = 0; i < count; i++)
+    {
+        rnd = Random() % 100;
+        species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES, 0);
         if (gMapHeader.mapLayoutId == LAYOUT_ALTERING_CAVE)
         {
             s32 alteringCaveId = GetWildMonTableIdInAlteringCave(species);
             if (alteringCaveId != 0)
             {
                 if (rnd < var2)
-                    return;
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &sAlteringCaveWildMonHeldItems[alteringCaveId].item);
+                    continue;
+                SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &sAlteringCaveWildMonHeldItems[alteringCaveId].item);
             }
             else
             {
                 if (rnd < var1)
-                    return;
+                    continue;
                 if (rnd < var2)
-                    SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
+                    SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
                 else
-                    SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item2);
+                    SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBaseStats[species].item2);
             }
         }
         else
         {
             if (gBaseStats[species].item1 == gBaseStats[species].item2 && gBaseStats[species].item1 != 0)
             {
-                SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
+                SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
             }
             else
             {
                 if (rnd < var1)
-                    return;
+                    continue;
                 if (rnd < var2)
-                    SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
+                    SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBaseStats[species].item1);
                 else
-                    SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &gBaseStats[species].item2);
+                    SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBaseStats[species].item2);
             }
         }
     }
@@ -6469,7 +6502,7 @@ bool8 HasTwoFramesAnimation(u16 species)
             && species != SPECIES_FLABEBE);
 }
 
-bool8 sub_806F104(void)
+static bool8 ShouldSkipFriendshipChange(void)
 {
     if (gMain.inBattle && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER))
         return TRUE;

@@ -64,7 +64,7 @@ static void GetRoomInflictedStatus(void);
 static void GetRoomInflictedStatusMon(void);
 static void HealOneOrTwoMons(void);
 static void BufferNPCMessage(void);
-static void StatusInflictionScreenFade(void);
+static void StatusInflictionScreenFlash(void);
 static void GetInBattlePike(void);
 static void SetHintedRoom(void);
 static void GetHintedRoomIndex(void);
@@ -83,7 +83,7 @@ static void PrepareOneTrainer(bool8 difficult);
 static u16 GetNPCRoomGraphicsId(void);
 static void PrepareTwoTrainers(void);
 static void TryHealMons(u8 healCount);
-static void Task_DoStatusInflictionScreenFade(u8 taskId);
+static void Task_DoStatusInflictionScreenFlash(u8 taskId);
 static bool8 AtLeastTwoAliveMons(void);
 static u8 SpeciesToPikeMonId(u16 species);
 static bool8 CanEncounterWildMon(u8 monLevel);
@@ -495,7 +495,7 @@ static void (* const sBattlePikeFunctions[])(void) =
     [BATTLE_PIKE_FUNC_GET_ROOM_STATUS_MON]     = GetRoomInflictedStatusMon,
     [BATTLE_PIKE_FUNC_HEAL_ONE_TWO_MONS]       = HealOneOrTwoMons,
     [BATTLE_PIKE_FUNC_BUFFER_NPC_MSG]          = BufferNPCMessage,
-    [BATTLE_PIKE_FUNC_STATUS_SCREEN_FLASH]      = StatusInflictionScreenFade,
+    [BATTLE_PIKE_FUNC_STATUS_SCREEN_FLASH]     = StatusInflictionScreenFlash,
     [BATTLE_PIKE_FUNC_IS_IN]                   = GetInBattlePike,
     [BATTLE_PIKE_FUNC_SET_HINT_ROOM]           = SetHintedRoom,
     [BATTLE_PIKE_FUNC_GET_HINT_ROOM_ID]        = GetHintedRoomIndex,
@@ -533,7 +533,7 @@ static const u8 sNumMonsToHealBeforePikeQueen[][3] =
     {0, 1, 2},
 };
 
-static bool8 (* const sStatusInflictionScreenFadeFuncs[])(struct Task *) =
+static bool8 (* const sStatusInflictionScreenFlashFuncs[])(struct Task *) =
 {
     StatusInflictionFadeOut, StatusInflictionFadeIn
 };
@@ -575,11 +575,6 @@ static void SetupRoomEventObjects(void)
         break;
     case PIKE_ROOM_NPC:
         objGfx1 = (u8)(GetNPCRoomGraphicsId());
-        break;
-    case PIKE_ROOM_STATUS:
-        objGfx1 = EVENT_OBJ_GFX_GENTLEMAN;
-        objGfx2 = EVENT_OBJ_GFX_KIRLIA;
-        setObjGfx2 = TRUE;
         break;
     case PIKE_ROOM_HEAL_PART:
         objGfx1 = EVENT_OBJ_GFX_GENTLEMAN;
@@ -770,9 +765,9 @@ static void BufferNPCMessage(void)
     FrontierSpeechToString(sNPCSpeeches[speechId]);
 }
 
-static void StatusInflictionScreenFade(void)
+static void StatusInflictionScreenFlash(void)
 {
-    CreateTask(Task_DoStatusInflictionScreenFade, 2);
+    CreateTask(Task_DoStatusInflictionScreenFlash, 2);
 }
 
 static void HealMon(struct Pokemon *mon)
@@ -1168,9 +1163,9 @@ u8 GetBattlePikeWildMonHeaderId(void)
     return headerId;
 }
 
-static void DoStatusInflictionScreenFade(u8 taskId)
+static void DoStatusInflictionScreenFlash(u8 taskId)
 {
-    while (sStatusInflictionScreenFadeFuncs[gTasks[taskId].data[0]](&gTasks[taskId]));
+    while (sStatusInflictionScreenFlashFuncs[gTasks[taskId].data[0]](&gTasks[taskId]));
 }
 
 static bool8 StatusInflictionFadeOut(struct Task *task)
@@ -1207,7 +1202,7 @@ static bool8 StatusInflictionFadeIn(struct Task *task)
     {
         if (--task->data[3] == 0)
         {
-            DestroyTask(FindTaskIdByFunc(DoStatusInflictionScreenFade));
+            DestroyTask(FindTaskIdByFunc(DoStatusInflictionScreenFlash));
         }
         else
         {
@@ -1218,9 +1213,9 @@ static bool8 StatusInflictionFadeIn(struct Task *task)
     return FALSE;
 }
 
-static void StartStatusInflictionScreenFade(s16 fadeOutDelay, s16 fadeInDelay, s16 numFades, s16 fadeOutSpeed, s16 fadeInSpped)
+static void StartStatusInflictionScreenFlash(s16 fadeOutDelay, s16 fadeInDelay, s16 numFades, s16 fadeOutSpeed, s16 fadeInSpped)
 {
-    u8 taskId = CreateTask(DoStatusInflictionScreenFade, 3);
+    u8 taskId = CreateTask(DoStatusInflictionScreenFlash, 3);
 
     gTasks[taskId].data[1] = fadeOutDelay;
     gTasks[taskId].data[2] = fadeInDelay;
@@ -1230,24 +1225,24 @@ static void StartStatusInflictionScreenFade(s16 fadeOutDelay, s16 fadeInDelay, s
     gTasks[taskId].data[6] = fadeOutDelay;
 }
 
-static bool8 IsStatusInflictionScreenFadeTaskFinished(void)
+static bool8 IsStatusInflictionScreenFlashTaskFinished(void)
 {
-    if (FindTaskIdByFunc(DoStatusInflictionScreenFade) == 0xFF)
+    if (FindTaskIdByFunc(DoStatusInflictionScreenFlash) == 0xFF)
         return TRUE;
     else
         return FALSE;
 }
 
-static void Task_DoStatusInflictionScreenFade(u8 taskId)
+static void Task_DoStatusInflictionScreenFlash(u8 taskId)
 {
     if (gTasks[taskId].data[0] == 0)
     {
         gTasks[taskId].data[0]++;
-        StartStatusInflictionScreenFade(0, 0, 3, 2, 2);
+        StartStatusInflictionScreenFlash(0, 0, 3, 2, 2);
     }
     else
     {
-        if (IsStatusInflictionScreenFadeTaskFinished())
+        if (IsStatusInflictionScreenFlashTaskFinished())
         {
             EnableBothScriptContexts();
             DestroyTask(taskId);
@@ -1396,7 +1391,7 @@ static void PrepareOneTrainer(bool8 difficult)
     challengeNum = gSaveBlock2Ptr->frontier.pikeWinStreaks[lvlMode] / 14;
     do
     {
-        trainerId = sub_8162548(challengeNum, battleNum);
+        trainerId = GetRandomScaledFrontierTrainerId(challengeNum, battleNum);
         for (i = 0; i < gSaveBlock2Ptr->frontier.curChallengeBattleNum - 1; i++)
         {
             if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
@@ -1421,7 +1416,7 @@ static void PrepareTwoTrainers(void)
     gFacilityTrainers = gBattleFrontierTrainers;
     do
     {
-        trainerId = sub_8162548(challengeNum, 1);
+        trainerId = GetRandomScaledFrontierTrainerId(challengeNum, 1);
         for (i = 0; i < gSaveBlock2Ptr->frontier.curChallengeBattleNum - 1; i++)
         {
             if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
@@ -1436,7 +1431,7 @@ static void PrepareTwoTrainers(void)
 
     do
     {
-        trainerId = sub_8162548(challengeNum, 1);
+        trainerId = GetRandomScaledFrontierTrainerId(challengeNum, 1);
         for (i = 0; i < gSaveBlock2Ptr->frontier.curChallengeBattleNum; i++)
         {
             if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
@@ -1462,12 +1457,12 @@ static void BufferTrainerIntro(void)
 {
     if (gSpecialVar_0x8005 == 0)
     {
-        if (gTrainerBattleOpponent_A < TRAINER_RECORD_MIXING_FRIEND)
+        if (gTrainerBattleOpponent_A < FRONTIER_TRAINERS_COUNT)
             FrontierSpeechToString(gFacilityTrainers[gTrainerBattleOpponent_A].speechBefore);
     }
     else if (gSpecialVar_0x8005 == 1)
     {
-        if (gTrainerBattleOpponent_B < TRAINER_RECORD_MIXING_FRIEND)
+        if (gTrainerBattleOpponent_B < FRONTIER_TRAINERS_COUNT)
             FrontierSpeechToString(gFacilityTrainers[gTrainerBattleOpponent_B].speechBefore);
     }
 }

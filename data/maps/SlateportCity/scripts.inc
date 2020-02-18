@@ -39,4 +39,3 @@ ZaurakCity_Rival_Text_First_Battle:
 		
 ZaurakCity_Fat_Man_Text:	
 	.string "He is fast asleep.$"
-		
