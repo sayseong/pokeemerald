@@ -58,7 +58,7 @@ struct TrainerCardData
     u8 var_E;
     u8 var_F;
     bool8 hasTrades;
-    u8 badgeCount[10];
+    u8 badgeCount[NUM_BADGES];
     u8 var_19[4][0xD];
     u8 var_4D[0x46];
     u8 var_93[0x46];
@@ -82,7 +82,7 @@ struct TrainerCardData
     u16 var_598[0x4B0 / 2];
     u16 var_A48[0x4B0 / 2];
     u16 var_EF8[0x4B0 / 2];
-    u8 var_13A8[0x500];
+    u8 var_13A8[0x80 * NUM_BADGES];
     u8 var_17A8[0x200];
     u8 var_19A8[0x2300];
     u16 var_3CA8[0x2000 / 2];
@@ -804,7 +804,7 @@ static void SetDataFromTrainerCard(void)
     if (sData->trainerCard.battleTowerWins || sData->trainerCard.battleTowerStraightWins)
         sData->hasBattleTowerWins++;
 
-    for (i = 0, badgeFlag = FLAG_BADGE01_GET; badgeFlag <= FLAG_BADGE10_GET; badgeFlag++, i++)
+    for (i = 0, badgeFlag = FLAG_BADGE01_GET; badgeFlag < FLAG_BADGE01_GET + NUM_BADGES; badgeFlag++, i++)
     {
         if (FlagGet(badgeFlag))
             sData->badgeCount[i]++;
@@ -1468,14 +1468,14 @@ static void TrainerCard_PrintStarsAndBadgesOnCard(void)
     if (!sData->isLink)
     {
         x = 1;
-        for (i = 0; i < 10; i++, tileNum += 2, x += 3)
+        for (i = 0; i < NUM_BADGES; i++, tileNum += 2, x += 3)
         {
             if (sData->badgeCount[i])
             {
                 FillBgTilemapBufferRect(3, tileNum, x, 15, 1, 1, palNum);
                 FillBgTilemapBufferRect(3, tileNum + 1, x + 1, 15, 1, 1, palNum);
-                FillBgTilemapBufferRect(3, tileNum + 16, x, 16, 1, 1, palNum);
-                FillBgTilemapBufferRect(3, tileNum + 17, x + 1, 16, 1, 1, palNum);
+                FillBgTilemapBufferRect(3, tileNum + 20, x, 16, 1, 1, palNum);
+                FillBgTilemapBufferRect(3, tileNum + 21, x + 1, 16, 1, 1, palNum);
             }
         }
     }

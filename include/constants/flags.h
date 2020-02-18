@@ -1365,6 +1365,7 @@
 #define FLAG_BADGE08_GET                             (SYSTEM_FLAGS + 0xE)
 #define FLAG_BADGE09_GET                             (SYSTEM_FLAGS + 0xF)
 #define FLAG_BADGE10_GET                             (SYSTEM_FLAGS + 0x10)
+#define NUM_BADGES                                   (1 + FLAG_BADGE10_GET - FLAG_BADGE01_GET)
 
 // Towns and Cities
 #define FLAG_VISITED_LITTLEROOT_TOWN                (SYSTEM_FLAGS + 0x11)
