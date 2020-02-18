@@ -960,19 +960,19 @@ RustboroCity_EventScript_BrendanBrineyHint:: @ 81E11C0
 	end
 
 RustboroCity_EventScript_BattleBrendanTreecko:: @ 81E11D5
-	trainerbattle_no_intro TRAINER_BRENDAN_RUSTBORO_TREECKO, RustboroCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_RUSTBORO_TREECKO, RustboroCity_Text_BrendanDefeat
 	setflag FLAG_DEFEATED_RIVAL_RUSTBORO
 	goto RustboroCity_EventScript_BrendanBrineyHint
 	end
 
 RustboroCity_EventScript_BattleBrendanTorchic:: @ 81E11E8
-	trainerbattle_no_intro TRAINER_BRENDAN_RUSTBORO_TORCHIC, RustboroCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_RUSTBORO_TORCHIC, RustboroCity_Text_BrendanDefeat
 	setflag FLAG_DEFEATED_RIVAL_RUSTBORO
 	goto RustboroCity_EventScript_BrendanBrineyHint
 	end
 
 RustboroCity_EventScript_BattleBrendanMudkip:: @ 81E11FB
-	trainerbattle_no_intro TRAINER_BRENDAN_RUSTBORO_MUDKIP, RustboroCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_RUSTBORO_MUDKIP, RustboroCity_Text_BrendanDefeat
 	setflag FLAG_DEFEATED_RIVAL_RUSTBORO
 	goto RustboroCity_EventScript_BrendanBrineyHint
 	end

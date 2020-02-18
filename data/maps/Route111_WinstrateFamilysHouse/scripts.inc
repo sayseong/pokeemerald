@@ -10,7 +10,7 @@ Route111_EventScript_OldRodFisherman:: @ 81E95D5
 
 Route111_EventScript_GiveOldRod:: @ 81E95FF
 	msgbox Route111_Text_GiveOldRod, MSGBOX_DEFAULT
-	giveitem_std ITEM_OLD_ROD
+	giveitem ITEM_OLD_ROD
 	setflag FLAG_RECEIVED_OLD_ROD
 	msgbox Route111_Text_Fisherman, MSGBOX_DEFAULT
 	release

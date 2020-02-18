@@ -1,4 +1,4 @@
-const struct FacilityMon gBattleFrontierMons[] =
+const struct FacilityMon gBattleFrontierMons[NUM_FRONTIER_MONS] =
 {
     [0] = {
         .species = SPECIES_SCIMITEYE,

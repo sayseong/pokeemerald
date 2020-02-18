@@ -44,32 +44,32 @@ Zaurak_Bridge_Conversation_Kate::
 	return
 
 Zaurak_Bridge_StartDerekBattleSnivy::
-	trainerbattle_no_intro TRAINER_BRENDAN_1, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_DEREK_ZAURAK_BRIDGE_TORCHIC, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Kate
 	end
 
 Zaurak_Bridge_StartDerekBattleTorchic::
-	trainerbattle_no_intro TRAINER_BRENDAN_4, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_DEREK_ZAURAK_BRIDGE_FROAKIE, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Kate
 	end
 
 Zaurak_Bridge_StartDerekBattleFroakie::
-	trainerbattle_no_intro TRAINER_BRENDAN_7, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_DEREK_ZAURAK_BRIDGE_SNIVY, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Kate
 	end
 
 Zaurak_Bridge_StartKateBattleSnivy::
-	trainerbattle_no_intro TRAINER_MAY_1, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_KATE_ZAURAK_BRIDGE_TORCHIC, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Derek
 	end
 	
 Zaurak_Bridge_StartKateBattleTorchic::
-	trainerbattle_no_intro TRAINER_MAY_4, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_KATE_ZAURAK_BRIDGE_FROAKIE, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Derek
 	end
 
 Zaurak_Bridge_StartKateBattleFroakie::
-	trainerbattle_no_intro TRAINER_MAY_7, Zaurak_Bridge_Rival_Defeated
+	trainerbattle_no_intro TRAINER_KATE_ZAURAK_BRIDGE_SNIVY, Zaurak_Bridge_Rival_Defeated
 	goto Zaurak_Bridge_After_Battle_Derek
 	end
 
@@ -172,4 +172,4 @@ Zaurak_Bridge_Derek_Text_First_Battle_End:
 	.string "I'll see you on the other side.$"
 	
 @special ChooseStarter To choose starter
-	
+

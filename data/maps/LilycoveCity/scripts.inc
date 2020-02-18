@@ -311,17 +311,17 @@ LilycoveCity_EventScript_BattleMayMudkip:: @ 81E2EFE
 	end
 
 LilycoveCity_EventScript_BattleBrendanTreecko:: @ 81E2F0E
-	trainerbattle_no_intro TRAINER_BRENDAN_LILYCOVE_TREECKO, LilycoveCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_LILYCOVE_TREECKO, LilycoveCity_Text_BrendanDefeat
 	goto LilycoveCity_EventScript_DefeatedBrendan
 	end
 
 LilycoveCity_EventScript_BattleBrendanTorchic:: @ 81E2F1E
-	trainerbattle_no_intro TRAINER_BRENDAN_LILYCOVE_TORCHIC, LilycoveCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_LILYCOVE_TORCHIC, LilycoveCity_Text_BrendanDefeat
 	goto LilycoveCity_EventScript_DefeatedBrendan
 	end
 
 LilycoveCity_EventScript_BattleBrendanMudkip:: @ 81E2F2E
-	trainerbattle_no_intro TRAINER_BRENDAN_LILYCOVE_MUDKIP, LilycoveCity_Text_BrendanDefeat
+	trainerbattle_no_intro TRAINER_DEREK_LILYCOVE_MUDKIP, LilycoveCity_Text_BrendanDefeat
 	goto LilycoveCity_EventScript_DefeatedBrendan
 	end
 

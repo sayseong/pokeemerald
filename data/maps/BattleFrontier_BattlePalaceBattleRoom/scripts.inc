@@ -552,11 +552,7 @@ BattleFrontier_BattlePalaceBattleRoom_Text_ReceivedSpiritsSymbol: @ 82503DC
 	.string "the FRONTIER PASS!$"
 
 BattleFrontier_BattlePalaceBattleRoom_Text_SpenserAwaitNextTime: @ 8250412
-<<<<<<< HEAD
 	.string "SPENSER: Your Pokémon's eyes are \n"
-=======
-	.string "SPENSER: Your Pokémon's eyes are \n"
->>>>>>> 6c71f9b57b090eff72d3d37883868dee8cde04cc
 	.string "truly clear and unclouded.\p"
 	.string "I will eagerly await the next\n"
 	.string "opportunity to see you.$"

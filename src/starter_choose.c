@@ -118,6 +118,7 @@ static const u8 sPokeballCoords[STARTER_MON_COUNT][2] =
 };
 
 static const u8 sStarterLabelCoords[][2] =
+{
     {8, 9},
     {8, 9},
     {8, 9},

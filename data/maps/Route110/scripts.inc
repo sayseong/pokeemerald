@@ -451,17 +451,17 @@ Route110_EventScript_BrendanBattle:: @ 81EF865
 	end
 
 Route110_EventScript_BrendanBattleTreecko:: @ 81EF894
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_TREECKO, Route110_Text_BrendanDefeated
+	trainerbattle_no_intro TRAINER_DEREK_ROUTE_110_TREECKO, Route110_Text_BrendanDefeated
 	goto Route110_EventScript_BrendanDefeated
 	end
 
 Route110_EventScript_BrendanBattleTorchic:: @ 81EF8A4
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_TORCHIC, Route110_Text_BrendanDefeated
+	trainerbattle_no_intro TRAINER_DEREK_ROUTE_110_TORCHIC, Route110_Text_BrendanDefeated
 	goto Route110_EventScript_BrendanDefeated
 	end
 
 Route110_EventScript_BrendanBattleMudkip:: @ 81EF8B4
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_MUDKIP, Route110_Text_BrendanDefeated
+	trainerbattle_no_intro TRAINER_DEREK_ROUTE_110_MUDKIP, Route110_Text_BrendanDefeated
 	goto Route110_EventScript_BrendanDefeated
 	end
 
