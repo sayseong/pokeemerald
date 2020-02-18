@@ -67,19 +67,6 @@
     "name": "MauvilleCity_Gym",
     "object_events": [
         {
-            "elevation": 0,
-            "flag": "FLAG_HIDE_MAUVILLE_GYM_WATTSON",
-            "graphics_id": "EVENT_OBJ_GFX_WATTSON",
-            "movement_range_x": 0,
-            "movement_range_y": 0,
-            "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-            "script": "MauvilleCity_Gym_EventScript_Wattson",
-            "trainer_sight_or_berry_tree_id": "0",
-            "trainer_type": "0",
-            "x": 5,
-            "y": 2
-        },
-        {
             "elevation": 3,
             "flag": "0",
             "graphics_id": "EVENT_OBJ_GFX_MAN_5",

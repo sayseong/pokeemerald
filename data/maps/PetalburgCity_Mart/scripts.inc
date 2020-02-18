@@ -41,33 +41,22 @@ PetalburgCity_Mart_Pokemart_Expanded: @ 8207DB8
 	release
 	end
 
-PetalburgCity_Mart_EventScript_Woman:: @ 8207DD6
-	msgbox PetalburgCity_Mart_Text_WeakWillGrowStronger, MSGBOX_NPC
+Deneb_Cafe_Lukas::
+	faceplayer
+	msgbox Cafe_Lukas_Text, MSGBOX_NPC
+	closemessage
 	end
-
-PetalburgCity_Mart_EventScript_Boy:: @ 8207DDF
-	msgbox PetalburgCity_Mart_Text_RepelIsUseful, MSGBOX_NPC
+	
+Deneb_Cafe_Carly::
+	faceplayer
+	msgbox Cafe_Carly_Text, MSGBOX_NPC
+	closemessage
 	end
+	
+Cafe_Lukas_Text:
+	.string "Don't you have something better to do\n"
+	.string "than to bother me?$"
 
-PetalburgCity_Mart_EventScript_Man:: @ 8207DE8
-	msgbox PetalburgCity_Mart_Text_TakeSomeAntidotesWithYou, MSGBOX_NPC
-	end
-
-PetalburgCity_Mart_Text_WeakWillGrowStronger: @ 8207DF1
-	.string "Even if a Pokémon is weak now,\n"
-	.string "it will grow stronger.\p"
-	.string "The most important thing is love!\n"
-	.string "Love for your Pokémon!$"
-
-PetalburgCity_Mart_Text_RepelIsUseful: @ 8207E60
-	.string "Do you use REPEL?\n"
-	.string "It keeps Pokémon away, so it's\l"
-	.string "useful when you're in a hurry.$"
-
-PetalburgCity_Mart_Text_TakeSomeAntidotesWithYou: @ 8207EB0
-	.string "Do you have any ANTIDOTES with\n"
-	.string "you?\p"
-	.string "If you walk around with a poisoned\n"
-	.string "Pokémon, it will lose HP until it faints.\l"
-	.string "Take some ANTIDOTES with you.$"
-
+Cafe_Carly_Text:
+	.string "Sorry about Nick. I think he is mad\n"
+	.string "because I won our Pokémon Battle earlier.$"

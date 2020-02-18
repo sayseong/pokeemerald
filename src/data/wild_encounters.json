@@ -4976,28 +4976,28 @@
                         "encounter_rate": 20,
                         "mons": [
                             {
-                                "max_level": 4,
-                                "min_level": 4,
+                                "max_level": 11,
+                                "min_level": 11,
                                 "species": "SPECIES_PIDOVE"
                             },
                             {
-                                "max_level": 3,
-                                "min_level": 3,
+                                "max_level": 12,
+                                "min_level": 12,
                                 "species": "SPECIES_PIDOVE"
                             },
                             {
-                                "max_level": 3,
-                                "min_level": 3,
+                                "max_level": 12,
+                                "min_level": 12,
                                 "species": "SPECIES_PIDGEY"
                             },
                             {
-                                "max_level": 4,
-                                "min_level": 4,
+                                "max_level": 11,
+                                "min_level": 11,
                                 "species": "SPECIES_PIDGEY"
                             },
                             {
-                                "max_level": 2,
-                                "min_level": 2,
+                                "max_level": 11,
+                                "min_level": 11,
                                 "species": "SPECIES_PIDGEY"
                             },
                             {

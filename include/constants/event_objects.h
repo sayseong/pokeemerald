@@ -123,10 +123,10 @@
 #define EVENT_OBJ_GFX_PHOEBE                     119
 #define EVENT_OBJ_GFX_GLACIA                     120
 #define EVENT_OBJ_GFX_DRAKE                      121
-#define EVENT_OBJ_GFX_ROXANNE                    122
-#define EVENT_OBJ_GFX_BRAWLY                     123
-#define EVENT_OBJ_GFX_WATTSON                    124
-#define EVENT_OBJ_GFX_FLANNERY                   125
+#define EVENT_OBJ_GFX_MARTIN                     122
+#define EVENT_OBJ_GFX_CHRIS                      123
+#define EVENT_OBJ_GFX_MARIA                      124
+#define EVENT_OBJ_GFX_CHRISTIAN                  125
 #define EVENT_OBJ_GFX_NORMAN                     126
 #define EVENT_OBJ_GFX_WINONA                     127
 #define EVENT_OBJ_GFX_LIZA                       128
@@ -191,7 +191,7 @@
 #define EVENT_OBJ_GFX_MOM                        187
 #define EVENT_OBJ_GFX_LINK_BRENDAN               188
 #define EVENT_OBJ_GFX_LINK_MAY                   189
-#define EVENT_OBJ_GFX_JUAN                       190
+#define EVENT_OBJ_GFX_CALVILLO                   190
 #define EVENT_OBJ_GFX_SCOTT                      191
 #define EVENT_OBJ_GFX_POOCHYENA                  192
 #define EVENT_OBJ_GFX_KYOGRE_3                   193

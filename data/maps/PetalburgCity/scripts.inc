@@ -3,26 +3,48 @@ PetalburgCity_MapScripts::
 	.byte 0
 
 	@VAR_PETALBURG_CITY_STATE 
+	@0: Right before recevieng first Pokemon	
 	@1: Post-lesson and first Pokemon
-	@2: Right before recevieng first Pokemon
-	@3: Late game? Senior students return?
+	@2: Late game? Senior students return?
 
 PetalburgCity_OnTransition::
 	setflag FLAG_VISITED_PETALBURG_CITY
+	call_if_set FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG, Deneb_Academy_SetState
 	call Common_EventScript_SetupRivalGfxId
-	compare VAR_PETALBURG_CITY_STATE, 2
+	compare VAR_PETALBURG_CITY_STATE, 1
 	call_if_eq EventScript_First_Lesson
 	end
 
+Deneb_Academy_SetState::
+	setvar VAR_PETALBURG_CITY_STATE, 1
+	return
+	
 EventScript_First_Lesson::
-	setobjectxyperm 4, 18, 36
-	setobjectxyperm 3, 13, 36
-	setobjectxyperm 2, 16, 36
-	setobjectxyperm 1, 15, 36
-	setobjectmovementtype 1, MOVEMENT_TYPE_JOG_IN_PLACE_RIGHT
-	setobjectmovementtype 2, MOVEMENT_TYPE_JOG_IN_PLACE_LEFT
+	setobjectxyperm 5, 29, 30
+	setobjectxyperm 2, 30, 30
+	setobjectmovementtype 2, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm 1, 15, 24
+	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_DOWN
+	return
+
+Deneb_Academy_Zigzagoon:: @ 82161A3
+	lock
+	waitse
+	playmoncry SPECIES_ZIGZAGOON, 0
+	msgbox Deneb_Academy_Zigzagoon_Cry, MSGBOX_DEFAULT
+	waitmoncry
+	release
 	end
 
+Deneb_Academy_Poochyena:: @ 82161A3
+	lock
+	waitse
+	playmoncry SPECIES_POOCHYENA, 0
+	msgbox Deneb_Academy_Poochyena_Cry, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+	
 Mart_Clerk_EventScript::
     setflag FLAG_BADGE01_GET
     setflag FLAG_BADGE02_GET
@@ -87,25 +109,38 @@ EventScript_GoToRoute1::
 	waitmovement 0
 	checkplayergender
 	compare VAR_RESULT, MALE
-	goto_if_eq Teala_Lesson_Derek
+	call_if_eq Teala_Lesson_Derek
 	compare VAR_RESULT, FEMALE
-	goto_if_eq Teala_Lesson_Kate
+	call_if_eq Teala_Lesson_Kate
 	setvar VAR_ROUTE101_STATE, 0
 	closemessage
 	warp MAP_ROUTE101, 255, 10, 30
 	waitstate
 	releaseall
 	end
-	
-	
+
 Teala_EventScript::
+	goto_if_set FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG, Teala_EventScript_After_Tutorial
+	goto Teala_EventScript_GoToRoute01
+	end
+	
+	
+Teala_EventScript_GoToRoute01::
 	faceplayer	
 	checkplayergender
 	compare VAR_RESULT, MALE
 	goto_if_eq PetalburgCity_Conversation_Derek
 	compare VAR_RESULT, FEMALE
 	goto_if_eq PetalburgCity_Conversation_Kate
-	msgbox Beta_Teala_Text MSGBOX_NPC		
+	end
+
+Teala_EventScript_After_Tutorial::
+	faceplayer	
+	checkplayergender
+	compare VAR_RESULT, MALE
+	goto_if_eq PetalburgCity_Conversation_Teala_Derek
+	compare VAR_RESULT, FEMALE
+	goto_if_eq PetalburgCity_Conversation_Teala_Kate
 	end
 
 PetalburgCity_Conversation_Derek::
@@ -120,6 +155,22 @@ PetalburgCity_Conversation_Kate::
 	load_field_pic 5, 200, 83, VAR_0x8009
 	load_field_pic 3, 40, 83, VAR_0x8008
 	msgbox Beta_Teala_Text MSGBOX_NPC	
+	destroy_field_pic 5, VAR_0x8009
+	destroy_field_pic 3, VAR_0x8008
+	return
+
+PetalburgCity_Conversation_Teala_Derek::
+	load_field_pic 5, 200, 83, VAR_0x8009
+	load_field_pic 1, 40, 83, VAR_0x8008
+	msgbox Beta_Teala_After_Tutorial MSGBOX_NPC	
+	destroy_field_pic 5, VAR_0x8009
+	destroy_field_pic 1, VAR_0x8008
+	return
+
+PetalburgCity_Conversation_Teala_Kate::
+	load_field_pic 5, 200, 83, VAR_0x8009
+	load_field_pic 3, 40, 83, VAR_0x8008
+	msgbox Beta_Teala_After_Tutorial MSGBOX_NPC	
 	destroy_field_pic 5, VAR_0x8009
 	destroy_field_pic 3, VAR_0x8008
 	return
@@ -222,6 +273,10 @@ Beta_Teala_Text:
 	.string "Please head towards Route 1.\n"
 	.string "Next lesson will take place there.$"
 
+Beta_Teala_After_Tutorial:
+	.string "Please take care {PLAYER}\n"
+	.string "I am rooting for you.$"
+
 DenebAcademy_FirstLesson_Hey:
 	.string "{PLAYER}!$"
 	
@@ -229,3 +284,9 @@ DenebAcademy_Teala_Lesson_Intro:
 	.string "Seems like we are all ready to go to\n"
 	.string "Route 1.\p"
 	.string "Please follow me, and don't run off$"
+
+Deneb_Academy_Zigzagoon_Cry:
+	.string "Zigzagoon: Bo-Wooh!$"
+
+Deneb_Academy_Poochyena_Cry:
+	.string "Poochyena: Ro-woowooh!$"

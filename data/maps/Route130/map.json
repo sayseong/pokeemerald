@@ -13,6 +13,42 @@
         }
     ],
     "coord_events": [
+        {
+            "elevation": 0,
+            "script": "Trigger_EventScript_Rival_1",
+            "type": "trigger",
+            "var": "VAR_ROUTE130_STATE",
+            "var_value": "0",
+            "x": 10,
+            "y": 6
+        },
+        {
+            "elevation": 0,
+            "script": "Trigger_EventScript_Rival_3",
+            "type": "trigger",
+            "var": "VAR_ROUTE130_STATE",
+            "var_value": "0",
+            "x": 11,
+            "y": 6
+        },
+        {
+            "elevation": 0,
+            "script": "Trigger_EventScript_Rival_4",
+            "type": "trigger",
+            "var": "VAR_ROUTE130_STATE",
+            "var_value": "0",
+            "x": 13,
+            "y": 6
+        },
+        {
+            "elevation": 0,
+            "script": "Trigger_EventScript_Rival_2",
+            "type": "trigger",
+            "var": "VAR_ROUTE130_STATE",
+            "var_value": "0",
+            "x": 14,
+            "y": 6
+        }
     ],
     "id": "MAP_ROUTE130",
     "layout": "LAYOUT_ROUTE130",
@@ -22,7 +58,7 @@
     "object_events": [
         {
             "elevation": 3,
-            "flag": "0",
+            "flag": "FLAG_DEFEATED_RIVAL_ROUTE103",
             "graphics_id": "EVENT_OBJ_GFX_VAR_0",
             "movement_range_x": 0,
             "movement_range_y": 0,

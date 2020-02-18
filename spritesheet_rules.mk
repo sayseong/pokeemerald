@@ -63,10 +63,10 @@ $(EVENTOBJGFXDIR)/people/frontier_brains/tucker.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/brawly.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/chris.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/flannery.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/christian.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/gym_leaders/juan.4bpp: %.4bpp: %.png
@@ -78,13 +78,13 @@ $(EVENTOBJGFXDIR)/people/gym_leaders/liza.4bpp: %.4bpp: %.png
 $(EVENTOBJGFXDIR)/people/gym_leaders/norman.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/roxanne.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/martin.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/gym_leaders/tate.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/wattson.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/people/gym_leaders/maria.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(EVENTOBJGFXDIR)/people/gym_leaders/winona.4bpp: %.4bpp: %.png

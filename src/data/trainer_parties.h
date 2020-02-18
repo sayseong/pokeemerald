@@ -6790,7 +6790,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Brendan1[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_TREECKO,
+    .species = SPECIES_TORCHIC,
     }
 };
 
@@ -6834,7 +6834,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Brendan4[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_TORCHIC,
+    .species = SPECIES_FROAKIE,
     }
 };
 
@@ -6878,7 +6878,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Brendan7[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_MUDKIP,
+    .species = SPECIES_SNIVY,
     }
 };
 
@@ -6922,7 +6922,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_May1[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_TREECKO,
+    .species = SPECIES_TORCHIC,
     }
 };
 
@@ -6966,7 +6966,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_May4[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_TORCHIC,
+    .species = SPECIES_FROAKIE,
     }
 };
 
@@ -7010,7 +7010,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_May7[] = {
     {
     .iv = 0,
     .lvl = 5,
-    .species = SPECIES_MUDKIP,
+    .species = SPECIES_SNIVY,
     }
 };
 

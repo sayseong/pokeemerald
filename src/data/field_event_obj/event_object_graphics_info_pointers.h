@@ -120,10 +120,10 @@ const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Sidney;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Phoebe;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Glacia;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Drake;
-const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Roxanne;
-const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Brawly;
-const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Wattson;
-const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Flannery;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Martin;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Chris;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Maria;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Christian;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Norman;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Winona;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Liza;
@@ -188,7 +188,7 @@ const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_TuberMSwimming;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Mom;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_LinkBrendan;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_LinkMay;
-const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Juan;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Calvillo;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Scott;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Poochyena;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Kyogre3;
@@ -335,10 +335,10 @@ const struct EventObjectGraphicsInfo *const gEventObjectGraphicsInfoPointers[] =
     [EVENT_OBJ_GFX_PHOEBE] =                   &gEventObjectGraphicsInfo_Phoebe,
     [EVENT_OBJ_GFX_GLACIA] =                   &gEventObjectGraphicsInfo_Glacia,
     [EVENT_OBJ_GFX_DRAKE] =                    &gEventObjectGraphicsInfo_Drake,
-    [EVENT_OBJ_GFX_ROXANNE] =                  &gEventObjectGraphicsInfo_Roxanne,
-    [EVENT_OBJ_GFX_BRAWLY] =                   &gEventObjectGraphicsInfo_Brawly,
-    [EVENT_OBJ_GFX_WATTSON] =                  &gEventObjectGraphicsInfo_Wattson,
-    [EVENT_OBJ_GFX_FLANNERY] =                 &gEventObjectGraphicsInfo_Flannery,
+    [EVENT_OBJ_GFX_MARTIN] =                   &gEventObjectGraphicsInfo_Martin,
+    [EVENT_OBJ_GFX_CHRIS] =                    &gEventObjectGraphicsInfo_Chris,
+    [EVENT_OBJ_GFX_MARIA] =                    &gEventObjectGraphicsInfo_Maria,
+    [EVENT_OBJ_GFX_CHRISTIAN] =                &gEventObjectGraphicsInfo_Christian,
     [EVENT_OBJ_GFX_NORMAN] =                   &gEventObjectGraphicsInfo_Norman,
     [EVENT_OBJ_GFX_WINONA] =                   &gEventObjectGraphicsInfo_Winona,
     [EVENT_OBJ_GFX_LIZA] =                     &gEventObjectGraphicsInfo_Liza,
@@ -402,7 +402,7 @@ const struct EventObjectGraphicsInfo *const gEventObjectGraphicsInfoPointers[] =
     [EVENT_OBJ_GFX_MOM] =                      &gEventObjectGraphicsInfo_Mom,
     [EVENT_OBJ_GFX_LINK_BRENDAN] =             &gEventObjectGraphicsInfo_LinkBrendan,
     [EVENT_OBJ_GFX_LINK_MAY] =                 &gEventObjectGraphicsInfo_LinkMay,
-    [EVENT_OBJ_GFX_JUAN] =                     &gEventObjectGraphicsInfo_Juan,
+    [EVENT_OBJ_GFX_CALVILLO] =                 &gEventObjectGraphicsInfo_Calvillo,
     [EVENT_OBJ_GFX_SCOTT] =                    &gEventObjectGraphicsInfo_Scott,
     [EVENT_OBJ_GFX_POOCHYENA] =                &gEventObjectGraphicsInfo_Poochyena,
     [EVENT_OBJ_GFX_KYOGRE_3] =                 &gEventObjectGraphicsInfo_Kyogre3,
