@@ -254,7 +254,7 @@ static const struct WindowTemplate gUnknown_0856FAC4[] =
     {
         .bg = 3,
         .tilemapLeft = 19,
-        .tilemapTop = 5,
+        .tilemapTop = 4,
         .width = 9,
         .height = 10,
         .paletteNum = 8,
@@ -973,9 +973,9 @@ static void PrintNameOnCard(void)
     StringCopy(txtPtr, sData->trainerCard.playerName);
     ConvertInternationalString(txtPtr, sData->language);
     if (sData->cardType == CARD_TYPE_FRLG)
-        AddTextPrinterParameterized3(1, 1, 20, 28, sTrainerCardTextColors, TEXT_SPEED_FF, buffer);
+        AddTextPrinterParameterized3(1, 1, 20, 4, sTrainerCardTextColors, TEXT_SPEED_FF, buffer);
     else
-        AddTextPrinterParameterized3(1, 1, 16, 33, sTrainerCardTextColors, TEXT_SPEED_FF, buffer);
+        AddTextPrinterParameterized3(1, 1, 16, 16, sTrainerCardTextColors, TEXT_SPEED_FF, buffer);
 }
 
 static void PrintIdOnCard(void)
@@ -1006,21 +1006,21 @@ static void PrintMoneyOnCard(void)
     u8 top;
 
     if (!sData->isHoenn)
-        AddTextPrinterParameterized3(1, 1, 20, 56, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardMoney);
+        AddTextPrinterParameterized3(1, 1, 16, 29, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardMoney);
     else
-        AddTextPrinterParameterized3(1, 1, 16, 57, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardMoney);
+        AddTextPrinterParameterized3(1, 1, 16, 29, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardMoney);
 
     ConvertIntToDecimalStringN(gStringVar1, sData->trainerCard.money, STR_CONV_MODE_LEFT_ALIGN, 6);
     StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);
     if (!sData->isHoenn)
     {
         xOffset = GetStringRightAlignXOffset(1, gStringVar4, 144);
-        top = 56;
+        top = 29;
     }
     else
     {
         xOffset = GetStringRightAlignXOffset(1, gStringVar4, 128);
-        top = 57;
+        top = 29;
     }
     AddTextPrinterParameterized3(1, 1, xOffset, top, sTrainerCardTextColors, TEXT_SPEED_FF, gStringVar4);
 }
@@ -1040,19 +1040,19 @@ static void PrintPokedexOnCard(void)
     if (FlagGet(FLAG_SYS_POKEDEX_GET))
     {
         if (!sData->isHoenn)
-            AddTextPrinterParameterized3(1, 1, 20, 72, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardPokedex);
+            AddTextPrinterParameterized3(1, 1, 16, 45, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardPokedex);
         else
-            AddTextPrinterParameterized3(1, 1, 16, 73, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardPokedex);
+            AddTextPrinterParameterized3(1, 1, 16, 45, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardPokedex);
         StringCopy(ConvertIntToDecimalStringN(gStringVar4, sData->trainerCard.caughtMonsCount, STR_CONV_MODE_LEFT_ALIGN, 3), gText_EmptyString6);
         if (!sData->isHoenn)
         {
             xOffset = GetStringRightAlignXOffset(1, gStringVar4, 144);
-            top = 72;
+            top = 45;
         }
         else
         {
             xOffset = GetStringRightAlignXOffset(1, gStringVar4, 128);
-            top = 73;
+            top = 45;
         }
         AddTextPrinterParameterized3(1, 1, xOffset, top, sTrainerCardTextColors, TEXT_SPEED_FF, gStringVar4);
     }
@@ -1068,9 +1068,9 @@ static void PrintTimeOnCard(void)
     u32 r7, r4, r10;
 
     if (!sData->isHoenn)
-        AddTextPrinterParameterized3(1, 1, 20, 88, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardTime);
+        AddTextPrinterParameterized3(1, 1, 16, 61, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardTime);
     else
-        AddTextPrinterParameterized3(1, 1, 16, 89, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardTime);
+        AddTextPrinterParameterized3(1, 1, 16, 61, sTrainerCardTextColors, TEXT_SPEED_FF, gText_TrainerCardTime);
 
     if (sData->isLink)
     {
@@ -1092,12 +1092,12 @@ static void PrintTimeOnCard(void)
     if (!sData->isHoenn)
     {
         r7 = 144;
-        r4 = 88;
+        r4 = 61;
     }
     else
     {
         r7 = 128;
-        r4 = 89;
+        r4 = 61;
     }
     r10 = width + 30;
     r7 -= r10;
@@ -1467,8 +1467,19 @@ static void TrainerCard_PrintStarsAndBadgesOnCard(void)
     FillBgTilemapBufferRect(3, 143, 15, gUnknown_0856FB78[sData->isHoenn], sData->trainerCard.stars, 1, 4);
     if (!sData->isLink)
     {
-        x = 1;
-        for (i = 0; i < NUM_BADGES; i++, tileNum += 2, x += 3)
+        x = 2;
+        for (i = 0; i < 5; i++, tileNum += 2, x += 4)
+        {
+            if (sData->badgeCount[i])
+            {
+                FillBgTilemapBufferRect(3, tileNum, x, 13, 1, 1, palNum);
+                FillBgTilemapBufferRect(3, tileNum + 1, x + 1, 13, 1, 1, palNum);
+                FillBgTilemapBufferRect(3, tileNum + 20, x, 14, 1, 1, palNum);
+                FillBgTilemapBufferRect(3, tileNum + 21, x + 1, 14, 1, 1, palNum);
+            }
+        }
+        x = 4;
+        for (i = 5; i < 10; i++, tileNum += 2, x += 4)
         {
             if (sData->badgeCount[i])
             {

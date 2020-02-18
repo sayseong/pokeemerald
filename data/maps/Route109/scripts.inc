@@ -273,7 +273,7 @@ Route109_EventScript_MrBriney:: @ 81EE910
 	lock
 	faceplayer
 	goto_if_unset FLAG_DELIVERED_DEVON_GOODS, Route109_EventScript_HaveNotDeliveredDevonGood
-	goto Route109_EventScript_DeliveredDevonGoods
+	goto Route109_EventScript_DeliveredHerbalMedicine
 	end
 
 Route109_EventScript_HaveNotDeliveredDevonGood:: @ 81EE921
@@ -284,7 +284,7 @@ Route109_EventScript_HaveNotDeliveredDevonGood:: @ 81EE921
 	goto Route109_EventScript_SailToDewford
 	end
 
-Route109_EventScript_DeliveredDevonGoods:: @ 81EE93F
+Route109_EventScript_DeliveredHerbalMedicine:: @ 81EE93F
 	message Route109_Text_BrineyWhereAreWeBound
 	waitmessage
 	multichoicedefault 21, 8, MULTI_BRINEY_OFF_DEWFORD, 1, 0
@@ -301,7 +301,7 @@ Route109_EventScript_SailToDewford:: @ 81EE972
 	end
 
 Route109_EventScript_StayHere:: @ 81EE981
-	msgbox Route109_Text_BrineyDeliverDevonGoods, MSGBOX_DEFAULT
+	msgbox Route109_Text_BrineyDeliverHerbalMedicine, MSGBOX_DEFAULT
 	release
 	end
 
@@ -494,7 +494,7 @@ Route109_Text_BrineyDewfordItIs: @ 81EED06
 	.string "Anchors aweigh!\n"
 	.string "PEEKO, we're setting sail, my darling!$"
 
-Route109_Text_BrineyDeliverDevonGoods: @ 81EED5E
+Route109_Text_BrineyDeliverHerbalMedicine: @ 81EED5E
 	.string "MR. BRINEY: Then you go on and deliver\n"
 	.string "the DEVON GOODS. I'll be waiting.$"
 

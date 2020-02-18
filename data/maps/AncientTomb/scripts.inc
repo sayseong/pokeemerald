@@ -29,7 +29,7 @@ AncientTomb_OnLoad: @ 8238FF2
 	end
 
 AncientTomb_EventScript_HideRegiEntrance:: @ 8238FFC
-	setmetatile 7, 19, METATILE_Cave_EntranceCover, 1
+
 	setmetatile 8, 19, METATILE_Cave_EntranceCover, 1
 	setmetatile 9, 19, METATILE_Cave_EntranceCover, 1
 	setmetatile 7, 20, METATILE_Cave_SealedChamberBraille_Mid, 1

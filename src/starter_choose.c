@@ -112,9 +112,9 @@ static const struct WindowTemplate gUnknown_085B1DE4 =
 
 static const u8 sPokeballCoords[STARTER_MON_COUNT][2] =
 {
-    {60, 64},
-    {120, 88},
-    {180, 64},
+    {88, 64},
+    {120, 64},
+    {152, 64},
 };
 
 static const u8 sStarterLabelCoords[][2] =

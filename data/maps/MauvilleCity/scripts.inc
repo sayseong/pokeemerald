@@ -11,6 +11,13 @@ MauvilleCity_OnTransition: @ 81DF38B
 	setvar VAR_MAUVILLE_GYM_STATE, 0
 	call_if_set FLAG_GOT_TM24_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
 	end
+	
+Mauville_Rest_Point::
+	special HealPlayerParty
+	msgbox ResPoint_Talk, MSGBOX_NPC
+	closemessage
+	end
+	
 
 MauvilleCity_EventScript_MoveWattsonBackToGym:: @ 81DF3A9
 	clearflag FLAG_HIDE_MAUVILLE_GYM_WATTSON
@@ -669,3 +676,6 @@ MauvilleCity_Text_ExplainTV: @ 81E056A
 
 MauvilleCity_Text_BeenCheckingOutTV: @ 81E0699
 	.string "Hi, have you been checking out TVs?$"
+
+ResPoint_Talk:
+	.string "Wimp$"

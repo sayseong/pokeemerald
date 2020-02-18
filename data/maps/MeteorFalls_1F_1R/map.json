@@ -16,7 +16,7 @@
     "object_events": [
         {
             "elevation": 3,
-            "flag": "0",
+            "flag": "FLAG_BADGE01_GET",
             "graphics_id": "EVENT_OBJ_GFX_HIKER",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -29,7 +29,7 @@
         },
         {
             "elevation": 3,
-            "flag": "0",
+            "flag": "FLAG_BADGE01_GET",
             "graphics_id": "EVENT_OBJ_GFX_HIKER",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -42,7 +42,7 @@
         },
         {
             "elevation": 3,
-            "flag": "0",
+            "flag": "FLAG_BADGE01_GET",
             "graphics_id": "EVENT_OBJ_GFX_HIKER",
             "movement_range_x": 0,
             "movement_range_y": 0,

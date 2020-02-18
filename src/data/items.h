@@ -3798,12 +3798,12 @@ const struct Item gItems[] =
         .secondaryId = 0,
     },
 
-    [ITEM_DEVON_GOODS] =
+    [ITEM_HERBAL_MEDICINE] =
     {
-        .name = _("Devon Goods"),
-        .itemId = ITEM_DEVON_GOODS,
+        .name = _("H. Medicine"),
+        .itemId = ITEM_HERBAL_MEDICINE,
         .price = 0,
-        .description = sDevonGoodsDesc,
+        .description = sHerbalMedicineDesc,
         .importance = 2,
         .pocket = POCKET_KEY_ITEMS,
         .type = 4,

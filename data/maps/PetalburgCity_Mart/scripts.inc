@@ -21,6 +21,7 @@ PetalburgCity_Mart_Pokemart_Basic: @ 8207D8C
 	.2byte ITEM_STEEL_STONE		
 	.2byte ITEM_BONDED_STONE		
 	.2byte ITEM_TM35		
+	.2byte ITEM_RARE_CANDY		
 	.2byte ITEM_NONE
 	release
 	end

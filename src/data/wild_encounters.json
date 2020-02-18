@@ -1603,7 +1603,7 @@
                 {
                     "base_label": "gFortreeCity0",
                     "fishing_mons": {
-                        "encounter_rate": 0,
+                        "encounter_rate": 50,
                         "mons": [
                             {
                                 "max_level": 10,
@@ -4764,7 +4764,7 @@
                 {
                     "base_label": "gRoute102",
                     "fishing_mons": {
-                        "encounter_rate": 30,
+                        "encounter_rate": 50,
                         "mons": [
                             {
                                 "max_level": 10,
@@ -4918,7 +4918,7 @@
                 {
                     "base_label": "gRoute103",
                     "fishing_mons": {
-                        "encounter_rate": 30,
+                        "encounter_rate": 50,
                         "mons": [
                             {
                                 "max_level": 10,

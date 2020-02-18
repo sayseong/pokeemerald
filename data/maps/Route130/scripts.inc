@@ -14,9 +14,9 @@ Zaurak_Bridge_SetState::
 Zaurak_Bridge_Conversation:: @ 82078F3
 	checkplayergender
 	compare VAR_RESULT, MALE
-	goto_if_eq Zaurak_Bridge_Conversation_Derek
-	compare VAR_RESULT, FEMALE
 	goto_if_eq Zaurak_Bridge_Conversation_Kate
+	compare VAR_RESULT, FEMALE
+	goto_if_eq Zaurak_Bridge_Conversation_Derek
 	end
 	
 Zaurak_Bridge_Conversation_Derek::

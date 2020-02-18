@@ -4,6 +4,22 @@
     "allow_running": true,
     "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
     "bg_events": [
+        {
+            "elevation": 3,
+            "flag": "FLAG_HIDDEN_ITEM_ROUTE_102_POKE_BALL",
+            "item": "ITEM_POKE_BALL",
+            "type": "hidden_item",
+            "x": 27,
+            "y": 29
+        },
+        {
+            "elevation": 3,
+            "flag": "FLAG_HIDDEN_ITEM_ROUTE_102_SUPER_POTION",
+            "item": "ITEM_SUPER_POTION",
+            "type": "hidden_item",
+            "x": 17,
+            "y": 61
+        }
     ],
     "connections": [
         {
@@ -28,7 +44,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_ANABEL",
+            "graphics_id": "EVENT_OBJ_GFX_YOUNGSTER",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -63,6 +79,45 @@
             "trainer_type": "0",
             "x": 14,
             "y": 73
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_CLAIR",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "Open_Alcor_Tunnel",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 21,
+            "y": 8
+        },
+        {
+            "elevation": 3,
+            "flag": "FLAG_ITEM_ROUTE_102_PP_UP",
+            "graphics_id": "EVENT_OBJ_GFX_ITEM_BALL",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "Route102_EventScript_ItemPPUp",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 19,
+            "y": 51
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_LASS",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+            "script": "NULL",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 11,
+            "y": 56
         }
     ],
     "region_map_section": "MAPSEC_ROUTE_102",

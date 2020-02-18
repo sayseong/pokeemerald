@@ -10,7 +10,7 @@ Route103_EventScript_ItemPPUp:: @ 8290CF2
 	finditem ITEM_PP_UP
 	end
 
-Route104_EventScript_ItemPPUp:: @ 8290CFF
+Route102_EventScript_ItemPPUp:: @ 8290CFF
 	finditem ITEM_PP_UP
 	end
 

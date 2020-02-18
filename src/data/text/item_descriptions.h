@@ -1410,10 +1410,10 @@ static const u8 sWailmerPailDesc[] = _(
     "watering BERRIES\n"
     "and plants.");
 
-static const u8 sDevonGoodsDesc[] = _(
-    "A package that\n"
-    "contains DEVON's\n"
-    "machine parts.");
+static const u8 sHerbalMedicineDesc[] = _(
+    "A special herbal\n"
+    "medicine, with\n"
+    "a strong scent.");
 
 static const u8 sSootSackDesc[] = _(
     "A sack used to\n"
@@ -3029,14 +3029,13 @@ static const u8 sCleverWingDesc[] = _(
     "of a Pokémon.");
 
 static const u8 sBondedStoneDesc[] = _(
-    "An item that raises\n"
-    "the base SPEED of\n"
-    "a Pokémon.");
+    "A stone that causes\n"
+    "a Pokémon true potential\n"
+    "to be unleashed.");
 
 static const u8 sSteelStoneDesc[] = _(
-    "A beautiful yet\n"
-    "plain feather that\n"
-    "does nothing.");
+    "A stone that cause\n"
+    "some Pokémon to evolve.\n");
 
 static const u8 sShinyCharmDesc[] = _(
 	"A charm that will\n"
