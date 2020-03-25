@@ -9,7 +9,7 @@ PetalburgCity_MapScripts::
 
 PetalburgCity_OnTransition::
 	setflag FLAG_VISITED_PETALBURG_CITY
-	call_if_set FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG, Deneb_Academy_SetState
+	call_if_set FLAG_HIDE_DENEB_NICK_AND_CARLY, Deneb_Academy_SetState
 	call Common_EventScript_SetupRivalGfxId
 	compare VAR_PETALBURG_CITY_STATE, 1
 	call_if_eq EventScript_First_Lesson
@@ -120,7 +120,7 @@ EventScript_GoToRoute1::
 	end
 
 Teala_EventScript::
-	goto_if_set FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG, Teala_EventScript_After_Tutorial
+	goto_if_set FLAG_HIDE_DENEB_NICK_AND_CARLY, Teala_EventScript_After_Tutorial
 	goto Teala_EventScript_GoToRoute01
 	end
 	

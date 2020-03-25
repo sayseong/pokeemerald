@@ -185,8 +185,7 @@
         "Route104_PrettyPetalFlowerShop"
     ],
     "gMapGroup18": [
-        "Route111_WinstrateFamilysHouse",
-        "Route111_OldLadysRestStop"
+        "Route11_Fishermans_Lodge"
     ],
     "gMapGroup19": [
         "Route112_CableCarStation",
@@ -561,31 +560,23 @@
         "PacifidlogTown_House5"
     ],
     "gMapGroup8": [
-        "PetalburgCity_WallysHouse",
-        "PetalburgCity_Gym",
-        "PetalburgCity_House1",
-        "PetalburgCity_House2",
-        "PetalburgCity_PokemonCenter_1F",
-        "PetalburgCity_PokemonCenter_2F",
-        "PetalburgCity_Mart",
-        "PetalburgCity_House",
-        "PetalburgCity_House3"
+        "Deneb_Mart",
+        "Deneb_PlayersHouse",
+        "Deneb_House1",
+        "Deneb_House2",
+        "Deneb_House3",
+        "Deneb_House4",
+        "Deneb_Classroom"
     ],
     "gMapGroup9": [
-        "SlateportCity_SternsShipyard_1F",
-        "SlateportCity_SternsShipyard_2F",
-        "SlateportCity_BattleTentLobby",
-        "SlateportCity_BattleTentCorridor",
-        "SlateportCity_BattleTentBattleRoom",
-        "SlateportCity_NameRatersHouse",
-        "SlateportCity_PokemonFanClub",
-        "SlateportCity_OceanicMuseum_1F",
-        "SlateportCity_OceanicMuseum_2F",
-        "SlateportCity_Harbor",
-        "SlateportCity_House",
-        "SlateportCity_PokemonCenter_1F",
-        "SlateportCity_PokemonCenter_2F",
-        "SlateportCity_Mart"
+        "ZaurakCity_Station",
+        "ZaurakCity_Lab",
+        "ZaurakCity_Hazel_Lab",
+        "ZaurakCity_Hotel",
+        "ZaurakCity_House",
+        "ZaurakCity_Apartment_1F",
+        "ZaurakCity_Apartment_2F",
+        "ZaurakCity_Apartment_3F"
     ],
     "group_order": [
         "gMapGroup0",

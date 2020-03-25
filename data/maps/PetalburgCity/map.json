@@ -75,7 +75,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_GIRL_2",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -88,7 +88,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_BOY_3",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -127,7 +127,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_MART_EMPLOYEE",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -144,53 +144,53 @@
     "show_map_name": true,
     "warp_events": [
         {
-            "dest_map": "MAP_PETALBURG_CITY_WALLYS_HOUSE",
+            "dest_map": "MAP_DENEB_PLAYERS_HOUSE",
             "dest_warp_id": 0,
             "elevation": 3,
             "x": 27,
             "y": 24
         },
         {
-            "dest_map": "MAP_PETALBURG_CITY_HOUSE1",
+            "dest_map": "MAP_DENEB_MART",
             "dest_warp_id": 0,
             "elevation": 0,
-            "x": 21,
-            "y": 24
+            "x": 27,
+            "y": 36
         },
         {
-            "dest_map": "MAP_PETALBURG_CITY_HOUSE2",
-            "dest_warp_id": 0,
-            "elevation": 0,
-            "x": 33,
-            "y": 24
-        },
-        {
-            "dest_map": "MAP_PETALBURG_CITY_GYM",
+            "dest_map": "MAP_DENEB_CLASSROOM",
             "dest_warp_id": 0,
             "elevation": 0,
             "x": 12,
             "y": 30
         },
         {
-            "dest_map": "MAP_PETALBURG_CITY_HOUSE3",
+            "dest_map": "MAP_DENEB_HOUSE1",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 21,
+            "y": 24
+        },
+        {
+            "dest_map": "MAP_DENEB_HOUSE2",
             "dest_warp_id": 0,
             "elevation": 0,
             "x": 21,
             "y": 30
         },
         {
-            "dest_map": "MAP_PETALBURG_CITY_HOUSE",
+            "dest_map": "MAP_DENEB_HOUSE3",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 33,
+            "y": 24
+        },
+        {
+            "dest_map": "MAP_DENEB_HOUSE4",
             "dest_warp_id": 0,
             "elevation": 0,
             "x": 33,
             "y": 30
-        },
-        {
-            "dest_map": "MAP_PETALBURG_CITY_MART",
-            "dest_warp_id": 0,
-            "elevation": 0,
-            "x": 27,
-            "y": 36
         }
     ],
     "weather": "WEATHER_SUNNY"

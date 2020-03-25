@@ -593,12 +593,12 @@
         {
             "blockdata_filepath": "data/layouts/House2/map.bin",
             "border_filepath": "data/layouts/House2/border.bin",
-            "height": 6,
+            "height": 8,
             "id": "LAYOUT_HOUSE2",
             "name": "House2_Layout",
-            "primary_tileset": "gTileset_general_fall",
-            "secondary_tileset": "gTileset_Petalburg",
-            "width": 5
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
         },
         {
             "blockdata_filepath": "data/layouts/PokemonCenter_1F/map.bin",
@@ -796,29 +796,29 @@
             "height": 6,
             "id": "LAYOUT_HOUSE_WITH_BED",
             "name": "HouseWithBed_Layout",
-            "primary_tileset": "gTileset_general_fall",
-            "secondary_tileset": "gTileset_Petalburg",
-            "width": 5
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 8
         },
         {
             "blockdata_filepath": "data/layouts/SlateportCity_SternsShipyard_1F/map.bin",
             "border_filepath": "data/layouts/SlateportCity_SternsShipyard_1F/border.bin",
-            "height": 16,
+            "height": 12,
             "id": "LAYOUT_SLATEPORT_CITY_STERNS_SHIPYARD_1F",
             "name": "SlateportCity_SternsShipyard_1F_Layout",
-            "primary_tileset": "gTileset_General",
-            "secondary_tileset": "gTileset_Unused1",
-            "width": 22
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Lab",
+            "width": 12
         },
         {
             "blockdata_filepath": "data/layouts/SlateportCity_SternsShipyard_2F/map.bin",
             "border_filepath": "data/layouts/SlateportCity_SternsShipyard_2F/border.bin",
-            "height": 15,
+            "height": 8,
             "id": "LAYOUT_SLATEPORT_CITY_STERNS_SHIPYARD_2F",
             "name": "SlateportCity_SternsShipyard_2F_Layout",
-            "primary_tileset": "gTileset_General",
-            "secondary_tileset": "gTileset_Facility",
-            "width": 17
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Lab",
+            "width": 16
         },
         {
             "blockdata_filepath": "data/layouts/Unknown_084294C4/map.bin",
@@ -843,12 +843,12 @@
         {
             "blockdata_filepath": "data/layouts/SlateportCity_PokemonFanClub/map.bin",
             "border_filepath": "data/layouts/SlateportCity_PokemonFanClub/border.bin",
-            "height": 11,
+            "height": 8,
             "id": "LAYOUT_SLATEPORT_CITY_POKEMON_FAN_CLUB",
             "name": "SlateportCity_PokemonFanClub_Layout",
             "primary_tileset": "gTileset_Building",
-            "secondary_tileset": "gTileset_PokemonFanClub",
-            "width": 14
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
         },
         {
             "blockdata_filepath": "data/layouts/SlateportCity_OceanicMuseum_1F/map.bin",
@@ -857,28 +857,28 @@
             "id": "LAYOUT_SLATEPORT_CITY_OCEANIC_MUSEUM_1F",
             "name": "SlateportCity_OceanicMuseum_1F_Layout",
             "primary_tileset": "gTileset_Building",
-            "secondary_tileset": "gTileset_OceanicMuseum",
+            "secondary_tileset": "gTileset_Interior_Steel",
             "width": 20
         },
         {
             "blockdata_filepath": "data/layouts/SlateportCity_OceanicMuseum_2F/map.bin",
             "border_filepath": "data/layouts/SlateportCity_OceanicMuseum_2F/border.bin",
-            "height": 9,
+            "height": 8,
             "id": "LAYOUT_SLATEPORT_CITY_OCEANIC_MUSEUM_2F",
             "name": "SlateportCity_OceanicMuseum_2F_Layout",
             "primary_tileset": "gTileset_Building",
-            "secondary_tileset": "gTileset_OceanicMuseum",
-            "width": 20
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
         },
         {
             "blockdata_filepath": "data/layouts/Harbor/map.bin",
             "border_filepath": "data/layouts/Harbor/border.bin",
-            "height": 15,
+            "height": 16,
             "id": "LAYOUT_HARBOR",
             "name": "Harbor_Layout",
             "primary_tileset": "gTileset_General",
-            "secondary_tileset": "gTileset_Facility",
-            "width": 24
+            "secondary_tileset": "gTileset_Unused1",
+            "width": 22
         },
         {
             "blockdata_filepath": "data/layouts/MauvilleCity_Gym/map.bin",
@@ -4406,6 +4406,166 @@
             "height": 6,
             "id": "LAYOUT_PETALBURG_CITY_HOUSE3",
             "name": "PetalburgCity_House3_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_Mart/map.bin",
+            "border_filepath": "data/layouts/Deneb_Mart/border.bin",
+            "height": 8,
+            "id": "LAYOUT_DENEB_MART",
+            "name": "Deneb_Mart_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 11
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_PlayersHouse/map.bin",
+            "border_filepath": "data/layouts/Deneb_PlayersHouse/border.bin",
+            "height": 6,
+            "id": "LAYOUT_DENEB_PLAYERS_HOUSE",
+            "name": "Deneb_PlayersHouse_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_House1/map.bin",
+            "border_filepath": "data/layouts/Deneb_House1/border.bin",
+            "height": 6,
+            "id": "LAYOUT_DENEB_HOUSE1",
+            "name": "Deneb_House1_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_House2/map.bin",
+            "border_filepath": "data/layouts/Deneb_House2/border.bin",
+            "height": 6,
+            "id": "LAYOUT_DENEB_HOUSE2",
+            "name": "Deneb_House2_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_House3/map.bin",
+            "border_filepath": "data/layouts/Deneb_House3/border.bin",
+            "height": 6,
+            "id": "LAYOUT_DENEB_HOUSE3",
+            "name": "Deneb_House3_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_House4/map.bin",
+            "border_filepath": "data/layouts/Deneb_House4/border.bin",
+            "height": 6,
+            "id": "LAYOUT_DENEB_HOUSE4",
+            "name": "Deneb_House4_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/Deneb_Classroom/map.bin",
+            "border_filepath": "data/layouts/Deneb_Classroom/border.bin",
+            "height": 12,
+            "id": "LAYOUT_DENEB_CLASSROOM",
+            "name": "Deneb_Classroom_Layout",
+            "primary_tileset": "gTileset_general_fall",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Station/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Station/border.bin",
+            "height": 16,
+            "id": "LAYOUT_ZAURAK_CITY_STATION",
+            "name": "ZaurakCity_Station_Layout",
+            "primary_tileset": "gTileset_General",
+            "secondary_tileset": "gTileset_Unused1",
+            "width": 22
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Lab/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Lab/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ZAURAK_CITY_LAB",
+            "name": "ZaurakCity_Lab_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Lab",
+            "width": 16
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Hazel_Lab/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Hazel_Lab/border.bin",
+            "height": 12,
+            "id": "LAYOUT_ZAURAK_CITY_HAZEL_LAB",
+            "name": "ZaurakCity_Hazel_Lab_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Lab",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Hotel/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Hotel/border.bin",
+            "height": 9,
+            "id": "LAYOUT_ZAURAK_CITY_HOTEL",
+            "name": "ZaurakCity_Hotel_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 20
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_House/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_House/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ZAURAK_CITY_HOUSE",
+            "name": "ZaurakCity_House_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Apartment_1F/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Apartment_1F/border.bin",
+            "height": 6,
+            "id": "LAYOUT_ZAURAK_CITY_APARTMENT_1F",
+            "name": "ZaurakCity_Apartment_1F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Apartment_2F/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Apartment_2F/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ZAURAK_CITY_APARTMENT_2F",
+            "name": "ZaurakCity_Apartment_2F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Apartment_3F/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Apartment_3F/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ZAURAK_CITY_APARTMENT_3F",
+            "name": "ZaurakCity_Apartment_3F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route11_Fishermans_Lodge/map.bin",
+            "border_filepath": "data/layouts/Route11_Fishermans_Lodge/border.bin",
+            "height": 6,
+            "id": "LAYOUT_ROUTE11_FISHERMANS_LODGE",
+            "name": "Route11_Fishermans_Lodge_Layout",
             "primary_tileset": "gTileset_general_fall",
             "secondary_tileset": "gTileset_Petalburg",
             "width": 5

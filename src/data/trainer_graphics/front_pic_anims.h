@@ -381,6 +381,7 @@ const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
     [TRAINER_PIC_AQUA_GRUNT_F] = sAnims_AquaGruntF,
     [TRAINER_PIC_SWIMMER_M] = sAnims_SwimmerM,
     [TRAINER_PIC_MAGMA_GRUNT_M] = sAnims_MagmaGruntM,
+    [TRAINER_PIC_MAGMA_GRUNT_DUO] = sAnims_MagmaGruntM,
     [TRAINER_PIC_EXPERT_M] = sAnims_ExpertM,
     [TRAINER_PIC_AQUA_ADMIN_M] = sAnims_AquaAdminM,
     [TRAINER_PIC_BLACK_BELT] = sAnims_BlackBelt,
@@ -463,6 +464,5 @@ const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
     [TRAINER_PIC_PYRAMID_KING_BRANDON] = sAnims_PyramidKingBrandon,
     [TRAINER_PIC_RED] = sAnims_Red,
     [TRAINER_PIC_LEAF] = sAnims_Leaf,
-    [TRAINER_PIC_RS_BRENDAN] = sAnims_RubySapphireBrendan,
     [TRAINER_PIC_RS_MAY] = sAnims_RubySapphireMay,
 };

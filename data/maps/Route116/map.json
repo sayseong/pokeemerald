@@ -282,8 +282,8 @@
       "movement_range_y": 1,
       "trainer_type": "0",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route116_EventScript_ItemXSpecial",
-      "flag": "FLAG_ITEM_ROUTE_116_X_SPECIAL"
+      "script": "EnifCity_EventScript_ItemMetalCoat",
+      "flag": "FLAG_ITEM_ENIF_CITY_METAL_COAT"
     },
     {
       "graphics_id": "EVENT_OBJ_GFX_BLACK_BELT",

@@ -1749,3 +1749,23 @@ gTilesetPalettes_general_fall::
 	.align 2
 gTilesetTiles_general_fall::
 	.incbin "data/tilesets/primary/general_fall/tiles.4bpp.lz"
+
+	.align 2
+gTilesetPalettes_Interior_Steel::
+	.incbin "data/tilesets/secondary/interior_steel/palettes/00.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/01.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/02.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/03.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/04.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/05.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/06.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/07.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/08.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/09.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/10.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/11.gbapal"
+	.incbin "data/tilesets/secondary/interior_steel/palettes/12.gbapal"
+
+	.align 2
+gTilesetTiles_Interior_Steel::
+	.incbin "data/tilesets/secondary/interior_steel/tiles.4bpp.lz"

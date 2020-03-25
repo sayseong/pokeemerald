@@ -537,8 +537,8 @@
 
 // Hidden Items -- sorted by location
 #define FLAG_HIDDEN_ITEMS_START                                                         0x1F4
-#define FLAG_HIDDEN_ITEM_TRICK_HOUSE_NUGGET                  (FLAG_HIDDEN_ITEMS_START + 0x01)
-#define FLAG_HIDDEN_ITEM_UNDERWATER_1_CARBOS                 (FLAG_HIDDEN_ITEMS_START + 0x08)
+#define FLAG_HIDDEN_ITEM_LAKE_VEGA_TINYMUSHROOM              (FLAG_HIDDEN_ITEMS_START + 0x01)
+#define FLAG_HIDDEN_ITEM_ROUTE_103_ORAN_BERRY                 (FLAG_HIDDEN_ITEMS_START + 0x08)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_GREEN_SHARD            (FLAG_HIDDEN_ITEMS_START + 0x09)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_PEARL                  (FLAG_HIDDEN_ITEMS_START + 0x0A)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_BIG_PEARL              (FLAG_HIDDEN_ITEMS_START + 0x0B)
@@ -740,9 +740,9 @@
 #define FLAG_UNUSED_0x2BB  0x2BB // Unused Flag
 
 // Event Flags
-#define FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG                      0x2BC
-#define FLAG_HIDE_APPRENTICE                                        0x2BD
-#define FLAG_HIDE_POKEMON_CENTER_2F_MYSTERY_GIFT_MAN                0x2BE
+#define FLAG_HIDE_DENEB_NICK_AND_CARLY                              0x2BC
+#define FLAG_HIDE_ENIF_CITY_PIDGEY                                  0x2BD
+#define FLAG_ENIF_CITY_PIDGEY_FED                                   0x2BE
 #define FLAG_HIDE_UNION_ROOM_PLAYER_1                               0x2BF
 #define FLAG_HIDE_UNION_ROOM_PLAYER_2                               0x2C0
 #define FLAG_HIDE_UNION_ROOM_PLAYER_3                               0x2C1
@@ -760,7 +760,7 @@
 #define FLAG_HIDE_SAFARI_ZONE_SOUTH_CONSTRUCTION_WORKERS            0x2CD
 #define FLAG_HIDE_MEW                                               0x2CE
 #define FLAG_HIDE_ROUTE_104_RIVAL                                   0x2CF
-#define FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE                  0x2D0
+#define FLAG_HIDE_ROUTE02_CLAIR                                     0x2D0
 #define FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH                  0x2D1
 #define FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM          0x2D2
 #define FLAG_HIDE_ROUTE_103_RIVAL                                   0x2D3
@@ -772,7 +772,7 @@
 
 #define FLAG_UNUSED_0x2D9                                           0x2D9 // Unused Flag
 
-#define FLAG_HIDE_LILYCOVE_FAN_CLUB_INTERVIEWER                     0x2DA
+#define FLAG_HIDE_ALCOR_TUNNEL_GRUNTS                               0x2DA
 #define FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT                          0x2DB
 #define FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1                    0x2DC
 #define FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE_2                   0x2DD
@@ -1044,12 +1044,12 @@
 #define FLAG_HIDE_RUSTBORO_CITY_POKEMON_SCHOOL_SCOTT                0x3E7
 
 // Item Ball Flags
-#define FLAG_ITEM_ROUTE_102_POTION                                  0x3E8
-#define FLAG_ITEM_ROUTE_116_X_SPECIAL                               0x3E9
-#define FLAG_ITEM_ROUTE_102_PP_UP                                   0x3EA
-#define FLAG_ITEM_ROUTE_105_IRON                                    0x3EB
+#define FLAG_ITEM_ROUTE_101_POKE_BALL                               0x3E8
+#define FLAG_ITEM_ENIF_CITY_METAL_COAT                              0x3E9
+#define FLAG_ITEM_ALCOR_TUNNEL_POTION                               0x3EA
+#define FLAG_ITEM_ALCOR_TUNNEL_HARD_STONE                           0x3EB
 #define FLAG_ITEM_ROUTE_106_PROTEIN                                 0x3EC
-#define FLAG_ITEM_ROUTE_109_PP_UP                                   0x3ED
+#define FLAG_ITEM_ROUTE_102_PP_UP                                   0x3ED
 #define FLAG_ITEM_ROUTE_109_RARE_CANDY                              0x3EE
 #define FLAG_ITEM_ROUTE_110_DIRE_HIT                                0x3EF
 #define FLAG_ITEM_ROUTE_111_TM_37                                   0x3F0

@@ -64,7 +64,7 @@
       "trainer_type": "0",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "CableClub_EventScript_MysteryGiftMan",
-      "flag": "FLAG_HIDE_POKEMON_CENTER_2F_MYSTERY_GIFT_MAN"
+      "flag": "FLAG_ENIF_CITY_PIDGEY_FED"
     },
     {
       "graphics_id": "EVENT_OBJ_GFX_WOMAN_5",

@@ -32,7 +32,7 @@
     "object_events": [
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_TEALA",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -45,7 +45,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_VAR_0",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -58,7 +58,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_BOY_3",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -71,7 +71,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG",
+            "flag": "FLAG_HIDE_DENEB_NICK_AND_CARLY",
             "graphics_id": "EVENT_OBJ_GFX_GIRL_2",
             "movement_range_x": 0,
             "movement_range_y": 0,
@@ -81,6 +81,19 @@
             "trainer_type": "0",
             "x": 8,
             "y": 30
+        },
+        {
+            "elevation": 3,
+            "flag": "FLAG_ITEM_ROUTE_101_POKE_BALL",
+            "graphics_id": "EVENT_OBJ_GFX_ITEM_BALL",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "Route101_EventScript_ItemPokeBall",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 5,
+            "y": 12
         }
     ],
     "region_map_section": "MAPSEC_ROUTE_101",

@@ -144,11 +144,6 @@ Route121_EventScript_Pat:: @ 81F5FCA
 	msgbox Route121_Text_PatPostBattle, MSGBOX_AUTOCLOSE
 	end
 
-Route121_EventScript_Marcel:: @ 81F5FE1
-	trainerbattle_single TRAINER_MARCEL, Route121_Text_MarcelIntro, Route121_Text_MarcelDefeat
-	msgbox Route121_Text_MarcelPostBattle, MSGBOX_AUTOCLOSE
-	end
-
 Route121_EventScript_Cristin:: @ 81F5FF8
 	trainerbattle_single TRAINER_CRISTIN_1, Route121_Text_CristinIntro, Route121_Text_CristinDefeat, Route121_EventScript_RegisterCristin
 	specialvar VAR_RESULT, ShouldTryRematchBattle

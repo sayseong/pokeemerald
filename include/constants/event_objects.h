@@ -209,8 +209,9 @@
 #define EVENT_OBJ_GFX_LUGIA                      205
 #define EVENT_OBJ_GFX_HOOH                       206
 #define EVENT_OBJ_GFX_BARD_2                     207
+#define EVENT_OBJ_GFX_GROWLITHE                  208
 
-#define NUM_OBJ_EVENT_GFX                        208
+#define NUM_OBJ_EVENT_GFX                        209
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.

@@ -2763,7 +2763,7 @@
                         ]
                     },
                     "land_mons": {
-                        "encounter_rate": 10,
+                        "encounter_rate": 20,
                         "mons": [
                             {
                                 "max_level": 7,
@@ -2917,7 +2917,7 @@
                         ]
                     },
                     "land_mons": {
-                        "encounter_rate": 10,
+                        "encounter_rate": 20,
                         "mons": [
                             {
                                 "max_level": 33,
@@ -4988,17 +4988,17 @@
                             {
                                 "max_level": 12,
                                 "min_level": 12,
-                                "species": "SPECIES_PIDGEY"
+                                "species": "SPECIES_PIDOVE"
                             },
                             {
                                 "max_level": 11,
                                 "min_level": 11,
-                                "species": "SPECIES_PIDGEY"
+                                "species": "SPECIES_ESPURR"
                             },
                             {
                                 "max_level": 11,
                                 "min_level": 11,
-                                "species": "SPECIES_PIDGEY"
+                                "species": "SPECIES_ESPURR"
                             },
                             {
                                 "max_level": 11,
@@ -5013,7 +5013,7 @@
                             {
                                 "max_level": 12,
                                 "min_level": 12,
-                                "species": "SPECIES_ESPURR"
+                                "species": "SPECIES_PIDGEY"
                             },
                             {
                                 "max_level": 11,

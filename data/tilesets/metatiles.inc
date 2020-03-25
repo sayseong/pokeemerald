@@ -565,3 +565,11 @@ gMetatiles_general_fall::
 	.align 1
 gMetatileAttributes_general_fall::
 	.incbin "data/tilesets/primary/general_fall/metatile_attributes.bin"
+
+	.align 1
+gMetatiles_Interior_Steel::
+	.incbin "data/tilesets/secondary/interior_steel/metatiles.bin"
+
+	.align 1
+gMetatileAttributes_Interior_Steel::
+	.incbin "data/tilesets/secondary/interior_steel/metatile_attributes.bin"

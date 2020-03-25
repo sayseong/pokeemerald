@@ -204,27 +204,6 @@ gStdScripts_End:: @ 81DC2CC
 	.include "data/maps/PacifidlogTown_House3/scripts.inc"
 	.include "data/maps/PacifidlogTown_House4/scripts.inc"
 	.include "data/maps/PacifidlogTown_House5/scripts.inc"
-	.include "data/maps/PetalburgCity_WallysHouse/scripts.inc"
-	.include "data/maps/PetalburgCity_Gym/scripts.inc"
-	.include "data/maps/PetalburgCity_House1/scripts.inc"
-	.include "data/maps/PetalburgCity_House2/scripts.inc"
-	.include "data/maps/PetalburgCity_PokemonCenter_1F/scripts.inc"
-	.include "data/maps/PetalburgCity_PokemonCenter_2F/scripts.inc"
-	.include "data/maps/PetalburgCity_Mart/scripts.inc"
-	.include "data/maps/SlateportCity_SternsShipyard_1F/scripts.inc"
-	.include "data/maps/SlateportCity_SternsShipyard_2F/scripts.inc"
-	.include "data/maps/SlateportCity_BattleTentLobby/scripts.inc"
-	.include "data/maps/SlateportCity_BattleTentCorridor/scripts.inc"
-	.include "data/maps/SlateportCity_BattleTentBattleRoom/scripts.inc"
-	.include "data/maps/SlateportCity_NameRatersHouse/scripts.inc"
-	.include "data/maps/SlateportCity_PokemonFanClub/scripts.inc"
-	.include "data/maps/SlateportCity_OceanicMuseum_1F/scripts.inc"
-	.include "data/maps/SlateportCity_OceanicMuseum_2F/scripts.inc"
-	.include "data/maps/SlateportCity_Harbor/scripts.inc"
-	.include "data/maps/SlateportCity_House/scripts.inc"
-	.include "data/maps/SlateportCity_PokemonCenter_1F/scripts.inc"
-	.include "data/maps/SlateportCity_PokemonCenter_2F/scripts.inc"
-	.include "data/maps/SlateportCity_Mart/scripts.inc"
 	.include "data/maps/MauvilleCity_Gym/scripts.inc"
 	.include "data/maps/MauvilleCity_BikeShop/scripts.inc"
 	.include "data/maps/MauvilleCity_House1/scripts.inc"
@@ -328,8 +307,6 @@ gStdScripts_End:: @ 81DC2CC
 	.include "data/maps/EverGrandeCity_PokemonLeague_2F/scripts.inc"
 	.include "data/maps/Route104_MrBrineysHouse/scripts.inc"
 	.include "data/maps/Route104_PrettyPetalFlowerShop/scripts.inc"
-	.include "data/maps/Route111_WinstrateFamilysHouse/scripts.inc"
-	.include "data/maps/Route111_OldLadysRestStop/scripts.inc"
 	.include "data/maps/Route112_CableCarStation/scripts.inc"
 	.include "data/maps/MtChimney_CableCarStation/scripts.inc"
 	.include "data/maps/Route114_FossilManiacsHouse/scripts.inc"
@@ -1060,6 +1037,34 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 
-	.include "data/maps/PetalburgCity_House/scripts.inc"
+	.include "data/maps/Deneb_Mart/scripts.inc"
 
-	.include "data/maps/PetalburgCity_House3/scripts.inc"
+	.include "data/maps/Deneb_PlayersHouse/scripts.inc"
+
+	.include "data/maps/Deneb_House1/scripts.inc"
+
+	.include "data/maps/Deneb_House2/scripts.inc"
+
+	.include "data/maps/Deneb_House3/scripts.inc"
+
+	.include "data/maps/Deneb_House4/scripts.inc"
+
+	.include "data/maps/Deneb_Classroom/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Station/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Lab/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Hazel_Lab/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Hotel/scripts.inc"
+
+	.include "data/maps/ZaurakCity_House/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Apartment_1F/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Apartment_2F/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Apartment_3F/scripts.inc"
+
+	.include "data/maps/Route11_Fishermans_Lodge/scripts.inc"

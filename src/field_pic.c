@@ -31,16 +31,26 @@ static const union AnimCmd *const sAnims[] =
 static const u32 sPic1Gfx[] = INCBIN_U32("graphics/pokemon/altaria/anim_front.4bpp.lz");
 static const u16 sPic1Pal[] = INCBIN_U16("graphics/pokemon/altaria/normal.gbapal");
 
+static const u16 sPic2Pal[] = INCBIN_U16("graphics/trainers/mugshots/derek_kate.gbapal");
+
 static const u32 sPic2Gfx[] = INCBIN_U32("graphics/trainers/mugshots/derek_player.4bpp.lz");
 static const u32 sPic3Gfx[] = INCBIN_U32("graphics/trainers/mugshots/derek_npc.4bpp.lz");
-static const u16 sPic2Pal[] = INCBIN_U16("graphics/trainers/mugshots/derek.gbapal");
 
 static const u32 sPic4Gfx[] = INCBIN_U32("graphics/trainers/mugshots/kate_player.4bpp.lz");
 static const u32 sPic5Gfx[] = INCBIN_U32("graphics/trainers/mugshots/kate_npc.4bpp.lz");
-static const u16 sPic3Pal[] = INCBIN_U16("graphics/trainers/mugshots/kate.gbapal");
 
 static const u32 sPic6Gfx[] = INCBIN_U32("graphics/trainers/mugshots/teala.4bpp.lz");
-static const u16 sPic4Pal[] = INCBIN_U16("graphics/trainers/mugshots/teala.gbapal");
+static const u16 sPic3Pal[] = INCBIN_U16("graphics/trainers/mugshots/teala.gbapal");
+
+static const u32 sPic7Gfx[] = INCBIN_U32("graphics/trainers/mugshots/kate_derek.4bpp.lz");
+static const u32 sPic8Gfx[] = INCBIN_U32("graphics/trainers/mugshots/derek_kate.4bpp.lz");
+
+static const u32 sPic9Gfx[] = INCBIN_U32("graphics/trainers/mugshots/clair.4bpp.lz");
+static const u16 sPic4Pal[] = INCBIN_U16("graphics/trainers/mugshots/clair.gbapal");
+
+static const u32 sPic10Gfx[] = INCBIN_U32("graphics/trainers/mugshots/black_seraph_grunt_male.4bpp.lz");
+static const u32 sPic11Gfx[] = INCBIN_U32("graphics/trainers/mugshots/black_seraph_grunt_female.4bpp.lz");
+static const u16 sPic5Pal[] = INCBIN_U16("graphics/trainers/mugshots/black_seraph.gbapal");
 
 /* And this is an example script.
 FieldPicExample_2pics:
@@ -58,12 +68,17 @@ FieldPicExample_1pic:
 */
 static const struct Pic sPics[] =
 {
-    {sPic1Gfx, sPic1Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64), sAnims}, //0, Altaria, testdummy
+    {sPic1Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64), sAnims}, //0, Altaria, testdummy
     {sPic2Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //1, Derek as a Player
     {sPic3Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //2, Derek as an NPC
-    {sPic4Gfx, sPic3Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //3, Kate as a Player
-    {sPic5Gfx, sPic3Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //4, Kate as an NPC
-    {sPic6Gfx, sPic4Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //5, Teala, the teacher
+    {sPic4Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //3, Kate as a Player
+    {sPic5Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //4, Kate as an NPC
+    {sPic6Gfx, sPic3Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //5, Teala, the teacher
+    {sPic7Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //6, Player Kate, NPC Derek
+    {sPic8Gfx, sPic2Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //7, Player Derek, NPC Kate
+    {sPic9Gfx, sPic4Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},         //8, Clair
+    {sPic10Gfx, sPic5Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},        //9, Black Seraph Grunt Male
+    {sPic11Gfx, sPic5Pal, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64)},        //10, Black Seraph Grunt Female
 };
 
 static EWRAM_DATA u8 sLastPicId = 0;

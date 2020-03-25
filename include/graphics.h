@@ -2489,6 +2489,7 @@ extern const u32 gTrainerFrontPic_Collector[];
 extern const u32 gTrainerFrontPic_AquaGruntF[];
 extern const u32 gTrainerFrontPic_SwimmerM[];
 extern const u32 gTrainerFrontPic_MagmaGruntM[];
+extern const u32 gTrainerFrontPic_MagmaGruntDuo[];
 extern const u32 gTrainerFrontPic_ExpertM[];
 extern const u32 gTrainerFrontPic_AquaAdminM[];
 extern const u32 gTrainerFrontPic_BlackBelt[];

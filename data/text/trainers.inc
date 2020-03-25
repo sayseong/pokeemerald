@@ -34,29 +34,6 @@ Route102_Text_CalvinRematchPostBattle: @ 829473C
 	.string "If you're going to get stronger,\n"
 	.string "I'll get stronger, too.$"
 
-Route102_Text_AllenIntro: @ 8294775
-	.string "Did you just become a TRAINER?\n"
-	.string "We're both beginners!$"
-
-Route102_Text_AllenDefeated: @ 82947AA
-	.string "I called you because I thought\n"
-	.string "I could beat you…$"
-
-Route102_Text_AllenPostBattle: @ 82947DB
-	.string "I haven't won once yet…\n"
-	.string "I wish I would win soon…$"
-
-Route102_Text_RickIntro: @ 829480C
-	.string "Hahah! Our eyes met!\n"
-	.string "I'll take you on with my BUG Pokémon!$"
-
-Route102_Text_RickDefeated: @ 8294847
-	.string "Ow! Down and out!$"
-
-Route102_Text_RickPostBattle: @ 8294859
-	.string "If you lock eyes with a TRAINER,\n"
-	.string "you have to challenge! It's a rule!$"
-
 Route102_Text_TianaIntro: @ 829489E
 	.string "I'm going to keep winning and aim\n"
 	.string "to be the best TRAINER.\p"
@@ -68,6 +45,45 @@ Route102_Text_TianaDefeated: @ 82948F3
 Route102_Text_TianaPostBattle: @ 8294916
 	.string "To keep winning my way up, I see that\n"
 	.string "I have to catch more Pokémon.$"
+
+AlcorTunnel_Text_MarcelIntro: @ 829FB35
+	.string "My Pokémon have never tasted defeat!\n"
+	.string "On their next win, I'm entering them\l"
+	.string "in CONTESTS.$"
+
+AlcorTunnel_Text_MarcelDefeat: @ 829FB8C
+	.string "Oh, now what happened here?$"
+
+AlcorTunnel_Text_MarcelPostBattle: @ 829FBA8
+	.string "I may have to train my gang some more\n"
+	.string "before entering any CONTEST.$"
+
+AlcorTunnel_Text_AlbertoIntro: @ 82A06AF
+	.string "I have to tell you, BIRD Pokémon\n"
+	.string "are my obsession!\p"
+	.string "Birds are cool!\n"
+	.string "They're the best!$"
+
+AlcorTunnel_Text_AlbertoDefeat: @ 82A0704
+	.string "Even in defeat, BIRD Pokémon are cool!$"
+
+AlcorTunnel_Text_AlbertoPostBattle: @ 82A072B
+	.string "I gather BIRD Pokémon feathers that\n"
+	.string "scatter during battles.\p"
+	.string "I'm going to make a hat with\n"
+	.string "BIRD Pokémon feathers.$"
+
+AlcorTunnel_Text_EdIntro: @ 82A079B
+	.string "When there are no TRAINERS around,\n"
+	.string "I let my Pokémon battle each other.\l"
+	.string "I watch them.$"
+
+AlcorTunnel_Text_EdDefeat: @ 82A07F0
+	.string "I kind of like your Pokémon.$"
+
+AlcorTunnel_Text_EdPostBattle: @ 82A080D
+	.string "Hehe, I'm swiping your battling ideas!\n"
+	.string "I think they'll make me better.$"
 
 Route103_Text_DaisyIntro: @ 829495A
 	.string "Did you feel the tug of our\n"
@@ -3325,18 +3341,6 @@ Route121_Text_PatPostBattle: @ 829FAEA
 	.string "I raise every Pokémon with the same\n"
 	.string "love and care--I don't pick favorites.$"
 
-Route121_Text_MarcelIntro: @ 829FB35
-	.string "My Pokémon have never tasted defeat!\n"
-	.string "On their next win, I'm entering them\l"
-	.string "in CONTESTS.$"
-
-Route121_Text_MarcelDefeat: @ 829FB8C
-	.string "Oh, now what happened here?$"
-
-Route121_Text_MarcelPostBattle: @ 829FBA8
-	.string "I may have to train my gang some more\n"
-	.string "before entering any CONTEST.$"
-
 Route123_Text_WendyIntro: @ 829FBEB
 	.string "Want to determine how strong you are?\n"
 	.string "I'll be the test!$"
@@ -3538,33 +3542,6 @@ Route123_Text_FrederickDefeat: @ 82A0631
 Route123_Text_FrederickPostBattle: @ 82A0672
 	.string "Contribute to your allowance?\n"
 	.string "Wasn't the prize money enough?$"
-
-Route123_Text_AlbertoIntro: @ 82A06AF
-	.string "I have to tell you, BIRD Pokémon\n"
-	.string "are my obsession!\p"
-	.string "Birds are cool!\n"
-	.string "They're the best!$"
-
-Route123_Text_AlbertoDefeat: @ 82A0704
-	.string "Even in defeat, BIRD Pokémon are cool!$"
-
-Route123_Text_AlbertoPostBattle: @ 82A072B
-	.string "I gather BIRD Pokémon feathers that\n"
-	.string "scatter during battles.\p"
-	.string "I'm going to make a hat with\n"
-	.string "BIRD Pokémon feathers.$"
-
-Route123_Text_EdIntro: @ 82A079B
-	.string "When there are no TRAINERS around,\n"
-	.string "I let my Pokémon battle each other.\l"
-	.string "I watch them.$"
-
-Route123_Text_EdDefeat: @ 82A07F0
-	.string "I kind of like your Pokémon.$"
-
-Route123_Text_EdPostBattle: @ 82A080D
-	.string "Hehe, I'm swiping your battling ideas!\n"
-	.string "I think they'll make me better.$"
 
 Route123_Text_JonasIntro: @ 82A0854
 	.string "I lay in ambush, and a TRAINER has\n"

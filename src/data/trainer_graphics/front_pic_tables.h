@@ -9,6 +9,7 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     [TRAINER_PIC_AQUA_GRUNT_F] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_SWIMMER_M] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_MAGMA_GRUNT_M] = {.size = 8, .y_offset = 1},
+    [TRAINER_PIC_MAGMA_GRUNT_DUO] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_EXPERT_M] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_AQUA_ADMIN_M] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_BLACK_BELT] = {.size = 8, .y_offset = 1},
@@ -91,7 +92,6 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     [TRAINER_PIC_PYRAMID_KING_BRANDON] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RED] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_LEAF] = {.size = 8, .y_offset = 1},
-    [TRAINER_PIC_RS_BRENDAN] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RS_MAY] = {.size = 8, .y_offset = 1},
 };
 
@@ -106,6 +106,7 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(AQUA_GRUNT_F, gTrainerFrontPic_AquaGruntF, 0x800),
     TRAINER_SPRITE(SWIMMER_M, gTrainerFrontPic_SwimmerM, 0x800),
     TRAINER_SPRITE(MAGMA_GRUNT_M, gTrainerFrontPic_MagmaGruntM, 0x800),
+    TRAINER_SPRITE(MAGMA_GRUNT_DUO, gTrainerFrontPic_MagmaGruntDuo, 0x800),
     TRAINER_SPRITE(EXPERT_M, gTrainerFrontPic_ExpertM, 0x800),
     TRAINER_SPRITE(AQUA_ADMIN_M, gTrainerFrontPic_AquaAdminM, 0x800),
     TRAINER_SPRITE(BLACK_BELT, gTrainerFrontPic_BlackBelt, 0x800),
@@ -188,7 +189,6 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(PYRAMID_KING_BRANDON, gTrainerFrontPic_PyramidKingBrandon, 0x800),
     TRAINER_SPRITE(RED, gTrainerFrontPic_Red, 0x800),
     TRAINER_SPRITE(LEAF, gTrainerFrontPic_Leaf, 0x800),
-    TRAINER_SPRITE(RS_BRENDAN, gTrainerFrontPic_RubySapphireBrendan, 0x800),
     TRAINER_SPRITE(RS_MAY, gTrainerFrontPic_RubySapphireMay, 0x800),
 };
 
@@ -203,6 +203,7 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(AQUA_GRUNT_F, gTrainerPalette_AquaGruntF),
     TRAINER_PAL(SWIMMER_M, gTrainerPalette_SwimmerM),
     TRAINER_PAL(MAGMA_GRUNT_M, gTrainerPalette_MagmaGruntM),
+    TRAINER_PAL(MAGMA_GRUNT_DUO, gTrainerPalette_MagmaGruntM),
     TRAINER_PAL(EXPERT_M, gTrainerPalette_ExpertM),
     TRAINER_PAL(AQUA_ADMIN_M, gTrainerPalette_AquaAdminM),
     TRAINER_PAL(BLACK_BELT, gTrainerPalette_BlackBelt),
@@ -285,6 +286,5 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(PYRAMID_KING_BRANDON, gTrainerPalette_PyramidKingBrandon),
     TRAINER_PAL(RED, gTrainerPalette_Red),
     TRAINER_PAL(LEAF, gTrainerPalette_Leaf),
-    TRAINER_PAL(RS_BRENDAN, gTrainerPalette_RubySapphireBrendan),
     TRAINER_PAL(RS_MAY, gTrainerPalette_RubySapphireMay),
 };

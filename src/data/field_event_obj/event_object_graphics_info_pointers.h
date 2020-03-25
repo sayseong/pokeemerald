@@ -181,6 +181,7 @@ const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Kyogre2;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Groudon2;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Rayquaza2;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Zigzagoon;
+const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Growlithe;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Pikachu;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Azumarill;
 const struct EventObjectGraphicsInfo gEventObjectGraphicsInfo_Wingull;
@@ -339,7 +340,7 @@ const struct EventObjectGraphicsInfo *const gEventObjectGraphicsInfoPointers[] =
     [EVENT_OBJ_GFX_CHRIS] =                    &gEventObjectGraphicsInfo_Chris,
     [EVENT_OBJ_GFX_MARIA] =                    &gEventObjectGraphicsInfo_Maria,
     [EVENT_OBJ_GFX_CHRISTIAN] =                &gEventObjectGraphicsInfo_Christian,
-    [EVENT_OBJ_GFX_MINNA] =                   &gEventObjectGraphicsInfo_Minna,
+    [EVENT_OBJ_GFX_MINNA] =                    &gEventObjectGraphicsInfo_Minna,
     [EVENT_OBJ_GFX_DAN] =                      &gEventObjectGraphicsInfo_Dan,
     [EVENT_OBJ_GFX_MATHIAS] =                  &gEventObjectGraphicsInfo_Mathias,
     [EVENT_OBJ_GFX_LEONARD] =                  &gEventObjectGraphicsInfo_Leonard,
@@ -395,6 +396,7 @@ const struct EventObjectGraphicsInfo *const gEventObjectGraphicsInfoPointers[] =
     [EVENT_OBJ_GFX_GROUDON_2] =                &gEventObjectGraphicsInfo_Groudon2,
     [EVENT_OBJ_GFX_RAYQUAZA_2] =               &gEventObjectGraphicsInfo_Rayquaza2,
     [EVENT_OBJ_GFX_ZIGZAGOON_2] =              &gEventObjectGraphicsInfo_Zigzagoon,
+    [EVENT_OBJ_GFX_GROWLITHE] =                &gEventObjectGraphicsInfo_Growlithe,
     [EVENT_OBJ_GFX_PIKACHU] =                  &gEventObjectGraphicsInfo_Pikachu,
     [EVENT_OBJ_GFX_AZUMARILL] =                &gEventObjectGraphicsInfo_Azumarill,
     [EVENT_OBJ_GFX_WINGULL] =                  &gEventObjectGraphicsInfo_Wingull,

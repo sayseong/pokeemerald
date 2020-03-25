@@ -1,5 +1,5 @@
-Route102_EventScript_ItemPotion:: @ 8290CD8
-	finditem ITEM_POTION
+Route101_EventScript_ItemPokeBall:: @ 8290CD8
+	finditem ITEM_POKE_BALL 5
 	end
 
 Route103_EventScript_ItemGuardSpec:: @ 8290CE5
@@ -10,8 +10,8 @@ Route103_EventScript_ItemPPUp:: @ 8290CF2
 	finditem ITEM_PP_UP
 	end
 
-Route102_EventScript_ItemPPUp:: @ 8290CFF
-	finditem ITEM_PP_UP
+AlcorTunnel_EventScript_ItemPotion:: @ 8290CFF
+	finditem ITEM_POTION 2
 	end
 
 Route104_EventScript_ItemPokeBall:: @ 8290D0C
@@ -26,8 +26,8 @@ Route104_EventScript_ItemPotion:: @ 8290D26
 	finditem ITEM_POTION
 	end
 
-Route105_EventScript_ItemIron:: @ 8290D33
-	finditem ITEM_IRON
+AlcorTunnel_EventScript_ItemHardStone:: @ 8290D33
+	finditem ITEM_HARD_STONE
 	end
 
 Route106_EventScript_ItemProtein:: @ 8290D40
@@ -38,7 +38,7 @@ Route108_EventScript_ItemStarPiece:: @ 8290D4D
 	finditem ITEM_STAR_PIECE
 	end
 
-Route109_EventScript_ItemPPUp:: @ 8290D5A
+Route102_EventScript_ItemPPUp:: @ 8290D5A
 	finditem ITEM_PP_UP
 	end
 
@@ -126,8 +126,8 @@ Route115_EventScript_ItemPPUp:: @ 8290E6B
 	finditem ITEM_PP_UP
 	end
 
-Route116_EventScript_ItemXSpecial:: @ 8290E78
-	finditem ITEM_X_SP_ATK
+EnifCity_EventScript_ItemMetalCoat:: @ 8290E78
+	finditem ITEM_METAL_COAT
 	end
 
 Route116_EventScript_ItemEther:: @ 8290E85

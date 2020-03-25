@@ -60,6 +60,7 @@ const struct SpriteFrameImage gTrainerBackPicTable_May[] =
     gTrainerBackPic_May + 0x0800, 0x0800,
     gTrainerBackPic_May + 0x1000, 0x0800,
     gTrainerBackPic_May + 0x1800, 0x0800,
+    gTrainerBackPic_May + 0x2000, 0x0800,
 };
 
 const struct SpriteFrameImage gTrainerBackPicTable_Red[] =

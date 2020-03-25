@@ -108,7 +108,7 @@
 #define TRAINER_PIC_PYRAMID_KING_BRANDON  88
 #define TRAINER_PIC_RED                   89
 #define TRAINER_PIC_LEAF                  90
-#define TRAINER_PIC_RS_BRENDAN            91
+#define TRAINER_PIC_MAGMA_GRUNT_DUO       91
 #define TRAINER_PIC_RS_MAY                92
 
 #define TRAINER_BACK_PIC_BRENDAN                0

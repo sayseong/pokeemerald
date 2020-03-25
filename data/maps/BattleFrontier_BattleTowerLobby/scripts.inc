@@ -16,13 +16,13 @@ BattleFrontier_BattleTowerLobby_OnTransition: @ 823E694
 	goto_if_eq BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice
 	goto_if_set FLAG_DAILY_APPRENTICE_LEAVES, BattleFrontier_BattleTowerLobby_EventScript_HideApprentice
 BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice:: @ 823E6B5
-	clearflag FLAG_HIDE_APPRENTICE
+	clearflag FLAG_HIDE_ENIF_CITY_PIDGEY
 	apprentice_setgfx
 BattleFrontier_BattleTowerLobby_EventScript_EndShowOrHideApprentice:: @ 823E6C0
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_HideApprentice:: @ 823E6C1
-	setflag FLAG_HIDE_APPRENTICE
+	setflag FLAG_HIDE_ENIF_CITY_PIDGEY
 	goto BattleFrontier_BattleTowerLobby_EventScript_EndShowOrHideApprentice
 
 BattleFrontier_BattleTowerLobby_OnWarp: @ 823E6C9

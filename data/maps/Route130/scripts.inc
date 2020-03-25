@@ -14,9 +14,9 @@ Zaurak_Bridge_SetState::
 Zaurak_Bridge_Conversation:: @ 82078F3
 	checkplayergender
 	compare VAR_RESULT, MALE
-	goto_if_eq Zaurak_Bridge_Conversation_Kate
-	compare VAR_RESULT, FEMALE
 	goto_if_eq Zaurak_Bridge_Conversation_Derek
+	compare VAR_RESULT, FEMALE
+	goto_if_eq Zaurak_Bridge_Conversation_Kate
 	end
 	
 Zaurak_Bridge_Conversation_Derek::
@@ -26,9 +26,9 @@ Zaurak_Bridge_Conversation_Derek::
 	destroy_field_pic 1, VAR_0x8008
 	destroy_field_pic 4, VAR_0x8009
 	switch VAR_STARTER_MON
-	case 0, Zaurak_Bridge_StartDerekBattleSnivy
-	case 1, Zaurak_Bridge_StartDerekBattleTorchic
-	case 2, Zaurak_Bridge_StartDerekBattleFroakie
+	case 0, Zaurak_Bridge_StartKateBattleSnivy
+	case 1, Zaurak_Bridge_StartKateBattleTorchic
+	case 2, Zaurak_Bridge_StartKateBattleFroakie
 	return
 	
 Zaurak_Bridge_Conversation_Kate::	
@@ -38,9 +38,9 @@ Zaurak_Bridge_Conversation_Kate::
 	destroy_field_pic 3, VAR_0x8008
 	destroy_field_pic 2, VAR_0x8009
 	switch VAR_STARTER_MON,
-	case 0, Zaurak_Bridge_StartKateBattleSnivy
-	case 1, Zaurak_Bridge_StartKateBattleTorchic
-	case 2, Zaurak_Bridge_StartKateBattleFroakie
+	case 0, Zaurak_Bridge_StartDerekBattleSnivy
+	case 1, Zaurak_Bridge_StartDerekBattleTorchic
+	case 2, Zaurak_Bridge_StartDerekBattleFroakie
 	return
 
 Zaurak_Bridge_StartDerekBattleSnivy::

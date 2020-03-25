@@ -71,6 +71,7 @@ Route_1_After_Lesson::
 	applymovement 2, Jumping_In_Excitement
 	waitmovement 0
 	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceRight
+	waitmovement 0
 	checkplayergender
 	compare VAR_RESULT, MALE
 	call_if_eq Route_1_Player_Choose_Starter_Derek
@@ -78,7 +79,7 @@ Route_1_After_Lesson::
 	call_if_eq Route_1_Player_Choose_Starter_Kate
 	removeobject 3
 	removeobject 4	
-	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+	setflag FLAG_HIDE_DENEB_NICK_AND_CARLY
 	special ChooseStarter
 	waitstate
 	setflag FLAG_SYS_POKEMON_GET
@@ -134,31 +135,27 @@ Route_1_Teala_Lesson_Kate::
 	return
 
 Route_1_About_To_Receive_Pokemon_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 3, 80, 83, VAR_0x800A
+	load_field_pic 7, 40, 83, VAR_0x8008
 	load_field_pic 5, 200, 83, VAR_0x8009
 	msgbox Route_1_Receiving_Pokemon_Derek, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 3, VAR_0x800A
+	destroy_field_pic 7, VAR_0x8008
 	destroy_field_pic 5, VAR_0x8009
 	return
 
 Route_1_About_To_Receive_Pokemon_Kate::
-	load_field_pic 1, 80, 83, VAR_0x800A
-	load_field_pic 3, 40, 83, VAR_0x8008
+	load_field_pic 6, 40, 83, VAR_0x8008
 	load_field_pic 5, 200, 83, VAR_0x8009
 	msgbox Route_1_Receiving_Pokemon_Kate, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x800A
-	destroy_field_pic 3, VAR_0x8008
+	destroy_field_pic 6, VAR_0x8008
 	destroy_field_pic 5, VAR_0x8009
 	return
 
 Route_1_Player_Choose_Starter_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8009
-	load_field_pic 4, 200, 83, VAR_0x8008
+	load_field_pic 1, 40, 83, VAR_0x8008
+	load_field_pic 4, 200, 83, VAR_0x8009
 	msgbox Rival_Gives_First_Choice, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8009
-	destroy_field_pic 4, VAR_0x8008
+	destroy_field_pic 1, VAR_0x8008
+	destroy_field_pic 4, VAR_0x8009
 	return
 	
 Route_1_Player_Choose_Starter_Kate::

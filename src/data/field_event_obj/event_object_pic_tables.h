@@ -961,6 +961,18 @@ const struct SpriteFrameImage gEventObjectPicTable_EnemyZigzagoon[] = {
     overworld_frame(gEventObjectPic_EnemyZigzagoon, 4, 4, 8),
 };
 
+const struct SpriteFrameImage gEventObjectPicTable_Growlithe[] = {
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 0),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 1),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 2),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 3),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 4),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 5),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 6),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 7),
+    overworld_frame(gEventObjectPic_Growlithe, 4, 4, 8),
+};
+
 const struct SpriteFrameImage gEventObjectPicTable_Poochyena[] = {
     overworld_frame(gEventObjectPic_Poochyena, 4, 4, 0),
     overworld_frame(gEventObjectPic_Poochyena, 4, 4, 1),

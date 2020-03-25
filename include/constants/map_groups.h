@@ -122,31 +122,23 @@
 #define MAP_PACIFIDLOG_TOWN_HOUSE5            (6 | (7 << 8))
 
 // Map Group 8
-#define MAP_PETALBURG_CITY_WALLYS_HOUSE      (0 | (8 << 8))
-#define MAP_PETALBURG_CITY_GYM               (1 | (8 << 8))
-#define MAP_PETALBURG_CITY_HOUSE1            (2 | (8 << 8))
-#define MAP_PETALBURG_CITY_HOUSE2            (3 | (8 << 8))
-#define MAP_PETALBURG_CITY_POKEMON_CENTER_1F (4 | (8 << 8))
-#define MAP_PETALBURG_CITY_POKEMON_CENTER_2F (5 | (8 << 8))
-#define MAP_PETALBURG_CITY_MART              (6 | (8 << 8))
-#define MAP_PETALBURG_CITY_HOUSE             (7 | (8 << 8))
-#define MAP_PETALBURG_CITY_HOUSE3            (8 | (8 << 8))
+#define MAP_DENEB_MART          (0 | (8 << 8))
+#define MAP_DENEB_PLAYERS_HOUSE (1 | (8 << 8))
+#define MAP_DENEB_HOUSE1        (2 | (8 << 8))
+#define MAP_DENEB_HOUSE2        (3 | (8 << 8))
+#define MAP_DENEB_HOUSE3        (4 | (8 << 8))
+#define MAP_DENEB_HOUSE4        (5 | (8 << 8))
+#define MAP_DENEB_CLASSROOM     (6 | (8 << 8))
 
 // Map Group 9
-#define MAP_SLATEPORT_CITY_STERNS_SHIPYARD_1F      (0 | (9 << 8))
-#define MAP_SLATEPORT_CITY_STERNS_SHIPYARD_2F      (1 | (9 << 8))
-#define MAP_SLATEPORT_CITY_BATTLE_TENT_LOBBY       (2 | (9 << 8))
-#define MAP_SLATEPORT_CITY_BATTLE_TENT_CORRIDOR    (3 | (9 << 8))
-#define MAP_SLATEPORT_CITY_BATTLE_TENT_BATTLE_ROOM (4 | (9 << 8))
-#define MAP_SLATEPORT_CITY_NAME_RATERS_HOUSE       (5 | (9 << 8))
-#define MAP_SLATEPORT_CITY_POKEMON_FAN_CLUB        (6 | (9 << 8))
-#define MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_1F       (7 | (9 << 8))
-#define MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_2F       (8 | (9 << 8))
-#define MAP_SLATEPORT_CITY_HARBOR                  (9 | (9 << 8))
-#define MAP_SLATEPORT_CITY_HOUSE                   (10 | (9 << 8))
-#define MAP_SLATEPORT_CITY_POKEMON_CENTER_1F       (11 | (9 << 8))
-#define MAP_SLATEPORT_CITY_POKEMON_CENTER_2F       (12 | (9 << 8))
-#define MAP_SLATEPORT_CITY_MART                    (13 | (9 << 8))
+#define MAP_ZAURAK_CITY_STATION      (0 | (9 << 8))
+#define MAP_ZAURAK_CITY_LAB          (1 | (9 << 8))
+#define MAP_ZAURAK_CITY_HAZEL_LAB    (2 | (9 << 8))
+#define MAP_ZAURAK_CITY_HOTEL        (3 | (9 << 8))
+#define MAP_ZAURAK_CITY_HOUSE        (4 | (9 << 8))
+#define MAP_ZAURAK_CITY_APARTMENT_1F (5 | (9 << 8))
+#define MAP_ZAURAK_CITY_APARTMENT_2F (6 | (9 << 8))
+#define MAP_ZAURAK_CITY_APARTMENT_3F (7 | (9 << 8))
 
 // Map Group 10
 #define MAP_MAUVILLE_CITY_GYM               (0 | (10 << 8))
@@ -268,8 +260,7 @@
 #define MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP (1 | (17 << 8))
 
 // Map Group 18
-#define MAP_ROUTE111_WINSTRATE_FAMILYS_HOUSE (0 | (18 << 8))
-#define MAP_ROUTE111_OLD_LADYS_REST_STOP     (1 | (18 << 8))
+#define MAP_ROUTE11_FISHERMANS_LODGE (0 | (18 << 8))
 
 // Map Group 19
 #define MAP_ROUTE112_CABLE_CAR_STATION   (0 | (19 << 8))

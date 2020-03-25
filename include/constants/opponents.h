@@ -3,9 +3,9 @@
 
 #define TRAINER_NONE                          0
 #define TRAINER_SAWYER_1                      1
-#define TRAINER_GRUNT_AQUA_HIDEOUT_1          2
-#define TRAINER_GRUNT_AQUA_HIDEOUT_2          3
-#define TRAINER_GRUNT_AQUA_HIDEOUT_3          4
+#define TRAINER_GRUNT_BLACK_SERAPH_ALCOR_TUNNEL_DOUBLE          2
+#define TRAINER_GRUNT_BLACK_SERAPH_ALCOR_TUNNEL_SINGLE1          3
+#define TRAINER_GRUNT_BLACK_SERAPH_ALCOR_TUNNEL_SINGLE2          4
 #define TRAINER_GRUNT_AQUA_HIDEOUT_4          5
 #define TRAINER_GRUNT_SEAFLOOR_CAVERN_1       6
 #define TRAINER_GRUNT_SEAFLOOR_CAVERN_2       7
@@ -854,13 +854,14 @@
 #define TRAINER_EVERETT                     850
 #define TRAINER_RED                         851
 #define TRAINER_LEAF                        852
-#define TRAINER_DEREK_PLACEHOLDER         853
+#define TRAINER_DEREK_PLACEHOLDER           853
 #define TRAINER_MAY_PLACEHOLDER             854
+#define TRAINER_CLAIR_ROUTE_02              855
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 
-#define TRAINERS_COUNT                      855
+#define TRAINERS_COUNT                      856
 #define MAX_TRAINERS_COUNT                  864
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

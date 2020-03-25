@@ -407,8 +407,8 @@ $(EVENTOBJGFXDIR)/people/youngster.4bpp: %.4bpp: %.png
 $(EVENTOBJGFXDIR)/pokemon/azumarill.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
-$(EVENTOBJGFXDIR)/pokemon/azurill.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 2 -mheight 2
+$(EVENTOBJGFXDIR)/pokemon/growlithe.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
 
 $(EVENTOBJGFXDIR)/pokemon/bonded_alakazam.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
@@ -464,7 +464,7 @@ $(EVENTOBJGFXDIR)/pokemon/vigoroth.4bpp: %.4bpp: %.png
 $(EVENTOBJGFXDIR)/pokemon/wingull.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
-$(EVENTOBJGFXDIR)/pokemon/zigzagoon.4bpp: %.4bpp: %.png
+$(EVENTOBJGFXDIR)/pokemon/pidgey.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
 

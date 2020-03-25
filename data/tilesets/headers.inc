@@ -841,3 +841,14 @@ gTileset_general_fall::
 	.4byte gMetatiles_general_fall
 	.4byte gMetatileAttributes_general_fall
 	.4byte InitTilesetAnim_General_Fall
+
+	.align 2
+gTileset_Interior_Steel::
+	.byte TRUE @ is compressed
+	.byte TRUE @ is secondary
+	.2byte 0
+	.4byte gTilesetTiles_Interior_Steel
+	.4byte gTilesetPalettes_Interior_Steel
+	.4byte gMetatiles_Interior_Steel
+	.4byte gMetatileAttributes_Interior_Steel
+	.4byte NULL

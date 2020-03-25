@@ -2610,7 +2610,7 @@ static u8* AddTextPrinterAndCreateWindowOnHealthbox(const u8 *str, u32 x, u32 y,
     winId = AddWindow(&winTemplate);
     FillWindowPixelBuffer(winId, PIXEL_FILL(bgColor));
 
-        color[0] = 0;
+        color[0] = bgColor;
         color[1] = 1;
         color[2] = 3;
 

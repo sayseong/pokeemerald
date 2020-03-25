@@ -55,7 +55,7 @@
         },
         {
             "elevation": 0,
-            "flag": "FLAG_HIDE_POKEMON_CENTER_2F_MYSTERY_GIFT_MAN",
+            "flag": "FLAG_ENIF_CITY_PIDGEY_FED",
             "graphics_id": "EVENT_OBJ_GFX_MYSTERY_GIFT_MAN",
             "movement_range_x": 1,
             "movement_range_y": 1,
