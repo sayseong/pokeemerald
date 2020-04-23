@@ -14,7 +14,7 @@
         },
         {
             "elevation": 0,
-            "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_1_GREEN_SHARD",
+            "flag": "FLAG_HIDDEN_ITEM_VOLTAIC_CAVERNS_THUNDERSTONE",
             "item": "ITEM_GREEN_SHARD",
             "type": "hidden_item",
             "x": 14,

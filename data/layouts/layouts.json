@@ -293,7 +293,7 @@
         {
             "blockdata_filepath": "data/layouts/Route114/map.bin",
             "border_filepath": "data/layouts/Route114/border.bin",
-            "height": 50,
+            "height": 51,
             "id": "LAYOUT_ROUTE114",
             "name": "Route114_Layout",
             "primary_tileset": "gTileset_General",
@@ -473,12 +473,12 @@
         {
             "blockdata_filepath": "data/layouts/Route132/map.bin",
             "border_filepath": "data/layouts/Route132/border.bin",
-            "height": 40,
+            "height": 60,
             "id": "LAYOUT_ROUTE132",
             "name": "Route132_Layout",
             "primary_tileset": "gTileset_General",
             "secondary_tileset": "gTileset_Pacifidlog",
-            "width": 80
+            "width": 40
         },
         {
             "blockdata_filepath": "data/layouts/Route133/map.bin",
@@ -1343,12 +1343,12 @@
         {
             "blockdata_filepath": "data/layouts/PetalburgWoods/map.bin",
             "border_filepath": "data/layouts/PetalburgWoods/border.bin",
-            "height": 44,
+            "height": 60,
             "id": "LAYOUT_PETALBURG_WOODS",
             "name": "PetalburgWoods_Layout",
             "primary_tileset": "gTileset_General",
             "secondary_tileset": "gTileset_Rustboro",
-            "width": 48
+            "width": 80
         },
         {
             "blockdata_filepath": "data/layouts/MtChimney/map.bin",
@@ -4569,6 +4569,156 @@
             "primary_tileset": "gTileset_general_fall",
             "secondary_tileset": "gTileset_Petalburg",
             "width": 5
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_PokemonCenter/map.bin",
+            "border_filepath": "data/layouts/SarinCity_PokemonCenter/border.bin",
+            "height": 9,
+            "id": "LAYOUT_SARIN_CITY_POKEMON_CENTER",
+            "name": "SarinCity_PokemonCenter_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_PokemonCenter",
+            "width": 14
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_Chris_House/map.bin",
+            "border_filepath": "data/layouts/SarinCity_Chris_House/border.bin",
+            "height": 8,
+            "id": "LAYOUT_SARIN_CITY_CHRIS_HOUSE",
+            "name": "SarinCity_Chris_House_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_Chris_Bedrooms/map.bin",
+            "border_filepath": "data/layouts/SarinCity_Chris_Bedrooms/border.bin",
+            "height": 8,
+            "id": "LAYOUT_SARIN_CITY_CHRIS_BEDROOMS",
+            "name": "SarinCity_Chris_Bedrooms_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 10
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_Herb_Shop/map.bin",
+            "border_filepath": "data/layouts/SarinCity_Herb_Shop/border.bin",
+            "height": 6,
+            "id": "LAYOUT_SARIN_CITY_HERB_SHOP",
+            "name": "SarinCity_Herb_Shop_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_House1/map.bin",
+            "border_filepath": "data/layouts/SarinCity_House1/border.bin",
+            "height": 6,
+            "id": "LAYOUT_SARIN_CITY_HOUSE1",
+            "name": "SarinCity_House1_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_House2/map.bin",
+            "border_filepath": "data/layouts/SarinCity_House2/border.bin",
+            "height": 6,
+            "id": "LAYOUT_SARIN_CITY_HOUSE2",
+            "name": "SarinCity_House2_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_BigHouse/map.bin",
+            "border_filepath": "data/layouts/SarinCity_BigHouse/border.bin",
+            "height": 8,
+            "id": "LAYOUT_SARIN_CITY_BIG_HOUSE",
+            "name": "SarinCity_BigHouse_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_BigHouse_2F/map.bin",
+            "border_filepath": "data/layouts/SarinCity_BigHouse_2F/border.bin",
+            "height": 6,
+            "id": "LAYOUT_SARIN_CITY_BIG_HOUSE_2F",
+            "name": "SarinCity_BigHouse_2F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/SarinCity_Berry_Forest/map.bin",
+            "border_filepath": "data/layouts/SarinCity_Berry_Forest/border.bin",
+            "height": 20,
+            "id": "LAYOUT_SARIN_CITY_BERRY_FOREST",
+            "name": "SarinCity_Berry_Forest_Layout",
+            "primary_tileset": "gTileset_General",
+            "secondary_tileset": "gTileset_Petalburg",
+            "width": 30
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route105_House/map.bin",
+            "border_filepath": "data/layouts/Route105_House/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ROUTE105_HOUSE",
+            "name": "Route105_House_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 10
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route3_House/map.bin",
+            "border_filepath": "data/layouts/Route3_House/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ROUTE3_HOUSE",
+            "name": "Route3_House_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route3_House_2F/map.bin",
+            "border_filepath": "data/layouts/Route3_House_2F/border.bin",
+            "height": 6,
+            "id": "LAYOUT_ROUTE3_HOUSE_2F",
+            "name": "Route3_House_2F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route2_House_1F/map.bin",
+            "border_filepath": "data/layouts/Route2_House_1F/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ROUTE2_HOUSE_1F",
+            "name": "Route2_House_1F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/Route2_House_2F/map.bin",
+            "border_filepath": "data/layouts/Route2_House_2F/border.bin",
+            "height": 6,
+            "id": "LAYOUT_ROUTE2_HOUSE_2F",
+            "name": "Route2_House_2F_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Wood",
+            "width": 8
+        },
+        {
+            "blockdata_filepath": "data/layouts/Antares_City_House1/map.bin",
+            "border_filepath": "data/layouts/Antares_City_House1/border.bin",
+            "height": 8,
+            "id": "LAYOUT_ANTARES_CITY_HOUSE1",
+            "name": "Antares_City_House1_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Brick",
+            "width": 12
         }
     ],
     "layouts_table_label": "gMapLayouts"

@@ -1769,3 +1769,43 @@ gTilesetPalettes_Interior_Steel::
 	.align 2
 gTilesetTiles_Interior_Steel::
 	.incbin "data/tilesets/secondary/interior_steel/tiles.4bpp.lz"
+
+	.align 2
+gTilesetPalettes_Interior_Wood::
+	.incbin "data/tilesets/secondary/interior_wood/palettes/00.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/01.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/02.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/03.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/04.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/05.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/06.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/07.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/08.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/09.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/10.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/11.gbapal"
+	.incbin "data/tilesets/secondary/interior_wood/palettes/12.gbapal"
+
+	.align 2
+gTilesetTiles_Interior_Wood::
+	.incbin "data/tilesets/secondary/interior_wood/tiles.4bpp.lz"
+
+	.align 2
+gTilesetPalettes_Interior_Brick::
+	.incbin "data/tilesets/secondary/interior_brick/palettes/00.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/01.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/02.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/03.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/04.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/05.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/06.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/07.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/08.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/09.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/10.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/11.gbapal"
+	.incbin "data/tilesets/secondary/interior_brick/palettes/12.gbapal"
+
+	.align 2
+gTilesetTiles_Interior_Brick::
+	.incbin "data/tilesets/secondary/interior_brick/tiles.4bpp.lz"

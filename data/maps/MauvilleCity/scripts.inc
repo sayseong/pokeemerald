@@ -74,6 +74,7 @@ Enif_City_Player_Has_Oran_Berry:: @ 8270AB8
 
 Enif_City_Pidgey_Fed::
 	lock
+	faceplayer
 	waitse
 	playmoncry SPECIES_PIDGEY, 0
 	msgbox Enif_City_Pidgey_Fed_Text, MSGBOX_YESNO
@@ -138,6 +139,8 @@ Enif_city_Pidgey_Recieved_Fanfare:: @ 8211AC4
 	
 Enif_City_Finish_Recieving_Pidgey::	
 	setflag FLAG_HIDE_ENIF_CITY_PIDGEY
+	clearflag FLAG_ENIF_CITY_PIDGEY_FED
+	closemessage
 	end
 	
 ResPoint_Talk:

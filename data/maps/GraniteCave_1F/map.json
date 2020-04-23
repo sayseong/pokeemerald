@@ -4,6 +4,14 @@
     "allow_running": true,
     "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
     "bg_events": [
+        {
+            "elevation": 3,
+            "flag": "FLAG_HIDDEN_ITEM_VOLTAIC_CAVERNS_THUNDERSTONE",
+            "item": "ITEM_THUNDER_STONE",
+            "type": "hidden_item",
+            "x": 7,
+            "y": 33
+        }
     ],
     "connections": null,
     "coord_events": [

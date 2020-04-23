@@ -60,7 +60,7 @@
     "warp_events": [
         {
             "dest_map": "MAP_ZAURAK_CITY_APARTMENT_1F",
-            "dest_warp_id": 0,
+            "dest_warp_id": 2,
             "elevation": 0,
             "x": 1,
             "y": 1

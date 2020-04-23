@@ -852,3 +852,25 @@ gTileset_Interior_Steel::
 	.4byte gMetatiles_Interior_Steel
 	.4byte gMetatileAttributes_Interior_Steel
 	.4byte NULL
+
+	.align 2
+gTileset_Interior_Wood::
+	.byte TRUE @ is compressed
+	.byte TRUE @ is secondary
+	.2byte 0
+	.4byte gTilesetTiles_Interior_Wood
+	.4byte gTilesetPalettes_Interior_Wood
+	.4byte gMetatiles_Interior_Wood
+	.4byte gMetatileAttributes_Interior_Wood
+	.4byte NULL
+
+	.align 2
+gTileset_Interior_Brick::
+	.byte TRUE @ is compressed
+	.byte TRUE @ is secondary
+	.2byte 0
+	.4byte gTilesetTiles_Interior_Brick
+	.4byte gTilesetPalettes_Interior_Brick
+	.4byte gMetatiles_Interior_Brick
+	.4byte gMetatileAttributes_Interior_Brick
+	.4byte NULL

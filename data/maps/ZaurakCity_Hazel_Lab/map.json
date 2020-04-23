@@ -52,6 +52,19 @@
             "trainer_type": "0",
             "x": 10,
             "y": 10
+        },
+        {
+            "elevation": 3,
+            "flag": "FLAG_HIDE_ZAURAK_LAB_RIVAL",
+            "graphics_id": "EVENT_OBJ_GFX_VAR_0",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_FACE_UP",
+            "script": "0X0",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 5,
+            "y": 7
         }
     ],
     "region_map_section": "MAPSEC_SLATEPORT_CITY",

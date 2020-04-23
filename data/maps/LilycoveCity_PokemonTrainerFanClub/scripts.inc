@@ -111,7 +111,6 @@ LilycoveCity_PokemonTrainerFanClub_EventScript_HideOrShowInterviewer:: @ 821C8DA
 	specialvar VAR_RESULT, ShouldHideFanClubInterviewer
 	compare VAR_RESULT, TRUE
 	goto_if_eq LilycoveCity_PokemonTrainerFanClub_EventScript_HideInterviewer
-	clearflag FLAG_HIDE_ALCOR_TUNNEL_GRUNTS
 	clearflag FLAG_FAN_CLUB_STRENGTH_SHARED
 	return
 

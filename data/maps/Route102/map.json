@@ -169,6 +169,13 @@
             "elevation": 0,
             "x": 8,
             "y": 9
+        },
+        {
+            "dest_map": "MAP_ROUTE2_HOUSE_1F",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 14,
+            "y": 66
         }
     ],
     "weather": "WEATHER_SUNNY"

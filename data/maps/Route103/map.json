@@ -9,8 +9,8 @@
             "flag": "FLAG_HIDDEN_ITEM_ROUTE_103_ORAN_BERRY",
             "item": "ITEM_ORAN_BERRY",
             "type": "hidden_item",
-            "x": 55,
-            "y": 17
+            "x": 63,
+            "y": 5
         }
     ],
     "connections": [
@@ -45,12 +45,45 @@
             "trainer_type": "0",
             "x": 38,
             "y": 5
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_GIRL_3",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "NULL",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 47,
+            "y": 15
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_LITTLE_GIRL",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "NULL",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 48,
+            "y": 15
         }
     ],
     "region_map_section": "MAPSEC_ROUTE_103",
     "requires_flash": false,
     "show_map_name": true,
     "warp_events": [
+        {
+            "dest_map": "MAP_ROUTE3_HOUSE",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 28,
+            "y": 22
+        }
     ],
     "weather": "WEATHER_SUNNY"
 }

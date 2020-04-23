@@ -20,8 +20,8 @@
     "show_map_name": true,
     "warp_events": [
         {
-            "dest_map": "MAP_GRANITE_CAVE_B2F",
-            "dest_warp_id": 4,
+            "dest_map": "MAP_GRANITE_CAVE_1F",
+            "dest_warp_id": 2,
             "elevation": 3,
             "x": 3,
             "y": 3

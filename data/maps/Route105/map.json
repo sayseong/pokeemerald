@@ -25,6 +25,45 @@
     "music": "MUS_NEXTROAD",
     "name": "Route105",
     "object_events": [
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_CLAIR",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "NULL",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 32,
+            "y": 18
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_BREAKABLE_ROCK",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "EventScript_RockSmash",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 17,
+            "y": 13
+        },
+        {
+            "elevation": 3,
+            "flag": "0",
+            "graphics_id": "EVENT_OBJ_GFX_BREAKABLE_ROCK",
+            "movement_range_x": 0,
+            "movement_range_y": 0,
+            "movement_type": "MOVEMENT_TYPE_NONE",
+            "script": "EventScript_RockSmash",
+            "trainer_sight_or_berry_tree_id": "0",
+            "trainer_type": "0",
+            "x": 16,
+            "y": 12
+        }
     ],
     "region_map_section": "MAPSEC_ROUTE_105",
     "requires_flash": false,
@@ -50,6 +89,27 @@
             "elevation": 0,
             "x": 15,
             "y": 6
+        },
+        {
+            "dest_map": "MAP_PETALBURG_WOODS",
+            "dest_warp_id": 6,
+            "elevation": 0,
+            "x": 42,
+            "y": 34
+        },
+        {
+            "dest_map": "MAP_PETALBURG_WOODS",
+            "dest_warp_id": 7,
+            "elevation": 0,
+            "x": 43,
+            "y": 34
+        },
+        {
+            "dest_map": "MAP_ROUTE105_HOUSE",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 44,
+            "y": 15
         }
     ],
     "weather": "WEATHER_SUNNY"

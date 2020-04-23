@@ -1,5 +1,5 @@
 MeteorFalls_B1F_1R_MapScripts:: @ 822CE25
-	map_script MAP_SCRIPT_ON_TRANSITION, AlcorTunnel_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, AlcorTunnel_OnTransition
 	.byte 0
 
 AlcorTunnel_OnTransition::
@@ -106,7 +106,7 @@ AlcorTunnel_Grunts_Single_Battle::
 	msgbox Alcor_Tunnel_Seraph_Grunts_Startled, MSGBOX_DEFAULT
 	applymovement 9, AlcorTunnel_Male_Grunt_To_Singles
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, AlcorTunnel_Camera_WalkDown
+	applymovement EVENT_OBJ_ID_CAMERA, AlcorTunnel_Camera_PanDown
 	waitmovement 0
 	special RemoveCameraObject
 	applymovement 255, Common_Movement_FaceRight
@@ -148,7 +148,13 @@ AlcorTunnel_Grunt_Single_Battle_2::
 	destroy_field_pic 10, VAR_0x8008
 	destroy_field_pic 9, VAR_0x8009
 	trainerbattle_no_intro TRAINER_GRUNT_BLACK_SERAPH_ALCOR_TUNNEL_SINGLE2, AlcorTunnel_BlackSeraph2_Defeated
-	call AlcorTunnel_BlackSeraphs_PostBattle_EventScript
+	call AlcorTunnel_BlackSeraphs_PostBattle_EventScript1
+	end
+
+AlcorTunnel_BlackSeraphs_PostBattle_EventScript1::
+	applymovement 9, AlcorTunnel_SingleGrunt_ToEscapePosition
+	waitmovement 0
+	goto AlcorTunnel_BlackSeraphs_PostBattle_EventScript
 	end
 
 AlcorTunnel_BlackSeraphs_PostBattle_EventScript::
@@ -181,7 +187,7 @@ AlcorTunnel_BlackSeraphs_PostBattle_EventScript::
 	removeobject 9
 	fadedefaultbgm
 	applymovement 7, AlcorTunnel_BoyWalks_To_You
-	applymovement 255, AlcorTunnel_Player_WalksUp
+	applymovement 255, AlcorTunnel_Player_Checks_Boy
 	waitmovement 0
 	msgbox AlcorTunnel_Saved_Boy_And_Growlithe, MSGBOX_DEFAULT
 	applymovement 7, Common_Movement_FaceDown
@@ -194,6 +200,20 @@ AlcorTunnel_BlackSeraphs_PostBattle_EventScript::
 	call AlcorTunnel_ExitOpened	
 	releaseall
 	end
+
+AlcorTunnel_Player_Checks_Boy:
+	walk_up
+	walk_right
+	face_up
+	step_end
+	
+
+AlcorTunnel_SingleGrunt_ToEscapePosition:
+	face_down
+	lock_facing_direction
+	walk_up
+	unlock_facing_direction
+	step_end
 
 AlcorTunnel_Boy_Eventscript::
 	faceplayer

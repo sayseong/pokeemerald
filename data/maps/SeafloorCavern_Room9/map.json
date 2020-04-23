@@ -103,7 +103,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE_2",
+            "flag": "FLAG_HIDE_ZAURAKCITY_RIVAL",
             "graphics_id": "EVENT_OBJ_GFX_KYOGRE_2",
             "movement_range_x": 1,
             "movement_range_y": 1,

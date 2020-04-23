@@ -4,6 +4,14 @@
     "allow_running": true,
     "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
     "bg_events": [
+        {
+            "elevation": 0,
+            "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+            "script": "SarinCity_HerbShop_Mailbox",
+            "type": "sign",
+            "x": 14,
+            "y": 24
+        }
     ],
     "connections": [
         {
@@ -30,6 +38,69 @@
     "requires_flash": false,
     "show_map_name": true,
     "warp_events": [
+        {
+            "dest_map": "MAP_SARIN_CITY_POKEMON_CENTER",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 24,
+            "y": 24
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_CHRIS_HOUSE",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 17,
+            "y": 10
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_CHRIS_HOUSE",
+            "dest_warp_id": 2,
+            "elevation": 0,
+            "x": 21,
+            "y": 9
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_HERB_SHOP",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 16,
+            "y": 24
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_HOUSE1",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 14,
+            "y": 33
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_HOUSE2",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 25,
+            "y": 33
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_BIG_HOUSE",
+            "dest_warp_id": 1,
+            "elevation": 0,
+            "x": 31,
+            "y": 33
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_BERRY_FOREST",
+            "dest_warp_id": 0,
+            "elevation": 0,
+            "x": 18,
+            "y": 2
+        },
+        {
+            "dest_map": "MAP_SARIN_CITY_BERRY_FOREST",
+            "dest_warp_id": 1,
+            "elevation": 0,
+            "x": 19,
+            "y": 2
+        }
     ],
     "weather": "WEATHER_SUNNY"
 }

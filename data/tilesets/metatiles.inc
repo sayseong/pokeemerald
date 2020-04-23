@@ -573,3 +573,17 @@ gMetatiles_Interior_Steel::
 	.align 1
 gMetatileAttributes_Interior_Steel::
 	.incbin "data/tilesets/secondary/interior_steel/metatile_attributes.bin"
+	.align 1
+gMetatiles_Interior_Wood::
+	.incbin "data/tilesets/secondary/interior_wood/metatiles.bin"
+
+	.align 1
+gMetatileAttributes_Interior_Wood::
+	.incbin "data/tilesets/secondary/interior_wood/metatile_attributes.bin"
+	.align 1
+gMetatiles_Interior_Brick::
+	.incbin "data/tilesets/secondary/interior_brick/metatiles.bin"
+
+	.align 1
+gMetatileAttributes_Interior_Brick::
+	.incbin "data/tilesets/secondary/interior_brick/metatile_attributes.bin"

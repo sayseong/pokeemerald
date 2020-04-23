@@ -92,7 +92,16 @@
         "RustboroCity_Flat2_1F",
         "RustboroCity_Flat2_2F",
         "RustboroCity_Flat2_3F",
-        "RustboroCity_House3"
+        "RustboroCity_House3",
+        "SarinCity_PokemonCenter",
+        "SarinCity_Chris_House",
+        "SarinCity_Chris_Bedrooms",
+        "SarinCity_Herb_Shop",
+        "SarinCity_House1",
+        "SarinCity_House2",
+        "SarinCity_BigHouse",
+        "SarinCity_BigHouse_2F",
+        "SarinCity_Berry_Forest"
     ],
     "gMapGroup12": [
         "FortreeCity_House1",
@@ -104,7 +113,8 @@
         "FortreeCity_House3",
         "FortreeCity_House4",
         "FortreeCity_House5",
-        "FortreeCity_DecorationShop"
+        "FortreeCity_DecorationShop",
+        "Antares_City_House1"
     ],
     "gMapGroup13": [
         "LilycoveCity_CoveLilyMotel_1F",
@@ -182,7 +192,12 @@
     ],
     "gMapGroup17": [
         "Route104_MrBrineysHouse",
-        "Route104_PrettyPetalFlowerShop"
+        "Route104_PrettyPetalFlowerShop",
+        "Route105_House",
+        "Route3_House",
+        "Route3_House_2F",
+        "Route2_House_1F",
+        "Route2_House_2F"
     ],
     "gMapGroup18": [
         "Route11_Fishermans_Lodge"

@@ -1,7 +1,7 @@
 {
     "allow_bike": false,
     "allow_escape_rope": false,
-    "allow_running": false,
+    "allow_running": true,
     "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
     "bg_events": [
     ],
@@ -84,13 +84,6 @@
             "elevation": 3,
             "x": 6,
             "y": 8
-        },
-        {
-            "dest_map": "MAP_FORTREE_CITY_POKEMON_CENTER_2F",
-            "dest_warp_id": 0,
-            "elevation": 4,
-            "x": 1,
-            "y": 6
         }
     ],
     "weather": "WEATHER_NONE"

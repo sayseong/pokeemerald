@@ -1068,3 +1068,33 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/ZaurakCity_Apartment_3F/scripts.inc"
 
 	.include "data/maps/Route11_Fishermans_Lodge/scripts.inc"
+
+	.include "data/maps/SarinCity_PokemonCenter/scripts.inc"
+
+	.include "data/maps/SarinCity_Chris_House/scripts.inc"
+
+	.include "data/maps/SarinCity_Chris_Bedrooms/scripts.inc"
+
+	.include "data/maps/SarinCity_Herb_Shop/scripts.inc"
+
+	.include "data/maps/SarinCity_House1/scripts.inc"
+
+	.include "data/maps/SarinCity_House2/scripts.inc"
+
+	.include "data/maps/SarinCity_BigHouse/scripts.inc"
+
+	.include "data/maps/SarinCity_BigHouse_2F/scripts.inc"
+
+	.include "data/maps/SarinCity_Berry_Forest/scripts.inc"
+
+	.include "data/maps/Route105_House/scripts.inc"
+
+	.include "data/maps/Route3_House/scripts.inc"
+
+	.include "data/maps/Route3_House_2F/scripts.inc"
+
+	.include "data/maps/Route2_House_1F/scripts.inc"
+
+	.include "data/maps/Route2_House_2F/scripts.inc"
+
+	.include "data/maps/Antares_City_House1/scripts.inc"
