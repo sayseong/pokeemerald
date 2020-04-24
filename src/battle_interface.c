@@ -2135,8 +2135,6 @@ static void UpdateStatusIconInHealthbox(u8 healthboxSpriteId)
         { 
             if (GetBattlerSide(battlerId) == B_SIDE_OPPONENT)
                 CpuCopy32(GetHealthboxElementGfxPtr(HEALTHBOX_GFX_36), (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 64);
-            else
-                CpuCopy32(GetHealthboxElementGfxPtr(HEALTHBOX_GFX_38), (void *)(OBJ_VRAM0 + gSprites[healthBarSpriteId].oam.tileNum * TILE_SIZE_4BPP), 64);
         }
         TryAddPokeballIconToHealthbox(healthboxSpriteId, TRUE);
         return;

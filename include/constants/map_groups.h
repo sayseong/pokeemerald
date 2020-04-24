@@ -168,6 +168,15 @@
 #define MAP_RUSTBORO_CITY_FLAT2_2F          (14 | (11 << 8))
 #define MAP_RUSTBORO_CITY_FLAT2_3F          (15 | (11 << 8))
 #define MAP_RUSTBORO_CITY_HOUSE3            (16 | (11 << 8))
+#define MAP_SARIN_CITY_POKEMON_CENTER       (17 | (11 << 8))
+#define MAP_SARIN_CITY_CHRIS_HOUSE          (18 | (11 << 8))
+#define MAP_SARIN_CITY_CHRIS_BEDROOMS       (19 | (11 << 8))
+#define MAP_SARIN_CITY_HERB_SHOP            (20 | (11 << 8))
+#define MAP_SARIN_CITY_HOUSE1               (21 | (11 << 8))
+#define MAP_SARIN_CITY_HOUSE2               (22 | (11 << 8))
+#define MAP_SARIN_CITY_BIG_HOUSE            (23 | (11 << 8))
+#define MAP_SARIN_CITY_BIG_HOUSE_2F         (24 | (11 << 8))
+#define MAP_SARIN_CITY_BERRY_FOREST         (25 | (11 << 8))
 
 // Map Group 12
 #define MAP_FORTREE_CITY_HOUSE1            (0 | (12 << 8))
@@ -180,6 +189,7 @@
 #define MAP_FORTREE_CITY_HOUSE4            (7 | (12 << 8))
 #define MAP_FORTREE_CITY_HOUSE5            (8 | (12 << 8))
 #define MAP_FORTREE_CITY_DECORATION_SHOP   (9 | (12 << 8))
+#define MAP_ANTARES_CITY_HOUSE1            (10 | (12 << 8))
 
 // Map Group 13
 #define MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F        (0 | (13 << 8))
@@ -258,6 +268,11 @@
 // Map Group 17
 #define MAP_ROUTE104_MR_BRINEYS_HOUSE         (0 | (17 << 8))
 #define MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP (1 | (17 << 8))
+#define MAP_ROUTE105_HOUSE                    (2 | (17 << 8))
+#define MAP_ROUTE3_HOUSE                      (3 | (17 << 8))
+#define MAP_ROUTE3_HOUSE_2F                   (4 | (17 << 8))
+#define MAP_ROUTE2_HOUSE_1F                   (5 | (17 << 8))
+#define MAP_ROUTE2_HOUSE_2F                   (6 | (17 << 8))
 
 // Map Group 18
 #define MAP_ROUTE11_FISHERMANS_LODGE (0 | (18 << 8))

@@ -3298,7 +3298,32 @@ static void PrintNotEggInfo(void)
             SetDexNumberColor(TRUE);
         }
     }
-    else if (summary->species >= 388)
+    else if (summary->species >= 388 || 
+             summary->species == 385 ||
+             summary->species == 384 ||
+             summary->species == 378 ||
+             summary->species == 343 ||
+             summary->species == 241 ||
+             summary->species == 193 ||
+             summary->species == 146 ||
+             summary->species == 145 ||
+             summary->species == 144 ||
+             summary->species == 122 ||
+             summary->species == 110 ||
+             summary->species == 42)
+    {
+        if (!IsMonShiny(mon))
+        {
+            SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, gText_Number2, 2, 1, 0, 0);
+            SetDexNumberColor(FALSE);
+        }
+        else
+        {
+            SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, gText_Number2, 2, 1, 0, 7);
+            SetDexNumberColor(TRUE);
+        } 
+    }
+    else if (summary->species >= 367)
     {
         if (!IsMonShiny(mon))
         {

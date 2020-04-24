@@ -539,7 +539,7 @@
 #define FLAG_HIDDEN_ITEMS_START                                                         0x1F4
 #define FLAG_HIDDEN_ITEM_LAKE_VEGA_TINYMUSHROOM              (FLAG_HIDDEN_ITEMS_START + 0x01)
 #define FLAG_HIDDEN_ITEM_ROUTE_103_ORAN_BERRY                 (FLAG_HIDDEN_ITEMS_START + 0x08)
-#define FLAG_HIDDEN_ITEM_UNDERWATER_1_GREEN_SHARD            (FLAG_HIDDEN_ITEMS_START + 0x09)
+#define FLAG_HIDDEN_ITEM_VOLTAIC_CAVERNS_THUNDERSTONE            (FLAG_HIDDEN_ITEMS_START + 0x09)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_PEARL                  (FLAG_HIDDEN_ITEMS_START + 0x0A)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_BIG_PEARL              (FLAG_HIDDEN_ITEMS_START + 0x0B)
 #define FLAG_HIDDEN_ITEM_UNDERWATER_1_HEART_SCALE_1          (FLAG_HIDDEN_ITEMS_START + 0x0D)
@@ -773,10 +773,10 @@
 #define FLAG_UNUSED_0x2D9                                           0x2D9 // Unused Flag
 
 #define FLAG_HIDE_ALCOR_TUNNEL_GRUNTS                               0x2DA
-#define FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT                          0x2DB
-#define FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1                    0x2DC
-#define FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE_2                   0x2DD
-#define FLAG_HIDE_PLAYERS_HOUSE_DAD                                 0x2DE
+#define FLAG_HIDE_ROUTE104_POKEMON                                  0x2DB
+#define FLAG_HIDE_ROUTE104_POOCHYENA                                0x2DC
+#define FLAG_HIDE_ZAURAKCITY_RIVAL                                  0x2DD
+#define FLAG_HIDE_ZAURAK_LAB_CLAIR_TOUR_SETUP                       0x2DE
 #define FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING      0x2DF
 #define FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING          0x2E0
 #define FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_MAGMA_NOTE             0x2E1
@@ -978,8 +978,8 @@
 #define FLAG_HIDE_FORTREE_CITY_HOUSE_4_WINGULL                      0x3A5
 #define FLAG_HIDE_MOSSDEEP_CITY_HOUSE_2_WINGULL                     0x3A6
 #define FLAG_HIDE_ROCKRUFF                                          0x3A7
-#define FLAG_HIDE_LYCANROC                                            0x3A8
-#define FLAG_HIDE_BONDED_AERODACTYL                                         0x3A9
+#define FLAG_HIDE_LYCANROC                                          0x3A8
+#define FLAG_HIDE_BONDED_AERODACTYL                                 0x3A9
 #define FLAG_HIDE_METEOR_FALLS_TEAM_AQUA                            0x3AA
 #define FLAG_HIDE_METEOR_FALLS_TEAM_MAGMA                           0x3AB
 #define FLAG_HIDE_DEWFORD_HALL_SLUDGE_BOMB_MAN                      0x3AC
@@ -1011,28 +1011,28 @@
 #define FLAG_HIDE_ROUTE_118_STEVEN                                  0x3C6
 #define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_STEVEN                0x3C7
 #define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_BELDUM_POKEBALL       0x3C8
-#define FLAG_HIDE_FORTREE_CITY_ROGGENROLA                              0x3C9
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_BRIDGE_INVISIBLE                0x3CA
+#define FLAG_HIDE_FORTREE_CITY_ROGGENROLA                           0x3C9
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_BRIDGE_INVISIBLE             0x3CA
 #define FLAG_HIDE_LILYCOVE_CITY_RIVAL                               0x3CB
 #define FLAG_HIDE_ROUTE_120_STEVEN                                  0x3CC
 #define FLAG_HIDE_SOOTOPOLIS_CITY_STEVEN                            0x3CD
 #define FLAG_HIDE_NEW_MAUVILLE_SCRAGGY_1                            0x3CE
 #define FLAG_HIDE_NEW_MAUVILLE_SCRAGGY_2                            0x3CF
 #define FLAG_HIDE_NEW_MAUVILLE_SCRAGGY_3                            0x3D0
-#define FLAG_HIDE_AQUA_HIDEOUT_B1F_SCRAFTY_1                      0x3D1
-#define FLAG_HIDE_AQUA_HIDEOUT_B1F_SCRAFTY_2                      0x3D2
+#define FLAG_HIDE_AQUA_HIDEOUT_B1F_SCRAFTY_1                        0x3D1
+#define FLAG_HIDE_AQUA_HIDEOUT_B1F_SCRAFTY_2                        0x3D2
 #define FLAG_HIDE_OLDALE_TOWN_RIVAL                                 0x3D3
 #define FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE      0x3D4
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_BRIDGE_VISIBLE                  0x3D5
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_1                               0x3D6
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_BRIDGE_VISIBLE               0x3D5
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_1                            0x3D6
 #define FLAG_HIDE_RUSTURF_TUNNEL_WANDA                              0x3D7
 #define FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDA                0x3D8
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_2                               0x3D9
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_3                               0x3DA
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_4                               0x3DB
-#define FLAG_HIDE_ROUTE_120_ROGGENROLA_5                               0x3DC
-#define FLAG_HIDE_ROUTE_119_ROGGENROLA_1                               0x3DD
-#define FLAG_HIDE_ROUTE_119_ROGGENROLA_2                               0x3DE
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_2                            0x3D9
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_3                            0x3DA
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_4                            0x3DB
+#define FLAG_HIDE_ROUTE_120_ROGGENROLA_5                            0x3DC
+#define FLAG_HIDE_ROUTE_119_ROGGENROLA_1                            0x3DD
+#define FLAG_HIDE_ROUTE_119_ROGGENROLA_2                            0x3DE
 #define FLAG_HIDE_ROUTE_101_BOY                                     0x3DF
 #define FLAG_HIDE_WEATHER_INSTITUTE_2F_AQUA_GRUNT_M                 0x3E0
 #define FLAG_HIDE_LILYCOVE_POKEMON_CENTER_CONTEST_LADY_MON          0x3E1
