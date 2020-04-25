@@ -384,7 +384,7 @@ AlcorTunnel_Boy_Gives_Charcoal:
 	.string "do after you saved Growlithe.$"
 
 AlcorTunnel_Growlithe:
-	.string "Groroh!$"
+	.string "Growlithe: Groroh!$"
 
 AlcorTunnel_Boy:
 	.string "I really can't thank you enough\n"
