@@ -6484,10 +6484,8 @@ void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality)
     if (!GetSetPokedexFlag(nationalNum, getFlagCaseId)) // don't set if it's already set
     {
         GetSetPokedexFlag(nationalNum, caseId);
-        if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_FLABEBE)
+        if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_NONE)
             gSaveBlock2Ptr->pokedex.unownPersonality = personality;
-        if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_PALKIA)
-            gSaveBlock2Ptr->pokedex.spindaPersonality = personality;
     }
 }
 
@@ -6507,10 +6505,7 @@ const u8 *GetTrainerNameFromId(u16 trainerId)
 
 bool8 HasTwoFramesAnimation(u16 species)
 {
-    return (species != SPECIES_ALOLAN_MAROWAK
-            && species != SPECIES_BONDED_ALAKAZAM
-            && species != SPECIES_PALKIA
-            && species != SPECIES_FLABEBE);
+    return (species != SPECIES_NONE);
 }
 
 static bool8 ShouldSkipFriendshipChange(void)

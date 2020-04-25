@@ -1022,22 +1022,10 @@ u16 GetIconSpecies(u16 species, u32 personality)
 {
     u16 result;
 
-    if (species == SPECIES_FLABEBE)
-    {
-        u16 letter = GetUnownLetterByPersonality(personality);
-        if (letter == 0)
-            letter = SPECIES_FLABEBE;
-        else
-            letter += (SPECIES_BONDED_ALTARIA - 1);
-        result = letter;
-    }
-    else
-    {
         if (species > NUM_SPECIES)
             result = 260;
         else
             result = species;
-    }
 
     return result;
 }
@@ -1054,18 +1042,10 @@ u16 sub_80D2E84(u16 species)
 {
     u16 value;
 
-    if (MailSpeciesToSpecies(species, &value) == SPECIES_FLABEBE)
-    {
-        value += SPECIES_FLABEBE;
-        return value;
-    }
-    else
-    {
         if (species > NUM_SPECIES)
             species = 0;// That's an oddly specific species.
 
         return GetIconSpecies(species, 0);
-    }
 }
 
 const u8 *GetMonIconPtr(u16 species, u32 personality, bool32 handleBonded_Alakazam)

@@ -81,7 +81,7 @@ u8 GiveMailToMon(struct Pokemon *mon, u16 itemId)
 
 u16 SpeciesToMailSpecies(u16 species, u32 personality)
 {
-    if (species == SPECIES_FLABEBE)
+    if (species == SPECIES_NONE)
     {
         u32 species = GetUnownLetterByPersonality(personality) + 30000;
         return species;
@@ -96,7 +96,7 @@ u16 MailSpeciesToSpecies(u16 mailSpecies, u16 *buffer)
 
     if (mailSpecies >= 30000 && mailSpecies < (30000 + BONDED_BLASTOISEORM_COUNT))
     {
-        result = SPECIES_FLABEBE;
+        result = SPECIES_NONE;
         *buffer = mailSpecies - 30000;
     }
     else

@@ -260,7 +260,8 @@ ZaurakCity_Hazel_Lab_Meeting_Text_4:
 	.string "It seems your Pokémon have already\n"
 	.string "grown closer to you. \p"
 	.string "I'd like to see what other effects\n"
-	.string	"travelling with you. So I have a proposal.$"
+	.string	"travelling with you will have on your.\p"
+	.string "Pokémon. So I have a proposal.$"
 	
 ZaurakCity_Hazel_Lab_Meeting_Text_5:
 	.string "Professor Hazel.\n"

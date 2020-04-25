@@ -1144,7 +1144,7 @@ static bool8 sub_80A7238(void)
 {
     if (IsContest())
     {
-        if (gSprites[GetAnimBattlerSpriteId(ANIM_ATTACKER)].data[2] == SPECIES_FLABEBE)
+        if (gSprites[GetAnimBattlerSpriteId(ANIM_ATTACKER)].data[2] == SPECIES_NONE)
             return FALSE;
         else
             return TRUE;

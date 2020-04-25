@@ -32,6 +32,7 @@ ZaurakCity_Conversation_Derek::
 	load_field_pic 1, 40, 83, VAR_0x8008
 	load_field_pic 4, 200, 83, VAR_0x8009
 	msgbox ZaurakCity_Rival_Text_First_Battle, MSGBOX_YESNO		
+	switch VAR_RESULT
 	case NO, ZaurakCity_Rival_Waits_Derek
 	case YES, ZaurakCity_Head_Into_Lab_Derek
 	return

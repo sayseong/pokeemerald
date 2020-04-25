@@ -85,13 +85,13 @@ void HandleLoadSpecialPokePic(const struct CompressedSpriteSheet *src, void *des
 
 void LoadSpecialPokePic(const struct CompressedSpriteSheet *src, void *dest, s32 species, u32 personality, bool8 isFrontPic)
 {
-    if (species == SPECIES_FLABEBE)
+    if (species == SPECIES_NONE)
     {
         u16 i = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 3)) % 0x1C;
 
         // The other Unowns are separate from Unown A.
         if (i == 0)
-            i = SPECIES_FLABEBE;
+            i = SPECIES_NONE;
         else
             i += SPECIES_BONDED_ALTARIA - 1;
 
@@ -506,13 +506,13 @@ void DecompressPicFromTable_2(const struct CompressedSpriteSheet *src, void* buf
 
 void LoadSpecialPokePic_2(const struct CompressedSpriteSheet *src, void *dest, s32 species, u32 personality, bool8 isFrontPic) // a copy of LoadSpecialPokePic
 {
-    if (species == SPECIES_FLABEBE)
+    if (species == SPECIES_NONE)
     {
         u16 i = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 3)) % 0x1C;
 
         // The other Unowns are separate from Unown A.
         if (i == 0)
-            i = SPECIES_FLABEBE;
+            i = SPECIES_NONE;
         else
             i += SPECIES_BONDED_ALTARIA - 1;
 
@@ -564,13 +564,13 @@ void HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(const struct CompressedS
 
 void LoadSpecialPokePic_DontHandleBonded_Alakazam(const struct CompressedSpriteSheet *src, void *dest, s32 species, u32 personality, bool8 isFrontPic)
 {
-    if (species == SPECIES_FLABEBE)
+    if (species == SPECIES_NONE)
     {
         u16 i = (((personality & 0x3000000) >> 18) | ((personality & 0x30000) >> 12) | ((personality & 0x300) >> 6) | (personality & 3)) % 0x1C;
 
         // The other Unowns are separate from Unown A.
         if (i == 0)
-            i = SPECIES_FLABEBE;
+            i = SPECIES_NONE;
         else
             i += SPECIES_BONDED_ALTARIA - 1;
 
