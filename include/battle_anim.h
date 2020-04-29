@@ -222,12 +222,30 @@ void sub_8117854(u8 taskId, int unused, u16 arg2, u8 battler1, u8 arg4, u8 arg5,
 void SetSpriteNextToMonHead(u8 battler, struct Sprite* sprite);
 void AnimMoveTwisterParticle(struct Sprite* sprite);
 void AnimParticleBurst(struct Sprite *);
+void AnimPowerAbsorptionOrb(struct Sprite* sprite);
+void AnimNeedleArmSpike(struct Sprite *);
+extern const union AnimCmd *const gRazorLeafParticleAnimTable[];
+extern const union AnimCmd *const gPowerAbsorptionOrbAnimTable[];
+extern const union AffineAnimCmd *const gPowerAbsorptionOrbAffineAnimTable[];
 
 // battle_anim_water.c
 void AnimWaterPulseRing(struct Sprite *sprite);
 
 // battle_anim_flying.c
 void DestroyAnimSpriteAfterTimer(struct Sprite *sprite);
+void sub_810E2C8(struct Sprite *sprite);
+void AnimAirWaveCrescent(struct Sprite *sprite);
+extern const union AnimCmd *const gAffineAnims_AirWaveCrescent[];
+
+// battle_anim_poison.c
+void AnimSludgeBombHitParticle(struct Sprite *);
+extern const union AffineAnimCmd *const gAffineAnims_PoisonProjectile[];
+
+// battle_anim_ghost.c
+void AnimGhostStatusSprite(struct Sprite *sprite);
+
+// battle_anim_psychic.c
+extern const union AffineAnimCmd *const gAffineAnims_LusterPurgeCircle[];
 
 // battle_anim_smokescreen.c
 u8 SmokescreenImpact(s16 x, s16 y, u8 a3);

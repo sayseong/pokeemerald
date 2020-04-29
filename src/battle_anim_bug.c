@@ -320,6 +320,10 @@ static void AnimStringWrap_Step(struct Sprite *sprite)
         DestroyAnimSprite(sprite);
     }
 }
+
+// arg0: x
+// arg1: y
+// arg2: targets both
 static void AnimSpiderWeb(struct Sprite *sprite)
 {
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT2_ALL | BLDCNT_EFFECT_BLEND);

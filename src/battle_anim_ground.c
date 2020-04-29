@@ -145,18 +145,18 @@ const struct SpriteTemplate gMudBombSplash =
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = MudBombParticles,
+    .callback = AnimSludgeBombHitParticle,
 };
 
 const struct SpriteTemplate gMudBombToss =
 {
-    .tileTag = ANIM_TAG_MUD_SAND ,
+    .tileTag = ANIM_TAG_MUD_SAND,
     .paletteTag = ANIM_TAG_MUD_SAND,
     .oam = &gOamData_AffineOff_ObjNormal_16x16,
-    .anims = gUnknown_085971C8,
+    .anims = sAnims_MudSlapMud,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = MudBombBall,
+    .callback = AnimThrowProjectile,
 };
 
 // Moves a bone projectile towards the target mon, which moves like
@@ -578,7 +578,6 @@ static void AnimDigDirtMound(struct Sprite *sprite)
     sprite->data[0] = gBattleAnimArgs[2];
     sprite->callback = WaitAnimForDuration;
 }
-
 
 #define tState               data[0]
 #define tDelay               data[1]

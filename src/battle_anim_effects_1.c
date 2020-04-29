@@ -20,7 +20,6 @@ EWRAM_DATA s16 gUnknown_0203A0F8[4] = {0};
 
 static void AnimMovePowderParticle(struct Sprite *);
 static void AnimMovePowderParticle_Step(struct Sprite *);
-static void AnimPowerAbsorptionOrb(struct Sprite *);
 static void AnimSolarbeamBigOrb(struct Sprite *);
 static void AnimSolarbeamSmallOrb(struct Sprite *);
 static void AnimSolarbeamSmallOrb_Step(struct Sprite *);
@@ -63,7 +62,6 @@ static void AnimTrickBag_Step2(struct Sprite *);
 static void AnimTrickBag_Step3(struct Sprite *);
 static void AnimFlyingParticle(struct Sprite *);
 static void AnimFlyingParticle_Step(struct Sprite *);
-static void AnimNeedleArmSpike(struct Sprite *);
 static void AnimNeedleArmSpike_Step(struct Sprite *);
 static void sub_81009F8(struct Sprite *);
 static void AnimWhipHit(struct Sprite *);
@@ -149,8 +147,26 @@ static void AnimTask_LeafBlade_Step2(struct Task *, u8);
 static void AnimTask_LeafBlade_Step2_Callback(struct Sprite *);
 static void AnimTask_SkullBashPositionSet(u8);
 static void AnimTask_SkullBashPositionReset(u8);
+static void AnimMoveFeintSwipe(struct Sprite *);
+static void AnimMoveFeintZoom(struct Sprite *);
+static void AnimMoveTrumpCard(struct Sprite *);
+static void AnimMoveTrumpCardParticle(struct Sprite* sprite);
+static void AnimMoveAccupressure(struct Sprite* sprite);
+static void AnimMoveWringOut(struct Sprite* sprite);
+static void AnimMoveWorrySeed(struct Sprite* sprite);
+static void AnimMoveSmallCloud(struct Sprite* sprite);
+static void AnimGrassKnotStep(struct Sprite *sprite);
+static void AnimGrassKnot(struct Sprite *sprite);
+static void AnimWoodHammerSmall(struct Sprite *sprite);
+static void AnimWoodHammerBig(struct Sprite *sprite);
 static void AnimTask_DoubleTeam_Step(u8);
 static void AnimDoubleTeam(struct Sprite *);
+static void AnimNightSlash(struct Sprite *sprite);
+static void AnimRockPolishStreak(struct Sprite *sprite);
+static void AnimRockPolishSparkle(struct Sprite *sprite);
+static void AnimPoisonJabProjectile(struct Sprite *sprite);
+static void AnimNightSlash(struct Sprite *sprite);
+static void AnimPluck(struct Sprite* sprite);
 
 const union AnimCmd gPowderParticlesAnimCmds[] =
 {
@@ -2821,7 +2837,7 @@ const struct SpriteTemplate gWoodHammerSmallSpriteTemplate =
     .callback = AnimWoodHammerSmall,
 };
 
-void AnimGrassKnot(struct Sprite *sprite)
+static void AnimGrassKnot(struct Sprite *sprite)
 {
     if (BATTLE_PARTNER(gBattleAnimAttacker) == gBattleAnimTarget && GetBattlerPosition(gBattleAnimTarget) < B_POSITION_PLAYER_RIGHT)
         gBattleAnimArgs[0] *= -1;
@@ -2859,7 +2875,7 @@ static void AnimGrassKnotStep(struct Sprite *sprite)
     }
 }
 
-void AnimWoodHammerBig(struct Sprite *sprite)
+static void AnimWoodHammerBig(struct Sprite *sprite)
 {
     if (GetBattlerSide(gBattleAnimAttacker) == B_SIDE_OPPONENT)
         StartSpriteAffineAnim(sprite, 1);
@@ -2867,7 +2883,7 @@ void AnimWoodHammerBig(struct Sprite *sprite)
     TranslateAnimSpriteToTargetMonLocation(sprite);
 }
 
-void AnimWoodHammerSmall(struct Sprite *sprite)
+static void AnimWoodHammerSmall(struct Sprite *sprite)
 {
     StartSpriteAnim(sprite, gBattleAnimArgs[5]);
     AnimateSprite(sprite);
@@ -2941,7 +2957,7 @@ static void AnimMovePowderParticle_Step(struct Sprite* sprite)
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
 // arg 2: duration
-static void AnimPowerAbsorptionOrb(struct Sprite* sprite)
+void AnimPowerAbsorptionOrb(struct Sprite* sprite)
 {
     InitSpritePosToAnimAttacker(sprite, TRUE);
     sprite->data[0] = gBattleAnimArgs[2];
@@ -4665,7 +4681,7 @@ void AnimTask_CycleMagicalLeafPal(u8 taskId)
         DestroyAnimVisualTask(taskId);
 }
 
-static void AnimNeedleArmSpike(struct Sprite* sprite)
+void AnimNeedleArmSpike(struct Sprite* sprite)
 {
     u8 a;
     u8 b;
@@ -6617,7 +6633,7 @@ static void AnimTauntFinger_Step2(struct Sprite* sprite)
 // Animates a white streak by giving it a random rotation.
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
-void AnimRockPolishStreak(struct Sprite *sprite)
+static void AnimRockPolishStreak(struct Sprite *sprite)
 {
     int affineAnimNum = Random2() % ARRAY_COUNT(gRockPolishStreak_AffineAnimCmds);
     InitSpritePosToAnimAttacker(sprite, TRUE);
@@ -6629,7 +6645,7 @@ void AnimRockPolishStreak(struct Sprite *sprite)
 // Places a blue sparkle that plays its default animation.
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
-void AnimRockPolishSparkle(struct Sprite *sprite)
+static void AnimRockPolishSparkle(struct Sprite *sprite)
 {
     InitSpritePosToAnimAttacker(sprite, TRUE);
     StoreSpriteCallbackInData6(sprite, DestroySpriteAndMatrix);
@@ -6641,7 +6657,7 @@ void AnimRockPolishSparkle(struct Sprite *sprite)
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
 // arg 2: duration
-void AnimPoisonJabProjectile(struct Sprite *sprite)
+static void AnimPoisonJabProjectile(struct Sprite *sprite)
 {
     s16 targetXPos;
     s16 targetYPos;
@@ -6666,7 +6682,7 @@ void AnimTask_BlendNightSlash(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
-void AnimNightSlash(struct Sprite *sprite)
+static void AnimNightSlash(struct Sprite *sprite)
 {
     sprite->callback = AnimSlashSlice;
     sprite->callback(sprite);

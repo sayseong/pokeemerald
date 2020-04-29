@@ -4975,6 +4975,8 @@ extern const u32 gBattleAnimBgTilemap_Drill[];
 extern const u32 gBattleAnimBgTilemap_DrillContests[];
 extern const u32 gBattleAnimBgTilemap_HighspeedOpponent[];
 extern const u32 gBattleAnimBgTilemap_HighspeedPlayer[];
+extern const u32 gBattleAnimBgTilemap_TrickRoom[];
+extern const u32 gBattleAnimBgTilemap_RockWrecker[];
 extern const u32 gBattleAnimMaskImage_LightBeam[];
 extern const u32 gBattleAnimMaskPalette_LightBeam[];
 extern const u32 gBattleAnimMaskTilemap_LightBeam[];
