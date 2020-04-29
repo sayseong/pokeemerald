@@ -777,7 +777,7 @@
 #define FLAG_HIDE_ROUTE104_POOCHYENA                                0x2DC
 #define FLAG_HIDE_ZAURAKCITY_RIVAL                                  0x2DD
 #define FLAG_HIDE_ZAURAK_LAB_CLAIR_TOUR_SETUP                       0x2DE
-#define FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_SIBLING      0x2DF
+#define FLAG_HIDE_ZAURAKCITY_TOUR_FINISH                            0x2DF
 #define FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_SIBLING          0x2E0
 #define FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_MAGMA_NOTE             0x2E1
 #define FLAG_HIDE_ROUTE_104_MR_BRINEY                               0x2E2

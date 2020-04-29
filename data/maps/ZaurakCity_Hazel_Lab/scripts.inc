@@ -21,6 +21,24 @@ ZaurakCity_Hazel_Lab_Meeting::
 	goto_if_eq ZaurakCity_Hazel_Lab_Meeting_Kate
 	end
 
+ZaurakCity_Heal_Station::
+	msgbox ZaurakCity_Heal_Station_Text, MSGBOX_YESNO
+	switch VAR_RESULT
+	case NO, ZaurakCity_No_Heal
+	case YES, ZaurakCity_Heal
+	end
+
+ZaurakCity_Heal::
+	special HealPlayerParty
+	playfanfare MUS_ME_ASA
+	waitfanfare
+	closemessage
+	end
+
+ZaurakCity_No_Heal::
+	closemessage
+	end
+
 ZaurakCity_Hazel_Lab_Meeting_Derek::
 	load_field_pic 7, 40, 83, VAR_0x8008
 	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_1_Derek, MSGBOX_DEFAULT
@@ -296,3 +314,6 @@ ZaurakCity_Hazel_Lab_Meeting_Text_Rival:
 	.string "We're really doing this.\p"
 	.string "We're going to become Pokémon\n"
 	.string "trainers!$"
+
+ZaurakCity_Heal_Station_Text:
+	.string "Would you like to heal your Pokémon?$"
