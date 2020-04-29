@@ -12,7 +12,7 @@ Route104_Load_state::
 
 Route104_Trigger_Left::
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, Route104_Camera_Left
+	applymovement OBJ_EVENT_ID_CAMERA, Route104_Camera_Left
 	waitmovement 0
 	special RemoveCameraObject
 	call Route104_Poochyena_Cornered
@@ -21,7 +21,7 @@ Route104_Trigger_Left::
 Route104_Trigger_Right::
 	applymovement 255, Route104_Growlithes_Left
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, Route104_Camera_Right
+	applymovement OBJ_EVENT_ID_CAMERA, Route104_Camera_Right
 	waitmovement 0
 	special RemoveCameraObject
 	call Route104_Poochyena_Cornered
@@ -36,7 +36,7 @@ Route104_Poochyena_Cornered::
 	waitmovement 0
 	msgbox Route104_Poochyena_About_To_Attack, MSGBOX_DEFAULT
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, Route104_Camera
+	applymovement OBJ_EVENT_ID_CAMERA, Route104_Camera
 	waitmovement 0
 	special RemoveCameraObject
 	applymovement 255, Route104_Player_Rescues

@@ -46,7 +46,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_CUTTABLE_TREE",
+            "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
@@ -59,7 +59,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_CUTTABLE_TREE",
+            "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
@@ -72,7 +72,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_ROUTE104_POKEMON",
-            "graphics_id": "EVENT_OBJ_GFX_POOCHYENA",
+            "graphics_id": "OBJ_EVENT_GFX_POOCHYENA",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -85,7 +85,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_ROUTE104_POKEMON",
-            "graphics_id": "EVENT_OBJ_GFX_POOCHYENA",
+            "graphics_id": "OBJ_EVENT_GFX_POOCHYENA",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_LEFT",

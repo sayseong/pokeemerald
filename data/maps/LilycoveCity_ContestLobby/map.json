@@ -113,7 +113,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_TEALA",
+            "graphics_id": "OBJ_EVENT_GFX_TEALA",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -126,7 +126,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_TEALA",
+            "graphics_id": "OBJ_EVENT_GFX_TEALA",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -139,7 +139,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_MAN_4",
+            "graphics_id": "OBJ_EVENT_GFX_MAN_4",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -152,7 +152,7 @@
         {
             "elevation": 0,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_CONTEST_ATTENDANT_1",
-            "graphics_id": "EVENT_OBJ_GFX_ARTIST",
+            "graphics_id": "OBJ_EVENT_GFX_ARTIST",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
@@ -165,7 +165,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_BLACK_BELT",
+            "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -178,7 +178,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_GIRL_2",
+            "graphics_id": "OBJ_EVENT_GFX_GIRL_2",
             "movement_range_x": 2,
             "movement_range_y": 2,
             "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -191,7 +191,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_ARTIST",
+            "graphics_id": "OBJ_EVENT_GFX_ARTIST",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -204,7 +204,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER",
-            "graphics_id": "EVENT_OBJ_GFX_REPORTER_M",
+            "graphics_id": "OBJ_EVENT_GFX_REPORTER_M",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -217,7 +217,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_BOY_1",
+            "graphics_id": "OBJ_EVENT_GFX_BOY_1",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -230,7 +230,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_TWIN",
+            "graphics_id": "OBJ_EVENT_GFX_TWIN",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -243,7 +243,7 @@
         {
             "elevation": 0,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_CONTEST_ATTENDANT_2",
-            "graphics_id": "EVENT_OBJ_GFX_ARTIST",
+            "graphics_id": "OBJ_EVENT_GFX_ARTIST",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -256,7 +256,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_FISHERMAN",
+            "graphics_id": "OBJ_EVENT_GFX_FISHERMAN",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -269,7 +269,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_FAT_MAN",
+            "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -282,7 +282,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_NINJA_BOY",
+            "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
             "movement_range_x": 0,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
@@ -295,7 +295,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_POKEFAN_F",
+            "graphics_id": "OBJ_EVENT_GFX_POKEFAN_F",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -308,7 +308,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER_REPLACEMENT",
-            "graphics_id": "EVENT_OBJ_GFX_EXPERT_M",
+            "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -321,7 +321,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_GIRL_1",
+            "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -334,7 +334,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_MAN_5",
+            "graphics_id": "OBJ_EVENT_GFX_MAN_5",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -347,7 +347,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_CAMPER",
+            "graphics_id": "OBJ_EVENT_GFX_CAMPER",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -360,7 +360,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_LITTLE_GIRL",
+            "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -373,7 +373,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_SCIENTIST_2",
+            "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_2",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -386,7 +386,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_WOMAN_1",
+            "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -399,7 +399,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_NINJA_BOY",
+            "graphics_id": "OBJ_EVENT_GFX_NINJA_BOY",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -412,7 +412,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_LILYCOVE_CONTEST_HALL_BLEND_MASTER",
-            "graphics_id": "EVENT_OBJ_GFX_OLD_MAN",
+            "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -425,7 +425,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_LITTLE_GIRL",
+            "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
             "movement_range_x": 2,
             "movement_range_y": 2,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",

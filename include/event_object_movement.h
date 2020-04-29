@@ -1,5 +1,5 @@
-#ifndef GUARD_EVENT_OBJECT_MOVEMENT_H
-#define GUARD_EVENT_OBJECT_MOVEMENT_H
+#ifndef GUARD_OBJ_EVENTECT_MOVEMENT_H
+#define GUARD_OBJ_EVENTECT_MOVEMENT_H
 
 enum SpinnerRunnerFollowPatterns
 {
@@ -420,4 +420,4 @@ void sub_8097BB4(u8 var1, u8 graphicsId);
 void sub_8097CC4(u8 var1, u8 var2);
 bool32 sub_8097D9C(u8 var);
 
-#endif //GUARD_EVENT_OBJECT_MOVEMENT_H
+#endif //GUARD_OBJ_EVENTECT_MOVEMENT_H

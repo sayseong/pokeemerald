@@ -378,7 +378,7 @@
 #define BG_ROCK_WRECKER 32
 
 // table ids for general animations
-#define B_ANIM_CASTFORM_CHANGE          0x0
+#define B_ANIM_ALOLAN_MAROWAK_CHANGE          0x0
 #define B_ANIM_STATS_CHANGE             0x1
 #define B_ANIM_SUBSTITUTE_FADE          0x2
 #define B_ANIM_SUBSTITUTE_APPEAR        0x3

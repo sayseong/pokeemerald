@@ -1093,7 +1093,7 @@ const struct ContestPokemon gContestOpponents[] =
         {
             MOVE_TEETER_DANCE,
             MOVE_PSYCH_UP,
-            MOVE_HYPNOSIS,
+            MOVE_BRAVIARYSIS,
             MOVE_UPROAR
         },
         .cool = 25,
@@ -2020,7 +2020,7 @@ const struct ContestPokemon gContestOpponents[] =
         .moves =
         {
             MOVE_STOMP,
-            MOVE_HYPNOSIS,
+            MOVE_BRAVIARYSIS,
             MOVE_EGG_BOMB,
             MOVE_SKILL_SWAP
         },

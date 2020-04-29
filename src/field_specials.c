@@ -3381,9 +3381,9 @@ static void Task_Bonded_AlakazamRockInteraction(u8 taskId)
 
 static void ChangeBonded_AlakazamRockLevel(u8 rockLevel)
 {
-    u8 eventObjectId;
+    u8 objectEventId;
     LoadPalette(&sBonded_AlakazamRockPalettes[rockLevel], 0x1A0, 8);
-    TryGetEventObjectIdByLocalIdAndMap(1, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &eventObjectId);
+    TryGetObjectEventIdByLocalIdAndMap(1, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
 
     if (rockLevel == 0)
         PlaySE(SE_W109);
@@ -3403,7 +3403,7 @@ static void ChangeBonded_AlakazamRockLevel(u8 rockLevel)
         gFieldEffectArguments[5] = 5;
 
     FieldEffectStart(FLDEFF_MOVE_BONDED_ALAKAZAM_ROCK);
-    Overworld_SetEventObjTemplateCoords(1, sBonded_AlakazamRockCoords[rockLevel][0], sBonded_AlakazamRockCoords[rockLevel][1]);
+    Overworld_SetObjEventTemplateCoords(1, sBonded_AlakazamRockCoords[rockLevel][0], sBonded_AlakazamRockCoords[rockLevel][1]);
 }
 
 static void WaitForBonded_AlakazamRockMovement(u8 taskId)

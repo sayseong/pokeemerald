@@ -28,7 +28,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_MAXIE",
+            "graphics_id": "OBJ_EVENT_GFX_MAXIE",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
@@ -41,7 +41,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_ENIF_CITY_PIDGEY",
-            "graphics_id": "EVENT_OBJ_GFX_ZIGZAGOON_2",
+            "graphics_id": "OBJ_EVENT_GFX_ZIGZAGOON_2",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
@@ -54,7 +54,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_ITEM_ENIF_CITY_METAL_COAT",
-            "graphics_id": "EVENT_OBJ_GFX_ITEM_BALL",
+            "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",

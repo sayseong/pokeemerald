@@ -110,7 +110,7 @@ gBattleAnims_Moves::
 	.4byte Move_TOXIC
 	.4byte Move_CONFUSION
 	.4byte Move_PSYCHIC
-	.4byte Move_HYPNOSIS
+	.4byte Move_BRAVIARYSIS
 	.4byte Move_MEDITATE
 	.4byte Move_AGILITY
 	.4byte Move_QUICK_ATTACK
@@ -11889,7 +11889,7 @@ PsybeamRings:
 	delay 4
 	return
 
-Move_HYPNOSIS:
+Move_BRAVIARYSIS:
 	loadspritegfx ANIM_TAG_GOLD_RING
 	call SetPsychicBackground
 	call HypnosisRings
@@ -15056,9 +15056,7 @@ AnimScript_82D7EB2:
 	clearmonbg ANIM_ATTACKER	
 	end	
 AnimScript_82D7ECA:	
-	createvisualtask AnimTask_CastformGfxChange, 2, 1	
-	end	
-
+    end
 
 General_StatsChange:
 	createvisualtask AnimTask_StatsChange, 5

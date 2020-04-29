@@ -1309,7 +1309,7 @@ AI_CV_MirrorMove_EncouragedMovesToMirror: @ 82DCB6C
     .2byte MOVE_SLEEP_POWDER
     .2byte MOVE_LOVELY_KISS
     .2byte MOVE_SPORE
-    .2byte MOVE_HYPNOSIS
+    .2byte MOVE_BRAVIARYSIS
     .2byte MOVE_SING
     .2byte MOVE_GRASS_WHISTLE
     .2byte MOVE_SHADOW_PUNCH

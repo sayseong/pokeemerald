@@ -571,5 +571,5 @@ const u16 DecorGfx_BLASTOISE_DOLL[] = {
 };
 
 const u16 DecorGfx_WAILMER_DOLL[] = {
-    EVENT_OBJ_GFX_BIG_WAILMER_DOLL
+    OBJ_EVENT_GFX_BIG_WAILMER_DOLL
 };

@@ -50,7 +50,7 @@ AlcorTunnel_Trigger_Bottom::
 AlcorTunnel_First_Seraph_Encounter_EventScript::
 	playbgm MUS_AQA_0, 0
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, AlcorTunnel_Camera_PanUp
+	applymovement OBJ_EVENT_ID_CAMERA, AlcorTunnel_Camera_PanUp
 	waitmovement 0
 	special RemoveCameraObject
 	waitmovement 0
@@ -95,7 +95,7 @@ AlcorTunnel_Grunts_Double_Battle::
 	destroy_field_pic 10, VAR_0x8008
 	destroy_field_pic 9, VAR_0x8009
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, AlcorTunnel_Camera_WalkDown
+	applymovement OBJ_EVENT_ID_CAMERA, AlcorTunnel_Camera_WalkDown
 	waitmovement 0
 	special RemoveCameraObject
 	trainerbattle_no_intro TRAINER_GRUNT_BLACK_SERAPH_ALCOR_TUNNEL_DOUBLE, AlcorTunnel_BlackSeraphs_Defeated
@@ -106,7 +106,7 @@ AlcorTunnel_Grunts_Single_Battle::
 	msgbox Alcor_Tunnel_Seraph_Grunts_Startled, MSGBOX_DEFAULT
 	applymovement 9, AlcorTunnel_Male_Grunt_To_Singles
 	special SpawnCameraObject
-	applymovement EVENT_OBJ_ID_CAMERA, AlcorTunnel_Camera_PanDown
+	applymovement OBJ_EVENT_ID_CAMERA, AlcorTunnel_Camera_PanDown
 	waitmovement 0
 	special RemoveCameraObject
 	applymovement 255, Common_Movement_FaceRight

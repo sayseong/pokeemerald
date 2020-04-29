@@ -82,7 +82,7 @@
 #define TRAINER_PIC_DRAGON_TAMER          62
 #define TRAINER_PIC_NINJA_BOY             63
 #define TRAINER_PIC_BATTLE_GIRL           64
-#define TRAINER_PIC_PARASOL_LADY          65
+#define TRAINER_PIC_BIDOOFOL_LADY          65
 #define TRAINER_PIC_SWIMMER_F             66
 #define TRAINER_PIC_TWINS                 67
 #define TRAINER_PIC_SAILOR                68
@@ -175,7 +175,7 @@
 #define FACILITY_CLASS_DRAGON_TAMER          0x34
 #define FACILITY_CLASS_NINJA_BOY             0x35
 #define FACILITY_CLASS_BATTLE_GIRL           0x36
-#define FACILITY_CLASS_PARASOL_LADY          0x37
+#define FACILITY_CLASS_BIDOOFOL_LADY          0x37
 #define FACILITY_CLASS_SWIMMER_F             0x38
 #define FACILITY_CLASS_TWINS                 0x39
 #define FACILITY_CLASS_SAILOR                0x3a
@@ -254,7 +254,7 @@
 #define RS_FACILITY_CLASS_BIRD_KEEPER           0x2E
 #define RS_FACILITY_CLASS_NINJA_BOY             0x2F
 #define RS_FACILITY_CLASS_BATTLE_GIRL           0x30
-#define RS_FACILITY_CLASS_PARASOL_LADY          0x31
+#define RS_FACILITY_CLASS_BIDOOFOL_LADY          0x31
 #define RS_FACILITY_CLASS_SWIMMER_F             0x32
 #define RS_FACILITY_CLASS_PICNICKER             0x33
 #define RS_FACILITY_CLASS_TWINS                 0x34
@@ -329,7 +329,7 @@
 #define TRAINER_CLASS_DRAGON_TAMER   0x29
 #define TRAINER_CLASS_NINJA_BOY      0x2a
 #define TRAINER_CLASS_BATTLE_GIRL    0x2b
-#define TRAINER_CLASS_PARASOL_LADY   0x2c
+#define TRAINER_CLASS_BIDOOFOL_LADY   0x2c
 #define TRAINER_CLASS_SWIMMER_F      0x2d
 #define TRAINER_CLASS_TWINS          0x2e
 #define TRAINER_CLASS_SAILOR         0x2f

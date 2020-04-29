@@ -3568,7 +3568,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza1[] = {
     .lvl = 42,
     .species = SPECIES_FROSLASS,
     .heldItem = ITEM_SITRUS_BERRY,
-    .moves = MOVE_LIGHT_SCREEN, MOVE_PSYCHIC, MOVE_HYPNOSIS, MOVE_CALM_MIND
+    .moves = MOVE_LIGHT_SCREEN, MOVE_PSYCHIC, MOVE_BRAVIARYSIS, MOVE_CALM_MIND
     },
     {
     .iv = 250,
@@ -3786,7 +3786,7 @@ static const struct TrainerMonNoItemCustomMoves sParty_KateAndJoy[] = {
     .iv = 0,
     .lvl = 30,
     .species = SPECIES_PALKIA,
-    .moves = MOVE_HYPNOSIS, MOVE_PSYBEAM, MOVE_DIZZY_PUNCH, MOVE_TEETER_DANCE
+    .moves = MOVE_BRAVIARYSIS, MOVE_PSYBEAM, MOVE_DIZZY_PUNCH, MOVE_TEETER_DANCE
     },
     {
     .iv = 0,
@@ -10931,7 +10931,7 @@ static const struct TrainerMonItemCustomMoves sParty_Norman2[] = {
     .lvl = 43,
     .species = SPECIES_PALKIA,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_HYPNOSIS
+    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_BRAVIARYSIS
     },
     {
     .iv = 255,
@@ -10969,7 +10969,7 @@ static const struct TrainerMonItemCustomMoves sParty_Norman3[] = {
     .lvl = 48,
     .species = SPECIES_PALKIA,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_HYPNOSIS
+    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_BRAVIARYSIS
     },
     {
     .iv = 255,
@@ -11007,7 +11007,7 @@ static const struct TrainerMonItemCustomMoves sParty_Norman4[] = {
     .lvl = 53,
     .species = SPECIES_PALKIA,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_HYPNOSIS
+    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_BRAVIARYSIS
     },
     {
     .iv = 255,
@@ -11052,7 +11052,7 @@ static const struct TrainerMonItemCustomMoves sParty_Norman5[] = {
     .lvl = 58,
     .species = SPECIES_PALKIA,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_HYPNOSIS
+    .moves = MOVE_TEETER_DANCE, MOVE_SKILL_SWAP, MOVE_FACADE, MOVE_BRAVIARYSIS
     },
     {
     .iv = 255,
@@ -11107,7 +11107,7 @@ static const struct TrainerMonItemCustomMoves sParty_Winona3[] = {
     .lvl = 43,
     .species = SPECIES_FERROSEED,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
+    .moves = MOVE_BRAVIARYSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
     },
     {
     .iv = 255,
@@ -11152,7 +11152,7 @@ static const struct TrainerMonItemCustomMoves sParty_Winona4[] = {
     .lvl = 48,
     .species = SPECIES_FERROTHORN,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
+    .moves = MOVE_BRAVIARYSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
     },
     {
     .iv = 255,
@@ -11197,7 +11197,7 @@ static const struct TrainerMonItemCustomMoves sParty_Winona5[] = {
     .lvl = 53,
     .species = SPECIES_FERROTHORN,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
+    .moves = MOVE_BRAVIARYSIS, MOVE_PSYCHIC, MOVE_REFLECT, MOVE_DREAM_EATER
     },
     {
     .iv = 255,
@@ -11280,7 +11280,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza3[] = {
     .lvl = 53,
     .species = SPECIES_RUFFLET,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
+    .moves = MOVE_BRAVIARYSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
     },
     {
     .iv = 255,
@@ -11325,7 +11325,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza4[] = {
     .lvl = 58,
     .species = SPECIES_BRAVIARY,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
+    .moves = MOVE_BRAVIARYSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
     },
     {
     .iv = 255,
@@ -11370,7 +11370,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza5[] = {
     .lvl = 63,
     .species = SPECIES_BRAVIARY,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
+    .moves = MOVE_BRAVIARYSIS, MOVE_DREAM_EATER, MOVE_HEADBUTT, MOVE_PROTECT
     },
     {
     .iv = 255,
@@ -11415,7 +11415,7 @@ static const struct TrainerMonItemCustomMoves sParty_Juan2[] = {
     .lvl = 46,
     .species = SPECIES_PIDOVE,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
+    .moves = MOVE_BRAVIARYSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
     },
     {
     .iv = 255,
@@ -11453,7 +11453,7 @@ static const struct TrainerMonItemCustomMoves sParty_Juan3[] = {
     .lvl = 50,
     .species = SPECIES_TRANQUILL,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
+    .moves = MOVE_BRAVIARYSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
     },
     {
     .iv = 255,
@@ -11505,7 +11505,7 @@ static const struct TrainerMonItemCustomMoves sParty_Juan4[] = {
     .lvl = 56,
     .species = SPECIES_TRANQUILL,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
+    .moves = MOVE_BRAVIARYSIS, MOVE_RAIN_DANCE, MOVE_PROTECT, MOVE_HYDRO_PUMP
     },
     {
     .iv = 255,
@@ -11550,7 +11550,7 @@ static const struct TrainerMonItemCustomMoves sParty_Juan5[] = {
     .lvl = 61,
     .species = SPECIES_GABITE,
     .heldItem = ITEM_NONE,
-    .moves = MOVE_HYPNOSIS, MOVE_RAIN_DANCE, MOVE_HYDRO_PUMP, MOVE_PERISH_SONG
+    .moves = MOVE_BRAVIARYSIS, MOVE_RAIN_DANCE, MOVE_HYDRO_PUMP, MOVE_PERISH_SONG
     },
     {
     .iv = 255,

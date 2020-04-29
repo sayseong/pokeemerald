@@ -57,7 +57,7 @@ const u16 gEasyChatGroup_Move1[] = {
     MOVE_HAZE,
     MOVE_HEADBUTT,
     MOVE_HEAL_BELL,
-    MOVE_HYPNOSIS,
+    MOVE_BRAVIARYSIS,
     MOVE_ICE_BALL,
     MOVE_ICY_WIND,
     MOVE_IRON_TAIL,

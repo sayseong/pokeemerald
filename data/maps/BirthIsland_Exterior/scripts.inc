@@ -10,7 +10,7 @@ BirthIsland_Exterior_OnReturnToField: @ 8267F25
 
 BirthIsland_Exterior_OnTransition: @ 8267F29
 	setflag FLAG_MAP_SCRIPT_CHECKED_BONDED_ALAKAZAM
-	setvar VAR_OBJ_GFX_ID_0, EVENT_OBJ_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
 	setvar VAR_BONDED_ALAKAZAM_ROCK_STEP_COUNT, 0
 	setvar VAR_BONDED_ALAKAZAM_ROCK_LEVEL, 0
 	call_if_set FLAG_BATTLED_BONDED_ALAKAZAM, BirthIsland_Exterior_EventScript_HideBonded_AlakazamAndPuzzle

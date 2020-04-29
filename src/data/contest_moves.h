@@ -755,11 +755,11 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_CONFUSION, COMBO_STARTER_KINESIS},
     },
 
-    [MOVE_HYPNOSIS] =
+    [MOVE_BRAVIARYSIS] =
     {
         .effect = CONTEST_EFFECT_BADLY_STARTLE_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_SMART,
-        .comboStarterId = COMBO_STARTER_HYPNOSIS,
+        .comboStarterId = COMBO_STARTER_BRAVIARYSIS,
         .comboMoves = {0}
     },
 
@@ -1104,7 +1104,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .effect = CONTEST_EFFECT_STARTLE_PREV_MONS,
         .contestCategory = CONTEST_CATEGORY_SMART,
         .comboStarterId = 0,
-        .comboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_HYPNOSIS},
+        .comboMoves = {COMBO_STARTER_CALM_MIND, COMBO_STARTER_BRAVIARYSIS},
     },
 
     [MOVE_POISON_GAS] =
@@ -4959,7 +4959,7 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
         .comboMoves = {COMBO_STARTER_HYPERSPACE_HOLE},
     },
 
-    [MOVE_SHORE_UP] =
+    [MOVE_GLACIAL_CRASH] =
     {
         .effect = CONTEST_EFFECT_QUALITY_DEPENDS_ON_TIMING,
         .contestCategory = CONTEST_CATEGORY_CUTE,

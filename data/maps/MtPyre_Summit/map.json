@@ -87,7 +87,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_OLD_MAN",
+            "graphics_id": "OBJ_EVENT_GFX_OLD_MAN",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -100,7 +100,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_ARCHIE",
-            "graphics_id": "EVENT_OBJ_GFX_ARCHIE",
+            "graphics_id": "OBJ_EVENT_GFX_ARCHIE",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -113,7 +113,7 @@
         {
             "elevation": 3,
             "flag": "0",
-            "graphics_id": "EVENT_OBJ_GFX_EXPERT_F",
+            "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -126,7 +126,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA",
-            "graphics_id": "EVENT_OBJ_GFX_AQUA_MEMBER_M",
+            "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -139,7 +139,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA",
-            "graphics_id": "EVENT_OBJ_GFX_AQUA_MEMBER_M",
+            "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -152,7 +152,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA",
-            "graphics_id": "EVENT_OBJ_GFX_AQUA_MEMBER_M",
+            "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
@@ -165,7 +165,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA",
-            "graphics_id": "EVENT_OBJ_GFX_AQUA_MEMBER_F",
+            "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_F",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
@@ -178,7 +178,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_MT_PYRE_SUMMIT_MAXIE",
-            "graphics_id": "EVENT_OBJ_GFX_MAXIE",
+            "graphics_id": "OBJ_EVENT_GFX_MAXIE",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_FACE_UP",

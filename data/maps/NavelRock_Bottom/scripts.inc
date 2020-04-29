@@ -4,17 +4,17 @@ NavelRock_Bottom_MapScripts:: @ 8269255
 	.byte 0
 
 NavelRock_Bottom_OnTransition: @ 8269260
-	call_if_set FLAG_CAUGHT_LUGIA, NavelRock_Bottom_EventScript_HideLugia
-	call_if_unset FLAG_CAUGHT_LUGIA, NavelRock_Bottom_EventScript_TryShowLugia
+	call_if_set FLAG_CAUGHT_ROTOM_WASH, NavelRock_Bottom_EventScript_HideLugia
+	call_if_unset FLAG_CAUGHT_ROTOM_WASH, NavelRock_Bottom_EventScript_TryShowLugia
 	end
 
 NavelRock_Bottom_EventScript_HideLugia:: @ 8269273
-	setflag FLAG_HIDE_LUGIA
+	setflag FLAG_HIDE_ROTOM_WASH
 	return
 
 NavelRock_Bottom_EventScript_TryShowLugia:: @ 8269277
-	goto_if_set FLAG_DEFEATED_LUGIA, Common_EventScript_NopReturn
-	clearflag FLAG_HIDE_LUGIA
+	goto_if_set FLAG_DEFEATED_ROTOM_WASH, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_ROTOM_WASH
 	return
 
 NavelRock_Bottom_OnResume: @ 8269284
@@ -67,12 +67,12 @@ NavelRock_Bottom_EventScript_Lugia:: @ 82692A2
 	goto_if_eq NavelRock_Bottom_EventScript_RanFromLugia
 	compare VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED
 	goto_if_eq NavelRock_Bottom_EventScript_RanFromLugia
-	setflag FLAG_CAUGHT_LUGIA
+	setflag FLAG_CAUGHT_ROTOM_WASH
 	release
 	end
 
 NavelRock_Bottom_EventScript_DefeatedLugia:: @ 8269336
-	setflag FLAG_DEFEATED_LUGIA
+	setflag FLAG_DEFEATED_ROTOM_WASH
 	setvar VAR_0x8004, SPECIES_ROTOM_WASH
 	goto Common_EventScript_LegendaryFlewAway
 	end

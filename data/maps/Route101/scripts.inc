@@ -17,7 +17,7 @@ Route101_EventScript_HideMapNamePopup:: @ 81E7E4B
 	return
 
 Route_1_Lesson::	
-	applymovement EVENT_OBJ_ID_PLAYER, Face_Teala
+	applymovement OBJ_EVENT_ID_PLAYER, Face_Teala
 	load_field_pic 5, 200, 83, VAR_0x8009
 	msgbox Route_1_Lesson_Message MSGBOX_DEFAULT	
 	destroy_field_pic 5, VAR_0x8009
@@ -46,7 +46,7 @@ Route_1_Begin_Lesson::
 
 Route_1_After_Lesson::	
 	applymovement 2, Common_Movement_FaceLeft
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
 	checkplayergender
 	compare VAR_RESULT, MALE
@@ -57,10 +57,10 @@ Route_1_After_Lesson::
 	applymovement 3, Teala_Leaves
 	applymovement 4, Teala_Leaves
 	msgbox Teala_Present_Task, MSGBOX_DEFAULT
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_ExclamationMark
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	applymovement 2, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	applymovement 2, Common_Movement_FaceUp
 	waitmovement 0
 	checkplayergender
@@ -70,7 +70,7 @@ Route_1_After_Lesson::
 	call_if_eq Route_1_About_To_Receive_Pokemon_Kate
 	applymovement 2, Jumping_In_Excitement
 	waitmovement 0
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
 	checkplayergender
 	compare VAR_RESULT, MALE
@@ -90,7 +90,7 @@ Route_1_After_Lesson::
 	end
 	
 Route_1_Obtained_Starter::	
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceUp
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	applymovement 2, Common_Movement_FaceUp
 	waitmovement 0
 	checkplayergender

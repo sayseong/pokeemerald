@@ -101,7 +101,7 @@ static const struct TrHillFloor sDataTagJPDefault_Floors[] = {
             },
             [1] = {
                 .name = __("アカリ$$$$$   "),
-                .facilityClass = FACILITY_CLASS_PARASOL_LADY,
+                .facilityClass = FACILITY_CLASS_BIDOOFOL_LADY,
                 .unused = 0x1,
                 .speechBefore = { EC_WORD_SHE, EC_WORD_EVERY, EC_WORD_TYPE, EC_WORD_ADORE, EC_WORD_FOR, EC_WORD_EXCL },
                 .speechWin = { EC_WORD_SURPRISE, EC_WORD_THESE, EC_WORD_WONDER, EC_WORD_GIGGLE, EC_WORD_ELLIPSIS, EC_WORD_EXCL },
@@ -1388,7 +1388,7 @@ static const struct TrHillFloor sDataTagNormal_Floors[] =
                     {
                         .species = SPECIES_GARDEVOIR,
                         .heldItem = ITEM_SALAC_BERRY,
-                        .moves = {MOVE_SKILL_SWAP, MOVE_DREAM_EATER, MOVE_HYPNOSIS, MOVE_PROTECT},
+                        .moves = {MOVE_SKILL_SWAP, MOVE_DREAM_EATER, MOVE_BRAVIARYSIS, MOVE_PROTECT},
                         .level = 0,
                         .ppBonuses = 0,
                         .speedEV = 255,
@@ -1912,7 +1912,7 @@ static const struct TrHillFloor sDataTagVariety_Floors[] = {
                     [0] =
                         {
                             .name = _("ANNABELL"),
-                            .facilityClass = FACILITY_CLASS_PARASOL_LADY,
+                            .facilityClass = FACILITY_CLASS_BIDOOFOL_LADY,
                             .unused = 0,
                             .speechBefore = {EC_WORD_HI, EC_WORD_ARE, EC_WORD_YOU, EC_WORD_FEELING, EC_WORD_UPBEAT, EC_WORD_QUES},
                             .speechWin = {EC_WORD_AREN_T, EC_WORD_YOU, EC_WORD_FEELING, EC_WORD_WELL, EC_WORD_QUES, 0xFFFF},
@@ -2269,7 +2269,7 @@ static const struct TrHillFloor sDataTagVariety_Floors[] = {
                                         {
                                             .species = SPECIES_PIDOVE,
                                             .heldItem = ITEM_WIKI_BERRY,
-                                            .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_MIST, MOVE_HYPNOSIS},
+                                            .moves = {MOVE_SURF, MOVE_ICE_BEAM, MOVE_MIST, MOVE_BRAVIARYSIS},
                                             .level = 0,
                                             .ppBonuses = 0,
                                             .hpEV = 252,
@@ -2291,7 +2291,7 @@ static const struct TrHillFloor sDataTagVariety_Floors[] = {
                                         {
                                             .species = SPECIES_COMBEE,
                                             .heldItem = ITEM_AGUAV_BERRY,
-                                            .moves = {MOVE_HYPNOSIS, MOVE_SURF, MOVE_DISABLE, MOVE_SEISMIC_TOSS},
+                                            .moves = {MOVE_BRAVIARYSIS, MOVE_SURF, MOVE_DISABLE, MOVE_SEISMIC_TOSS},
                                             .level = 0,
                                             .ppBonuses = 0,
                                             .hpEV = 250,
@@ -5026,7 +5026,7 @@ static const struct TrHillFloor sDataTagExpert_Floors[] = {
                                         {
                                             .species = SPECIES_BEARTIC,
                                             .heldItem = ITEM_SHELL_BELL,
-                                            .moves = {MOVE_EXPLOSION, MOVE_HYPNOSIS, MOVE_PSYCHIC, MOVE_SOLAR_BEAM},
+                                            .moves = {MOVE_EXPLOSION, MOVE_BRAVIARYSIS, MOVE_PSYCHIC, MOVE_SOLAR_BEAM},
                                             .level = 0,
                                             .ppBonuses = 0,
                                             .attackEV = 255,

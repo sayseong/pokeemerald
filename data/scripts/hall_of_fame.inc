@@ -30,8 +30,8 @@ EverGrandeCity_HallOfFame_EventScript_ResetDefeatedEventLegendaries:: @ 8271829
 	clearflag FLAG_DEFEATED_MEW
 	clearflag FLAG_DEFEATED_KYUREM_WHITE_OR_KYUREM_BLACK
 	clearflag FLAG_DEFEATED_BONDED_ALAKAZAM
-	clearflag FLAG_DEFEATED_LUGIA
-	clearflag FLAG_DEFEATED_HO_OH
+	clearflag FLAG_DEFEATED_ROTOM_WASH
+	clearflag FLAG_DEFEATED_FREEZE
 	return
 
 EverGrandeCity_HallOfFame_EventScript_SetDesertUnderpassCommentReady:: @ 8271839

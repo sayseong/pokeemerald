@@ -309,7 +309,7 @@ static u32 LoopedTask_OpenRegionMap(s32 taskState)
         HideBg(1);
         HideBg(2);
         HideBg(3);
-        SetBgMode(1);
+        SetBgMode(0);
         InitBgTemplates(sRegionMapBgTemplates, ARRAY_COUNT(sRegionMapBgTemplates) - 1);
         regionMap = GetSubstructPtr(16);
         InitRegionMapData(regionMap, &sRegionMapBgTemplates[1], ShouldOpenRegionMapZoomed());
@@ -355,11 +355,6 @@ static u32 LoopedTask_OpenRegionMap(s32 taskState)
         SetVBlankCallback_(VBlankCB_RegionMap);
         return LT_INC_AND_PAUSE;
     case 6:
-        if (!ShouldOpenRegionMapZoomed())
-            menuGfxId = POKENAV_GFX_MAP_MENU_ZOOMED_OUT;
-        else
-            menuGfxId = POKENAV_GFX_MAP_MENU_ZOOMED_IN;
-
         LoadLeftHeaderGfxForIndex(menuGfxId);
         sub_81C7FA0(menuGfxId, 1, 1);
         PokenavFadeScreen(1);
@@ -403,13 +398,11 @@ static u32 LoopedTask_RegionMapZoomOut(s32 taskState)
         if (UpdateRegionMapZoom() || IsChangeBgYForZoomActive())
             return LT_PAUSE;
 
-        PrintHelpBarText(HELPBAR_MAP_ZOOMED_OUT);
         return LT_INC_AND_PAUSE;
     case 2:
         if (WaitForHelpBar())
             return LT_PAUSE;
 
-        sub_81C7E14(POKENAV_GFX_MAP_MENU_ZOOMED_OUT);
         break;
     }
 
@@ -436,13 +429,11 @@ static u32 LoopedTask_RegionMapZoomIn(s32 taskState)
         if (UpdateRegionMapZoom() || IsChangeBgYForZoomActive())
             return LT_PAUSE;
 
-        PrintHelpBarText(HELPBAR_MAP_ZOOMED_IN);
         return LT_INC_AND_PAUSE;
     case 3:
         if (WaitForHelpBar())
             return LT_PAUSE;
 
-        sub_81C7E14(POKENAV_GFX_MAP_MENU_ZOOMED_IN);
         break;
     }
 

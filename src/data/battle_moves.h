@@ -1330,7 +1330,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .split = SPLIT_SPECIAL,
     },
 
-    [MOVE_HYPNOSIS] =
+    [MOVE_BRAVIARYSIS] =
     {
         .effect = EFFECT_SLEEP,
         .power = 0,
@@ -8745,7 +8745,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_GLACIAL_CRASH] =
     {
-        .effect = EFFECT_RECOIL,
+        .effect = EFFECT_RECOIL_25,
         .power = 120,
         .type = TYPE_ICE,
         .accuracy = 80,

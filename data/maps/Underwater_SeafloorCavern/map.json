@@ -17,7 +17,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE",
-            "graphics_id": "EVENT_OBJ_GFX_RIVAL_BRENDAN_NORMAL",
+            "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_INVISIBLE",
@@ -30,7 +30,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE",
-            "graphics_id": "EVENT_OBJ_GFX_RIVAL_BRENDAN_NORMAL",
+            "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_INVISIBLE",
@@ -43,7 +43,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE",
-            "graphics_id": "EVENT_OBJ_GFX_RIVAL_BRENDAN_NORMAL",
+            "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_INVISIBLE",
@@ -56,7 +56,7 @@
         {
             "elevation": 3,
             "flag": "FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE",
-            "graphics_id": "EVENT_OBJ_GFX_RIVAL_BRENDAN_NORMAL",
+            "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
             "movement_range_x": 1,
             "movement_range_y": 1,
             "movement_type": "MOVEMENT_TYPE_INVISIBLE",

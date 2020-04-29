@@ -63,9 +63,9 @@ Mart_Clerk_EventScript::
 EventScript_Lesson_Trigger1::
 	msgbox DenebAcademy_FirstLesson_Hey
 	closemessage
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_ExclamationMark
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement EVENT_OBJ_ID_PLAYER, student_walk_down
+	applymovement OBJ_EVENT_ID_PLAYER, student_walk_down
 	setobjectxyperm 3, 27, 31
 	setobjectxyperm 4, 27, 32
 	setobjectxyperm 5, 28, 32
@@ -76,9 +76,9 @@ EventScript_Lesson_Trigger1::
 EventScript_Lesson_Trigger2::
 	msgbox DenebAcademy_FirstLesson_Hey
 	closemessage
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_ExclamationMark
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement EVENT_OBJ_ID_PLAYER, student_walk_up
+	applymovement OBJ_EVENT_ID_PLAYER, student_walk_up
 	setobjectxyperm 3, 27, 31
 	setobjectxyperm 4, 27, 32
 	setobjectxyperm 5, 28, 31
@@ -89,9 +89,9 @@ EventScript_Lesson_Trigger2::
 EventScript_Lesson_Trigger3::
 	msgbox DenebAcademy_FirstLesson_Hey
 	closemessage
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_ExclamationMark
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement EVENT_OBJ_ID_PLAYER, student_walk_up_up
+	applymovement OBJ_EVENT_ID_PLAYER, student_walk_up_up
 	setobjectxyperm 3, 27, 31
 	setobjectxyperm 4, 27, 32
 	setobjectxyperm 5, 28, 31
@@ -100,7 +100,7 @@ EventScript_Lesson_Trigger3::
 	end
 
 EventScript_GoToRoute1::
-	applymovement EVENT_OBJ_ID_PLAYER, student_turns_left
+	applymovement OBJ_EVENT_ID_PLAYER, student_turns_left
 	waitmovement 0
 	applymovement 3, students_walk_right
 	applymovement 4, students_walk_right

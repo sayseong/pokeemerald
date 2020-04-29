@@ -105,7 +105,7 @@ Trigger_EventScript_Rival_1::
 	applymovement 1, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement 1, Trigger_Rival_Walk_1
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
 	goto Zaurak_Bridge_Conversation
 	end
@@ -114,7 +114,7 @@ Trigger_EventScript_Rival_2::
 	applymovement 1, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement 1, Trigger_Rival_Walk_2
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
 	waitmovement 0
 	goto Zaurak_Bridge_Conversation
 	end
@@ -123,7 +123,7 @@ Trigger_EventScript_Rival_3::
 	applymovement 1, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement 1, Common_Movement_FaceLeft
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceRight
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
 	goto Zaurak_Bridge_Conversation
 	end
@@ -132,7 +132,7 @@ Trigger_EventScript_Rival_4::
 	applymovement 1, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement 1, Common_Movement_FaceRight
-	applymovement EVENT_OBJ_ID_PLAYER, Common_Movement_FaceLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
 	waitmovement 0
 	goto Zaurak_Bridge_Conversation
 	end

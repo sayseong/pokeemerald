@@ -868,6 +868,29 @@ const union AnimCmd *const gObjectEventImageAnimTable_HoOh[] = {
     gObjectEventImageAnim_GoFastestEast,
 };
 
+const union AnimCmd *const gObjectEventImageAnimTable_Growlithe[] = {
+    gObjectEventImageAnim_FaceSouth,
+    gObjectEventImageAnim_FaceNorth,
+    gObjectEventImageAnim_FaceWest,
+    gObjectEventImageAnim_FaceEast,
+    gObjectEventImageAnim_HoOhFlapWings,
+    gObjectEventImageAnim_HoOhStayStill,
+    gObjectEventImageAnim_GoWest,
+    gObjectEventImageAnim_GoEast,
+    gObjectEventImageAnim_GoFastSouth,
+    gObjectEventImageAnim_GoFastNorth,
+    gObjectEventImageAnim_GoFastWest,
+    gObjectEventImageAnim_GoFastEast,
+    gObjectEventImageAnim_GoFasterSouth,
+    gObjectEventImageAnim_GoFasterNorth,
+    gObjectEventImageAnim_GoFasterWest,
+    gObjectEventImageAnim_GoFasterEast,
+    gObjectEventImageAnim_GoFastestSouth,
+    gObjectEventImageAnim_GoFastestNorth,
+    gObjectEventImageAnim_GoFastestWest,
+    gObjectEventImageAnim_GoFastestEast,
+};
+
 const union AnimCmd *const gObjectEventImageAnimTable_Groudon3[] = {
     gObjectEventImageAnim_FaceSouth,
     gObjectEventImageAnim_FaceNorth,

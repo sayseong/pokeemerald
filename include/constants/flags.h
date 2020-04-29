@@ -162,8 +162,8 @@
 #define FLAG_DEVON_GOODS_STOLEN              0x8E
 #define FLAG_RECOVERED_DEVON_GOODS           0x8F
 #define FLAG_RETURNED_DEVON_GOODS            0x90
-#define FLAG_CAUGHT_LUGIA                    0x91
-#define FLAG_CAUGHT_HO_OH                    0x92
+#define FLAG_CAUGHT_ROTOM_WASH                    0x91
+#define FLAG_CAUGHT_FREEZE                    0x92
 #define FLAG_MR_BRINEY_SAILING_INTRO         0x93
 #define FLAG_DOCK_REJECTED_DEVON_GOODS       0x94
 #define FLAG_DELIVERED_DEVON_GOODS           0x95
@@ -459,9 +459,9 @@
 
 #define FLAG_DEFEATED_BONDED_ALAKAZAM                 0x1AC
 #define FLAG_BATTLED_BONDED_ALAKAZAM                  0x1AD
-#define FLAG_HAS_EON_TICKET                  0x1AE
-#define FLAG_HAS_AURORA_TICKET               0x1AF
-#define FLAG_HAS_OLD_SEA_MAP                 0x1B0
+#define FLAG_SHOWN_EON_TICKET                  0x1AE
+#define FLAG_SHOWN_AURORA_TICKET               0x1AF
+#define FLAG_SHOWN_OLD_SEA_MAP                 0x1B0
 #define FLAG_MOVE_TUTOR_TAUGHT_SWAGGER       0x1B1
 #define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
 #define FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER   0x1B3
@@ -507,8 +507,8 @@
 #define FLAG_UNUSED_0x1DA                    0x1DA // Unused Flag
 
 #define FLAG_SHOWN_MYSTIC_TICKET             0x1DB
-#define FLAG_DEFEATED_HO_OH                  0x1DC
-#define FLAG_DEFEATED_LUGIA                  0x1DD
+#define FLAG_DEFEATED_FREEZE                  0x1DC
+#define FLAG_DEFEATED_ROTOM_WASH                  0x1DD
 
 #define FLAG_UNUSED_0x1DE                    0x1DE // Unused Flag
 #define FLAG_UNUSED_0x1DF                    0x1DF // Unused Flag
@@ -842,8 +842,8 @@
 #define FLAG_HIDE_ROUTE_118_GABBY_AND_TY_1                          0x31D
 #define FLAG_HIDE_ROUTE_120_GABBY_AND_TY_1                          0x31E
 #define FLAG_HIDE_ROUTE_111_GABBY_AND_TY_3                          0x31F
-#define FLAG_HIDE_LUGIA                                             0x320
-#define FLAG_HIDE_HO_OH                                             0x321
+#define FLAG_HIDE_ROTOM_WASH                                             0x320
+#define FLAG_HIDE_FREEZE                                             0x321
 #define FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER                    0x322
 #define FLAG_HIDE_SLATEPORT_CITY_CONTEST_REPORTER                   0x323
 #define FLAG_HIDE_MAUVILLE_CITY_WALLY                               0x324
@@ -1446,9 +1446,9 @@
 #define FLAG_SYS_ENC_DOWN_ITEM                      (SYSTEM_FLAGS + 0x4E)
 #define FLAG_SYS_BRAILLE_DIG                        (SYSTEM_FLAGS + 0x4F)
 #define FLAG_SYS_ROCKRUFF_PUZZLE_COMPLETED          (SYSTEM_FLAGS + 0x50)
-#define FLAG_SYS_BRAILLE_LYCANROC_COMPLETED           (SYSTEM_FLAGS + 0x51)
-#define FLAG_SYS_BONDED_AERODACTYL_PUZZLE_COMPLETED         (SYSTEM_FLAGS + 0x52)
-#define FLAG_SYS_HAS_EON_TICKET                     (SYSTEM_FLAGS + 0x53)
+#define FLAG_SYS_BRAILLE_LYCANROC_COMPLETED         (SYSTEM_FLAGS + 0x51)
+#define FLAG_SYS_BONDED_AERODACTYL_PUZZLE_COMPLETED (SYSTEM_FLAGS + 0x52)
+#define FLAG_ENABLE_SHIP_SOUTHERN_ISLAND            (SYSTEM_FLAGS + 0x53)
 
 #define FLAG_LANDMARK_POKEMON_LEAGUE                (SYSTEM_FLAGS + 0x54)
 #define FLAG_LANDMARK_ISLAND_CAVE                   (SYSTEM_FLAGS + 0x55)

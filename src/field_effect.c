@@ -3672,7 +3672,7 @@ bool8 Fldeff_MoveBonded_AlakazamRock(struct Sprite* sprite)
         xPos = (gFieldEffectArguments[3] - xPos) * 16;
         yPos = (gFieldEffectArguments[4] - yPos) * 16;
         ShiftObjectEventCoords(object, gFieldEffectArguments[3] + 7, gFieldEffectArguments[4] + 7);
-        taskId = CreateTask(Fldeff_MoveDeoxysRock_Step, 0x50);
+        taskId = CreateTask(Fldeff_MoveBonded_AlakazamRock_Step, 0x50);
         gTasks[taskId].data[1] = object->spriteId;
         gTasks[taskId].data[2] = gSprites[object->spriteId].pos1.x + xPos;
         gTasks[taskId].data[3] = gSprites[object->spriteId].pos1.y + yPos;
