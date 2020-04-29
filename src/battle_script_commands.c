@@ -1961,7 +1961,7 @@ static void Cmd_resultmessage(void)
             gPotentialItemEffectBattler = gBattlerTarget;
             gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
             BattleScriptPushCursor();
-            gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
+            gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
             return;
         default:
             if (gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE)
@@ -1998,7 +1998,7 @@ static void Cmd_resultmessage(void)
                 gPotentialItemEffectBattler = gBattlerTarget;
                 gMoveResultFlags &= ~(MOVE_RESULT_FOE_ENDURED | MOVE_RESULT_FOE_HUNG_ON);
                 BattleScriptPushCursor();
-                gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
+                gBattlescriptCurrInstr = BattleScript_FocusBandActivates;
                 return;
             }
             else if (gMoveResultFlags & MOVE_RESULT_FAILED)
@@ -3029,17 +3029,17 @@ static void Cmd_seteffectwithchance(void)
     if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN
         && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
     {
-        gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
-        SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+        gBattleCommunication[MOVE_EFFECT_BYTE] &= ~(MOVE_EFFECT_CERTAIN);
+        SetMoveEffect(FALSE, MOVE_EFFECT_CERTAIN);
     }
     else if (Random() % 100 < percentChance
              && gBattleScripting.moveEffect
              && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
     {
         if (percentChance >= 100)
-            SetMoveEffect(0, MOVE_EFFECT_CERTAIN);
+            SetMoveEffect(FALSE, MOVE_EFFECT_CERTAIN);
         else
-            SetMoveEffect(0, 0);
+            SetMoveEffect(FALSE, 0);
     }
     else
     {
@@ -10069,7 +10069,7 @@ static void Cmd_jumpifnopursuitswitchdmg(void)
         for (i = 0; i < gBattlersCount; i++)
         {
             if (gBattlerByTurnOrder[i] == gBattlerTarget)
-                gActionsByTurnOrder[i] = 11;
+                gActionsByTurnOrder[i] = B_ACTION_TRY_FINISH;
         }
 
         gCurrentMove = MOVE_PURSUIT;
@@ -11217,7 +11217,7 @@ static void Cmd_pursuitrelated(void)
 
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
         && !(gAbsentBattlerFlags & gBitTable[gActiveBattler])
-        && gChosenActionByBattler[gActiveBattler] == 0
+        && gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_MOVE
         && gChosenMoveByBattler[gActiveBattler] == MOVE_PURSUIT)
     {
         gActionsByTurnOrder[gActiveBattler] = 11;
@@ -11543,9 +11543,9 @@ static void Cmd_displaydexinfo(void)
         if (!gPaletteFade.active)
         {
             FreeAllWindowBuffers();
-            gBattleCommunication[TASK_ID] = CreateDexDisplayMonDataTask(SpeciesToNationalPokedexNum(species),
-                                                                        gBattleMons[GetCatchingBattler()].otId,
-                                                                        gBattleMons[GetCatchingBattler()].personality);
+            gBattleCommunication[TASK_ID] = DisplayCaughtMonDexPage(SpeciesToNationalPokedexNum(species),
+                                                                        gBattleMons[gBattlerTarget].otId,
+                                                                        gBattleMons[gBattlerTarget].personality);
             gBattleCommunication[0]++;
         }
         break;

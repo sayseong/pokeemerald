@@ -1634,9 +1634,22 @@ u8 DoBattlerEndTurnEffects(void)
                     }
                 }
                 if (gBattlerAttacker != gBattlersCount)
-                {
-                    effect = 2;  // a pokemon was awaken
-                    break;
+                {        gBattleMons[gActiveBattler].status2 -= 0x400;
+                    if (WasUnableToUseMove(gActiveBattler))
+                        CancelMultiTurnMoves(gActiveBattler);
+                    else if (!(gBattleMons[gActiveBattler].status2 & STATUS2_LOCK_CONFUSE)
+                     && (gBattleMons[gActiveBattler].status2 & STATUS2_MULTIPLETURNS))
+                    {
+                        gBattleMons[gActiveBattler].status2 &= ~(STATUS2_MULTIPLETURNS);
+                        if (!(gBattleMons[gActiveBattler].status2 & STATUS2_CONFUSION))
+                        {
+                            gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_CONFUSION | MOVE_EFFECT_AFFECTS_USER;
+                            SetMoveEffect(TRUE, 0);
+                            if (gBattleMons[gActiveBattler].status2 & STATUS2_CONFUSION)
+                                BattleScriptExecute(BattleScript_ThrashConfuses);
+                            effect++;
+                        }
+                    }
                 }
                 else
                 {
@@ -4482,7 +4495,7 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                 {
                     gBattleScripting.moveEffect = MOVE_EFFECT_FLINCH;
                     BattleScriptPushCursor();
-                    SetMoveEffect(0, 0);
+                    SetMoveEffect(FALSE, 0);
                     BattleScriptPop();
                 }
                 break;

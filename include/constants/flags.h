@@ -506,7 +506,7 @@
 
 #define FLAG_UNUSED_0x1DA                    0x1DA // Unused Flag
 
-#define FLAG_HAS_MYSTIC_TICKET               0x1DB
+#define FLAG_SHOWN_MYSTIC_TICKET             0x1DB
 #define FLAG_DEFEATED_HO_OH                  0x1DC
 #define FLAG_DEFEATED_LUGIA                  0x1DD
 
@@ -1353,17 +1353,18 @@
 
 #define SYSTEM_FLAGS                                   (TRAINER_FLAGS_END + 1) // 0x860
 
-#define FLAG_SYS_POKEMON_GET                           (SYSTEM_FLAGS + 0) // FLAG_0x860
-#define FLAG_SYS_POKEDEX_GET                           (SYSTEM_FLAGS + 1)
-#define FLAG_SYS_POKENAV_GET                           (SYSTEM_FLAGS + 2)
-#define FLAG_SYS_GAME_CLEAR                            (SYSTEM_FLAGS + 4)
-#define FLAG_SYS_CHAT_USED                             (SYSTEM_FLAGS + 5)
-#define FLAG_SYS_HIPSTER_MEET                          (SYSTEM_FLAGS + 6)
+#define FLAG_SYS_POKEMON_GET                         (SYSTEM_FLAGS + 0x0) // FLAG_0x860
+#define FLAG_SYS_POKEDEX_GET                         (SYSTEM_FLAGS + 0x1)
+#define FLAG_SYS_POKENAV_GET                         (SYSTEM_FLAGS + 0x2)
+#define FLAG_UNUSED_0x863                            (SYSTEM_FLAGS + 0x3)
+#define FLAG_SYS_GAME_CLEAR                          (SYSTEM_FLAGS + 0x4)
+#define FLAG_SYS_CHAT_USED                           (SYSTEM_FLAGS + 0x5)
+#define FLAG_SYS_HIPSTER_MEET                        (SYSTEM_FLAGS + 0x6)
 
 // Badges
-#define FLAG_BADGE01_GET                               (SYSTEM_FLAGS + 7)
-#define FLAG_BADGE02_GET                               (SYSTEM_FLAGS + 8)
-#define FLAG_BADGE03_GET                               (SYSTEM_FLAGS + 9)
+#define FLAG_BADGE01_GET                             (SYSTEM_FLAGS + 0x7)
+#define FLAG_BADGE02_GET                             (SYSTEM_FLAGS + 0x8)
+#define FLAG_BADGE03_GET                             (SYSTEM_FLAGS + 0x9)
 #define FLAG_BADGE04_GET                             (SYSTEM_FLAGS + 0xA)
 #define FLAG_BADGE05_GET                             (SYSTEM_FLAGS + 0xB)
 #define FLAG_BADGE06_GET                             (SYSTEM_FLAGS + 0xC)
@@ -1450,7 +1451,6 @@
 #define FLAG_SYS_HAS_EON_TICKET                     (SYSTEM_FLAGS + 0x53)
 
 #define FLAG_LANDMARK_POKEMON_LEAGUE                (SYSTEM_FLAGS + 0x54)
-
 #define FLAG_LANDMARK_ISLAND_CAVE                   (SYSTEM_FLAGS + 0x55)
 #define FLAG_LANDMARK_DESERT_RUINS                  (SYSTEM_FLAGS + 0x56)
 #define FLAG_LANDMARK_FOSSIL_MANIACS_HOUSE          (SYSTEM_FLAGS + 0x57)

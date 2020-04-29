@@ -1,6 +1,6 @@
 #include "global.h"
 
-const u32 gMonFrontPic_CircledQuestionMark[] = INCBIN_U32("graphics/pokemon/circled_question_mark/anim_front.4bpp.lz");
+const u32 gMonFrontPic_CircledQuestionMark[] = INCBIN_U32("graphics/pokemon/question_mark/circled/anim_front.4bpp.lz");
 
 const u32 gMonFrontPic_Bulbasaur[] = INCBIN_U32("graphics/pokemon/bulbasaur/anim_front.4bpp.lz");
 const u32 gMonFrontPic_Ivysaur[] = INCBIN_U32("graphics/pokemon/ivysaur/anim_front.4bpp.lz");
@@ -185,7 +185,7 @@ const u32 gMonFrontPic_Rotom_Wash[] = INCBIN_U32("graphics/pokemon/lugia/anim_fr
 const u32 gMonFrontPic_Rotom_Freeze[] = INCBIN_U32("graphics/pokemon/ho_oh/anim_front.4bpp.lz");
 const u32 gMonFrontPic_Celebi[] = INCBIN_U32("graphics/pokemon/celebi/anim_front.4bpp.lz");
 
-const u32 gMonFrontPic_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/double_question_mark/anim_front.4bpp.lz");
+const u32 gMonFrontPic_DoubleQuestionMark[] = INCBIN_U32("graphics/pokemon/question_mark/double/anim_front.4bpp.lz");
 
 const u32 gMonFrontPic_Treecko[] = INCBIN_U32("graphics/pokemon/treecko/anim_front.4bpp.lz");
 const u32 gMonFrontPic_Grovyle[] = INCBIN_U32("graphics/pokemon/grovyle/anim_front.4bpp.lz");

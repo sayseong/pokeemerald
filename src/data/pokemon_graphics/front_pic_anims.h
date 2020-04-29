@@ -6169,3 +6169,6 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     ANIM_CMD(BONDED_TYRANITAR),
     ANIM_CMD(BONDED_VENUSAUR),
 };
+
+#undef ANIM_CMD
+#undef ANIM_CMD_FULL
