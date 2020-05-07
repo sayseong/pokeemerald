@@ -1,5 +1,5 @@
 gText_Birch_Welcome:: @ 82C897B
-	.string "Greetings and welcome to Elara\p" 
+	.string "Greetings and welcome to Elara!\p" 
     .string "$"
 
 gText_Birch_Pokemon:: @ 82C89FB
@@ -9,16 +9,16 @@ gText_Birch_Pokemon:: @ 82C89FB
 
 gText_Birch_MainSpeech:: @ 82C8A1F
     .string "Some people keep Pokémon as pets.\p"
-    .string "Others called trainers battle with\n"
-    .string "them.\p"
+    .string "Some people, called trainers,\n"
+    .string "battle with their Pokémon.\p"
     .string "Me personally?\p"
-    .string "I'm a Pokémon professor, that\n"
-    .string "studies the bond between trainer\p"
-    .string "and their Pokémon\p"
+    .string "I'm a Pokémon Professor, who\n"
+    .string "studies the bond between trainers\p"
+    .string "and their Pokémon.\p"
     .string "$"
 
 gText_Birch_AndYouAre:: @ 82C8BD0
-	.string "But tell me about yourself\p"
+	.string "But tell me about yourself.\p"
 	.string "$"
 
 gText_Birch_BoyOrGirl:: @ 82C8BDD
@@ -39,6 +39,6 @@ gText_Birch_YourePlayer:: @ 82C8C2A
     .string "$"
 
 gText_Birch_AreYouReady:: @ 82C8C7A
-	.string "I have to get back to my studies,\n"
-	.string "perhaps I will meet you soon?\p"
+	.string "I have to get back to my studies.\n"
+	.string "Perhaps I will meet you soon?\p"
     .string "$"

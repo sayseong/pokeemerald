@@ -26,8 +26,8 @@
     ],
     "id": "MAP_SLATEPORT_CITY",
     "layout": "LAYOUT_SLATEPORT_CITY",
-    "map_type": "MAP_TYPE_CITY",
-    "music": "MUS_FINECITY",
+    "map_type": "MAP_TYPE_UNUSED_1",
+    "music": "MUS_AJITO",
     "name": "SlateportCity",
     "object_events": [
         {
@@ -187,7 +187,7 @@
             "y": 4
         }
     ],
-    "region_map_section": "MAPSEC_SLATEPORT_CITY",
+    "region_map_section": "MAPSEC_LITTLEROOT_TOWN",
     "requires_flash": false,
     "show_map_name": true,
     "warp_events": [
@@ -234,5 +234,5 @@
             "y": 28
         }
     ],
-    "weather": "WEATHER_SUNNY"
+    "weather": "WEATHER_NONE"
 }

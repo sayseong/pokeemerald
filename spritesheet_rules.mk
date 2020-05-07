@@ -63,34 +63,34 @@ $(OBJEVENTGFXDIR)/people/frontier_brains/spenser.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/frontier_brains/tucker.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/martin.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/martin.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/chris.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/chris.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/maria.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/maria.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/christian.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/christian.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/minna.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/minna.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/dan.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/dan.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/mathias.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/mathias.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/calvillo.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/calvillo.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/leonard.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/leonard.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/gym_leaders/kevin.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/gym_leaders/kevin.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/people/may/walking.4bpp: %.4bpp: %.png
@@ -344,7 +344,7 @@ $(OBJEVENTGFXDIR)/people/scientist_1.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/scientist_2.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/clair.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/clair.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/people/steven.4bpp: %.4bpp: %.png
@@ -374,7 +374,7 @@ $(OBJEVENTGFXDIR)/people/union_room_attendant.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/unused_woman.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/people/wally.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/people/wally.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/people/woman_1.4bpp: %.4bpp: %.png
@@ -406,10 +406,10 @@ $(OBJEVENTGFXDIR)/people/youngster.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/azumarill.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
-$(EVENTOBJGFXDIR)/pokemon/growlithe.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/pokemon/growlithe.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
-$(EVENTOBJGFXDIR)/pokemon/bonded_alakazam.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/pokemon/bonded_alakazam.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
 $(OBJEVENTGFXDIR)/pokemon/dusclops.4bpp: %.4bpp: %.png
@@ -463,7 +463,7 @@ $(OBJEVENTGFXDIR)/pokemon/vigoroth.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/wingull.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
-$(EVENTOBJGFXDIR)/pokemon/pidgey.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/pokemon/pidgey.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
 
@@ -561,37 +561,37 @@ $(OBJEVENTGFXDIR)/berry_trees/wepear.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/berry_trees/wiki.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/occa.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/occa.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/yache.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/yache.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/chople.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/chople.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/kebia.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/kebia.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/shuca.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/shuca.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/payapa.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/payapa.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/tanga.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/tanga.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/kasib.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/kasib.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/haban.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/haban.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/colbur.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/colbur.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(EVENTOBJGFXDIR)/berry_trees/roseli.4bpp: %.4bpp: %.png
+$(OBJEVENTGFXDIR)/berry_trees/roseli.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 

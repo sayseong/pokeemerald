@@ -2883,7 +2883,7 @@ static void CreateInterfaceSprites(u8 page)
             
             // Owned value - 100s
             drawNextDigit = FALSE;
-            spriteId = CreateSprite(&sHoennDexSeenOwnNumberSpriteTemplate, 79, 7, 1);
+            spriteId = CreateSprite(&sHoennDexSeenOwnNumberSpriteTemplate, 81, 7, 1);
             digitNum = sPokedexView->ownCount / 100;
             StartSpriteAnim(&gSprites[spriteId], digitNum);
             if (digitNum != 0)
