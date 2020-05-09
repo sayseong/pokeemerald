@@ -7,6 +7,15 @@
     ],
     "connections": null,
     "coord_events": [
+        {
+            "elevation": 0,
+            "script": "Deneb_PlayersHouse_Rest",
+            "type": "trigger",
+            "var": "VAR_TEMP_0",
+            "var_value": "0",
+            "x": 0,
+            "y": 1
+        }
     ],
     "id": "MAP_DENEB_PLAYERS_HOUSE",
     "layout": "LAYOUT_DENEB_PLAYERS_HOUSE",

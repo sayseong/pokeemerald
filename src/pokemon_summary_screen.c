@@ -59,28 +59,25 @@
 #define PSS_LABEL_WINDOW_PROMPT_CANCEL 4
 #define PSS_LABEL_WINDOW_PROMPT_INFO 5
 #define PSS_LABEL_WINDOW_PROMPT_SWITCH 6
-#define PSS_LABEL_WINDOW_UNUSED1 7
 
 // Info screen
-#define PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL 8
-#define PSS_LABEL_WINDOW_POKEMON_INFO_TYPE 9
+#define PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL 7
+#define PSS_LABEL_WINDOW_POKEMON_INFO_TYPE 8
 
 // Skills screen
-#define PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT 10 // HP, Attack, Defense
-#define PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT 11 // Sp. Attack, Sp. Defense, Speed
-#define PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP 12 // EXP, Next Level
-#define PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS 13
+#define PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP 9 // EXP, Next Level
+#define PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS 10
 
 // Moves screen
-#define PSS_LABEL_WINDOW_MOVES_POWER_ACC 14 // Also contains the power and accuracy values
-#define PSS_LABEL_WINDOW_MOVES_APPEAL_JAM 15
-#define PSS_LABEL_WINDOW_UNUSED2 16
+#define PSS_LABEL_WINDOW_MOVES_POWER_ACC 11 // Also contains the power and accuracy values
+#define PSS_LABEL_WINDOW_MOVES_APPEAL_JAM 12
 
 // Above/below the pokemon's portrait (left)
-#define PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER 17
-#define PSS_LABEL_WINDOW_PORTRAIT_LEVEL 18 // The upper name
-#define PSS_LABEL_WINDOW_PORTRAIT_NICKNAME 19 // The lower name
-#define PSS_LABEL_WINDOW_END 20
+#define PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER 13
+#define PSS_LABEL_WINDOW_PORTRAIT_LEVEL 14 // The upper name
+#define PSS_LABEL_WINDOW_PORTRAIT_NICKNAME 15 // The lower name
+
+#define PSS_LABEL_WINDOW_END 16
 
 // Dynamic fields for the Pokemon Info page
 #define PSS_DATA_WINDOW_INFO_ORIGINAL_TRAINER 0
@@ -99,6 +96,32 @@
 #define PSS_DATA_WINDOW_MOVE_NAMES 0
 #define PSS_DATA_WINDOW_MOVE_PP 1
 #define PSS_DATA_WINDOW_MOVE_DESCRIPTION 2
+
+enum
+{
+    SUMMARY_ICON_HP,
+    SUMMARY_ICON_ATTACK,
+    SUMMARY_ICON_DEFENSE,
+    SUMMARY_ICON_SPATK,
+    SUMMARY_ICON_SPDEF,
+    SUMMARY_ICON_SPEED,
+    SUMMARY_ICON_ABILITY,
+    SUMMARY_ICON_EXP,
+    SUMMARY_ICON_TRAINER_MEMO,
+    SUMMARY_ICON_ID_NO,
+    SUMMARY_ICON_ITEM,
+    SUMMARY_ICON_NATURE,
+    SUMMARY_ICON_NO,
+    SUMMARY_ICON_NAME,
+    SUMMARY_ICON_TYPE,
+    SUMMARY_ICON_OT,
+    SUMMARY_ICON_TOTAL_EVS,
+    SUMMARY_ICON_IVS,
+    SUMMARY_ICON_POWER,
+    SUMMARY_ICON_ACCURACY,
+    SUMMARY_ICON_EFFECT,
+    SUMMARY_ICON_COUNT,
+};
 
 static EWRAM_DATA struct PokemonSummaryScreenData
 {
@@ -159,8 +182,8 @@ static EWRAM_DATA struct PokemonSummaryScreenData
     u8 filler40CA;
     u8 windowIds[8];
     u8 spriteIds[28];
-    u8 summarySpriteIds[8];
-    u8 summaryLaserSpriteIds[35];
+    u8 summaryIconSpriteIds[SUMMARY_ICON_COUNT][2][2]; // Two sets allowing you to create 2 of every icon.
+    u8 summaryLaserSpriteIds[5];
     u8 MonTypeIconIds[3];
     u8 MonIconMoves[1];
     bool8 unk40EF;
@@ -246,6 +269,7 @@ static void PrintPageSpecificText(u8 a);
 static void CreateTextPrinterTask(u8 a);
 static void PrintInfoPageText(void);
 static void Task_PrintInfoPage(u8 taskId);
+static void Task_PrintIvEvs(u8 taskId);
 static void PrintMonOTName(void);
 static void PrintMonOTID(void);
 static void PrintMonNature(void);
@@ -258,6 +282,7 @@ static bool8 DoesMonOTMatchOwner(void);
 static bool8 DidMonComeFromGBAGames(void);
 static bool8 IsInGamePartnerMon(void);
 static void PrintEggOTName(void);
+static void PrintIvEvs(void);
 static void PrintEggOTID(void);
 static void PrintEggState(void);
 static void PrintEggMemo(void);
@@ -310,6 +335,9 @@ static void sub_81C4D18(u8 a);
 
 // const rom data
 #define SPLIT_ICONS_TAG 0xD00D
+#define TAG_SUMMARY_ICONS 0xD00E
+#define TAG_MOVE_TYPES 30002
+#define LASER_GRID_PAL_TAG 30005
 
 static const u16 sSplitIconsPal[] = INCBIN_U16("graphics/misc/split_icons.gbapal");
 static const u8 sSplitIconsTiles[] = INCBIN_U8("graphics/misc/split_icons.4bpp");
@@ -440,7 +468,7 @@ static const struct UnkStruct_61CC04 sUnknown_0861CC10 =
 {
     gSummaryScreenPowAcc_Tilemap, 0, 15, 18, 15, 34
 };
-static const s8 gUnknown_0861CC1C[] = {0, 2, 3, 1, 4, 5};
+static const s8 gUnknown_0861CC1C[] = { 0, 2, 3, 1, 4, 5 };
 static const struct WindowTemplate sSummaryTemplate[] =
 {
     [PSS_LABEL_WINDOW_POKEMON_INFO_TITLE] = {
@@ -506,15 +534,6 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .paletteNum = 7,
         .baseBlock = 121,
     },
-    [PSS_LABEL_WINDOW_UNUSED1] = {
-        .bg = 0,
-        .tilemapLeft = 11,
-        .tilemapTop = 4,
-        .width = 0,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 137,
-    },
     [PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL] = {
         .bg = 0,
         .tilemapLeft = 11,
@@ -533,24 +552,6 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .paletteNum = 6,
         .baseBlock = 173,
     },
-    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT] = {
-        .bg = 0,
-        .tilemapLeft = 10,
-        .tilemapTop = 7,
-        .width = 6,
-        .height = 6,
-        .paletteNum = 1,
-        .baseBlock = 209,
-    },
-    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT] = {
-        .bg = 0,
-        .tilemapLeft = 22,
-        .tilemapTop = 7,
-        .width = 5,
-        .height = 6,
-        .paletteNum = 1,
-        .baseBlock = 245,
-    },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP] = {
         .bg = 0,
         .tilemapLeft = 12,
@@ -558,7 +559,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 11,
         .height = 4,
         .paletteNum = 1,
-        .baseBlock = 275,
+        .baseBlock = 209,
     },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS] = {
         .bg = 0,
@@ -567,7 +568,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 0,
         .height = 0,
         .paletteNum = 6,
-        .baseBlock = 319,
+        .baseBlock = 253,
     },
     [PSS_LABEL_WINDOW_MOVES_POWER_ACC] = {
         .bg = 0,
@@ -576,7 +577,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 9,
         .height = 4,
         .paletteNum = 1,
-        .baseBlock = 331,
+        .baseBlock = 265,
     },
     [PSS_LABEL_WINDOW_MOVES_APPEAL_JAM] = {
         .bg = 0,
@@ -585,16 +586,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 0,
         .height = 0,
         .paletteNum = 6,
-        .baseBlock = 367,
-    },
-    [PSS_LABEL_WINDOW_UNUSED2] = {
-        .bg = 0,
-        .tilemapLeft = 22,
-        .tilemapTop = 4,
-        .width = 0,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 387,
+        .baseBlock = 301,
     },
     [PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER] = {
         .bg = 0,
@@ -603,7 +595,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 8,
         .height = 4,
         .paletteNum = 1,
-        .baseBlock = 387,
+        .baseBlock = 321,
     },
     [PSS_LABEL_WINDOW_PORTRAIT_LEVEL] = {
         .bg = 0,
@@ -612,7 +604,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 4,
         .height = 2,
         .paletteNum = 1,
-        .baseBlock = 420,
+        .baseBlock = 354,
     },
     [PSS_LABEL_WINDOW_PORTRAIT_NICKNAME] = {
         .bg = 0,
@@ -621,7 +613,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .width = 10,
         .height = 2,
         .paletteNum = 1,
-        .baseBlock = 444,
+        .baseBlock = 378,
     },
     [PSS_LABEL_WINDOW_END] = DUMMY_WIN_TEMPLATE
 };
@@ -763,20 +755,22 @@ static const u8 sTextColors_861CD2C[][3] =
 static const u8 sSummaryAButtonBitmap[] = INCBIN_U8("graphics/interface/summary_a_button.4bpp");
 static const u8 sSummaryBButtonBitmap[] = INCBIN_U8("graphics/interface/summary_b_button.4bpp");
 
-static void (*const sTextPrinterFunctions[])(void) =
+static void(*const sTextPrinterFunctions[])(void) =
 {
-    PrintInfoPageText,
-    PrintSkillsPageText,
-    PrintBattleMoves,
-    PrintContestMoves
+    [PSS_PAGE_INFO] = PrintInfoPageText,
+    [PSS_PAGE_SKILLS] = PrintSkillsPageText,
+    [PSS_PAGE_BATTLE_MOVES] = PrintBattleMoves,
+    [PSS_PAGE_IV_EVS] = PrintIvEvs,
+    [PSS_PAGE_CONTEST_MOVES] = PrintContestMoves
 };
 
-static void (*const sTextPrinterTasks[])(u8 taskId) =
+static void(*const sTextPrinterTasks[])(u8 taskId) =
 {
-    Task_PrintInfoPage,
-    Task_PrintSkillsPage,
-    Task_PrintBattleMoves,
-    Task_PrintContestMoves
+    [PSS_PAGE_INFO] = Task_PrintInfoPage,
+    [PSS_PAGE_SKILLS] = Task_PrintSkillsPage,
+    [PSS_PAGE_BATTLE_MOVES] = Task_PrintBattleMoves,
+    [PSS_PAGE_IV_EVS] = Task_PrintIvEvs,
+    [PSS_PAGE_CONTEST_MOVES] = Task_PrintContestMoves
 };
 
 static const u8 sMemoNatureTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
@@ -790,8 +784,6 @@ static const u8 sStatsLeftColumnLayout4[] = _("{SPECIAL_F7 0x04}");
 static const u8 sStatsRightColumnLayout1[] = _("{SPECIAL_F7 0x00}");
 static const u8 sStatsRightColumnLayout2[] = _("{SPECIAL_F7 0x01}");
 static const u8 sMovesPPLayout[] = _("{PP}{SPECIAL_F7 0x00}/{SPECIAL_F7 0x01}");
-
-#define TAG_MOVE_TYPES 30002
 
 static const struct OamData sOamData_MoveTypes =
 {
@@ -1139,7 +1131,7 @@ static const struct SpriteTemplate sSpriteTemplate_StatusCondition =
     .callback = SpriteCallbackDummy
 };
 
-static const struct OamData sOamData_SummaryIcons =
+static const struct OamData sOamData_LaserGrid =
 {
     .y = 0,
     .affineMode = 0,
@@ -1156,147 +1148,34 @@ static const struct OamData sOamData_SummaryIcons =
     .affineParam = 0,
 };
 
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet1 =
-{
-    .data = gSummaryMonIconsInfo1_Gfx,
-    .size = 0x800,
-    .tag = 30004
-};
-static const struct CompressedSpritePalette sSummaryIconsSpritePalette =
-{
-    .data = gSummaryIcons_Pal,
-    .tag = 30004
-};
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons1 =
-{
-    .tileTag = 30004,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet2 =
-{
-    .data = gSummaryMonIconsInfo2_Gfx,
-    .size = 0x800,
-    .tag = 30005
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons2 =
-{
-    .tileTag = 30005,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet3 =
-{
-    .data = gSummaryMonTrainerMemo_Gfx,
-    .size = 0x800,
-    .tag = 30006
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons3 =
-{
-    .tileTag = 30006,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet4 =
-{
-    .data = gSummaryMonIconStats1_Gfx,
-    .size = 0x800,
-    .tag = 30007
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons4 =
-{
-    .tileTag = 30007,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet5 =
-{
-    .data = gSummaryMonIconStats2_Gfx,
-    .size = 0x800,
-    .tag = 30008
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons5 =
-{
-    .tileTag = 30008,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet6 =
-{
-    .data = gSummaryMonIconAbility_Gfx,
-    .size = 0x800,
-    .tag = 30009
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons6 =
-{
-    .tileTag = 30009,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct CompressedSpriteSheet sSummaryIconsSpriteSheet7 =
-{
-    .data = gSummaryMonIconMoves_Gfx,
-    .size = 0x800,
-    .tag = 30010
-};
-
-static const struct SpriteTemplate sSpriteTemplate_SummaryIcons7 =
-{
-    .tileTag = 30010,
-    .paletteTag = 30004,
-    .oam = &sOamData_SummaryIcons,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
-};
-
-static const struct OamData sOamData_LaserGrid =
+static const struct OamData sOamData_LaserGrid2 =
 {
     .y = 0,
     .affineMode = 0,
     .objMode = 0,
     .mosaic = 0,
     .bpp = 0,
-    .shape = SPRITE_SHAPE(32x8),
+    .shape = SPRITE_SHAPE(32x32),
     .x = 0,
     .matrixNum = 0,
-    .size = SPRITE_SIZE(32x8),
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 1,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct OamData sOamData_LaserGrid3 =
+{
+    .y = 0,
+    .affineMode = 0,
+    .objMode = 0,
+    .mosaic = 0,
+    .bpp = 0,
+    .shape = SPRITE_SHAPE(16x16),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(16x16),
     .tileNum = 0,
     .priority = 1,
     .paletteNum = 0,
@@ -1309,16 +1188,16 @@ static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid1 =
     .size = 0x080,
     .tag = 30011
 };
-static const struct CompressedSpritePalette gPalette_LaserGrid =
+static const struct SpritePalette gSpritePalette_LaserGrid =
 {
     .data = gLaserGrid_Pal,
-    .tag = 30005,
+    .tag = LASER_GRID_PAL_TAG,
 };
 static const struct SpriteTemplate sSpriteTemplate_LaserGrid1 =
 {
     .tileTag = 30011,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
+    .paletteTag = LASER_GRID_PAL_TAG,
+    .oam = &sOamData_LaserGrid3,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
@@ -1328,14 +1207,14 @@ static const struct SpriteTemplate sSpriteTemplate_LaserGrid1 =
 static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid2 =
 {
     .data = gLaserGrid2_Gfx,
-    .size = 0x080,
+    .size = 0x800,
     .tag = 30012
 };
 
 static const struct SpriteTemplate sSpriteTemplate_LaserGrid2 =
 {
     .tileTag = 30012,
-    .paletteTag = 30005,
+    .paletteTag = LASER_GRID_PAL_TAG,
     .oam = &sOamData_LaserGrid,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -1346,15 +1225,15 @@ static const struct SpriteTemplate sSpriteTemplate_LaserGrid2 =
 static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid3 =
 {
     .data = gLaserGrid3_Gfx,
-    .size = 0x80,
+    .size = 0x200,
     .tag = 30013
 };
 
 static const struct SpriteTemplate sSpriteTemplate_LaserGrid3 =
 {
     .tileTag = 30013,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
+    .paletteTag = LASER_GRID_PAL_TAG,
+    .oam = &sOamData_LaserGrid2,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
@@ -1364,14 +1243,14 @@ static const struct SpriteTemplate sSpriteTemplate_LaserGrid3 =
 static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid4 =
 {
     .data = gLaserGrid4_Gfx,
-    .size = 0x80,
+    .size = 0x800,
     .tag = 30014
 };
 
 static const struct SpriteTemplate sSpriteTemplate_LaserGrid4 =
 {
     .tileTag = 30014,
-    .paletteTag = 30005,
+    .paletteTag = LASER_GRID_PAL_TAG,
     .oam = &sOamData_LaserGrid,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
@@ -1379,76 +1258,386 @@ static const struct SpriteTemplate sSpriteTemplate_LaserGrid4 =
     .callback = SpriteCallbackDummy
 };
 
-static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid5 =
+#define FRAME(picId, frameId) ANIMCMD_FRAME((((picId * 2) + frameId) * 8), 0)
+
+static const struct OamData sOamData_SummaryIcons =
 {
-    .data = gLaserGrid5_Gfx,
-    .size = 0x80,
-    .tag = 30015
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x16),
+    .size = SPRITE_SIZE(32x16),
+    .priority = 1,
 };
 
-static const struct SpriteTemplate sSpriteTemplate_LaserGrid5 =
+static const struct CompressedSpriteSheet sSpriteSheet_SummaryIcons =
 {
-    .tileTag = 30015,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
-    .anims = gDummySpriteAnimTable,
+    gSummaryIcons_Gfx, 0x2A00, TAG_SUMMARY_ICONS
+};
+static const struct SpritePalette sSpritePalette_SummaryIcons =
+{
+    gSummaryIcons_Pal, TAG_SUMMARY_ICONS
+};
+
+static const union AnimCmd sSpriteAnim_SummaryHp1[] =
+{
+    FRAME(SUMMARY_ICON_HP, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryHp2[] =
+{
+    FRAME(SUMMARY_ICON_HP, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryAttack1[] =
+{
+    FRAME(SUMMARY_ICON_ATTACK, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryAttack2[] =
+{
+    FRAME(SUMMARY_ICON_ATTACK, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryDefense1[] =
+{
+    FRAME(SUMMARY_ICON_DEFENSE, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryDefense2[] =
+{
+    FRAME(SUMMARY_ICON_DEFENSE, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummarySpatk1[] =
+{
+    FRAME(SUMMARY_ICON_SPATK, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummarySpatk2[] =
+{
+    FRAME(SUMMARY_ICON_SPATK, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummarySpdef1[] =
+{
+    FRAME(SUMMARY_ICON_SPDEF, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummarySpdef2[] =
+{
+    FRAME(SUMMARY_ICON_SPDEF, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummarySpeed1[] =
+{
+    FRAME(SUMMARY_ICON_SPEED, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummarySpeed2[] =
+{
+    FRAME(SUMMARY_ICON_SPEED, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryAbility1[] =
+{
+    FRAME(SUMMARY_ICON_ABILITY, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryAbility2[] =
+{
+    FRAME(SUMMARY_ICON_ABILITY, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryExp1[] =
+{
+    FRAME(SUMMARY_ICON_EXP, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryExp2[] =
+{
+    FRAME(SUMMARY_ICON_EXP, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryTrainerMemo1[] =
+{
+    FRAME(SUMMARY_ICON_TRAINER_MEMO, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryTrainerMemo2[] =
+{
+    FRAME(SUMMARY_ICON_TRAINER_MEMO, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryIdNo1[] =
+{
+    FRAME(SUMMARY_ICON_ID_NO, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryIdNo2[] =
+{
+    FRAME(SUMMARY_ICON_ID_NO, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryItem1[] =
+{
+    FRAME(SUMMARY_ICON_ITEM, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryItem2[] =
+{
+    FRAME(SUMMARY_ICON_ITEM, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryNature1[] =
+{
+    FRAME(SUMMARY_ICON_NATURE, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryNature2[] =
+{
+    FRAME(SUMMARY_ICON_NATURE, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryNo1[] =
+{
+    FRAME(SUMMARY_ICON_NO, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryNo2[] =
+{
+    FRAME(SUMMARY_ICON_NO, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryName1[] =
+{
+    FRAME(SUMMARY_ICON_NAME, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryName2[] =
+{
+    FRAME(SUMMARY_ICON_NAME, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryType1[] =
+{
+    FRAME(SUMMARY_ICON_TYPE, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryType2[] =
+{
+    FRAME(SUMMARY_ICON_TYPE, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryOt1[] =
+{
+    FRAME(SUMMARY_ICON_OT, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryOt2[] =
+{
+    FRAME(SUMMARY_ICON_OT, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryTotalEvs1[] =
+{
+    FRAME(SUMMARY_ICON_TOTAL_EVS, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryTotalEvs2[] =
+{
+    FRAME(SUMMARY_ICON_TOTAL_EVS, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryIvs1[] =
+{
+    FRAME(SUMMARY_ICON_IVS, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryIvs2[] =
+{
+    FRAME(SUMMARY_ICON_IVS, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryPower1[] =
+{
+    FRAME(SUMMARY_ICON_POWER, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryPower2[] =
+{
+    FRAME(SUMMARY_ICON_POWER, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryAccuracy1[] =
+{
+    FRAME(SUMMARY_ICON_ACCURACY, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryAccuracy2[] =
+{
+    FRAME(SUMMARY_ICON_ACCURACY, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_SummaryEffect1[] =
+{
+    FRAME(SUMMARY_ICON_EFFECT, 0),
+    ANIMCMD_END
+};
+static const union AnimCmd sSpriteAnim_SummaryEffect2[] =
+{
+    FRAME(SUMMARY_ICON_EFFECT, 1),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sSpriteAnimTable_SummaryIcons[] =
+{
+    sSpriteAnim_SummaryHp1,
+    sSpriteAnim_SummaryHp2,
+    sSpriteAnim_SummaryAttack1,
+    sSpriteAnim_SummaryAttack2,
+    sSpriteAnim_SummaryDefense1,
+    sSpriteAnim_SummaryDefense2,
+    sSpriteAnim_SummarySpatk1,
+    sSpriteAnim_SummarySpatk2,
+    sSpriteAnim_SummarySpdef1,
+    sSpriteAnim_SummarySpdef2,
+    sSpriteAnim_SummarySpeed1,
+    sSpriteAnim_SummarySpeed2,
+    sSpriteAnim_SummaryAbility1,
+    sSpriteAnim_SummaryAbility2,
+    sSpriteAnim_SummaryExp1,
+    sSpriteAnim_SummaryExp2,
+    sSpriteAnim_SummaryTrainerMemo1,
+    sSpriteAnim_SummaryTrainerMemo2,
+    sSpriteAnim_SummaryIdNo1,
+    sSpriteAnim_SummaryIdNo2,
+    sSpriteAnim_SummaryItem1,
+    sSpriteAnim_SummaryItem2,
+    sSpriteAnim_SummaryNature1,
+    sSpriteAnim_SummaryNature2,
+    sSpriteAnim_SummaryNo1,
+    sSpriteAnim_SummaryNo2,
+    sSpriteAnim_SummaryName1,
+    sSpriteAnim_SummaryName2,
+    sSpriteAnim_SummaryType1,
+    sSpriteAnim_SummaryType2,
+    sSpriteAnim_SummaryOt1,
+    sSpriteAnim_SummaryOt2,
+    sSpriteAnim_SummaryTotalEvs1,
+    sSpriteAnim_SummaryTotalEvs2,
+    sSpriteAnim_SummaryIvs1,
+    sSpriteAnim_SummaryIvs2,
+    sSpriteAnim_SummaryPower1,
+    sSpriteAnim_SummaryPower2,
+    sSpriteAnim_SummaryAccuracy1,
+    sSpriteAnim_SummaryAccuracy2,
+    sSpriteAnim_SummaryEffect1,
+    sSpriteAnim_SummaryEffect2,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_SummaryIcons =
+{
+    .tileTag = TAG_SUMMARY_ICONS,
+    .paletteTag = TAG_SUMMARY_ICONS,
+    .oam = &sOamData_SummaryIcons,
+    .anims = sSpriteAnimTable_SummaryIcons,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
 
-static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid6 =
+#undef FRAME
+
+// Coordinates for the summary icon sprites for all pages.
+struct CoordsId
 {
-    .data = gLaserGrid6_Gfx,
-    .size = 0x80,
-    .tag = 30016
+    s32 id;
+    s16 x;
+    s16 y;
 };
 
-static const struct SpriteTemplate sSpriteTemplate_LaserGrid6 =
+static const struct CoordsId sPageInfoIcons[] =
 {
-    .tileTag = 30016,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
+    {SUMMARY_ICON_NO, 9, 22},
+    {SUMMARY_ICON_NAME, 9, 39},
+    {SUMMARY_ICON_TYPE, 9, 54},
+    {SUMMARY_ICON_OT, 9, 70},
+    {SUMMARY_ICON_ID_NO, 9, 79},
+    {SUMMARY_ICON_ITEM, 9, 95},
+    {SUMMARY_ICON_NATURE, 9, 110},
+    {SUMMARY_ICON_TRAINER_MEMO, 20, 129},
+    {-1}
 };
 
-static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid7 =
+static const struct CoordsId sPageSkillsIcons[] =
 {
-    .data = gLaserGrid7_Gfx,
-    .size = 0x80,
-    .tag = 30017
+    {SUMMARY_ICON_HP, 8, 30},
+    {SUMMARY_ICON_ATTACK, 8, 43},
+    {SUMMARY_ICON_DEFENSE, 8, 54},
+    {SUMMARY_ICON_SPATK, 8, 67},
+    {SUMMARY_ICON_SPDEF, 8, 79},
+    {SUMMARY_ICON_SPEED, 8, 91},
+    {SUMMARY_ICON_EXP, 8, 103},
+    {SUMMARY_ICON_ABILITY, 15, 128},
+    {-1}
 };
 
-static const struct SpriteTemplate sSpriteTemplate_LaserGrid7 =
+static const struct CoordsId sPageIvEvsIcons[] =
 {
-    .tileTag = 30017,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
+    {SUMMARY_ICON_HP, 8, 21},
+    {SUMMARY_ICON_ATTACK, 8, 35},
+    {SUMMARY_ICON_DEFENSE, 8, 46},
+    {SUMMARY_ICON_SPATK, 8, 58},
+    {SUMMARY_ICON_SPDEF, 8, 71},
+    {SUMMARY_ICON_SPEED, 8, 83},
+    {SUMMARY_ICON_TOTAL_EVS, 16, 97},
+    {SUMMARY_ICON_IVS, 0, 114},
+    {SUMMARY_ICON_HP, 7, 128},
+    {SUMMARY_ICON_ATTACK, 20, 142},
+    {SUMMARY_ICON_DEFENSE, 33, 154},
+    {SUMMARY_ICON_SPATK, 83, 129},
+    {SUMMARY_ICON_SPDEF, 96, 142},
+    {SUMMARY_ICON_SPEED, 109, 155},
+    {-1}
 };
 
-static const struct CompressedSpriteSheet gSpriteSheet_LaserGrid8 =
+static const struct CoordsId sPageNoIcons[] =
 {
-    .data = gLaserGrid8_Gfx,
-    .size = 0x80,
-    .tag = 30018
+    {SUMMARY_ICON_POWER, 130, 63},
+    {SUMMARY_ICON_ACCURACY, 130, 79},
+    {SUMMARY_ICON_EFFECT, 130, 95},
+    {-1},
 };
 
-static const struct SpriteTemplate sSpriteTemplate_LaserGrid8 =
+static const struct CoordsId* const sSummaryIconCoords[5] =
 {
-    .tileTag = 30018,
-    .paletteTag = 30005,
-    .oam = &sOamData_LaserGrid,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
+    [PSS_PAGE_INFO] = sPageInfoIcons,
+    [PSS_PAGE_SKILLS] = sPageSkillsIcons,
+    [PSS_PAGE_BATTLE_MOVES] = sPageNoIcons,
+    [PSS_PAGE_IV_EVS] = sPageIvEvsIcons,
+    [PSS_PAGE_CONTEST_MOVES] = sPageNoIcons,
 };
 
 static const u16 sSummaryMarkingsPalette[] = INCBIN_U16("graphics/interface/summary_markings.gbapal");
@@ -1478,7 +1667,7 @@ static void DestroySplitIcon(void)
     sMonSummaryScreen->splitIconSpriteId = 0xFF;
 }
 
-void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, void (*callback)(void))
+void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, void(*callback)(void))
 {
     sMonSummaryScreen = AllocZeroed(sizeof(*sMonSummaryScreen));
     sMonSummaryScreen->mode = mode;
@@ -1498,7 +1687,7 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     case PSS_MODE_NORMAL:
     case PSS_MODE_BOX:
         sMonSummaryScreen->minPageIndex = 0;
-        sMonSummaryScreen->maxPageIndex = 2;
+        sMonSummaryScreen->maxPageIndex = 3;
         break;
     case PSS_MODE_UNK1:
         sMonSummaryScreen->minPageIndex = 0;
@@ -1512,6 +1701,7 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
         break;
     }
 
+    memset(sMonSummaryScreen->summaryIconSpriteIds, 0xFF, sizeof(sMonSummaryScreen->summaryIconSpriteIds));
     sMonSummaryScreen->currPageIndex = sMonSummaryScreen->minPageIndex;
     SummaryScreen_SetUnknownTaskId(-1);
 
@@ -1521,13 +1711,13 @@ void ShowPokemonSummaryScreen(u8 mode, void *mons, u8 monIndex, u8 maxMonIndex, 
     SetMainCallback2(SummaryScreen_LoadingCB2);
 }
 
-void ShowSelectMovePokemonSummaryScreen(struct Pokemon *mons, u8 monIndex, u8 maxMonIndex, void (*callback)(void), u16 newMove)
+void ShowSelectMovePokemonSummaryScreen(struct Pokemon *mons, u8 monIndex, u8 maxMonIndex, void(*callback)(void), u16 newMove)
 {
     ShowPokemonSummaryScreen(PSS_MODE_SELECT_MOVE, mons, monIndex, maxMonIndex, callback);
     sMonSummaryScreen->newMove = newMove;
 }
 
-void ShowPokemonSummaryScreenSet40EF(u8 mode, struct BoxPokemon *mons, u8 monIndex, u8 maxMonIndex, void (*callback)(void))
+void ShowPokemonSummaryScreenSet40EF(u8 mode, struct BoxPokemon *mons, u8 monIndex, u8 maxMonIndex, void(*callback)(void))
 {
     ShowPokemonSummaryScreen(mode, mons, monIndex, maxMonIndex, callback);
     sMonSummaryScreen->unk40EF = TRUE;
@@ -1733,7 +1923,7 @@ static bool8 SummaryScreen_DecompressGraphics(void)
         sMonSummaryScreen->switchCounter++;
         break;
     case 5:
-        LZDecompressWram(gPageContestMovesTilemap, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_CONTEST_MOVES][1]);
+        LZDecompressWram(gPageIvEvTilemap, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_IV_EVS][1]);
         sMonSummaryScreen->switchCounter++;
         break;
     case 6:
@@ -1763,6 +1953,8 @@ static bool8 SummaryScreen_DecompressGraphics(void)
         break;
     case 12:
         LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
+        LoadCompressedSpriteSheet(&sSpriteSheet_SummaryIcons);
+        LoadSpritePalette(&sSpritePalette_SummaryIcons);
         sMonSummaryScreen->switchCounter = 0;
         return TRUE;
     }
@@ -1798,7 +1990,7 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         sum->abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
         sum->item = GetMonData(mon, MON_DATA_HELD_ITEM);
         sum->pid = GetMonData(mon, MON_DATA_PERSONALITY);
-        sum->sanity = GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG);        
+        sum->sanity = GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG);
         if (sum->sanity)
             sum->isEgg = TRUE;
         else
@@ -1808,8 +2000,8 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
     case 1:
         for (i = 0; i < MAX_MON_MOVES; i++)
         {
-            sum->moves[i] = GetMonData(mon, MON_DATA_MOVE1+i);
-            sum->pp[i] = GetMonData(mon, MON_DATA_PP1+i);
+            sum->moves[i] = GetMonData(mon, MON_DATA_MOVE1 + i);
+            sum->pp[i] = GetMonData(mon, MON_DATA_PP1 + i);
         }
         sum->ppBonuses = GetMonData(mon, MON_DATA_PP_BONUSES);
         break;
@@ -2029,29 +2221,31 @@ static void sub_81C0704(u8 taskId)
         DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->spriteIds[0]]);
         break;
     case 2:
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->spriteIds[1]]);
-        break;
-    case 3:
         CopyMonToSummaryStruct(&sMonSummaryScreen->currentMon);
         sMonSummaryScreen->switchCounter = 0;
         break;
-    case 4:
+    case 3:
         if (ExtractMonDataToSummaryStruct(&sMonSummaryScreen->currentMon) == FALSE)
             return;
         break;
-    case 5:
+    case 4:
         RemoveAndCreateMonMarkingsSprite(&sMonSummaryScreen->currentMon);
+        // Avoid ball display lag.
+        if (ItemIdToBallId(GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_POKEBALL)) !=
+            gSprites[sMonSummaryScreen->spriteIds[1]].data[0])
+            gSprites[sMonSummaryScreen->spriteIds[1]].invisible = TRUE;
         break;
-    case 6:
+    case 5:
+        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->spriteIds[1]]);
         CreateCaughtBallSprite(&sMonSummaryScreen->currentMon);
         break;
-    case 7:
+    case 6:
         if (sMonSummaryScreen->summary.ailment != AILMENT_NONE)
             DrawStatusTiles(10, -2);
         DrawPokerusCuredSymbol(&sMonSummaryScreen->currentMon);
         data[1] = 0;
         break;
-    case 8:
+    case 7:
         sMonSummaryScreen->spriteIds[0] = CreatePokemonSprite(&sMonSummaryScreen->currentMon, &data[1]);
         if (sMonSummaryScreen->spriteIds[0] == 0xFF)
             return;
@@ -2059,17 +2253,17 @@ static void sub_81C0704(u8 taskId)
         CheckExperienceProgressBar();
         data[1] = 0;
         break;
-    case 9:
+    case 8:
         SetTypeIcons();
         break;
-    case 10:
+    case 9:
         PrintMonInfo();
         break;
-    case 11:
+    case 10:
         PrintPageSpecificText(sMonSummaryScreen->currPageIndex);
         LimitEggSummaryPageDisplay();
         break;
-    case 12:
+    case 11:
         gSprites[sMonSummaryScreen->spriteIds[0]].data[2] = 0;
         break;
     default:
@@ -2196,11 +2390,13 @@ static void PssScrollRight(u8 taskId) // Scroll right
         SetBgTilemapBuffer(data[1], sMonSummaryScreen->bgTilemapBuffers[sMonSummaryScreen->currPageIndex][0]);
         ShowBg(1);
         ShowBg(2);
+        data[0]++;
     }
-    ChangeBgX(data[1], 0x2000, 1);
-    data[0] += 32;
-    if (data[0] > 0xFF)
+    else
+    {
+        ChangeBgX(data[1], 0x2000 * 8, 0);
         gTasks[taskId].func = PssScrollRightEnd;
+    }
 }
 
 static void PssScrollRightEnd(u8 taskId) // display right
@@ -2226,11 +2422,13 @@ static void PssScrollLeft(u8 taskId) // Scroll left
         else
             data[1] = 1;
         ChangeBgX(data[1], 0x10000, 0);
+        data[0]++;
     }
-    ChangeBgX(data[1], 0x2000, 2);
-    data[0] += 32;
-    if (data[0] > 0xFF)
+    else
+    {
+        ChangeBgX(data[1], 0, 0);
         gTasks[taskId].func = PssScrollLeftEnd;
+    }
 }
 
 static void PssScrollLeftEnd(u8 taskId) // display left
@@ -2269,7 +2467,7 @@ static void CheckExperienceProgressBar(void)
 {
     if (sMonSummaryScreen->currPageIndex == 1)
         DrawExperienceProgressBar(&sMonSummaryScreen->currentMon);
-        DrawHPProgressBar(&sMonSummaryScreen->currentMon);
+    DrawHPProgressBar(&sMonSummaryScreen->currentMon);
 }
 
 static void Create_DetailedMoves_Graphics(u8 taskId)
@@ -2294,12 +2492,8 @@ static void Create_DetailedMoves_Graphics(u8 taskId)
     {
         gSprites[sMonSummaryScreen->spriteIds[0]].invisible = TRUE;
         ClearWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
-            
-        gSprites[sMonSummaryScreen->summarySpriteIds[0]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[1]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[2]].invisible = FALSE;
         SetMonTypeIcons_Moves();
-        for (i = 0; i < 31; i++)
+        for (i = 2; i < 5; i++)
         {
             gSprites[sMonSummaryScreen->summaryLaserSpriteIds[i]].invisible = TRUE;
         }
@@ -2337,7 +2531,7 @@ static void HandleInput_MoveSelect(u8 taskId)
         else if (gMain.newKeys & A_BUTTON)
         {
             if (sMonSummaryScreen->unk40C8 == TRUE
-             || (sMonSummaryScreen->newMove == MOVE_NONE && sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES))
+                || (sMonSummaryScreen->newMove == MOVE_NONE && sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES))
             {
                 PlaySE(SE_SELECT);
                 sub_81C11F4(taskId);
@@ -2400,7 +2594,7 @@ static void Handle_Move_Swap_Arrows(s16 *a, s8 b, u8 *c)
     schedule_bg_copy_tilemap_to_vram(2);
     PrintMoveDetails(move);
     if ((*c == 4 && sMonSummaryScreen->newMove == MOVE_NONE) || a[1] == 1)
-    {        
+    {
         if (!gSprites[sMonSummaryScreen->spriteIds[2]].invisible)
             ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS);
         schedule_bg_copy_tilemap_to_vram(0);
@@ -2426,7 +2620,7 @@ static void Handle_Move_Swap_Arrows(s16 *a, s8 b, u8 *c)
 static void sub_81C11F4(u8 taskId)
 {
     u8 i;
-    
+
     DestroyRedAndBlueFrame(8);
     ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_SWITCH);
     PutWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
@@ -2448,11 +2642,9 @@ static void sub_81C11F4(u8 taskId)
         gSprites[sMonSummaryScreen->spriteIds[0]].invisible = FALSE;
         PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
         SetMonTypeIcons_Moves();
-        gSprites[sMonSummaryScreen->summarySpriteIds[0]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[1]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[2]].invisible = TRUE;
+        SetMonTypeIcons_Moves();
 
-        for (i = 0; i < 31; i++)
+        for (i = 2; i < 5; i++)
         {
             gSprites[sMonSummaryScreen->summaryLaserSpriteIds[i]].invisible = FALSE;
         }
@@ -2868,7 +3060,7 @@ static void sub_81C1DA4(u16 a, s16 b)
         b = LearnNewMoveDetailsTile.field_6;
     if (b == 0 || b == LearnNewMoveDetailsTile.field_6)
     {
-        //sub_81C1CB0(&LearnNewMoveDetailsTile, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_BATTLE_MOVES][0], b, 1);
+        sub_81C1CB0(&LearnNewMoveDetailsTile, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_BATTLE_MOVES][0], b, 1);
     }
     else
     {
@@ -2906,7 +3098,7 @@ static void PrintsLevelTextString_AfterCancel(u8 taskId)
         {
             if (!gSprites[sMonSummaryScreen->spriteIds[2]].invisible)
                 PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS);
-            //PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL); //This creates the Lv for the Pokemon 
+            //PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL); //This creates the Lv for the Pokemon
             //gSprites[sMonSummaryScreen->spriteIds[8]].invisible = TRUE;
             //gSprites[sMonSummaryScreen->spriteIds[9]].invisible = TRUE;
         }
@@ -2953,7 +3145,7 @@ static void sub_81C1F80(u8 taskId)
         {
             if (sMonSummaryScreen->currPageIndex == 3 && FuncIsActiveTask(PssScrollRight) == 0)
                 //PutWindowTilemap(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM);
-            DrawContestMoveHearts(data[2]);
+                DrawContestMoveHearts(data[2]);
         }
         else
         {
@@ -3139,15 +3331,15 @@ static void DrawHPProgressBar(struct Pokemon *unused)
     u16 *r9;
     u8 i;
 
-        u32 expBetweenLevels = gExperienceTables[gBaseStats[summary->species].growthRate][summary->level + 1] - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
-        u32 expSinceLastLevel = summary->exp - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
+    u32 expBetweenLevels = gExperienceTables[gBaseStats[summary->species].growthRate][summary->level + 1] - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
+    u32 expSinceLastLevel = summary->exp - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
 
-        // Calculate the number of 1-pixel "ticks" to illuminate in the experience progress bar.
-        // There are 8 tiles that make up the bar, and each tile has 8 "ticks". Hence, the numerator
-        // is multiplied by 64. sMonSummaryScreen->summary.currentHP
-        numExpProgressBarTicks = sMonSummaryScreen->summary.currentHP * 64 / sMonSummaryScreen->summary.maxHP;
-        if (numExpProgressBarTicks == 0 && expSinceLastLevel != 0)
-            numExpProgressBarTicks = 1;
+    // Calculate the number of 1-pixel "ticks" to illuminate in the experience progress bar.
+    // There are 8 tiles that make up the bar, and each tile has 8 "ticks". Hence, the numerator
+    // is multiplied by 64. sMonSummaryScreen->summary.currentHP
+    numExpProgressBarTicks = sMonSummaryScreen->summary.currentHP * 64 / sMonSummaryScreen->summary.maxHP;
+    if (numExpProgressBarTicks == 0 && expSinceLastLevel != 0)
+        numExpProgressBarTicks = 1;
 
     r9 = &sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][1][0x45];
     for (i = 0; i < 8; i++)
@@ -3172,7 +3364,7 @@ static void DrawHPProgressBar(struct Pokemon *unused)
             if (numExpProgressBarTicks < 0)
                 numExpProgressBarTicks = 0;
         }
-        else 
+        else
         {
             if (numExpProgressBarTicks > 7)
                 r9[i] = 0x50ED;
@@ -3182,7 +3374,7 @@ static void DrawHPProgressBar(struct Pokemon *unused)
             if (numExpProgressBarTicks < 0)
                 numExpProgressBarTicks = 0;
         }
-        
+
     }
 
     if (GetBgTilemapBuffer(1) == sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][0])
@@ -3298,19 +3490,19 @@ static void PrintNotEggInfo(void)
             SetDexNumberColor(TRUE);
         }
     }
-    else if (summary->species >= 388 || 
-             summary->species == 385 ||
-             summary->species == 384 ||
-             summary->species == 378 ||
-             summary->species == 343 ||
-             summary->species == 241 ||
-             summary->species == 193 ||
-             summary->species == 146 ||
-             summary->species == 145 ||
-             summary->species == 144 ||
-             summary->species == 122 ||
-             summary->species == 110 ||
-             summary->species == 42)
+    else if (summary->species >= 388 ||
+        summary->species == 385 ||
+        summary->species == 384 ||
+        summary->species == 378 ||
+        summary->species == 343 ||
+        summary->species == 241 ||
+        summary->species == 193 ||
+        summary->species == 146 ||
+        summary->species == 145 ||
+        summary->species == 144 ||
+        summary->species == 122 ||
+        summary->species == 110 ||
+        summary->species == 42)
     {
         if (!IsMonShiny(mon))
         {
@@ -3321,7 +3513,7 @@ static void PrintNotEggInfo(void)
         {
             SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, gText_Number2, 2, 1, 0, 7);
             SetDexNumberColor(TRUE);
-        } 
+        }
     }
     else if (summary->species >= 367)
     {
@@ -3372,12 +3564,12 @@ static void PrintGenderSymbol(struct Pokemon *mon, u16 species)
         u8 gender = GetMonGender(mon);
         switch (gender)
         {
-            case MON_MALE:
-                SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME, gText_MaleSymbol, 70, 0, 0, 1);
-                break;
-            case MON_FEMALE:
-                SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME, gText_FemaleSymbol, 70, 0, 0, 4);
-                break;
+        case MON_MALE:
+            SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME, gText_MaleSymbol, 70, 0, 0, 1);
+            break;
+        case MON_FEMALE:
+            SummaryScreen_PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME, gText_FemaleSymbol, 70, 0, 0, 4);
+            break;
         }
     }
 }
@@ -3386,6 +3578,39 @@ static void PrintAOrBButtonIcon(u8 windowId, bool8 bButton, u32 x)
 {
     // sSummaryBButtonBitmap - 0x80 = sSummaryAButtonBitmap
     BlitBitmapToWindow(windowId, (bButton) ? sSummaryBButtonBitmap : sSummaryBButtonBitmap - 0x80, x, 0, 16, 16);
+}
+
+static void DestroySummaryIcons(u32 page)
+{
+    s32 i;
+    const struct CoordsId *coords = sSummaryIconCoords[page];
+    for (i = 0; coords[i].id != -1; i++)
+    {
+        u8 *ptr = sMonSummaryScreen->summaryIconSpriteIds[coords[i].id][1];
+        if (ptr[1] == 0xFF || ptr[0] == 0xFF)
+            ptr = sMonSummaryScreen->summaryIconSpriteIds[coords[i].id][0];
+        DestroySprite(&gSprites[ptr[0]]);
+        ptr[0] = 0xFF;
+        DestroySprite(&gSprites[ptr[1]]);
+        ptr[1] = 0xFF;
+    }
+}
+
+static void CreateSummaryIcons(u32 page)
+{
+    s32 i;
+    const struct CoordsId *coords = sSummaryIconCoords[page];
+    for (i = 0; coords[i].id != -1; i++)
+    {
+        u8 *ptr = sMonSummaryScreen->summaryIconSpriteIds[coords[i].id][0];
+        if (ptr[0] != 0xFF || ptr[1] != 0xFF)
+            ptr = sMonSummaryScreen->summaryIconSpriteIds[coords[i].id][1];
+        ptr[0] = CreateSprite(&sSpriteTemplate_SummaryIcons, coords[i].x, coords[i].y, 0);
+        StartSpriteAnim(&gSprites[ptr[0]], coords[i].id * 2);
+
+        ptr[1] = CreateSprite(&sSpriteTemplate_SummaryIcons, coords[i].x + 32, coords[i].y, 0);
+        StartSpriteAnim(&gSprites[ptr[1]], coords[i].id * 2 + 1);
+    }
 }
 
 static void PrintPageNamesAndStatsPageToWindows(void)
@@ -3433,6 +3658,8 @@ static void CreatePageWindowTilemaps(u8 page)
     ClearWindowTilemap(PSS_LABEL_WINDOW_BATTLE_MOVES_TITLE);
     ClearWindowTilemap(PSS_LABEL_WINDOW_CONTEST_MOVES_TITLE);
 
+    CreateSummaryIcons(page);
+
     switch (page)
     {
     case PSS_PAGE_INFO:
@@ -3442,45 +3669,12 @@ static void CreatePageWindowTilemaps(u8 page)
             PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL);
         PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_TYPE);
         PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[0]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[1]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[2]]);
-        FreeSpriteTilesByTag(30007);
-        FreeSpriteTilesByTag(30008);
-        FreeSpriteTilesByTag(30009);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet1);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet2);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet3);
-        LoadCompressedSpritePalette(&sSummaryIconsSpritePalette);
-        sMonSummaryScreen->summarySpriteIds[0] = CreateSprite(&sSpriteTemplate_SummaryIcons1, 24, 46, 0);
-        sMonSummaryScreen->summarySpriteIds[1] = CreateSprite(&sSpriteTemplate_SummaryIcons2, 24, 96, 0);
-        sMonSummaryScreen->summarySpriteIds[2] = CreateSprite(&sSpriteTemplate_SummaryIcons3, 40, 128, 0);
         break;
     case PSS_PAGE_SKILLS:
         PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_TITLE);
-        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT);
-        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT);
         PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP);
         ClearWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[0]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[1]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[2]]);
-        FreeSpriteTilesByTag(30004);
-        FreeSpriteTilesByTag(30005);
-        FreeSpriteTilesByTag(30006);
-        //FreeSpriteTilesByTag(30010);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet4);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet5);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet6);
-        LoadCompressedSpritePalette(&sSummaryIconsSpritePalette);
-        sMonSummaryScreen->summarySpriteIds[0] = CreateSprite(&sSpriteTemplate_SummaryIcons4, 24, 46, 0);
-        sMonSummaryScreen->summarySpriteIds[1] = CreateSprite(&sSpriteTemplate_SummaryIcons5, 24, 91, 0);
-        sMonSummaryScreen->summarySpriteIds[2] = CreateSprite(&sSpriteTemplate_SummaryIcons6, 31, 128, 0);
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[31]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[32]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[33]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[34]].invisible = FALSE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[35]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[0]].invisible = FALSE;
         break;
     case PSS_PAGE_BATTLE_MOVES:
         PutWindowTilemap(PSS_LABEL_WINDOW_BATTLE_MOVES_TITLE);
@@ -3493,22 +3687,10 @@ static void CreatePageWindowTilemaps(u8 page)
         {
             PutWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
         }
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[0]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[1]]);
-        DestroySpriteAndFreeResources(&gSprites[sMonSummaryScreen->summarySpriteIds[2]]);
-        LoadCompressedSpriteSheet(&sSummaryIconsSpriteSheet7);
-        LoadCompressedSpritePalette(&sSummaryIconsSpritePalette);
-        sMonSummaryScreen->summarySpriteIds[0] = CreateSprite(&sSpriteTemplate_SummaryIcons7, 147, 79, 0);
-        sMonSummaryScreen->summarySpriteIds[1] = CreateSprite(&sSpriteTemplate_SummaryIcons7, 147, 79, 0);
-        sMonSummaryScreen->summarySpriteIds[2] = CreateSprite(&sSpriteTemplate_SummaryIcons7, 147, 79, 0);
-        gSprites[sMonSummaryScreen->summarySpriteIds[0]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[1]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summarySpriteIds[2]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[31]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[32]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[33]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[34]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[35]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[0]].invisible = TRUE;
+        break;
+    case PSS_PAGE_IV_EVS:
+        gSprites[sMonSummaryScreen->summaryLaserSpriteIds[0]].invisible = FALSE;
         break;
     case PSS_PAGE_CONTEST_MOVES:
         PutWindowTilemap(PSS_LABEL_WINDOW_CONTEST_MOVES_TITLE);
@@ -3535,44 +3717,46 @@ static void CreatePageWindowTilemaps(u8 page)
 static void ClearPageWindowTilemaps(u8 page)
 {
     u8 i;
+
+    DestroySummaryIcons(page);
     switch (page)
     {
-        case PSS_PAGE_INFO:
-            ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_CANCEL);
-            if (InBattleFactory() == TRUE || InSlateportBattleTent() == TRUE)
-                ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL);
-            ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_TYPE);
-            break;
-        case PSS_PAGE_SKILLS:
-            ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT);
-            ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT);
-            ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP);
-            break;
-        case PSS_PAGE_BATTLE_MOVES:
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
+    case PSS_PAGE_INFO:
+        ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_CANCEL);
+        ClearWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER);
+        if (InBattleFactory() == TRUE || InSlateportBattleTent() == TRUE)
+            ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL);
+        ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_INFO_TYPE);
+        break;
+    case PSS_PAGE_SKILLS:
+        ClearWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP);
+        break;
+    case PSS_PAGE_BATTLE_MOVES:
+        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
+        {
+            if (sMonSummaryScreen->newMove != MOVE_NONE || sMonSummaryScreen->firstMoveIndex != MAX_MON_MOVES)
             {
-                if (sMonSummaryScreen->newMove != MOVE_NONE || sMonSummaryScreen->firstMoveIndex != MAX_MON_MOVES)
-                {
-                    ClearWindowTilemap(PSS_LABEL_WINDOW_MOVES_POWER_ACC);
-                    gSprites[sMonSummaryScreen->splitIconSpriteId].invisible = TRUE;
-                }
+                ClearWindowTilemap(PSS_LABEL_WINDOW_MOVES_POWER_ACC);
+                gSprites[sMonSummaryScreen->splitIconSpriteId].invisible = TRUE;
             }
-            else
-            {
-                ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
-            }
-            break;
-        case PSS_PAGE_CONTEST_MOVES:
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
-            {
-                if (sMonSummaryScreen->newMove != MOVE_NONE || sMonSummaryScreen->firstMoveIndex != MAX_MON_MOVES)
-                    ClearWindowTilemap(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM);
-            }
-            else
-            {
-                ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
-            }
-            break;
+        }
+        else
+        {
+            ClearWindowTilemap(PSS_LABEL_WINDOW_MOVES_POWER_ACC);
+            ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
+        }
+        break;
+    case PSS_PAGE_CONTEST_MOVES:
+        if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
+        {
+            if (sMonSummaryScreen->newMove != MOVE_NONE || sMonSummaryScreen->firstMoveIndex != MAX_MON_MOVES)
+                ClearWindowTilemap(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM);
+        }
+        else
+        {
+            ClearWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
+        }
+        break;
     }
 
     for (i = 0; i < ARRAY_COUNT(sMonSummaryScreen->windowIds); i++)
@@ -3643,32 +3827,11 @@ static void PrintInfoPageText(void)
 
 static void Task_PrintInfoPage(u8 taskId)
 {
-    s16 *data = gTasks[taskId].data;
-    switch (data[0])
+    if (gTasks[taskId].data[0]++ >= 1)
     {
-    case 1:
-        PrintMonOTName();
-        break;
-    case 2:
-        PrintMonOTID();
-        break;
-    case 3:
-        PrintHeldItemName();
-        break;
-    case 4:
-        PrintMonNature();
-        break;
-    case 5:
-        BufferMonTrainerMemo();
-        break;
-    case 6:
-        PrintMonTrainerMemo();
-        break;
-    case 7:
+        PrintInfoPageText();
         DestroyTask(taskId);
-        return;
     }
-    data[0]++;
 }
 
 static void PrintMonOTName(void)
@@ -3912,33 +4075,11 @@ static void PrintSkillsPageText(void)
 
 static void Task_PrintSkillsPage(u8 taskId)
 {
-    s16 *data = gTasks[taskId].data;
-
-    switch (data[0])
+    if (gTasks[taskId].data[0]++ >= 1)
     {
-    case 1:
-        PrintExpPointsNextLevel();
-        break;
-    case 2:
-        BufferLeftColumnStats();
-        break;
-    case 3:
-        PrintLeftColumnStats();
-        break;
-    case 4:
-        BufferRightColumnStats();
-        break;
-    case 5:
-        PrintMonAbilityName();
-        break;
-    case 6:
-        PrintMonAbilityDescription();
-        break;
-    case 7:
+        PrintSkillsPageText();
         DestroyTask(taskId);
-        return;
     }
-    data[0]++;
 }
 
 static void PrintRibbonCount(void)
@@ -3995,7 +4136,7 @@ static void BufferLeftColumnStats(void)
 
 static void PrintLeftColumnStats(void)
 {
-    
+
     SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar1, 4, 8, 0, 0); //HP String
 
     if (gNatureStatTable[sMonSummaryScreen->summary.nature][0] > 0)
@@ -4011,7 +4152,7 @@ static void PrintLeftColumnStats(void)
         SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar3, 4, 32, 0, 13);
     else
         SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar3, 4, 32, 0, 0);
-    
+
     if (gNatureStatTable[sMonSummaryScreen->summary.nature][3] > 0)
         SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 44, 0, 11);
     else if (gNatureStatTable[sMonSummaryScreen->summary.nature][3] < 0)
@@ -4022,7 +4163,6 @@ static void PrintLeftColumnStats(void)
 
 static void BufferRightColumnStats(void)
 {
-
     ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.spdef, STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar2, sMonSummaryScreen->summary.speed, STR_CONV_MODE_LEFT_ALIGN, 3);
 
@@ -4031,7 +4171,7 @@ static void BufferRightColumnStats(void)
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar1, sStatsRightColumnLayout1);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gStringVar2);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar2, sStatsRightColumnLayout2);
-    
+
     //Add a colorid change for natures
     if (gNatureStatTable[sMonSummaryScreen->summary.nature][4] > 0)
         SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar1, 4, 0, 0, 11);
@@ -4046,7 +4186,6 @@ static void BufferRightColumnStats(void)
     else
         SummaryScreen_PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar2, 4, 12, 0, 0);
 }
-
 
 static void PrintExpPointsNextLevel(void)
 {
@@ -4103,47 +4242,25 @@ static void PrintBattleMoves(void)
 
 static void Task_PrintBattleMoves(u8 taskId)
 {
-    s16 *data = gTasks[taskId].data;
-
-    switch (data[0])
+    if (gTasks[taskId].data[0]++ >= 1)
     {
-        case 1:
-            PrintMoveNameAndPP(0);
-            break;
-        case 2:
-            PrintMoveNameAndPP(1);
-            break;
-        case 3:
-            PrintMoveNameAndPP(2);
-            break;
-        case 4:
-            PrintMoveNameAndPP(3);
-            break;
-        case 5:
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
-                PrintNewMoveDetailsOrCancelText();
-            break;
-        case 6:
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
-            {
-                if (sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES)
-                    data[1] = sMonSummaryScreen->newMove;
-                else
-                    data[1] = sMonSummaryScreen->summary.moves[sMonSummaryScreen->firstMoveIndex];
-            }
-            break;
-        case 7:
-            if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
-            {
-                if (sMonSummaryScreen->newMove != MOVE_NONE || sMonSummaryScreen->firstMoveIndex != MAX_MON_MOVES)
-                    PrintMoveDetails(data[1]);
-            }
-            break;
-        case 8:
-            DestroyTask(taskId);
-            return;
+        PrintBattleMoves();
+        DestroyTask(taskId);
     }
-    data[0]++;
+}
+
+static void PrintIvEvs(void)
+{
+
+}
+
+static void Task_PrintIvEvs(u8 taskId)
+{
+    if (gTasks[taskId].data[0]++ >= 1)
+    {
+        PrintIvEvs();
+        DestroyTask(taskId);
+    }
 }
 
 static void PrintMoveNameAndPP(u8 moveIndex)
@@ -4383,11 +4500,11 @@ static void DestroySpriteInArray(u8 spriteArrayId)
 }
 
 
-static void CreateMonIconMovesPage (void)
+static void CreateMonIconMovesPage(void)
 {
     struct Pokemon *mon = &sMonSummaryScreen->currentMon;
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
-    
+
     sMonSummaryScreen->MonIconMoves[1] = CreateMonIcon(summary->species2, SpriteCB_MonIcon, 140, 32, 2, GetMonData(mon, MON_DATA_PERSONALITY), 0);
 }
 
@@ -4403,7 +4520,7 @@ static void SetMoveTypeSpriteInvisibility(u8 spriteArrayId, bool8 invisible)
 
 static void HidePageSpecificSprites(void)
 {
-// Keeps Pokémon, caught ball and status sprites visible.
+    // Keeps Pokémon, caught ball and status sprites visible.
     u8 i;
 
     for (i = 3; i < ARRAY_COUNT(sMonSummaryScreen->spriteIds); i++)
@@ -4442,11 +4559,11 @@ static void CreateMoveTypeIcons(void)
 
         SetSpriteInvisibility(i, TRUE);
     }
-        sMonSummaryScreen->MonTypeIconIds[1] = CreateSprite(&sSpriteTemplate_MoveTypes, 184, 42, 2);
-        sMonSummaryScreen->MonTypeIconIds[2] = CreateSprite(&sSpriteTemplate_MoveTypes, 220, 42, 2);
+    sMonSummaryScreen->MonTypeIconIds[1] = CreateSprite(&sSpriteTemplate_MoveTypes, 184, 42, 2);
+    sMonSummaryScreen->MonTypeIconIds[2] = CreateSprite(&sSpriteTemplate_MoveTypes, 220, 42, 2);
 
-        gSprites[sMonSummaryScreen->MonTypeIconIds[1]].invisible = TRUE;
-        gSprites[sMonSummaryScreen->MonTypeIconIds[2]].invisible = TRUE;
+    gSprites[sMonSummaryScreen->MonTypeIconIds[1]].invisible = TRUE;
+    gSprites[sMonSummaryScreen->MonTypeIconIds[2]].invisible = TRUE;
 }
 
 static void SetMoveTypeSpritePosAndType(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
@@ -4497,7 +4614,7 @@ static void SetMonTypeIcons_Moves(void)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
     {
-        
+
 
         if (sMonSummaryScreen->detailedMoveCheck == 1)
         {
@@ -4558,18 +4675,13 @@ static void SetNewMoveTypeIcon(void)
             {
                 gSprites[sMonSummaryScreen->spriteIds[0]].invisible = TRUE;
                 ClearWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
-
-                gSprites[sMonSummaryScreen->summarySpriteIds[0]].invisible = FALSE;
-                gSprites[sMonSummaryScreen->summarySpriteIds[1]].invisible = FALSE;
-                gSprites[sMonSummaryScreen->summarySpriteIds[2]].invisible = FALSE;
                 SetMonTypeIcons_Moves();
-                
             }
         }
         PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME);
         //PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
 
-        for (i = 0; i < 36; i++)
+        for (i = 0; i < 5; i++)
         {
             gSprites[sMonSummaryScreen->summaryLaserSpriteIds[i]].invisible = TRUE;
         }
@@ -4613,53 +4725,53 @@ static u8 CreatePokemonSprite(struct Pokemon *mon, s16 *a1)
 
     switch (*a1)
     {
-        default:
-            return createMonPortrait_SummaryScreen(mon);
-        case 0:
-            if (gMain.inBattle)
+    default:
+        return createMonPortrait_SummaryScreen(mon);
+    case 0:
+        if (gMain.inBattle)
+        {
+            if (sub_80688F8(3, sMonSummaryScreen->curMonIndex))
             {
-                if (sub_80688F8(3, sMonSummaryScreen->curMonIndex))
+                HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
+            }
+            else
+            {
+                HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
+            }
+        }
+        else
+        {
+            if (gMonSpritesGfxPtr != NULL)
+            {
+                if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == PSS_MODE_BOX || sMonSummaryScreen->unk40EF == TRUE)
                 {
-                    HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
+                    HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
                 }
                 else
                 {
-                    HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
+                    HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
                 }
             }
             else
             {
-                if (gMonSpritesGfxPtr != NULL)
+                if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == PSS_MODE_BOX || sMonSummaryScreen->unk40EF == TRUE)
                 {
-                    if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == PSS_MODE_BOX || sMonSummaryScreen->unk40EF == TRUE)
-                    {
-                        HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
-                    }
-                    else
-                    {
-                        HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], gMonSpritesGfxPtr->sprites[1], summary->species2, summary->pid);
-                    }
+                    HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], sub_806F4F8(0, 1), summary->species2, summary->pid);
                 }
                 else
                 {
-                    if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == PSS_MODE_BOX || sMonSummaryScreen->unk40EF == TRUE)
-                    {
-                        HandleLoadSpecialPokePic_2(&gMonFrontPicTable[summary->species2], sub_806F4F8(0, 1), summary->species2, summary->pid);
-                    }
-                    else
-                    {
-                        HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], sub_806F4F8(0, 1), summary->species2, summary->pid);
-                    }
+                    HandleLoadSpecialPokePic_DontHandleBonded_Alakazam(&gMonFrontPicTable[summary->species2], sub_806F4F8(0, 1), summary->species2, summary->pid);
                 }
             }
-            (*a1)++;
-            return 0xFF;
-        case 1:
-            pal = GetMonSpritePalStructFromOtIdPersonality(summary->species2, summary->OTID, summary->pid);
-            LoadCompressedSpritePalette(pal);
-            SetMultiuseSpriteTemplateToPokemon(pal->tag, 1);
-            (*a1)++;
-            return 0xFF;
+        }
+        (*a1)++;
+        return 0xFF;
+    case 1:
+        pal = GetMonSpritePalStructFromOtIdPersonality(summary->species2, summary->OTID, summary->pid);
+        LoadCompressedSpritePalette(pal);
+        SetMultiuseSpriteTemplateToPokemon(pal->tag, 1);
+        (*a1)++;
+        return 0xFF;
     }
 }
 
@@ -4773,53 +4885,16 @@ static void RemoveAndCreateMonMarkingsSprite(struct Pokemon *mon)
 
 static void CreateLaserGrid(void)
 {
-    LoadCompressedSpritePalette(&gPalette_LaserGrid);
+    LoadSpritePalette(&gSpritePalette_LaserGrid);
     LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid1);
     LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid2);
     LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid3);
     LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid4);
-    LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid5);
-    LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid6);
-    LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid7);
-    LoadCompressedSpriteSheet(&gSpriteSheet_LaserGrid8);
-    CreateSprite(&sSpriteTemplate_LaserGrid1, 120, 20, 2);
-    CreateSprite(&sSpriteTemplate_LaserGrid2, 128, 20, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[0] = CreateSprite(&sSpriteTemplate_LaserGrid3, 128, 28, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[1] = CreateSprite(&sSpriteTemplate_LaserGrid4, 128, 36, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[2] = CreateSprite(&sSpriteTemplate_LaserGrid4, 128, 44, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[3] = CreateSprite(&sSpriteTemplate_LaserGrid5, 128, 52, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[4] = CreateSprite(&sSpriteTemplate_LaserGrid6, 136, 52, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[5] = CreateSprite(&sSpriteTemplate_LaserGrid5, 136, 60, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[6] = CreateSprite(&sSpriteTemplate_LaserGrid6, 144, 60, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[7] = CreateSprite(&sSpriteTemplate_LaserGrid5, 144, 68, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[8] = CreateSprite(&sSpriteTemplate_LaserGrid6, 152, 68, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[9] = CreateSprite(&sSpriteTemplate_LaserGrid5, 152, 76, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[10] = CreateSprite(&sSpriteTemplate_LaserGrid6, 160, 76, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[11] = CreateSprite(&sSpriteTemplate_LaserGrid5, 160, 84, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[12] = CreateSprite(&sSpriteTemplate_LaserGrid6, 168, 84, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[13] = CreateSprite(&sSpriteTemplate_LaserGrid5, 168, 92, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[14] = CreateSprite(&sSpriteTemplate_LaserGrid6, 176, 92, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[15] = CreateSprite(&sSpriteTemplate_LaserGrid5, 176, 100, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[16] = CreateSprite(&sSpriteTemplate_LaserGrid6, 184, 100, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[17] = CreateSprite(&sSpriteTemplate_LaserGrid5, 184, 108, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[18] = CreateSprite(&sSpriteTemplate_LaserGrid6, 192, 108, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[19] = CreateSprite(&sSpriteTemplate_LaserGrid5, 192, 116, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[20] = CreateSprite(&sSpriteTemplate_LaserGrid6, 200, 116, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[21] = CreateSprite(&sSpriteTemplate_LaserGrid5, 200, 124, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[22] = CreateSprite(&sSpriteTemplate_LaserGrid6, 208, 124, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[23] = CreateSprite(&sSpriteTemplate_LaserGrid5, 208, 132, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[24] = CreateSprite(&sSpriteTemplate_LaserGrid6, 216, 132, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[25] = CreateSprite(&sSpriteTemplate_LaserGrid5, 216, 140, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[26] = CreateSprite(&sSpriteTemplate_LaserGrid6, 224, 140, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[27] = CreateSprite(&sSpriteTemplate_LaserGrid5, 224, 148, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[28] = CreateSprite(&sSpriteTemplate_LaserGrid6, 232, 148, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[29] = CreateSprite(&sSpriteTemplate_LaserGrid5, 232, 156, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[30] = CreateSprite(&sSpriteTemplate_LaserGrid6, 240, 156, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[31] = CreateSprite(&sSpriteTemplate_LaserGrid7, 8, 140, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[32] = CreateSprite(&sSpriteTemplate_LaserGrid8, 8, 148, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[33] = CreateSprite(&sSpriteTemplate_LaserGrid7, 16, 148, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[34] = CreateSprite(&sSpriteTemplate_LaserGrid8, 16, 156, 2);
-    sMonSummaryScreen->summaryLaserSpriteIds[35] = CreateSprite(&sSpriteTemplate_LaserGrid7, 24, 156, 2);
+    sMonSummaryScreen->summaryLaserSpriteIds[0] = CreateSprite(&sSpriteTemplate_LaserGrid3, 16, 144, 2);
+    sMonSummaryScreen->summaryLaserSpriteIds[1] = CreateSprite(&sSpriteTemplate_LaserGrid1, 120, 24, 2);
+    sMonSummaryScreen->summaryLaserSpriteIds[2] = CreateSprite(&sSpriteTemplate_LaserGrid2, 152, 56, 2);
+    sMonSummaryScreen->summaryLaserSpriteIds[3] = CreateSprite(&sSpriteTemplate_LaserGrid4, 192, 120, 2);
+    sMonSummaryScreen->summaryLaserSpriteIds[4] = CreateSprite(&sSpriteTemplate_LaserGrid4, 240, 168, 2);
 }
 
 static void CreateCaughtBallSprite(struct Pokemon *mon)
@@ -4830,6 +4905,7 @@ static void CreateCaughtBallSprite(struct Pokemon *mon)
     sMonSummaryScreen->spriteIds[1] = CreateSprite(&gBallSpriteTemplates[ball], 136, 40, 1);
     gSprites[sMonSummaryScreen->spriteIds[1]].callback = SpriteCallbackDummy;
     gSprites[sMonSummaryScreen->spriteIds[1]].oam.priority = 3;
+    gSprites[sMonSummaryScreen->spriteIds[1]].data[0] = ball;
 }
 
 static void CreateSetStatusSprite(void)

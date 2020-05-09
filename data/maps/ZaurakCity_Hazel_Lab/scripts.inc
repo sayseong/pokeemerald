@@ -14,11 +14,80 @@ ZaurakCity_Hazel_Lab_OnFrame: @ 8228431
 ZaurakCity_Hazel_Lab_Meeting::
 	applymovement 255, Common_Movement_WalkUp4
 	waitmovement 0
-	checkplayergender
-	compare VAR_RESULT, MALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Meeting_Derek
-	compare VAR_RESULT, FEMALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Meeting_Kate
+	call Common_EventScript_SetupRival_Duo_Mugshot
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_1_Derek, MSGBOX_DEFAULT
+	applymovement 4, Common_Movement_WalkInPlaceUp
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_2_Derek, MSGBOX_DEFAULT
+	applymovement 2, Common_Movement_WalkInPlaceDown
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_3, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_Duo_Mugshot
+	closemessage
+	applymovement 2, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Left
+	waitmovement 0
+	applymovement 2, Common_Movement_WalkInPlaceDown
+	waitmovement 0
+	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Machine
+	waitmovement 0
+	playfanfare MUS_ME_ASA
+	special HealPlayerParty
+	waitfanfare
+	applymovement 2, Zaurak_Hazel_Lab_Walk_Trainers
+	waitmovement 0 	
+	call Common_EventScript_SetupRival_Duo_Mugshot
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_4, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_Duo_Mugshot
+	closemessage	
+	applymovement 1, Zaurak_Hazel_Lab_Walk_Clair
+	waitmovement 0
+	applymovement 2, Common_Movement_FaceRight
+	waitmovement 0
+	load_field_pic 8, 200, 83, VAR_0x8009
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_5, MSGBOX_DEFAULT
+	applymovement 2, Common_Movement_FaceDown
+	waitmovement 0
+	destroy_field_pic 8, VAR_0x8009
+	call Common_EventScript_SetupRival_Duo_Mugshot
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_6, MSGBOX_DEFAULT
+	call ZaurakCity_EventScript_ReceivePokedex
+	applymovement 1, Common_Movement_FaceDown
+	waitmovement 0
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_7, MSGBOX_DEFAULT
+	load_field_pic 8, 200, 83, VAR_0x8009
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_DEFAULT
+	destroy_field_pic 8, VAR_0x8009
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_9, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_Duo_Mugshot
+	closemessage
+	setvar VAR_UNUSED_0x404E, 1
+	setflag FLAG_HIDE_ZAURAK_LAB_CLAIR_TOUR_SETUP
+	end
+
+ZaurakCity_Hazel_Lab_Meeting_Hazel::
+	faceplayer
+	call Common_EventScript_SetupPlayer_MugShot
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_9, MSGBOX_NPC
+	call Common_EventScript_RemovePlayer_MugShot
+	closemessage
+	end
+
+ZaurakCity_Hazel_Lab_Meeting_Clair::
+	faceplayer
+	call Common_EventScript_SetupPlayer_MugShot
+	load_field_pic 8, 200, 83, VAR_0x8009
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_NPC
+	call Common_EventScript_RemovePlayer_MugShot
+	destroy_field_pic 8, VAR_0x8009
+	closemessage
+	end
+	
+ZaurakCity_Hazel_Lab_Meeting_Rival::
+	faceplayer
+	call Common_EventScript_SetupRival_MugShot
+	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_Rival, MSGBOX_NPC
+	call Common_EventScript_RemoveRival_MugShot
+	closemessage
 	end
 
 ZaurakCity_Heal_Station::
@@ -37,163 +106,6 @@ ZaurakCity_Heal::
 
 ZaurakCity_No_Heal::
 	closemessage
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Derek::
-	load_field_pic 7, 40, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_1_Derek, MSGBOX_DEFAULT
-	applymovement 4, Common_Movement_WalkInPlaceUp
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_2_Derek, MSGBOX_DEFAULT
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_3, MSGBOX_DEFAULT
-	destroy_field_pic 7, VAR_0x8008
-	closemessage
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Left
-	waitmovement 0
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Machine
-	waitmovement 0
-	applymovement 2, Zaurak_Hazel_Lab_Walk_Trainers
-	waitmovement 0 	
-	load_field_pic 7, 40, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_4, MSGBOX_DEFAULT
-	destroy_field_pic 7, VAR_0x8008
-	closemessage	
-	applymovement 1, Zaurak_Hazel_Lab_Walk_Clair
-	waitmovement 0
-	applymovement 2, Common_Movement_FaceRight
-	waitmovement 0
-	load_field_pic 8, 200, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_5, MSGBOX_DEFAULT
-	applymovement 2, Common_Movement_FaceDown
-	waitmovement 0
-	destroy_field_pic 8, VAR_0x8008
-	load_field_pic 7, 40, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_6, MSGBOX_DEFAULT
-	call ZaurakCity_EventScript_ReceivePokedex
-	applymovement 1, Common_Movement_FaceDown
-	waitmovement 0
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_7, MSGBOX_DEFAULT
-	load_field_pic 8, 200, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_DEFAULT
-	destroy_field_pic 8, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_9, MSGBOX_DEFAULT
-	destroy_field_pic 7, VAR_0x8009
-	closemessage
-	setvar VAR_UNUSED_0x404E, 1
-	setflag FLAG_HIDE_ZAURAK_LAB_CLAIR_TOUR_SETUP
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Kate::
-	load_field_pic 6, 40, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_1_Kate, MSGBOX_DEFAULT
-	applymovement 4, Common_Movement_WalkInPlaceUp
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_2_Kate, MSGBOX_DEFAULT
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_3, MSGBOX_DEFAULT
-	destroy_field_pic 6, VAR_0x8008
-	closemessage
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Left
-	waitmovement 0
-	applymovement 2, Common_Movement_WalkInPlaceDown
-	waitmovement 0
-	applymovement 2, ZaurakCity_Hazel_Lab_Walk_Machine
-	waitmovement 0
-	applymovement 2, Zaurak_Hazel_Lab_Walk_Trainers
-	waitmovement 0 	
-	load_field_pic 6, 40, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_4, MSGBOX_DEFAULT
-	destroy_field_pic 6, VAR_0x8008
-	closemessage	
-	applymovement 1, Zaurak_Hazel_Lab_Walk_Clair
-	waitmovement 0
-	applymovement 2, Common_Movement_FaceRight
-	waitmovement 0
-	load_field_pic 8, 200, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_5, MSGBOX_DEFAULT
-	applymovement 2, Common_Movement_FaceDown
-	waitmovement 0
-	destroy_field_pic 8, VAR_0x8008
-	load_field_pic 6, 40, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_6, MSGBOX_DEFAULT
-	call ZaurakCity_EventScript_ReceivePokedex
-	applymovement 1, Common_Movement_FaceDown
-	waitmovement 0
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_7, MSGBOX_DEFAULT
-	load_field_pic 8, 200, 83, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_DEFAULT
-	destroy_field_pic 8, VAR_0x8008
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_9, MSGBOX_DEFAULT
-	destroy_field_pic 6, VAR_0x8009
-	closemessage
-	setvar VAR_UNUSED_0x404E, 1
-	setflag FLAG_HIDE_ZAURAK_LAB_CLAIR_TOUR_SETUP
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Hazel::
-	faceplayer
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_9, MSGBOX_DEFAULT
-	closemessage
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Clair::
-	faceplayer
-	checkplayergender
-	compare VAR_RESULT, MALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Meeting_Clair_Derek
-	compare VAR_RESULT, FEMALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Meeting_Clair_Kate
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Clair_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 8, 200, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 8, VAR_0x8009
-	closemessage
-	end
-	
-ZaurakCity_Hazel_Lab_Meeting_Clair_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 8, 200, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_8, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 8, VAR_0x8009
-	closemessage
-	end
-
-ZaurakCity_Hazel_Lab_Meeting_Rival::
-	faceplayer
-	checkplayergender
-	compare VAR_RESULT, MALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Derek
-	compare VAR_RESULT, FEMALE
-	goto_if_eq ZaurakCity_Hazel_Lab_Kate
-	closemessage
-	end
-
-ZaurakCity_Hazel_Lab_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_Rival, MSGBOX_DEFAULT
-	closemessage
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
-	end
-
-ZaurakCity_Hazel_Lab_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox ZaurakCity_Hazel_Lab_Meeting_Text_Rival, MSGBOX_DEFAULT
-	closemessage
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
 	end
 
 ZaurakCity_EventScript_ReceivePokedex::
@@ -215,20 +127,16 @@ ZaurakCity_Hazel_Lab_Walk_Machine:
 	walk_right
 	walk_right
 	face_up
-	delay_16
-	delay_16
-	delay_16
-	delay_16
 	step_end
 
 Zaurak_Hazel_Lab_Walk_Trainers:
 	walK_left
 	walK_left
-	face_down
+	walk_in_place_down
 	delay_16
 	delay_16
 	walK_left
-	face_down
+	walk_in_place_down
 	delay_16
 	delay_16
 	step_end
@@ -290,8 +198,8 @@ ZaurakCity_Hazel_Lab_Meeting_Text_6:
 	.string "I want you to take these two Pokédexes.$"
 	
 ZaurakCity_Hazel_Lab_Meeting_Text_7:
-	.string "During your jouurney you will meet many\n"
-	.string "all sorts of Pokémon.\p"
+	.string "During your jouurney you will meet all\n"
+	.string "sorts of Pokémon.\p"
 	.string "Pokémon you may form bonds with.\p"
 	.string "I do want you to have fun on your.\n"
 	.string "journey. Do not hestitate to let me\p"

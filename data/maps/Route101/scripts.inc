@@ -48,11 +48,9 @@ Route_1_After_Lesson::
 	applymovement 2, Common_Movement_FaceLeft
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Teala_Lesson_Derek
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Teala_Lesson_Kate
+	call Common_EventScript_SetupRival_MugShot
+	msgbox Route_1_Rival_Text, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_MugShot
 	applymovement 1, Teala_To_player
 	applymovement 3, Teala_Leaves
 	applymovement 4, Teala_Leaves
@@ -63,20 +61,18 @@ Route_1_After_Lesson::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	applymovement 2, Common_Movement_FaceUp
 	waitmovement 0
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_About_To_Receive_Pokemon_Derek
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_About_To_Receive_Pokemon_Kate
+	call Common_EventScript_SetupRival_Duo_Mugshot
+	load_field_pic 5, 200, 83, VAR_0x8009
+	msgbox Route_1_Receiving_Pokemon_Derek, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveDerek_Duo_Mugshot
+	destroy_field_pic 5, VAR_0x8009
 	applymovement 2, Jumping_In_Excitement
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	waitmovement 0
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Player_Choose_Starter_Derek
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Player_Choose_Starter_Kate
+	call Common_EventScript_SetupRival_MugShot
+	msgbox Rival_Gives_First_Choice, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_MugShot
 	removeobject 3
 	removeobject 4	
 	setflag FLAG_HIDE_DENEB_NICK_AND_CARLY
@@ -90,25 +86,30 @@ Route_1_After_Lesson::
 	end
 	
 Route_1_Obtained_Starter::	
+	call Common_EventScript_SetupRival_Duo_Mugshot
+	load_field_pic 5, 200, 83, VAR_0x8009
+	switch VAR_STARTER_MON
+	case 0, Route_1_Rival_Picks_Torchic
+	case 1, Route_1_Rival_Picks_Froakie
+	case 2, Route_1_Rival_Picks_Snivy
+	end
+	
+Route_1_Received_Starter::	
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	applymovement 2, Common_Movement_FaceUp
 	waitmovement 0
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Teala_Objective_Derek
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Teala_Objective_Kate
+	msgbox Route_1_Objective_Text, MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_Duo_Mugshot
+	destroy_field_pic 5, VAR_0x8009
 	closemessage
 	applymovement 1, Teala_Leaves
 	waitmovement 0
 	removeobject 1
 	applymovement 255, Common_Movement_FaceRight
 	applymovement 2, Common_Movement_FaceLeft
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Wait_Bridge_Derek
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Wait_Bridge_Kate
+	call Common_EventScript_SetupRival_MugShot
+	msgbox Rival_Goes_Bridge MSGBOX_DEFAULT
+	call Common_EventScript_RemoveRival_MugShot
 	closemessage
 	applymovement 2, Rival_Runs_Bridge
 	waitmovement 0
@@ -117,165 +118,64 @@ Route_1_Obtained_Starter::
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	releaseall
 	end
-	
-Route_1_Teala_Lesson_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Route_1_Rival_Text, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
+
+Route_1_Rival_Picks_Snivy::
+	msgbox Rival_Picks_Snivy_Text MSGBOX_DEFAULT
+	goto Route_1_Received_Starter
 	return
 	
-Route_1_Teala_Lesson_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Route_1_Rival_Text, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
-	return
-
-Route_1_About_To_Receive_Pokemon_Derek::
-	load_field_pic 7, 40, 83, VAR_0x8008
-	load_field_pic 5, 200, 83, VAR_0x8009
-	msgbox Route_1_Receiving_Pokemon_Derek, MSGBOX_DEFAULT
-	destroy_field_pic 7, VAR_0x8008
-	destroy_field_pic 5, VAR_0x8009
-	return
-
-Route_1_About_To_Receive_Pokemon_Kate::
-	load_field_pic 6, 40, 83, VAR_0x8008
-	load_field_pic 5, 200, 83, VAR_0x8009
-	msgbox Route_1_Receiving_Pokemon_Kate, MSGBOX_DEFAULT
-	destroy_field_pic 6, VAR_0x8008
-	destroy_field_pic 5, VAR_0x8009
-	return
-
-Route_1_Player_Choose_Starter_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Rival_Gives_First_Choice, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
+Route_1_Rival_Picks_Torchic::	
+	msgbox Rival_Picks_Torchic_Text MSGBOX_DEFAULT
+	goto Route_1_Received_Starter
 	return
 	
-Route_1_Player_Choose_Starter_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Rival_Gives_First_Choice, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
+Route_1_Rival_Picks_Froakie::	
+	msgbox Rival_Picks_Froakie_Text MSGBOX_DEFAULT
+	goto Route_1_Received_Starter
 	return
 
 Route_1_Rival_Gets_Snivy::
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Derek_Gets_Snivy
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Kate_Gets_Snivy
-	return
+	playfanfare MUS_FANFA4
+	msgbox You_Get_Froakie, MSGBOX_DEFAULT
+	fadeinbgm 1
+	waitfanfare	
+	msgbox Route_1_Nickname_Starter_Froakie, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq Route_1_Give_Nickname_To_Starter
+	compare VAR_RESULT, NO
+	goto_if_eq Route_1_Obtained_Starter
+	end
 	
 Route_1_Rival_Gets_Torchic::
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Derek_Gets_Torchic
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Kate_Gets_Torchic
-	return
+	playfanfare MUS_FANFA4
+	msgbox You_Get_Snivy, MSGBOX_DEFAULT
+	fadeinbgm 1
+	waitfanfare	
+	msgbox Route_1_Nickname_Starter_Snivy, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq Route_1_Give_Nickname_To_Starter
+	compare VAR_RESULT, NO
+	goto_if_eq Route_1_Obtained_Starter
+	end
 
 Route_1_Rival_Gets_Froakie::
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route_1_Derek_Gets_Froakie
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route_1_Kate_Gets_Froakie
-	return
+	playfanfare MUS_FANFA4
+	msgbox You_Get_Torchic, MSGBOX_DEFAULT
+	fadeinbgm 1
+	waitfanfare	
+	msgbox Route_1_Nickname_Starter_Torchic, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq Route_1_Give_Nickname_To_Starter
+	compare VAR_RESULT, NO
+	goto_if_eq Route_1_Obtained_Starter
+	end
 
-Route_1_Derek_Gets_Snivy::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Snivy_Text MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
-	goto Route_1_Obtained_Starter
-	return
-	
-Route_1_Kate_Gets_Snivy::	
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Snivy_Text, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
-	goto Route_1_Obtained_Starter
-	return
-
-Route_1_Derek_Gets_Torchic::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Torchic_Text MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
-	goto Route_1_Obtained_Starter
-	return
-	
-Route_1_Kate_Gets_Torchic::	
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Torchic_Text, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
-	goto Route_1_Obtained_Starter
-	return
-	
-Route_1_Derek_Gets_Froakie::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Froakie_Text MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
-	goto Route_1_Obtained_Starter
-	return
-	
-Route_1_Kate_Gets_Froakie::	
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Rival_Picks_Froakie_Text, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
+Route_1_Give_Nickname_To_Starter:: @ 81F9E07
+	setvar VAR_0x8004, 0
+	call Common_EventScript_NameReceivedPartyMon
 	goto Route_1_Obtained_Starter
 	return	
 
-Route_1_Teala_Objective_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 5, 200, 83, VAR_0x8009
-	msgbox Route_1_Objective_Text, MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 5, VAR_0x8009
-	return
-
-Route_1_Teala_Objective_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 5, 200, 83, VAR_0x8009
-	msgbox Route_1_Objective_Text, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 5, VAR_0x8009
-	return
-
-Route_1_Wait_Bridge_Derek::
-	load_field_pic 1, 40, 83, VAR_0x8008
-	load_field_pic 4, 200, 83, VAR_0x8009
-	msgbox Rival_Goes_Bridge MSGBOX_DEFAULT
-	destroy_field_pic 1, VAR_0x8008
-	destroy_field_pic 4, VAR_0x8009
-	return
-	
-Route_1_Wait_Bridge_Kate::
-	load_field_pic 3, 40, 83, VAR_0x8008
-	load_field_pic 2, 200, 83, VAR_0x8009
-	msgbox Rival_Goes_Bridge, MSGBOX_DEFAULT
-	destroy_field_pic 3, VAR_0x8008
-	destroy_field_pic 2, VAR_0x8009
-	return
-	
 Teala_Into_Grass:
 	walk_up
 	walk_up
@@ -381,6 +281,24 @@ Route_1_Receiving_Pokemon_Kate:
 Rival_Gives_First_Choice:
 	.string "You should pick a Pokémon first.\n"
 	.string "I can wait.$"
+
+You_Get_Snivy:
+	.string "You received Snivy!$"
+
+You_Get_Torchic:
+	.string "You received Torchic!$"
+
+You_Get_Froakie:
+	.string "You received Froakie!$"
+
+Route_1_Nickname_Starter_Snivy:
+	.string "Give Snivy a nickname?$"
+
+Route_1_Nickname_Starter_Torchic:
+	.string "Give Torchic a nickname?$"
+	
+Route_1_Nickname_Starter_Froakie:
+	.string "Give Froakie a nickname?$"	
 	
 Rival_Picks_Snivy_Text:
 	.string "Then I will take Snivy.$"

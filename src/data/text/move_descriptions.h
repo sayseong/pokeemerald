@@ -38,8 +38,8 @@ static const u8 sThunderPunchDescription[] = _(
     "may paralyze the foe.");
 
 static const u8 sScratchDescription[] = _(
-    "Scratches the foe with\n"
-    "sharp claws.");
+    "Scratches the foe \n"
+    "with sharp claws\n");
 
 static const u8 sViceGripDescription[] = _(
     "Grips the foe with large and\n"

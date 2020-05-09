@@ -3993,23 +3993,13 @@ extern const u32 gBagPalette[];
 extern const u32 gBerryCheckCircle_Gfx[];
 
 //summary screen icons
-extern const u32 gSummaryMonIconsInfo1_Gfx[];
-extern const u32 gSummaryMonIconsInfo2_Gfx[];
-extern const u32 gSummaryMonTrainerMemo_Gfx[];
-extern const u32 gSummaryMonIconStats1_Gfx[];
-extern const u32 gSummaryMonIconStats2_Gfx[];
-extern const u32 gSummaryMonIconAbility_Gfx[];
-extern const u32 gSummaryMonIconMoves_Gfx[];
 extern const u32 gLaserGrid1_Gfx[];
 extern const u32 gLaserGrid2_Gfx[];
 extern const u32 gLaserGrid3_Gfx[];
 extern const u32 gLaserGrid4_Gfx[];
-extern const u32 gLaserGrid5_Gfx[];
-extern const u32 gLaserGrid6_Gfx[];
-extern const u32 gLaserGrid7_Gfx[];
-extern const u32 gLaserGrid8_Gfx[];
-extern const u32 gLaserGrid_Pal[];
-extern const u32 gSummaryIcons_Pal[];
+extern const u16 gLaserGrid_Pal[];
+extern const u32 gSummaryIcons_Gfx[];
+extern const u16 gSummaryIcons_Pal[];
 
 //intro graphics
 extern const u32 gIntro1SparkleGfx[];
@@ -4215,7 +4205,7 @@ extern const u32 gPageInfoTilemap[];
 extern const u32 gSummaryScreen_Info_Page[];
 extern const u32 gPageSkillsTilemap[];
 extern const u32 gPageBattleMovesTilemap[];
-extern const u32 gPageContestMovesTilemap[];
+extern const u32 gPageIvEvTilemap[];
 extern const u32 gStatusScreenPalette[];
 extern const u16 gUnknown_08D85620[];
 extern const u16 gSummaryScreenWindow_Tilemap[];
