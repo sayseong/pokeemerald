@@ -71,16 +71,48 @@ ZaurakCity_Head_Into_Lab::
 	setflag FLAG_HIDE_ZAURAKCITY_RIVAL
 	end
 
-
 ZaurakCity_Rival_Waits::
 	msgbox ZaurakCity_Rival_Waits_Text, MSGBOX_DEFAULT
 	call Common_EventScript_RemoveRival_MugShot
 	closemessage
 	return
-
 	
 ZaurakCity_Fat_Man::
-	msgbox ZaurakCity_Fat_Man_Text, MSGBOX_SIGN	
+	msgbox ZaurakCity_Fat_Man_Text, MSGBOX_DEFAULT
+	closemessage
+	end
+
+ZaurakCity_MarillDoll::
+	msgbox ZaurakCity_MarillDoll_Text, MSGBOX_DEFAULT
+	closemessage
+	end
+
+ZaurakCity_Old_Lady_Lake::
+	msgbox ZaurakCity_Old_Lady_Lake_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Little_Girl::
+	msgbox ZaurakCity_Little_Girl_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Balding_Man::
+	msgbox ZaurakCity_Balding_Man_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Gentleman::
+	msgbox ZaurakCity_Gentleman_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Subway_Sign::
+	msgbox ZaurakCity_Subway_Sign_Text, MSGBOX_SIGN
+	end
+
+ZaurakCity_Hotel_Sign::
+	msgbox ZaurakCity_Hotel_Sign_Text, MSGBOX_SIGN
+	end
+	
+ZaurakCity_Sign::
+	msgbox ZaurakCity_Sign_Text, MSGBOX_SIGN
 	end
 	
 ZaurakCity_Rival_Text_First_Battle:
@@ -89,6 +121,23 @@ ZaurakCity_Rival_Text_First_Battle:
 ZaurakCity_Fat_Man_Text:	
 	.string "He is fast asleep.$"
 
+ZaurakCity_MarillDoll_Text:
+	.string "It's a Marill Poké-doll!$"
+
+ZaurakCity_Little_Girl_Text:
+	.string "Marill is my favorite Pokémon!$"
+
+ZaurakCity_Old_Lady_Lake_Text:
+	.string "This is my favourite spot in the city.$"
+
+ZaurakCity_Balding_Man_Text:
+	.string "My daughter loves Marill.\p"
+	.string "If only I could find one to give\n"
+	.string "her for her birthday.$"
+
+ZaurakCity_Gentleman_Text:
+	.string "$"
+	
 ZaurakCity_Rival_Waits_Text:
 	.string "Oh, Alright.\n "
 	.string "I'll wait here until you are ready.$"
@@ -99,6 +148,16 @@ ZaurakCity_GoTo_Lab_Text:
 ZaurakCity_Blockade_Text:
 	.string "Beat it, kid.\n"
 	.string "We are busy here!$"
+
+ZaurakCity_Subway_Sign_Text:
+	.string "Zaurak City Subway Station$"
+
+ZaurakCity_Hotel_Sign_Text:
+	.string "Zaurak City Hotel$"
+
+ZaurakCity_Sign_Text:
+	.string "Zaurak City\n"
+	.string "The City of Tomorrow$"
 
 ZaurakCity_Rival_Conversation:
 	.string "Hi!$"

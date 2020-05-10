@@ -2491,6 +2491,12 @@ static void Create_DetailedMoves_Graphics(u8 taskId)
     if (sMonSummaryScreen->detailedMoveCheck == 1)
     {
         gSprites[sMonSummaryScreen->spriteIds[0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][0]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][1]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][0]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][1]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][0]].invisible = FALSE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][1]].invisible = FALSE;
         ClearWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
         SetMonTypeIcons_Moves();
         for (i = 2; i < 5; i++)
@@ -2639,6 +2645,12 @@ static void sub_81C11F4(u8 taskId)
     }
     if (sMonSummaryScreen->detailedMoveCheck == 0)
     {
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][1]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][1]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][1]].invisible = TRUE;
         gSprites[sMonSummaryScreen->spriteIds[0]].invisible = FALSE;
         PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_LEVEL);
         SetMonTypeIcons_Moves();
@@ -3060,7 +3072,7 @@ static void sub_81C1DA4(u16 a, s16 b)
         b = LearnNewMoveDetailsTile.field_6;
     if (b == 0 || b == LearnNewMoveDetailsTile.field_6)
     {
-        sub_81C1CB0(&LearnNewMoveDetailsTile, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_BATTLE_MOVES][0], b, 1);
+        //sub_81C1CB0(&LearnNewMoveDetailsTile, sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_BATTLE_MOVES][0], b, 1);
     }
     else
     {
@@ -3688,6 +3700,12 @@ static void CreatePageWindowTilemaps(u8 page)
             PutWindowTilemap(PSS_LABEL_WINDOW_PROMPT_INFO);
         }
         gSprites[sMonSummaryScreen->summaryLaserSpriteIds[0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_ACCURACY][0][1]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_POWER][0][1]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][0]].invisible = TRUE;
+        gSprites[sMonSummaryScreen->summaryIconSpriteIds[SUMMARY_ICON_EFFECT][0][1]].invisible = TRUE;
         break;
     case PSS_PAGE_IV_EVS:
         gSprites[sMonSummaryScreen->summaryLaserSpriteIds[0]].invisible = FALSE;

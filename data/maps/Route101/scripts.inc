@@ -246,7 +246,7 @@ Route_1_Lesson_Finished:
 
 Route_1_Rival_Text:
 	.string "I can't wait to catch my first Pokémon.\p"
-	.string "{PLAYER} Do you have any idea which kind\n"
+	.string "{PLAYER}, do you have any idea which kind\n"
 	.string "of Pokémon you want to get first?$"
 
 Teala_Present_Task:

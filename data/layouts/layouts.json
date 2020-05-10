@@ -4719,6 +4719,16 @@
             "primary_tileset": "gTileset_Building",
             "secondary_tileset": "gTileset_Interior_Brick",
             "width": 12
+        },
+        {
+            "blockdata_filepath": "data/layouts/ZaurakCity_Mart/map.bin",
+            "border_filepath": "data/layouts/ZaurakCity_Mart/border.bin",
+            "height": 6,
+            "id": "LAYOUT_ZAURAK_CITY_MART",
+            "name": "ZaurakCity_Mart_Layout",
+            "primary_tileset": "gTileset_Building",
+            "secondary_tileset": "gTileset_Interior_Steel",
+            "width": 8
         }
     ],
     "layouts_table_label": "gMapLayouts"

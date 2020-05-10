@@ -591,7 +591,8 @@
         "ZaurakCity_House",
         "ZaurakCity_Apartment_1F",
         "ZaurakCity_Apartment_2F",
-        "ZaurakCity_Apartment_3F"
+        "ZaurakCity_Apartment_3F",
+        "ZaurakCity_Mart"
     ],
     "group_order": [
         "gMapGroup0",

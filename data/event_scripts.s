@@ -1098,3 +1098,5 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/Route2_House_2F/scripts.inc"
 
 	.include "data/maps/Antares_City_House1/scripts.inc"
+
+	.include "data/maps/ZaurakCity_Mart/scripts.inc"
