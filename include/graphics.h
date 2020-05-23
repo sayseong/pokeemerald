@@ -3993,13 +3993,18 @@ extern const u32 gBagPalette[];
 extern const u32 gBerryCheckCircle_Gfx[];
 
 //summary screen icons
+extern const u32 gSummaryMoveSelectRed_Gfx[];
+extern const u32 gSummaryMoveSelectBlue_Gfx[];
 extern const u32 gLaserGrid1_Gfx[];
 extern const u32 gLaserGrid2_Gfx[];
 extern const u32 gLaserGrid3_Gfx[];
 extern const u32 gLaserGrid4_Gfx[];
 extern const u16 gLaserGrid_Pal[];
 extern const u32 gSummaryIcons_Gfx[];
+extern const u32 gSummaryNatureIcons_Gfx[];
+extern const u32 gSplitIcons_Gfx[];
 extern const u16 gSummaryIcons_Pal[];
+extern const u16 gSplitIcons_Pal[];
 
 //intro graphics
 extern const u32 gIntro1SparkleGfx[];
@@ -4213,15 +4218,10 @@ extern const u16 gSummaryScreenWindow_Tilemap_NewMove[];
 extern const u32 gMoveTypes_Pal[];
 extern const u32 gStatusScreenBitmap[];
 
-extern const u32 gSummaryMoveSelect_Gfx[];
-extern const u32 gSummaryMoveSelect_Pal[];
-
 extern const u16 gSummaryScreenPowAcc_Tilemap[];
 extern const u16 gUnknown_08DC3C34[];
 
 extern const u32 gMoveTypes_Gfx[];
-extern const u32 gMoveSelectorBitmap[];
-extern const u32 gUnknown_08D97CF4[];
 extern const u32 gStatusGfx_Icons[];
 extern const u32 gStatusPal_Icons[];
 

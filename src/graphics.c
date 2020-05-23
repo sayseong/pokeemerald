@@ -1227,18 +1227,18 @@ const u32 gStatusPal_Icons[] = INCBIN_U32("graphics/interface/status_icons.gbapa
 const u32 gMoveTypes_Gfx[] = INCBIN_U32("graphics/types/move_types.4bpp.lz");
 const u32 gMoveTypes_Pal[] = INCBIN_U32("graphics/types/move_types.gbapal.lz");
 
-const u32 gSummaryMoveSelect_Gfx[] = INCBIN_U32("graphics/interface/summary_frames.4bpp.lz");
-const u32 gSummaryMoveSelect_Pal[] = INCBIN_U32("graphics/interface/summary_frames.gbapal.lz");
-
+const u32 gSummaryMoveSelectRed_Gfx[] = INCBIN_U32("graphics/interface/summary_move_cursor_blue.4bpp.lz");
+const u32 gSummaryMoveSelectBlue_Gfx[] = INCBIN_U32("graphics/interface/summary_move_cursor_red.4bpp.lz");
 const u32 gLaserGrid1_Gfx[] = INCBIN_U32("graphics/interface/laser_grid1.4bpp.lz");
 const u32 gLaserGrid2_Gfx[] = INCBIN_U32("graphics/interface/laser_grid2.4bpp.lz");
 const u32 gLaserGrid3_Gfx[] = INCBIN_U32("graphics/interface/laser_grid3.4bpp.lz");
 const u32 gLaserGrid4_Gfx[] = INCBIN_U32("graphics/interface/laser_grid4.4bpp.lz");
 const u16 gLaserGrid_Pal[] = INCBIN_U16("graphics/interface/laser_grid.gbapal");
 const u32 gSummaryIcons_Gfx[] = INCBIN_U32("graphics/interface/summary_icons.4bpp.lz");
+const u32 gSummaryNatureIcons_Gfx[] = INCBIN_U32("graphics/interface/summary_nature_icons.4bpp.lz");
 const u16 gSummaryIcons_Pal[] = INCBIN_U16("graphics/interface/summary_icons.gbapal");
-const u32 gMoveSelectorBitmap[] = INCBIN_U32("graphics/interface/summary_frames.4bpp.lz");
-const u32 gUnknown_08D97CF4[] = INCBIN_U32("graphics/interface/summary_frames.gbapal.lz");
+const u16 gSplitIcons_Pal[] = INCBIN_U16("graphics/interface/split_icons.gbapal");
+const u32 gSplitIcons_Gfx[] = INCBIN_U32("graphics/interface/split_icons.4bpp.lz");
 
 const u32 gStatusScreenBitmap[] = INCBIN_U32("graphics/interface/status_screen.4bpp.lz");
 const u32 gStatusScreenPalette[] = INCBIN_U32("graphics/interface/status_screen.gbapal.lz");
@@ -1246,6 +1246,7 @@ const u32 gPageInfoTilemap[] = INCBIN_U32("graphics/interface/status_screen.bin.
 
 const u32 gPageSkillsTilemap[] = INCBIN_U32("graphics/interface/status_tilemap1.bin.lz");
 const u32 gPageBattleMovesTilemap[] = INCBIN_U32("graphics/interface/status_tilemap2.bin.lz");
+
 const u32 gPageIvEvTilemap[] = INCBIN_U32("graphics/interface/status_tilemap3.bin.lz");
 const u32 gSummaryScreen_Info_Page[] = INCBIN_U32("graphics/interface/status_tilemap0.bin.lz");
 
