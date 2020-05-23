@@ -103,6 +103,18 @@ ZaurakCity_Gentleman::
 	msgbox ZaurakCity_Gentleman_Text, MSGBOX_NPC
 	end
 
+ZaurakCity_Gameboy_Kid::
+	msgbox ZaurakCity_Gameboy_Kid_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Old_Man::
+	msgbox ZaurakCity_Old_Man_Text, MSGBOX_NPC
+	end
+
+ZaurakCity_Old_Woman::
+	msgbox ZaurakCity_Old_Woman_Text, MSGBOX_NPC
+	end
+	
 ZaurakCity_Subway_Sign::
 	msgbox ZaurakCity_Subway_Sign_Text, MSGBOX_SIGN
 	end
@@ -113,6 +125,10 @@ ZaurakCity_Hotel_Sign::
 	
 ZaurakCity_Sign::
 	msgbox ZaurakCity_Sign_Text, MSGBOX_SIGN
+	end
+	
+ZaurakCity_Lake_Sign::
+	msgbox ZaurakCity_Lake_Sign_Text, MSGBOX_SIGN
 	end
 	
 ZaurakCity_Rival_Text_First_Battle:
@@ -136,7 +152,9 @@ ZaurakCity_Balding_Man_Text:
 	.string "her for her birthday.$"
 
 ZaurakCity_Gentleman_Text:
-	.string "$"
+	.string "Have you checked out this store?\p"
+	.string "You can find some neat stuff useful\n"
+	.string "for new trainers.$"
 	
 ZaurakCity_Rival_Waits_Text:
 	.string "Oh, Alright.\n "
@@ -158,6 +176,20 @@ ZaurakCity_Hotel_Sign_Text:
 ZaurakCity_Sign_Text:
 	.string "Zaurak City\n"
 	.string "The City of Tomorrow$"
+	
+ZaurakCity_Lake_Sign_Text:
+	.string "Zaurak Park$"
 
 ZaurakCity_Rival_Conversation:
 	.string "Hi!$"
+	
+ZaurakCity_Gameboy_Kid_Text:
+	.string "Have you tried Pokémon Rose?\n"
+	.string "It's amazing!$"
+
+ZaurakCity_Old_Man_Text:
+	.string "The fountain is so soothing.$"
+
+ZaurakCity_Old_Woman_Text:
+	.string "My husband and I come here\n"
+	.string "everyday to watch the Fountain.$"

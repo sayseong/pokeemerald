@@ -30,35 +30,35 @@
             "dest_warp_id": 0,
             "elevation": 0,
             "x": 8,
-            "y": 27
+            "y": 26
         },
         {
             "dest_map": "MAP_ROUTE130",
             "dest_warp_id": 1,
             "elevation": 0,
             "x": 9,
-            "y": 27
+            "y": 26
         },
         {
             "dest_map": "MAP_ROUTE130",
             "dest_warp_id": 2,
             "elevation": 0,
             "x": 10,
-            "y": 27
+            "y": 26
         },
         {
             "dest_map": "MAP_ROUTE130",
             "dest_warp_id": 3,
             "elevation": 0,
             "x": 11,
-            "y": 27
+            "y": 26
         },
         {
             "dest_map": "MAP_ROUTE130",
             "dest_warp_id": 4,
             "elevation": 0,
             "x": 12,
-            "y": 27
+            "y": 26
         }
     ],
     "weather": "WEATHER_SUNNY"

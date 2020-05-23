@@ -187,8 +187,8 @@ Route02_Clair_Defeated:
 Route02_Clair_PostBattle:
 	.string "Not bad. Although I should have expected\n"
 	.string "such from a trainer from Deneb Academy.\p"
-	.string "I'd like you to have this.\n"
-	.string "In case any of your Pokémon gets hurt.$"
+	.string "I'd like you to have this,\n"
+	.string "in case any of your Pokémon gets hurt.$"
 
 Route02_Clair_Medicine_Text:
 	.string "I made it myself.\p"

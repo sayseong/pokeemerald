@@ -7,7 +7,7 @@
         {
             "elevation": 0,
             "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-            "script": "NULL",
+            "script": "ZaurakCity_Sign",
             "type": "sign",
             "x": 22,
             "y": 18
@@ -31,7 +31,7 @@
         {
             "elevation": 0,
             "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-            "script": "NULL",
+            "script": "ZaurakCity_Lake_Sign",
             "type": "sign",
             "x": 24,
             "y": 7
@@ -95,7 +95,7 @@
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
-            "script": "NULL",
+            "script": "ZaurakCity_Old_Man",
             "trainer_sight_or_berry_tree_id": "0",
             "trainer_type": "0",
             "x": 23,
@@ -108,7 +108,7 @@
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
-            "script": "NULL",
+            "script": "ZaurakCity_Old_Woman",
             "trainer_sight_or_berry_tree_id": "0",
             "trainer_type": "0",
             "x": 22,
@@ -121,7 +121,7 @@
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
-            "script": "NULL",
+            "script": "ZaurakCity_Gameboy_Kid",
             "trainer_sight_or_berry_tree_id": "0",
             "trainer_type": "0",
             "x": 26,
@@ -134,7 +134,7 @@
             "movement_range_x": 0,
             "movement_range_y": 0,
             "movement_type": "MOVEMENT_TYPE_NONE",
-            "script": "NULL",
+            "script": "ZaurakCity_Gentleman",
             "trainer_sight_or_berry_tree_id": "0",
             "trainer_type": "0",
             "x": 14,
@@ -185,12 +185,12 @@
             "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
             "movement_range_x": 0,
             "movement_range_y": 0,
-            "movement_type": "MOVEMENT_TYPE_NONE",
+            "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
             "script": "ZaurakCity_Old_Lady_Lake",
             "trainer_sight_or_berry_tree_id": "0",
             "trainer_type": "0",
-            "x": 25,
-            "y": 1
+            "x": 29,
+            "y": 9
         },
         {
             "elevation": 3,

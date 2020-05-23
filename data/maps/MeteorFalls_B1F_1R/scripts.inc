@@ -216,14 +216,12 @@ AlcorTunnel_SingleGrunt_ToEscapePosition:
 	step_end
 
 AlcorTunnel_Boy_Eventscript::
-	faceplayer
 	lockall
 	msgbox AlcorTunnel_Boy, MSGBOX_NPC
 	releaseall
 	end
 	
 AlcorTunnel_Growlithe_Eventscript::
-	faceplayer
 	lockall
 	playmoncry SPECIES_GROWLITHE, 0
 	msgbox AlcorTunnel_Growlithe, MSGBOX_NPC

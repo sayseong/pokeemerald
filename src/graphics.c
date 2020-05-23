@@ -1227,6 +1227,9 @@ const u32 gStatusPal_Icons[] = INCBIN_U32("graphics/interface/status_icons.gbapa
 const u32 gMoveTypes_Gfx[] = INCBIN_U32("graphics/types/move_types.4bpp.lz");
 const u32 gMoveTypes_Pal[] = INCBIN_U32("graphics/types/move_types.gbapal.lz");
 
+const u32 gSummaryMoveSelect_Gfx[] = INCBIN_U32("graphics/interface/summary_frames.4bpp.lz");
+const u32 gSummaryMoveSelect_Pal[] = INCBIN_U32("graphics/interface/summary_frames.gbapal.lz");
+
 const u32 gLaserGrid1_Gfx[] = INCBIN_U32("graphics/interface/laser_grid1.4bpp.lz");
 const u32 gLaserGrid2_Gfx[] = INCBIN_U32("graphics/interface/laser_grid2.4bpp.lz");
 const u32 gLaserGrid3_Gfx[] = INCBIN_U32("graphics/interface/laser_grid3.4bpp.lz");
@@ -1372,6 +1375,7 @@ const u16 gSummaryScreenPowAcc_Tilemap[] = INCBIN_U16("graphics/interface/powacc
 const u16 gUnknown_08DC3C34[] = INCBIN_U16("graphics/interface/unk_tilemap.bin"); // probably trade summary screen related?
 
 const u16 gSummaryScreenWindow_Tilemap[] = INCBIN_U16("graphics/interface/summary.bin");
+const u16 gSummaryScreenWindow_Tilemap_NewMove[] = INCBIN_U16("graphics/interface/summary_new_move.bin");
 
 const u16 gIntroCopyright_Pal[] = INCBIN_U16("graphics/intro/copyright.gbapal");
 const u32 gIntroCopyright_Gfx[] = INCBIN_U32("graphics/intro/copyright.4bpp.lz");

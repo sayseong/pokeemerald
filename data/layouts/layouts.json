@@ -18,7 +18,7 @@
             "name": "SlateportCity_Layout",
             "primary_tileset": "gTileset_General",
             "secondary_tileset": "gTileset_Slateport",
-            "width": 36
+            "width": 42
         },
         {
             "blockdata_filepath": "data/layouts/MauvilleCity/map.bin",
@@ -263,7 +263,7 @@
         {
             "blockdata_filepath": "data/layouts/Route111/map.bin",
             "border_filepath": "data/layouts/Route111/border.bin",
-            "height": 31,
+            "height": 34,
             "id": "LAYOUT_ROUTE111",
             "name": "Route111_Layout",
             "primary_tileset": "gTileset_general_fall",
@@ -468,7 +468,7 @@
             "name": "Route131_Layout",
             "primary_tileset": "gTileset_General",
             "secondary_tileset": "gTileset_Slateport",
-            "width": 22
+            "width": 35
         },
         {
             "blockdata_filepath": "data/layouts/Route132/map.bin",

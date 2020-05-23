@@ -1464,10 +1464,10 @@ static void TradeMenuShowMonSummaryScreen(void)
     {
         // Player's party
         if (sTradeMenuData->cursorPosition < PARTY_SIZE)
-            ShowPokemonSummaryScreen(PSS_MODE_UNK1, gPlayerParty, sTradeMenuData->cursorPosition, sTradeMenuData->partyCounts[TRADE_PLAYER] - 1, CB2_ReturnToTradeMenu);
+            ShowPokemonSummaryScreen(PSS_MODE_LOCK_MOVES, gPlayerParty, sTradeMenuData->cursorPosition, sTradeMenuData->partyCounts[TRADE_PLAYER] - 1, CB2_ReturnToTradeMenu);
         // Partner's party
         else
-            ShowPokemonSummaryScreen(PSS_MODE_UNK1, gEnemyParty, sTradeMenuData->cursorPosition - PARTY_SIZE, sTradeMenuData->partyCounts[TRADE_PARTNER] - 1, CB2_ReturnToTradeMenu);
+            ShowPokemonSummaryScreen(PSS_MODE_LOCK_MOVES, gEnemyParty, sTradeMenuData->cursorPosition - PARTY_SIZE, sTradeMenuData->partyCounts[TRADE_PARTNER] - 1, CB2_ReturnToTradeMenu);
         FreeAllWindowBuffers();
     }
 }

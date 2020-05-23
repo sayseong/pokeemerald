@@ -4209,8 +4209,12 @@ extern const u32 gPageIvEvTilemap[];
 extern const u32 gStatusScreenPalette[];
 extern const u16 gUnknown_08D85620[];
 extern const u16 gSummaryScreenWindow_Tilemap[];
+extern const u16 gSummaryScreenWindow_Tilemap_NewMove[];
 extern const u32 gMoveTypes_Pal[];
 extern const u32 gStatusScreenBitmap[];
+
+extern const u32 gSummaryMoveSelect_Gfx[];
+extern const u32 gSummaryMoveSelect_Pal[];
 
 extern const u16 gSummaryScreenPowAcc_Tilemap[];
 extern const u16 gUnknown_08DC3C34[];

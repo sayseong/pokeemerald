@@ -308,7 +308,7 @@ PlayersHouse_2F_Text_Notebook: @ 81F877F
 
 Common_Text_LookCloserAtMap: @ 81F8820
 	.string "{PLAYER} took a closer look at the\n"
-	.string "HOENN region map.$"
+	.string "Elara region map.$"
 
 PlayersHouse_2F_Text_ItsAGameCube: @ 81F884F
 	.string "It's a Nintendo GameCube.\p"

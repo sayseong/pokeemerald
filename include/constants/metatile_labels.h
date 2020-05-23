@@ -132,6 +132,12 @@
 #define METATILE_Contest_FloorShadow         0x261
 #define METATILE_Contest_WallShadow          0x221
 
+// gTileset_Deneb
+#define METATILE_Deneb_Blue_Door      0x229
+#define METATILE_Deneb_Orange_Door    0x22D
+#define METATILE_Deneb_Orange_Door_2  0x25D
+#define METATILE_Deneb_Red_Door       0x251
+
 // gTileset_Dewford
 #define METATILE_Dewford_Door              0x225
 #define METATILE_Dewford_Door_BattleTower  0x25D
@@ -212,6 +218,7 @@
 #define METATILE_General_Grass_TreeLeft        0x1CE
 #define METATILE_General_Grass_TreeRight       0x1CF
 #define METATILE_General_Grass_TreeUp          0x00E
+#define METATILE_General_Large_Wooden_Door     0x0A9
 #define METATILE_General_LongGrass             0x015
 #define METATILE_General_MuddySlope_Frame0     0x0E8
 #define METATILE_General_MuddySlope_Frame1     0x0E9
@@ -230,6 +237,7 @@
 #define METATILE_General_SecretBase_TreeRight  0x027
 #define METATILE_General_SecretBase_VineLeft   0x036
 #define METATILE_General_SecretBase_VineRight  0x037
+#define METATILE_General_Small_Wooden_Door     0x0D1
 #define METATILE_General_TallGrass             0x00D
 #define METATILE_General_TallGrass_TreeLeft    0x1C6
 #define METATILE_General_TallGrass_TreeRight   0x1C7
@@ -389,11 +397,6 @@
 #define METATILE_PetalburgGym_SlidingDoor_Frame3  0x21B
 #define METATILE_PetalburgGym_SlidingDoor_Frame4  0x21C
 
-// gTileset_Petalburg
-#define METATILE_Petalburg_Door_BirchsLab   0x249
-#define METATILE_Petalburg_Door_Littleroot  0x248
-#define METATILE_Petalburg_Door_Oldale      0x287
-
 // gTileset_PokemonCenter
 #define METATILE_PokemonCenter_CounterBarrier           0x25D
 #define METATILE_PokemonCenter_Door_CableClub           0x264
@@ -430,9 +433,10 @@
 #define METATILE_RS_MossdeepGym_Switch_Down     0x239
 #define METATILE_RS_MossdeepGym_Switch_Up       0x238
 
-// gTileset_Rustboro
-#define METATILE_Rustboro_Door_Gray  0x21F
-#define METATILE_Rustboro_Door_Tan   0x22F
+// gTileset_Sarin
+#define METATILE_Sarin_Orange_Left_Door   0x227
+#define METATILE_Sarin_Orange_Right_Door  0x248
+#define METATILE_Sarin_Red_Door           0x222
 
 // gTileset_SecretBase
 #define METATILE_SecretBase_AttractMat_BottomLeft       0x313
@@ -715,10 +719,6 @@
 #define METATILE_Shop_Laptop2_Flash   0x260
 #define METATILE_Shop_Laptop2_Normal  0x2A5
 
-// gTileset_Slateport
-#define METATILE_Slateport_Door             0x2DC
-#define METATILE_Slateport_Door_BattleTent  0x393
-
 // gTileset_SootopolisGym
 #define METATILE_SootopolisGym_Ice_Broken   0x206
 #define METATILE_SootopolisGym_Ice_Cracked  0x20E
@@ -726,7 +726,7 @@
 
 // gTileset_Sootopolis
 #define METATILE_Sootopolis_Door             0x21E
-#define METATILE_Sootopolis_Door_Closed      0x248
+#define METATILE_Sootopolis_Door_Closed      0x250
 #define METATILE_Sootopolis_Door_PeakedRoof  0x21C
 #define METATILE_Sootopolis_GymDoor_Closed   0x250
 #define METATILE_Sootopolis_RoughWater       0x290
@@ -779,5 +779,10 @@
 // gTileset_Underwater
 #define METATILE_Underwater_FloorShadow  0x228
 #define METATILE_Underwater_RockWall     0x21E
+
+// gTileset_Zaurak
+#define METATILE_Zaurak_Grey_Door  0x249
+#define METATILE_Zaurak_Lab_Door   0x29D
+#define METATILE_Zaurak_Tan_Door   0x262
 
 #endif // GUARD_METATILE_LABELS_H
