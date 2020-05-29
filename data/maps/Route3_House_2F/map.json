@@ -19,6 +19,13 @@
     "requires_flash": false,
     "show_map_name": false,
     "warp_events": [
+        {
+            "dest_map": "MAP_ROUTE3_HOUSE",
+            "dest_warp_id": 2,
+            "elevation": 0,
+            "x": 6,
+            "y": 1
+        }
     ],
     "weather": "WEATHER_NONE"
 }

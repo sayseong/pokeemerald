@@ -22,7 +22,7 @@
         },
         {
             "elevation": 3,
-            "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_1_PEARL",
+            "flag": "FLAG_HIDDEN_ITEM_ALCOR_TUNNEL_FIRE_STONE",
             "item": "ITEM_PEARL",
             "type": "hidden_item",
             "x": 66,

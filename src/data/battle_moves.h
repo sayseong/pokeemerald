@@ -8746,9 +8746,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_GLACIAL_CRASH] =
     {
         .effect = EFFECT_RECOIL_25,
-        .power = 120,
+        .power = 150,
         .type = TYPE_ICE,
-        .accuracy = 80,
+        .accuracy = 90,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,

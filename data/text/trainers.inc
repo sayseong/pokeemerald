@@ -47,43 +47,34 @@ Route102_Text_TianaPostBattle: @ 8294916
 	.string "I have to catch more Pokémon.$"
 
 AlcorTunnel_Text_MarcelIntro: @ 829FB35
-	.string "My Pokémon have never tasted defeat!\n"
-	.string "On their next win, I'm entering them\l"
-	.string "in CONTESTS.$"
+	.string "I am going to rock this\n"
+	.string "Pokémon Battle!$"
 
 AlcorTunnel_Text_MarcelDefeat: @ 829FB8C
-	.string "Oh, now what happened here?$"
+	.string "I got rocked instead$"
 
 AlcorTunnel_Text_MarcelPostBattle: @ 829FBA8
-	.string "I may have to train my gang some more\n"
-	.string "before entering any CONTEST.$"
+	.string "I am not used to getting rocked.$"
 
 AlcorTunnel_Text_AlbertoIntro: @ 82A06AF
-	.string "I have to tell you, BIRD Pokémon\n"
-	.string "are my obsession!\p"
-	.string "Birds are cool!\n"
-	.string "They're the best!$"
+	.string "I work hard on keeping this path clear\n"
+	.string "Break me out of my routine!$"
 
 AlcorTunnel_Text_AlbertoDefeat: @ 82A0704
-	.string "Even in defeat, BIRD Pokémon are cool!$"
+	.string "Even though I lost. I had fun!$"
 
 AlcorTunnel_Text_AlbertoPostBattle: @ 82A072B
-	.string "I gather BIRD Pokémon feathers that\n"
-	.string "scatter during battles.\p"
-	.string "I'm going to make a hat with\n"
-	.string "BIRD Pokémon feathers.$"
+	.string "I am going to keep this path clear.\n"
+	.string "Thanks for the break.$"
 
 AlcorTunnel_Text_EdIntro: @ 82A079B
-	.string "When there are no TRAINERS around,\n"
-	.string "I let my Pokémon battle each other.\l"
-	.string "I watch them.$"
+	.string "Thought you could evade my gaze?$"
 
 AlcorTunnel_Text_EdDefeat: @ 82A07F0
-	.string "I kind of like your Pokémon.$"
+	.string "Maybe I should have evaded you.$"
 
 AlcorTunnel_Text_EdPostBattle: @ 82A080D
-	.string "Hehe, I'm swiping your battling ideas!\n"
-	.string "I think they'll make me better.$"
+	.string "I should have evaded you.$"
 
 Route103_Text_DaisyIntro: @ 829495A
 	.string "Did you feel the tug of our\n"

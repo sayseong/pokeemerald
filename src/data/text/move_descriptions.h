@@ -2454,10 +2454,10 @@ static const u8 sLAVA_PLUMEDescription[] = _(
 	"everything around the user.");
 
 static const u8 sGLACIAL_CRASHDescription[] = _(
-	"The user charges ahead\n"
-	"recklessly, dealing serious\n"
-	"massive damage, but also\n"
-	"takes serious recoil damage.");
+	"The user charges\n"
+	"recklessly, dealing\n"
+	"damage, but also\n"
+	"suffers recoil.");
 
 static const u8 sLEAF_STORMDescription[] = _(
 	"Whips up a storm of leaves.\n"

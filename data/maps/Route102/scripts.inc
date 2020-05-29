@@ -29,33 +29,13 @@ Route02_Clair_Trigger_Right::
 	end
 
 Route02_Clair_EventScript::
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route02_Male_Player
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route02_Female_Player
+	call Common_EventScript_SetupPlayer_MugShot
 	load_field_pic 8, 200, 83, VAR_0x8009
 	switch VAR_STARTER_MON	
 	case 0, Route02_Clair_Eventscript_Snivy
 	case 1, Route02_Clair_Eventscript_Torchic
 	case 2, Route02_Clair_Eventscript_Froakie
 	end
-
-Route02_Male_Player::
-	load_field_pic 1, 40, 83, VAR_0x8008 
-	return
-
-Route02_Female_Player::
-	load_field_pic 3, 40, 83, VAR_0x8008 
-	return
-
-Route02_Male_Player_Delete::
-	destroy_field_pic 1, VAR_0x8008 
-	return
-
-Route02_Female_Player_Delete::
-	destroy_field_pic 3, VAR_0x8008
-	return
 
 Route02_Clair_Eventscript_Snivy::
 	msgbox Route02_Clair_Conversation_Snivy, MSGBOX_YESNO
@@ -68,11 +48,7 @@ Route02_Clair_Eventscript_Snivy::
 Route02_Clair_Postpone_Battle::
 	msgbox Route02_Clair_Declined_Battle, MSGBOX_DEFAULT
 	destroy_field_pic 8, VAR_0x8009
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route02_Male_Player_Delete
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route02_Female_Player_Delete
+	call Common_EventScript_RemovePlayer_MugShot
 	closemessage
 	applymovement 255, Route02_Player_Walk_Away
 	waitmovement 0
@@ -99,21 +75,13 @@ Route02_Clair_Trainer_Battle::
 	end
 	
 Route02_Clair_PostBattle_EventScript::	
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route02_Male_Player
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route02_Female_Player
+	call Common_EventScript_SetupPlayer_MugShot
 	load_field_pic 8, 200, 83, VAR_0x8009
 	msgbox Route02_Clair_PostBattle, MSGBOX_DEFAULT
 	giveitem ITEM_HERBAL_MEDICINE
 	msgbox Route02_Clair_Medicine_Text, MSGBOX_DEFAULT
 	destroy_field_pic 8, VAR_0x8009
-	checkplayergender
-	compare VAR_RESULT, MALE
-	call_if_eq Route02_Male_Player_Delete
-	compare VAR_RESULT, FEMALE
-	call_if_eq Route02_Female_Player_Delete
+	call Common_EventScript_RemovePlayer_MugShot
 	closemessage
 	applymovement 4, Route02_Clair_Exit
 	waitmovement 0

@@ -4,6 +4,14 @@
     "allow_running": true,
     "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
     "bg_events": [
+        {
+            "elevation": 3,
+            "flag": "FLAG_HIDDEN_ITEM_ALCOR_TUNNEL_FIRE_STONE",
+            "item": "ITEM_FIRE_STONE",
+            "type": "hidden_item",
+            "x": 13,
+            "y": 25
+        }
     ],
     "connections": null,
     "coord_events": [
