@@ -238,7 +238,6 @@ static void SwapMonMoves(struct Pokemon *mon, u8 moveIndex1, u8 moveIndex2);
 static void SwapBoxMonMoves(struct BoxPokemon *mon, u8 moveIndex1, u8 moveIndex2);
 static void Task_SetHandleReplaceMoveInput(u8 taskId);
 static void Task_HandleReplaceMoveInput(u8 taskId);
-static bool8 CanReplaceMove(void);
 static void DrawPagination(void);
 static void DetailedMovesTilemapDisplay(u16 *dst, u16 palette, bool8 remove);
 static void DrawPokerusCuredSymbol(struct Pokemon* mon);
@@ -2618,25 +2617,16 @@ static void Task_HandleReplaceMoveInput(u8 taskId)
             }
             else if (gMain.newKeys & A_BUTTON)
             {
-                if (CanReplaceMove() == TRUE)
-                {
-                    StopPokemonAnimations();
-                    PlaySE(SE_SELECT);
-                    sMoveSlotToReplace = sMonSummaryScreen->firstMoveIndex;
-                    gSpecialVar_0x8005 = sMoveSlotToReplace;
-                    BeginCloseSummaryScreen(taskId);
-                }
-                else
-                {
-                    PlaySE(SE_HAZURE);
-                }
+                StopPokemonAnimations();
+                PlaySE(SE_SELECT);
+                gSpecialVar_0x8005 = sMoveSlotToReplace = sMonSummaryScreen->firstMoveIndex;
+                BeginCloseSummaryScreen(taskId);
             }
             else if (gMain.newKeys & B_BUTTON)
             {
                 StopPokemonAnimations();
                 PlaySE(SE_SELECT);
-                sMoveSlotToReplace = MAX_MON_MOVES;
-                gSpecialVar_0x8005 = MAX_MON_MOVES;
+                gSpecialVar_0x8005 = sMoveSlotToReplace = MAX_MON_MOVES;
                 BeginCloseSummaryScreen(taskId);
             }
             else if (gMain.newKeys & SELECT_BUTTON)
@@ -2645,15 +2635,6 @@ static void Task_HandleReplaceMoveInput(u8 taskId)
             }
         }
     }
-}
-
-static bool8 CanReplaceMove(void)
-{
-    if (sMonSummaryScreen->firstMoveIndex == MAX_MON_MOVES
-        || sMonSummaryScreen->newMove == MOVE_NONE)
-        return TRUE;
-    else
-        return FALSE;
 }
 
 u8 GetMoveSlotToReplace(void)
