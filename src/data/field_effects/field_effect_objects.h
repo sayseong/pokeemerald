@@ -1,6 +1,6 @@
 const struct SpritePalette gFieldEffectObjectPaletteInfo0 = {gFieldEffectObjectPalette0, 0x1004};
-
 const struct SpritePalette gFieldEffectObjectPaletteInfo1 = {gFieldEffectObjectPalette1, 0x1005};
+const struct SpritePalette gFieldEffectObjectPaletteFallGrass = {gFieldEffectFallGrassPalette, 0x1019};
 
 const union AnimCmd gFieldEffectObjectImageAnim_850C9D0[] =
 {
@@ -892,14 +892,14 @@ const union AnimCmd *const gFieldEffectObjectImageAnimTable_JumpOutOfAsh[] =
     gFieldEffectObjectImageAnim_850D54C,
 };
 
-const struct SpriteTemplate gFieldEffectObjectTemplate_JumpOutOfAsh = 
+const struct SpriteTemplate gFieldEffectObjectTemplate_JumpOutOfAsh =
 {
-    .tileTag = 0xFFFF, 
-    .paletteTag = 0x100D, 
-    .oam = &gObjectEventBaseOam_16x16, 
-    .anims = gFieldEffectObjectImageAnimTable_JumpOutOfAsh, 
-    .images = gFieldEffectObjectPicTable_JumpOutOfAsh, 
-    .affineAnims = gDummySpriteAffineAnimTable, 
+    .tileTag = 0xFFFF,
+    .paletteTag = 0x100D,
+    .oam = &gObjectEventBaseOam_16x16,
+    .anims = gFieldEffectObjectImageAnimTable_JumpOutOfAsh,
+    .images = gFieldEffectObjectPicTable_JumpOutOfAsh,
+    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_PopOutOfAsh
 };
 
@@ -928,14 +928,14 @@ const union AnimCmd *const gFieldEffectObjectImageAnimTable_LavaridgeGymWarp[] =
     gFieldEffectObjectImageAnim_LavaridgeGymWarp,
 };
 
-const struct SpriteTemplate gFieldEffectObjectTemplate_LavaridgeGymWarp = 
+const struct SpriteTemplate gFieldEffectObjectTemplate_LavaridgeGymWarp =
 {
-    .tileTag = 0xFFFF, 
-    .paletteTag = 0x100D, 
-    .oam = &gObjectEventBaseOam_16x16, 
-    .anims = gFieldEffectObjectImageAnimTable_LavaridgeGymWarp, 
-    .images = gFieldEffectObjectPicTable_LavaridgeGymWarp, 
-    .affineAnims = gDummySpriteAffineAnimTable, 
+    .tileTag = 0xFFFF,
+    .paletteTag = 0x100D,
+    .oam = &gObjectEventBaseOam_16x16,
+    .anims = gFieldEffectObjectImageAnimTable_LavaridgeGymWarp,
+    .images = gFieldEffectObjectPicTable_LavaridgeGymWarp,
+    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_LavaridgeGymWarp
 };
 

@@ -90,7 +90,8 @@ gFieldEffectScript_Shadow:: @ 82DBAF2
 	field_eff_end
 
 gFieldEffectScript_TallGrass:: @ 82DBAF8
-	field_eff_loadfadedpal_callnative gFieldEffectObjectPaletteInfo1, FldEff_TallGrass
+	field_eff_chooseloadfadedpal gFieldEffectObjectPaletteInfo1, gFieldEffectObjectPaletteFallGrass
+	field_eff_callnative FldEff_TallGrass
 	field_eff_end
 
 gFieldEffectScript_Ripple:: @ 82DBB02
