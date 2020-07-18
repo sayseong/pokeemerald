@@ -2164,6 +2164,19 @@ static void Cb2_EnterPSS(u8 boxOption)
     }
     else
     {
+        /*
+        u32 i, j, species = SPECIES_TAPU_FINI;
+        u8 zero = 0;
+        for (i = 0; i < 14; i++)
+        {
+            for (j = 0; j < 30; j++)
+            {
+                SetBoxMonDataAt(i, j, MON_DATA_ABILITY_NUM, )
+                species--;
+            }
+        }
+        */
+
         sPSSData->boxOption = boxOption;
         sPSSData->isReshowingPSS = FALSE;
         sMovingItemId = ITEM_NONE;
@@ -7436,7 +7449,7 @@ static u8 HandleInput_OnButtons(void)
             sPSSData->field_CD2 = -1;
             if (sBoxCursorPosition == 0)
                 cursorPosition = IN_BOX_COUNT - 1 - 5;
-            else 
+            else
                 cursorPosition = IN_BOX_COUNT - 1;
             sPSSData->field_CD7 = 1;
             break;

@@ -49,6 +49,12 @@ SECTIONS {
         gflib/*.o(.text);
         asm/*.o(.text);
     } =0
+	
+	.text_unlikely :
+	ALIGN(4)
+	{
+		src/*.o(.text.unlikely);
+	} =0
 
     script_data :
     ALIGN(4)

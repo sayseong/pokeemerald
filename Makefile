@@ -94,6 +94,7 @@ RAMSCRGEN := tools/ramscrgen/ramscrgen$(EXE)
 FIX := tools/gbafix/gbafix$(EXE)
 MAPJSON := tools/mapjson/mapjson$(EXE)
 JSONPROC := tools/jsonproc/jsonproc$(EXE)
+RANDOMIZE := tools/randomize/randomize$(EXE)
 
 TOOLDIRS := $(filter-out tools/agbcc tools/binutils,$(wildcard tools/*))
 TOOLBASE = $(TOOLDIRS:tools/%=%)
@@ -219,7 +220,6 @@ include songs.mk
 $(CRY_SUBDIR)/cry_not_%.bin: $(CRY_SUBDIR)/cry_not_%.aif ; $(AIF) $< $@
 $(CRY_SUBDIR)/cry_%.bin: $(CRY_SUBDIR)/cry_%.aif ; $(AIF) $< $@ --compress
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
-
 
 ifeq ($(MODERN),0)
 $(C_BUILDDIR)/libc.o: CC1 := tools/agbcc/bin/old_agbcc
