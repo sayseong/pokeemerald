@@ -126,7 +126,7 @@ static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
     [ABILITY_ZEN_MODE] = 1,
 };
 
-static const u8 sHoldEffectToType[][2] =
+const u8 gHoldEffectToType[NUMBER_OF_MON_TYPES - 1][2] =
 {
     {HOLD_EFFECT_BUG_POWER, TYPE_BUG},
     {HOLD_EFFECT_STEEL_POWER, TYPE_STEEL},
@@ -5589,7 +5589,7 @@ u32 GetMoveTargetCount(u16 move, u8 battlerAtk, u8 battlerDef)
     }
 }
 
-static void MulModifier(u16 *modifier, u16 val)
+void MulModifier(u16 *modifier, u16 val)
 {
     *modifier = UQ_4_12_TO_INT((*modifier * val) + UQ_4_12_ROUND);
 }
@@ -6072,11 +6072,11 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
     case HOLD_EFFECT_DRAGON_POWER:
     case HOLD_EFFECT_NORMAL_POWER:
     case HOLD_EFFECT_FAIRY_POWER:
-        for (i = 0; i < ARRAY_COUNT(sHoldEffectToType); i++)
+        for (i = 0; i < ARRAY_COUNT(gHoldEffectToType); i++)
         {
-            if (holdEffectAtk == sHoldEffectToType[i][0])
+            if (holdEffectAtk == gHoldEffectToType[i][0])
             {
-                if (moveType == sHoldEffectToType[i][1])
+                if (moveType == gHoldEffectToType[i][1])
                     MulModifier(&modifier, holdEffectModifier);
                 break;
             }
@@ -6303,7 +6303,7 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
     return ApplyModifier(modifier, atkStat);
 }
 
-static bool32 CanEvolve(u32 species)
+bool32 CanEvolve(u32 species)
 {
     u32 i;
 

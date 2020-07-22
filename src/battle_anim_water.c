@@ -1088,7 +1088,7 @@ void AnimTask_CreateSurfWave(u8 taskId)
         LoadCompressedPalette(gBattleAnimBgPalette_SludgeWave, animBg.paletteId * 16, 32);
         break;
     }
-    
+
     taskId2 = CreateTask(AnimTask_SurfWaveScanlineEffect, gTasks[taskId].priority + 1);
     gTasks[taskId].data[15] = taskId2;
     gTasks[taskId2].data[0] = 0;

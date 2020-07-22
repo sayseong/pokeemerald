@@ -954,6 +954,8 @@ void BattleTransition_Start(u8 transitionId)
 bool8 IsBattleTransitionDone(void)
 {
     u8 taskId = FindTaskIdByFunc(Task_BattleTransitionMain);
+    if (taskId == 0xFF)
+        return TRUE;
     if (gTasks[taskId].tTransitionDone)
     {
         DestroyTask(taskId);
@@ -968,9 +970,12 @@ bool8 IsBattleTransitionDone(void)
 
 static void LaunchBattleTransitionTask(u8 transitionId)
 {
-    u8 taskId = CreateTask(Task_BattleTransitionMain, 2);
-    gTasks[taskId].tTransitionId = transitionId;
-    sTransitionStructPtr = AllocZeroed(sizeof(*sTransitionStructPtr));
+    if (gSaveBlock2Ptr->optionsTransitionSpeed != OPTIONS_TRANSITION_INSTANT)
+    {
+        u8 taskId = CreateTask(Task_BattleTransitionMain, 2);
+        gTasks[taskId].tTransitionId = transitionId;
+        sTransitionStructPtr = AllocZeroed(sizeof(*sTransitionStructPtr));
+    }
 }
 
 static void Task_BattleTransitionMain(u8 taskId)

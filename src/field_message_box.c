@@ -29,20 +29,21 @@ static void Task_DrawFieldMessage(u8 taskId)
 
     switch (task->tState)
     {
-        case 0:
-           LoadMessageBoxAndBorderGfx();
-           task->tState++;
-           break;
-        case 1:
-           DrawDialogueFrame(0, 1);
-           task->tState++;
-           break;
-        case 2:
-            if (RunTextPrintersAndIsPrinter0Active() != TRUE)
-            {
-                sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
-                DestroyTask(taskId);
-            }
+    case 0:
+       LoadMessageBoxAndBorderGfx();
+       task->tState++;
+       break;
+    case 1:
+       DrawDialogueFrame(0, 1);
+       task->tState++;
+       break;
+    case 2:
+        if (RunTextPrintersAndIsPrinter0Active() != TRUE)
+        {
+            sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
+            DestroyTask(taskId);
+        }
+        break;
     }
 }
 
@@ -106,7 +107,7 @@ static bool8 ForceShowFieldAutoScrollMessage(const u8 *str)
     return TRUE;
 }
 
-// Same as ShowFieldMessage, but instead of accepting a 
+// Same as ShowFieldMessage, but instead of accepting a
 // string arg it just prints whats already in gStringVar4
 bool8 ShowFieldMessageFromBuffer(void)
 {

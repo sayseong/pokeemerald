@@ -44,6 +44,7 @@ struct TypePower
 };
 
 extern const struct TypePower gNaturalGiftTable[];
+extern const u8 gHoldEffectToType[NUMBER_OF_MON_TYPES - 1][2];
 
 u8 GetBattlerForBattleScript(u8 caseId);
 void PressurePPLose(u8 target, u8 attacker, u16 move);
@@ -114,5 +115,7 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId);
 struct Pokemon *GetIllusionMonPtr(u32 battlerId);
 void ClearIllusionMon(u32 battlerId);
 bool32 SetIllusionMon(struct Pokemon *mon, u32 battlerId);
+bool32 CanEvolve(u32 species);
+void MulModifier(u16 *modifier, u16 val);
 
 #endif // GUARD_BATTLE_UTIL_H
