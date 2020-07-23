@@ -9,7 +9,6 @@
 #include "rtc.h"
 #include "scanline_effect.h"
 #include "overworld.h"
-#include "play_time.h"
 #include "random.h"
 #include "dma3.h"
 #include "gba/flash_internal.h"
@@ -34,8 +33,6 @@ const u8 gGameVersion = GAME_VERSION;
 
 const u8 gGameLanguage = GAME_LANGUAGE; // English
 
-const char BuildDateTime[] = "2005 02 21 11:10";
-
 const IntrFunc gIntrTableTemplate[] =
 {
     VCountIntr, // V-count interrupt
@@ -57,6 +54,7 @@ const IntrFunc gIntrTableTemplate[] =
 #define INTR_COUNT ((int)(sizeof(gIntrTableTemplate)/sizeof(IntrFunc)))
 
 static u16 gUnknown_03000000;
+static u8 sPlayTimeCounterState;
 
 u16 gKeyRepeatStartDelay;
 bool8 gLinkTransferringData;
@@ -75,7 +73,7 @@ static EWRAM_DATA u16 gTrainerId = 0;
 static void UpdateLinkAndCallCallbacks(void);
 static void InitMainCallbacks(void);
 static void CallCallbacks(void);
-//static void SeedRngWithRtc(void);
+static void SeedRngWithRtc(void);
 static void ReadKeys(void);
 void InitIntrHandlers(void);
 static void WaitForVBlank(void);
@@ -83,29 +81,9 @@ void EnableVCountIntrAtLine150(void);
 
 #define B_START_SELECT (B_BUTTON | START_BUTTON | SELECT_BUTTON)
 
-void AgbMain()
+NAKED void AgbMain()
 {
-#if MODERN
-    // Modern compilers are liberal with the stack on entry to this function,
-    // so RegisterRamReset may crash if it resets IWRAM.
-    RegisterRamReset(RESET_ALL & ~RESET_IWRAM);
-    asm("mov\tr1, #0xC0\n"
-        "\tlsl\tr1, r1, #0x12\n"
-        "\tmov r2, #0xFC\n"
-        "\tlsl r2, r2, #0x7\n"
-        "\tadd\tr2, r1, r2\n"
-        "\tmov\tr0, #0\n"
-        "\tmov\tr3, r0\n"
-        "\tmov\tr4, r0\n"
-        "\tmov\tr5, r0\n"
-        ".LCU0:\n"
-        "\tstmia r1!, {r0, r3, r4, r5}\n"
-        "\tcmp\tr1, r2\n"
-        "\tbcc\t.LCU0\n"
-    );
-#else
     RegisterRamReset(RESET_ALL);
-#endif //MODERN
     *(vu16 *)BG_PLTT = 0x7FFF;
     InitGpuRegManager();
     REG_WAITCNT = WAITCNT_PREFETCH_ENABLE | WAITCNT_WS0_S_1 | WAITCNT_WS0_N_3;
@@ -118,7 +96,7 @@ void AgbMain()
     CheckForFlashMemory();
     InitMainCallbacks();
     InitMapMusic();
-    //SeedRngWithRtc(); see comment at SeedRngWithRtc declaration below
+    SeedRngWithRtc();
     ClearDma3Requests();
     ResetBgs();
     SetDefaultFontsPointer();
@@ -127,7 +105,7 @@ void AgbMain()
     gSoftResetDisabled = FALSE;
 
     if (gFlashMemoryPresent != TRUE)
-        SetMainCallback2(NULL);
+        SetMainCallback2(IntrDummy);
 
     gLinkTransferringData = FALSE;
     gUnknown_03000000 = 0xFC0;
@@ -135,36 +113,10 @@ void AgbMain()
     for (;;)
     {
         ReadKeys();
+        if (gMain.callback1)
+            gMain.callback1();
 
-        if (gSoftResetDisabled == FALSE
-         && (gMain.heldKeysRaw & A_BUTTON)
-         && (gMain.heldKeysRaw & B_START_SELECT) == B_START_SELECT)
-        {
-            rfu_REQ_stopMode();
-            rfu_waitREQComplete();
-            DoSoftReset();
-        }
-
-        if (sub_8087634() == 1)
-        {
-            gLinkTransferringData = TRUE;
-            UpdateLinkAndCallCallbacks();
-            gLinkTransferringData = FALSE;
-        }
-        else
-        {
-            gLinkTransferringData = FALSE;
-            UpdateLinkAndCallCallbacks();
-
-            if (sub_80875C8() == 1)
-            {
-                gMain.newKeys = 0;
-                ClearSpriteCopyRequests();
-                gLinkTransferringData = TRUE;
-                UpdateLinkAndCallCallbacks();
-                gLinkTransferringData = FALSE;
-            }
-        }
+        gMain.callback2(); // Can't be NULL
 
         PlayTimeCounter_Update();
         MapMusicMain();
@@ -229,13 +181,12 @@ void EnableVCountIntrAtLine150(void)
     EnableInterrupts(INTR_FLAG_VCOUNT);
 }
 
-// oops! FRLG commented this out to remove RTC, however Emerald didnt undo this!
-//static void SeedRngWithRtc(void)
-//{
-//    u32 seed = RtcGetMinuteCount();
-//    seed = (seed >> 16) ^ (seed & 0xFFFF);
-//    SeedRng(seed);
-//}
+static void SeedRngWithRtc(void)
+{
+    u32 seed = RtcGetMinuteCount();
+    seed = (seed >> 16) ^ (seed & 0xFFFF);
+    SeedRng(seed);
+}
 
 void InitKeys(void)
 {
@@ -288,9 +239,6 @@ static void ReadKeys(void)
         if (gMain.heldKeys & L_BUTTON)
             gMain.heldKeys |= A_BUTTON;
     }
-
-    if (gMain.newKeys & gMain.watchedKeysMask)
-        gMain.watchedKeysPressed = TRUE;
 }
 
 void InitIntrHandlers(void)
@@ -441,4 +389,75 @@ void DoSoftReset(void)
 void ClearPokemonCrySongs(void)
 {
     CpuFill16(0, gPokemonCrySongs, MAX_POKEMON_CRIES * sizeof(struct PokemonCrySong));
+}
+
+// play time
+
+enum
+{
+    STOPPED,
+    RUNNING,
+    MAXED_OUT
+};
+
+void PlayTimeCounter_Reset(void)
+{
+    sPlayTimeCounterState = STOPPED;
+
+    gSaveBlock2Ptr->playTimeHours = 0;
+    gSaveBlock2Ptr->playTimeMinutes = 0;
+    gSaveBlock2Ptr->playTimeSeconds = 0;
+    gSaveBlock2Ptr->playTimeVBlanks = 0;
+}
+
+void PlayTimeCounter_Start(void)
+{
+    sPlayTimeCounterState = RUNNING;
+
+    if (gSaveBlock2Ptr->playTimeHours > 999)
+        PlayTimeCounter_SetToMax();
+}
+
+void PlayTimeCounter_Stop(void)
+{
+    sPlayTimeCounterState = STOPPED;
+}
+
+void PlayTimeCounter_Update(void)
+{
+    if (sPlayTimeCounterState != RUNNING)
+        return;
+
+    gSaveBlock2Ptr->playTimeVBlanks++;
+
+    if (gSaveBlock2Ptr->playTimeVBlanks < 60)
+        return;
+
+    gSaveBlock2Ptr->playTimeVBlanks = 0;
+    gSaveBlock2Ptr->playTimeSeconds++;
+
+    if (gSaveBlock2Ptr->playTimeSeconds < 60)
+        return;
+
+    gSaveBlock2Ptr->playTimeSeconds = 0;
+    gSaveBlock2Ptr->playTimeMinutes++;
+
+    if (gSaveBlock2Ptr->playTimeMinutes < 60)
+        return;
+
+    gSaveBlock2Ptr->playTimeMinutes = 0;
+    gSaveBlock2Ptr->playTimeHours++;
+
+    if (gSaveBlock2Ptr->playTimeHours > 999)
+        PlayTimeCounter_SetToMax();
+}
+
+void PlayTimeCounter_SetToMax(void)
+{
+    sPlayTimeCounterState = MAXED_OUT;
+
+    gSaveBlock2Ptr->playTimeHours = 999;
+    gSaveBlock2Ptr->playTimeMinutes = 59;
+    gSaveBlock2Ptr->playTimeSeconds = 59;
+    gSaveBlock2Ptr->playTimeVBlanks = 59;
 }

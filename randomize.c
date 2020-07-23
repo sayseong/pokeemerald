@@ -715,7 +715,7 @@ bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts)
                     {
                         id = RAND_ID(speciesCount);
                         newName = sSpeciesConstants[id].str;
-                    } while (newName == oldName
+                    } while (SAME_STRINGS(oldName, newName)
                              || (SAME_TRAINER_BASE_STATS && !IsInBSRange(oldName, id, speciesCount, SAME_TRAINER_STATS_RANGE_LOW, SAME_TRAINER_STATS_RANGE_HIGH))
                              || (SAME_TRAINERS_TYPES && !ShareType(id, SpeciesNameToArrId(oldName, speciesCount))));
                     fprintf(dstFile, "= %s,\n", newName);

@@ -164,7 +164,7 @@ bool8 BeginNormalPaletteFade(u32 selectedPalettes, s8 delay, u8 startY, u8 targe
     }
     else
     {
-        static const u8 deltaByTransitionSpeed[] = {2, 3, 4, 15};
+        static const u8 deltaByTransitionSpeed[] = {2, 3, 4, 10};
         gPaletteFade.deltaY = deltaByTransitionSpeed[gSaveBlock2Ptr->optionsTransitionSpeed];
 
         if (delay < 0)

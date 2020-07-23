@@ -36,7 +36,6 @@
 #include "money.h"
 #include "new_game.h"
 #include "palette.h"
-#include "play_time.h"
 #include "random.h"
 #include "roamer.h"
 #include "rotating_gate.h"
@@ -2250,10 +2249,10 @@ static void CB1_UpdateLinkState(void)
 
         // Note: Because guestId is between 0 and 4, while the smallest key code is
         // LINK_KEY_CODE_EMPTY, this is functionally equivalent to `sPlayerKeyInterceptCallback(0)`.
-        // It is expecting the callback to be KeyInterCB_SelfIdle, and that will 
+        // It is expecting the callback to be KeyInterCB_SelfIdle, and that will
         // completely ignore any input parameters.
         //
-        // UpdateHeldKeyCode performs a sanity check on its input; if 
+        // UpdateHeldKeyCode performs a sanity check on its input; if
         // sPlayerKeyInterceptCallback echoes back the argument, which is selfId, then
         // it'll use LINK_KEY_CODE_EMPTY instead.
         //
@@ -3059,7 +3058,7 @@ static void SetPlayerFacingDirection(u8 linkPlayerId, u8 facing)
             #define TEMP gLinkPlayerMovementModes[linkPlayerObjEvent->movementMode](linkPlayerObjEvent, objEvent, facing)
 
             gMovementStatusHandler[TEMP](linkPlayerObjEvent, objEvent);
-            
+
             // Clean up the hack.
             #undef TEMP
         }

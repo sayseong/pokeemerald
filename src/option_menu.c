@@ -5,6 +5,7 @@
 #include "scanline_effect.h"
 #include "palette.h"
 #include "sprite.h"
+#include "sound.h"
 #include "task.h"
 #include "malloc.h"
 #include "bg.h"
@@ -533,10 +534,20 @@ static int Difficulty_ProcessInput(int selection)
 
 static int Sound_ProcessInput(int selection)
 {
-    if (gMain.newKeys & (DPAD_LEFT | DPAD_RIGHT))
+    int previous = selection;
+
+    selection = ThreeOptions_ProcessInput(selection);
+    if (selection == 0 || selection == 1)
     {
-        selection ^= 1;
+        gDisableMusic = FALSE;
         SetPokemonCryStereo(selection);
+        if (previous == 2)
+            PlayNewMapMusic(GetCurrentMapMusic());
+    }
+    else
+    {
+        PlayBGM(0);
+        gDisableMusic = TRUE;
     }
 
     return selection;
@@ -666,11 +677,13 @@ static void Difficulty_DrawChoices(int selection, int y, u8 textSpeed)
 
 static void Sound_DrawChoices(int selection, int y, u8 textSpeed)
 {
-    u8 styles[2] = {0, 0};
+    u8 styles[3] = {0, 0, 0};
+    int xMid = GetMiddleX(gText_SoundMono, gText_SoundStereo, gText_BattleSceneOff);
 
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_SoundMono, 104, y, styles[0], textSpeed);
-    DrawOptionMenuChoice(gText_SoundStereo, GetStringRightAlignXOffset(1, gText_SoundStereo, 198), y, styles[1], textSpeed);
+    DrawOptionMenuChoice(gText_SoundStereo, xMid, y, styles[1], textSpeed);
+    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(1, gText_BattleSceneOff, 198), y, styles[2], textSpeed);
 }
 
 static void FrameType_DrawChoices(int selection, int y, u8 textSpeed)

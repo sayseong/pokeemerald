@@ -72,5 +72,11 @@ void StartTimer1(void);
 void SeedRngAndSetTrainerId(void);
 u16 GetGeneratedTrainerIdLower(void);
 void sub_819789C(void);
+// play time
+void PlayTimeCounter_Reset(void);
+void PlayTimeCounter_Start(void);
+void PlayTimeCounter_Stop(void);
+void PlayTimeCounter_Update(void);
+void PlayTimeCounter_SetToMax(void);
 
 #endif // GUARD_MAIN_H

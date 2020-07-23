@@ -1,5 +1,6 @@
 #include "gba/gba.h"
 #include "gba/flash_internal.h"
+#include "global.h"
 
 static u8 sTimerNum;
 static u16 sTimerCount;
@@ -127,7 +128,7 @@ void SetReadFlash1(u16 *dest)
     }
 }
 
-void ReadFlash_Core(u8 *src, u8 *dest, u32 size)
+void ReadFlash_Core(vu8 *src, u8 *dest, u32 size)
 {
     while (size-- != 0)
     {

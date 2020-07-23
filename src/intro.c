@@ -30,11 +30,11 @@
 /*
  * Intro animation sequence state machine
  * --------------------------------------
- * 
+ *
  * Entry Point: CB2_InitCopyrightScreenAfterBootup
- * 
+ *
  * Note: States advance sequentially unless otherwise stated.
- * 
+ *
  * CB2_InitCopyrightScreenAfterBootup
  *  - Registers a serial interrupt handler that listens for a GameCube.
  *  - Waits for 140 frames, and then until palette fading completes.
@@ -42,12 +42,12 @@
  *  - Check the save file for corruption
  *  - Setup global pointers to save file
  *  - Initialize gHeap
- * 
+ *
  * MainCB2_Intro
  *  - Spawn Task_IntroLoadPart1Graphics
  *  - If any keys are pressed during the intro, advance to
  *    MainCB2_EndIntro (which will then kill all tasks).
- * 
+ *
  * Task_IntroLoadPart1Graphics
  * Task_IntroFadeIn (frame counter starts at 0 here)
  * Task_IntroWaterDrops
@@ -1072,6 +1072,7 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         Save_LoadGameData(SAVE_NORMAL);
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
             Sav2_ClearSetDefault();
+        gDisableMusic = (gSaveBlock2Ptr->optionsSound == 2);
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
         InitHeap(gHeap, HEAP_SIZE);
     }
