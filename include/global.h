@@ -177,7 +177,6 @@ struct Pokedex
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
     /*0x0C*/ u32 unknown3;
-    /*0x10*/ u8 filler[0x68]; // Previously Dex Flags, feel free to remove.
 };
 
 struct PokemonJumpResults
@@ -479,7 +478,6 @@ struct SaveBlock2
     /*0x16*/ u16 optionsTransitionSpeed:2;
     /*0x16*/ u16 optionsSound:2; // OPTIONS_SOUND_[MONO/STEREO/OFF]
     /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u8 filler_90[0x7];
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
     /*0xA8*/ u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD
@@ -495,7 +493,9 @@ struct SaveBlock2
     /*0x64C*/ struct BattleFrontier frontier;
 }; // sizeof=0xF2C
 
-extern struct SaveBlock2 *gSaveBlock2Ptr;
+// Keeping the define to make merging branches easier
+extern struct SaveBlock2 gSaveblock2;
+#define gSaveBlock2Ptr ((&gSaveblock2))
 
 struct SecretBaseParty
 {
@@ -997,7 +997,8 @@ struct SaveBlock1
     // sizeof: 0x3???
 };
 
-extern struct SaveBlock1* gSaveBlock1Ptr;
+extern struct SaveBlock1 gSaveblock1;
+#define gSaveBlock1Ptr ((&gSaveblock1))
 
 struct MapPosition
 {
@@ -1015,5 +1016,7 @@ struct TradeRoomPlayer
     struct MapPosition pos;
     u16 field_C;
 };
+
+#define gPokemonStoragePtr ((&gPokemonStorage))
 
 #endif // GUARD_GLOBAL_H

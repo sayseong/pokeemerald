@@ -1066,7 +1066,7 @@ void CB2_InitCopyrightScreenAfterBootup(void)
 {
     if (!SetUpCopyrightScreen())
     {
-        SetSaveBlocksPointers(sub_815355C());
+        SetSaveBlocksPointers();
         ResetMenuAndMonGlobals();
         Save_ResetSaveCounters();
         Save_LoadGameData(SAVE_NORMAL);

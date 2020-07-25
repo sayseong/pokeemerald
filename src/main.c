@@ -74,10 +74,18 @@ static void UpdateLinkAndCallCallbacks(void);
 static void InitMainCallbacks(void);
 static void CallCallbacks(void);
 static void SeedRngWithRtc(void);
-static void ReadKeys(void);
 void InitIntrHandlers(void);
-static void WaitForVBlank(void);
 void EnableVCountIntrAtLine150(void);
+
+enum
+{
+    STOPPED,
+    RUNNING,
+    MAXED_OUT
+};
+
+static void PlayTimeCounter_SetToMax(void);
+static void PlayTimeCounter_Stop(void);
 
 #define B_START_SELECT (B_BUTTON | START_BUTTON | SELECT_BUTTON)
 
@@ -110,18 +118,200 @@ NAKED void AgbMain()
     gLinkTransferringData = FALSE;
     gUnknown_03000000 = 0xFC0;
 
-    for (;;)
-    {
-        ReadKeys();
-        if (gMain.callback1)
-            gMain.callback1();
-
-        gMain.callback2(); // Can't be NULL
-
-        PlayTimeCounter_Update();
-        MapMusicMain();
-        WaitForVBlank();
-    }
+    asm("\n\
+ldr r3, .L_KEYINPUT\n\
+mov r8, r3\n\
+ldr r4, .L_KEYMASK\n\
+mov r9, r4\n\
+ldr r4, .L_MAIN\n\
+ldr r5, .L_SAVBLCK2\n\
+ldr r6, .L_PLAYTIME_STATE\n\
+mov r7, #0\n\
+\n\
+.LOOP:\n\
+	@ Read Keys\n\
+	mov r3, r8 @ Key Input\n\
+	mov r2, r9 @ key mask\n\
+	ldrh r1, [r3]\n\
+	eor r1, r2 @ r1 - key input\n\
+	ldrh r2, [r4, %[heldKeysRaw]]\n\
+    mov r0, r1 \n\
+	bic r0, r2\n\
+	strh r0, [r4, %[newKeysRaw]]\n\
+	strh r0, [r4, %[newKeys]]\n\
+	strh r0, [r4, %[newAndRepeatedKeys]]\n\
+	tst r1, r1 @ if keyinput is 0\n\
+	beq .KEY_COUNTER_RESET\n\
+	ldrh r0, [r4, %[heldKeys]]\n\
+	cmp r0, r1\n\
+	beq .UPDATE_KEY_COUNTER\n\
+.KEY_COUNTER_RESET:\n\
+	ldr r0, .L_KEY_REPEAT_START_DELAY\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r4, %[keyRepeatCounter]]\n\
+.UPDATE_HELD_KEYS:\n\
+	strh r1, [r4, %[heldKeysRaw]]\n\
+	strh r1, [r4, %[heldKeys]]\n\
+	\n\
+	@the same code in two places for speed boost\n\
+	@ call callbacks\n\
+	ldr r3, [r4, %[callback1]]\n\
+	cmp r3, #0\n\
+	beq .CALLBACK2\n\
+	bl .call_via_r3\n\
+	\n\
+.CALLBACK2:\n\
+	ldr r3, [r4, %[callback2]]\n\
+	bl .call_via_r3\n\
+	\n\
+@ Play time update\n\
+	ldrb r3, [r6]\n\
+	cmp r3, %[playTimeRunning]\n\
+	bne .MUSIC\n\
+	ldrb r3, [r5, %[playTimeVBlanks]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_VBLANKS\n\
+	strb r7, [r5, %[playTimeVBlanks]]\n\
+	ldrb r3, [r5, %[playTimeSeconds]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_SECONDS\n\
+	strb r7, [r5, %[playTimeSeconds]]\n\
+	ldrb r3, [r5, %[playTimeMinutes]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_MINUTES\n\
+	strb r7, [r5, %[playTimeMinutes]]\n\
+	ldrh r3, [r5, %[playTimeHours]]\n\
+	add r3, r3, #1\n\
+	ldr r2, .L_999\n\
+	strh r3, [r5, %[playTimeHours]]\n\
+	cmp r3, r2\n\
+	bcc .MUSIC\n\
+	bl PlayTimeCounter_SetToMax\n\
+	b .MUSIC\n\
+	\n\
+.TIME_VBLANKS:\n\
+	strb r3, [r5, %[playTimeVBlanks]]\n\
+.MUSIC:\n\
+	bl	MapMusicMain\n\
+	mov r2, %[intrFlagVblank]\n\
+	ldrh r3, [r4, %[intrCheck]]\n\
+	bic r3, r2\n\
+	strh r3, [r4, %[intrCheck]]\n\
+	swi 0x5\n\
+	b .LOOP\n\
+	\n\
+.TIME_SECONDS:\n\
+	strb r3, [r5, %[playTimeSeconds]]\n\
+	bl	MapMusicMain\n\
+	mov r2, %[intrFlagVblank]\n\
+	ldrh r3, [r4, %[intrCheck]]\n\
+	bic r3, r2\n\
+	strh r3, [r4, %[intrCheck]]\n\
+	swi 0x5\n\
+	b .LOOP\n\
+	\n\
+.TIME_MINUTES:\n\
+	strb r3, [r5, %[playTimeMinutes]]\n\
+	bl	MapMusicMain\n\
+	mov r2, %[intrFlagVblank]\n\
+	ldrh r3, [r4, %[intrCheck]]\n\
+	bic r3, r2\n\
+	strh r3, [r4, %[intrCheck]]\n\
+	swi 0x5\n\
+	b .LOOP\n\
+	\n\
+.UPDATE_KEY_COUNTER:\n\
+	ldrh r0, [r4, %[keyRepeatCounter]]\n\
+	sub r0, r0, #1\n\
+	strh r0, [r4, %[keyRepeatCounter]]\n\
+	bne .UPDATE_HELD_KEYS\n\
+	strh r1, [r4, %[newAndRepeatedKeys]]\n\
+	ldr r0, .L_KEY_REPEAT_CONTINUE_DELAY\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r4, %[keyRepeatCounter]]\n\
+	strh r1, [r4, %[heldKeysRaw]]\n\
+	strh r1, [r4, %[heldKeys]]\n\
+	\n\
+	@ same code as above\n\
+	ldr r3, [r4, %[callback1]]\n\
+	cmp r3, #0\n\
+	beq ._CALLBACK2\n\
+	bl .call_via_r3\n\
+	\n\
+._CALLBACK2:\n\
+	ldr r3, [r4, %[callback2]]\n\
+	bl .call_via_r3\n\
+	\n\
+@ Play time update\n\
+	ldrb r3, [r6]\n\
+	cmp r3, %[playTimeRunning]\n\
+	bne .MUSIC\n\
+	ldrb r3, [r5, %[playTimeVBlanks]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_VBLANKS\n\
+	strb r7, [r5, %[playTimeVBlanks]]\n\
+	ldrb r3, [r5, %[playTimeSeconds]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_SECONDS\n\
+	strb r7, [r5, %[playTimeSeconds]]\n\
+	ldrb r3, [r5, %[playTimeMinutes]]\n\
+	add r3, r3, #1\n\
+	cmp r3, #59\n\
+	bls .TIME_MINUTES\n\
+	strb r7, [r5, %[playTimeMinutes]]\n\
+	ldrh r3, [r5, %[playTimeHours]]\n\
+	add r3, r3, #1\n\
+	ldr r2, .L_999\n\
+	strh r3, [r5, %[playTimeHours]]\n\
+	cmp r3, r2\n\
+	bcc .MUSIC\n\
+	bl PlayTimeCounter_SetToMax\n\
+	b .MUSIC\n\
+\n\
+.align 2\n\
+.L_KEY_REPEAT_START_DELAY:\n\
+	.word gKeyRepeatStartDelay\n\
+.L_KEY_REPEAT_CONTINUE_DELAY:\n\
+	.word gKeyRepeatContinueDelay\n\
+.L_KEYINPUT:\n\
+	.word 0x04000130 @ REG KEY INPUT\n\
+.L_KEYMASK:\n\
+	.word 0x03FF\n\
+.L_999:\n\
+	.word 999\n\
+.L_MAIN:\n\
+	.word gMain\n\
+.L_SAVBLCK2:\n\
+	.word gSaveblock2\n\
+.L_PLAYTIME_STATE:\n\
+	.word sPlayTimeCounterState\n\
+	\n\
+.align	1\n\
+.thumb\n\
+.call_via_r3:\n\
+	bx r3"
+    : /* no outputs */
+    : [heldKeysRaw] "i" (offsetof(struct Main, heldKeysRaw)),
+     [newKeysRaw] "i" (offsetof(struct Main, newKeysRaw)),
+     [newKeys] "i" (offsetof(struct Main, newKeys)),
+     [newAndRepeatedKeys] "i" (offsetof(struct Main, newAndRepeatedKeys)),
+     [heldKeys] "i" (offsetof(struct Main, heldKeys)),
+     [keyRepeatCounter] "i" (offsetof(struct Main, keyRepeatCounter)),
+     [callback1] "i" (offsetof(struct Main, callback1)),
+     [callback2] "i" (offsetof(struct Main, callback2)),
+     [intrCheck] "i" (offsetof(struct Main, intrCheck)),
+     [playTimeVBlanks] "i" (offsetof(struct SaveBlock2, playTimeVBlanks)),
+     [playTimeSeconds] "i" (offsetof(struct SaveBlock2, playTimeSeconds)),
+     [playTimeMinutes] "i" (offsetof(struct SaveBlock2, playTimeMinutes)),
+     [playTimeHours] "i" (offsetof(struct SaveBlock2, playTimeHours)),
+     [playTimeRunning] "i" (RUNNING),
+     [intrFlagVblank] "i" (INTR_FLAG_VBLANK)
+    );
 }
 
 static void UpdateLinkAndCallCallbacks(void)
@@ -137,8 +327,6 @@ static void InitMainCallbacks(void)
     gMain.vblankCounter2 = 0;
     gMain.callback1 = NULL;
     SetMainCallback2(CB2_InitCopyrightScreenAfterBootup);
-    gSaveBlock2Ptr = &gSaveblock2;
-    gPokemonStoragePtr = &gPokemonStorage;
 }
 
 static void CallCallbacks(void)
@@ -200,47 +388,6 @@ void InitKeys(void)
     gMain.newKeysRaw = 0;
 }
 
-static void ReadKeys(void)
-{
-    u16 keyInput = REG_KEYINPUT ^ KEYS_MASK;
-    gMain.newKeysRaw = keyInput & ~gMain.heldKeysRaw;
-    gMain.newKeys = gMain.newKeysRaw;
-    gMain.newAndRepeatedKeys = gMain.newKeysRaw;
-
-    // BUG: Key repeat won't work when pressing L using L=A button mode
-    // because it compares the raw key input with the remapped held keys.
-    // Note that newAndRepeatedKeys is never remapped either.
-
-    if (keyInput != 0 && gMain.heldKeys == keyInput)
-    {
-        gMain.keyRepeatCounter--;
-
-        if (gMain.keyRepeatCounter == 0)
-        {
-            gMain.newAndRepeatedKeys = keyInput;
-            gMain.keyRepeatCounter = gKeyRepeatContinueDelay;
-        }
-    }
-    else
-    {
-        // If there is no input or the input has changed, reset the counter.
-        gMain.keyRepeatCounter = gKeyRepeatStartDelay;
-    }
-
-    gMain.heldKeysRaw = keyInput;
-    gMain.heldKeys = gMain.heldKeysRaw;
-
-    // Remap L to A if the L=A option is enabled.
-    if (gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
-    {
-        if (gMain.newKeys & L_BUTTON)
-            gMain.newKeys |= A_BUTTON;
-
-        if (gMain.heldKeys & L_BUTTON)
-            gMain.heldKeys |= A_BUTTON;
-    }
-}
-
 void InitIntrHandlers(void)
 {
     int i;
@@ -289,20 +436,11 @@ void SetSerialCallback(IntrCallback callback)
 
 static void VBlankIntr(void)
 {
-    if (gWirelessCommType != 0)
-        RfuVSync();
-    else if (gLinkVSyncDisabled == FALSE)
-        LinkVSync();
-
-    gMain.vblankCounter1++;
-
     if (gTrainerHillVBlankCounter && *gTrainerHillVBlankCounter < 0xFFFFFFFF)
         (*gTrainerHillVBlankCounter)++;
 
     if (gMain.vblankCallback)
         gMain.vblankCallback();
-
-    gMain.vblankCounter2++;
 
     CopyBufferedValuesToGpuRegs();
     ProcessDma3Requests();
@@ -310,12 +448,9 @@ static void VBlankIntr(void)
     gPcmDmaCounter = gSoundInfo.pcmDmaCounter;
 
     m4aSoundMain();
-    sub_8033648();
 
     if (!gMain.inBattle || !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_RECORDED)))
         Random();
-
-    UpdateWirelessStatusIndicatorSprite();
 
     INTR_CHECK |= INTR_FLAG_VBLANK;
     gMain.intrCheck |= INTR_FLAG_VBLANK;
@@ -393,13 +528,6 @@ void ClearPokemonCrySongs(void)
 
 // play time
 
-enum
-{
-    STOPPED,
-    RUNNING,
-    MAXED_OUT
-};
-
 void PlayTimeCounter_Reset(void)
 {
     sPlayTimeCounterState = STOPPED;
@@ -418,41 +546,12 @@ void PlayTimeCounter_Start(void)
         PlayTimeCounter_SetToMax();
 }
 
-void PlayTimeCounter_Stop(void)
+static void PlayTimeCounter_Stop(void)
 {
     sPlayTimeCounterState = STOPPED;
 }
 
-void PlayTimeCounter_Update(void)
-{
-    if (sPlayTimeCounterState != RUNNING)
-        return;
-
-    gSaveBlock2Ptr->playTimeVBlanks++;
-
-    if (gSaveBlock2Ptr->playTimeVBlanks < 60)
-        return;
-
-    gSaveBlock2Ptr->playTimeVBlanks = 0;
-    gSaveBlock2Ptr->playTimeSeconds++;
-
-    if (gSaveBlock2Ptr->playTimeSeconds < 60)
-        return;
-
-    gSaveBlock2Ptr->playTimeSeconds = 0;
-    gSaveBlock2Ptr->playTimeMinutes++;
-
-    if (gSaveBlock2Ptr->playTimeMinutes < 60)
-        return;
-
-    gSaveBlock2Ptr->playTimeMinutes = 0;
-    gSaveBlock2Ptr->playTimeHours++;
-
-    if (gSaveBlock2Ptr->playTimeHours > 999)
-        PlayTimeCounter_SetToMax();
-}
-
-void PlayTimeCounter_SetToMax(void)
+static void PlayTimeCounter_SetToMax(void)
 {
     sPlayTimeCounterState = MAXED_OUT;
 

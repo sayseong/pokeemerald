@@ -87,7 +87,7 @@ struct
     [MENUITEM_BATTLESCENE] = {BattleScene_DrawChoices, TwoOptions_ProcessInput},
     [MENUITEM_BATTLESTYLE] = {BattleStyle_DrawChoices, BattleStyle_ProcessInput},
     [MENUITEM_SOUND] = {Sound_DrawChoices, Sound_ProcessInput},
-    [MENUITEM_BUTTONMODE] = {ButtonMode_DrawChoices, ThreeOptions_ProcessInput},
+    [MENUITEM_BUTTONMODE] = {ButtonMode_DrawChoices, TwoOptions_ProcessInput},
     [MENUITEM_FRAMETYPE] = {FrameType_DrawChoices, FrameType_ProcessInput},
     [MENUITEM_HP_BAR] = {HpBar_DrawChoices, ElevenOptions_ProcessInput},
     [MENUITEM_EXP_BAR] = {HpBar_DrawChoices, ElevenOptions_ProcessInput},
@@ -725,7 +725,7 @@ static void ButtonMode_DrawChoices(int selection, int y, u8 textSpeed)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_ButtonTypeNormal, 104, y, styles[0], textSpeed);
     DrawOptionMenuChoice(gText_ButtonTypeLR, xMid, y, styles[1], textSpeed);
-    DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(1, gText_ButtonTypeLEqualsA, 198), y, styles[2], textSpeed);
+    //DrawOptionMenuChoice(gText_ButtonTypeLEqualsA, GetStringRightAlignXOffset(1, gText_ButtonTypeLEqualsA, 198), y, styles[2], textSpeed);
 }
 
 static void DrawTextOption(void)

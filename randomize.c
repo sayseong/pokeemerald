@@ -38,6 +38,11 @@
 #define SAME_TRAINER_STATS_RANGE_HIGH   100     // Same as with wild mons, but high range. High value -> stronger mons allowed
 #define SAME_TRAINERS_TYPES             true    // If true, the new random pokemon will share a type with the original mon. Note, this is not fault-proof as for example a bug catcher may end up with a pure poison pokemon, because it had a bug-poison before. Still offers at least some control over random types.
 
+// Starter mons
+#define RANDOMIZE_STARTERS              true
+#define STARTERS_KEEP_TYPE_TRIANGLE     true    // Each is weak against one and strong against other
+#define STARTERS_HAS_TO_EVOLVE          true    // If true, each starter has to be able to evolve at least once
+
                                 /* STOP EDITING */
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
@@ -68,7 +73,14 @@ static struct ConstantIdName sSpeciesConstants[1000] = {};
 static char sMonTypes[1000][2][20] = {};
 static uint16_t sMonBaseStats[1000] = {0};
 
-static const char *sFormAbilities[] =
+struct
+{
+    uint16_t evoTo;
+    uint16_t evoFrom;
+    uint16_t canMegaEvo;
+} static sEvoData[1000] = {0};
+
+static const char *const sFormAbilities[] =
 {
     "ABILITY_BATTLE_BOND",
     "ABILITY_DISGUISE",
@@ -83,7 +95,7 @@ static const char *sFormAbilities[] =
     "ABILITY_ZEN_MODE",
 };
 
-static const char *sHMMoves[] =
+static const char *const sHMMoves[] =
 {
     "MOVE_CUT",
     "MOVE_SURF",
@@ -97,17 +109,30 @@ static const char *sHMMoves[] =
 
 static const char sBaseStatsDir[] = "src/data/pokemon/base_stats.h";
 static const char sLearnsetsDir[] = "src/data/pokemon/level_up_learnsets.h";
+static const char sEvolutionDir[] = "src/data/pokemon/evolution.h";
 static const char sTrainerPartiesDir[] = "src/data/trainer_parties.h";
 static const char sWildMonsDir[] = "src/data/wild_encounters.json";
 static const char sAbilitiesDir[] = "include/constants/abilities.h";
 static const char sMovesDir[] = "include/constants/moves.h";
 static const char sSpeciesDir[] = "include/constants/species.h";
+static const char sStarterChooseDir[] = "src/starter_choose.c";
 static const char sTempPokemonDir[] = "src/data/pokemon/temp.txt";
 
-#define SKIP_WHTSPACE(str) {while (*str == ' ') str++;}
+static const char *const sTriangleTypes[][3] =
+{
+    {"TYPE_GRASS", "TYPE_FIRE", "TYPE_WATER"},
+    {"TYPE_FIGHTING", "TYPE_PSYCHIC", "TYPE_DARK"},
+    {"TYPE_GROUND", "TYPE_GRASS", "TYPE_POISON"},
+    {"TYPE_FIRE", "TYPE_ROCK", "TYPE_STEEL"},
+    {"TYPE_FLYING", "TYPE_ROCK", "TYPE_FIGHTING"},
+};
+
+#define SKIP_WHTSPACE(str) {while (*str == ' ' || *str == '\t') str++;}
 #define SKIP_TILL(str, c) {while (*str != c) str++;}
 #define SAME_STRINGS(str1, str2)((strcmp(str1, str2) == 0))
 #define RAND_ID(count)(((rand() % (count - 1)) + 1))
+
+uint32_t SpeciesNameToArrId(char *name, uint32_t speciesCount);
 
 uint32_t BeginsWithStr(char **str, const char *toCmpTo, bool advanceCursor)
 {
@@ -199,7 +224,7 @@ uint32_t GetDefines(FILE *file, const char *prefix, struct ConstantIdName *const
     return count;
 }
 
-bool IsStringInList(const char **names, uint32_t count, char *str)
+bool IsStringInList(const char *const *const names, uint32_t count, char *str)
 {
     uint32_t i;
     for (i = 0; i < count; i++)
@@ -321,6 +346,75 @@ void GatherMonBaseStatData(FILE *baseStatFile, uint32_t speciesCount)
                 typeFound = 0, statsFound = 0;
             }
         }
+    }
+}
+
+void GatherEvolutionData(FILE *evoDataFile, uint32_t speciesCount)
+{
+    char *allocStr = malloc(CHR_BUFF_BIG), *str, name[20];
+    uint32_t i, id;
+    if (allocStr == NULL || evoDataFile == NULL)
+        return;
+
+    while (1)
+    {
+        str = allocStr;
+        if (fgets(str, CHR_BUFF_BIG, evoDataFile) == NULL)
+            break;
+
+        SKIP_WHTSPACE(str);
+        if (*(str++) == '[') // Get species id
+        {
+            // Copy species which has evolutions name
+            i = CopyTill(name, str, ']');
+            id = SpeciesNameToArrId(name, speciesCount);
+            if (id == 0)
+                continue;
+
+            // Find evo method
+            for (str += i; *str != '\0'; str++)
+            {
+                if (BeginsWithStr(&str, "EVO_", true))
+                {
+                    if (BeginsWithStr(&str, "MEGA", false))
+                    {
+                        sEvoData[id].canMegaEvo = 1;
+                    }
+                    else // Regular evolution
+                    {
+                        // Find species which they evolve into
+                        for (; *str != '\0'; str++)
+                        {
+                            if (*str == 'S' && BeginsWithStr(&str, "SPECIES_", false))
+                            {
+                                char *namePtr = name;
+                                for (i = 0; str[i] != '\0'; i++)
+                                {
+                                    if (str[i] == ' ')
+                                        continue;
+                                    if (str[i] == '}')
+                                    {
+                                        *(namePtr++) = '\0';
+                                        sEvoData[id].evoTo = SpeciesNameToArrId(name, speciesCount);
+                                        sEvoData[sEvoData[id].evoTo].evoFrom = id;
+                                        goto LOOP_CONTINUE;
+                                    }
+                                    if (str[i] == ',') // Species was used as an argument, abort
+                                    {
+                                        str += i - 1;
+                                        break;
+                                    }
+                                    *(namePtr++) = str[i];
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    LOOP_CONTINUE:
+        ;
     }
 }
 
@@ -784,6 +878,98 @@ bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts)
     return true;
 }
 
+bool ModifyStarters(FILE *starterFile, uint32_t *constantCounts)
+{
+    FILE *dstFile;
+    char *allocStr = malloc(CHR_BUFF_BIG), *str;
+    uint32_t i, j, triangleId, state = 0, ids[3], speciesCount = constantCounts[CONSTANTS_SPECIES];
+
+    if (allocStr == NULL)
+        return false;
+
+    dstFile = fopen(sTempPokemonDir, "w+");
+    if (dstFile == NULL)
+        return false;
+
+    while (1)
+    {
+        str = allocStr;
+        if (fgets(str, CHR_BUFF_BIG, starterFile) == NULL)
+            break;
+
+        SKIP_WHTSPACE(str);
+        switch (state)
+        {
+        case 0: // Find static const u16 sStarterMon
+            if (BeginsWithStr(&str, "static const u16 sStarterMon", true))
+                state++;
+            else
+                break;
+        case 1: // Don't copy lines until } is found which signifies the array end
+            for (; *str != '\0'; str++)
+            {
+                if (*str == '}')
+                {
+                    state = 2;
+                    break;
+                }
+            }
+            if (state != 2)
+                continue;
+        case 2:
+            for (i = 0; i < 3; i++)
+            {
+                while (1)
+                {
+                    ids[i] = RAND_ID(speciesCount);
+                    // Check if it's not the same mon and not their pre-evo or post evo
+                    for (j = 0; j < i; j++)
+                    {
+                        if (ids[i] == ids[j] || sEvoData[ids[i]].evoTo == ids[j] || sEvoData[ids[i]].evoFrom == ids[j])
+                            break;
+                    }
+                    if (j != i)
+                        continue;
+
+                    if (STARTERS_KEEP_TYPE_TRIANGLE)
+                    {
+                        if (i == 0) // Choose type triangle
+                        {
+                            for (j = 0; j < ARRAY_COUNT(sTriangleTypes); j++)
+                            {
+                                if (SAME_STRINGS(sMonTypes[ids[i]][0], sTriangleTypes[j][0]) || SAME_STRINGS(sMonTypes[ids[i]][1], sTriangleTypes[j][0]))
+                                    break;
+                            }
+                            triangleId = j;
+                            if (triangleId == ARRAY_COUNT(sTriangleTypes)) // Wrong type
+                                continue;
+                        }
+                        else // Check if matches type
+                        {
+                            if (!SAME_STRINGS(sMonTypes[ids[i]][0], sTriangleTypes[triangleId][i]) && !SAME_STRINGS(sMonTypes[ids[i]][1], sTriangleTypes[triangleId][i]))
+                                continue;
+                        }
+                    }
+
+                    break;
+                }
+            }
+            fprintf(dstFile, "static const u16 sStarterMon[3] = {%s, %s, %s};\n", sSpeciesConstants[ids[0]].str, sSpeciesConstants[ids[1]].str, sSpeciesConstants[ids[2]].str);
+            state++;
+            continue;
+        case 3: // Everything worked perfectly
+            break;
+        }
+
+        fputs(allocStr, dstFile);
+    }
+
+    if (state == 3)
+        UpdateFile(starterFile, dstFile, sStarterChooseDir, sTempPokemonDir);
+    free(allocStr);
+    return (state == 3);
+}
+
 struct
 {
     const char *const dir;
@@ -811,13 +997,13 @@ static const sFilesToEdit[] =
     {sBaseStatsDir, "Base Stats", "abilities", RANDOMIZE_ABILITIES, ModifyAbilitiesInBaseStats},
     {sLearnsetsDir, "Learnsets", "learnsets", RANDOMIZE_MOVES, ModifyLearnsets},
     {sWildMonsDir, "Wild Mons", "wild encounters", RANDOMIZE_WILD, ModifyWildMons},
-    {sTrainerPartiesDir, "Trainer Parties", "trainer pokemon", RANDOMIZE_TRAINERS, ModifyTrainerMons},
+    {sStarterChooseDir, "starter_choose.c", "starter mons", RANDOMIZE_STARTERS, ModifyStarters},
 };
 
 void RandomizeGame(void)
 {
     uint32_t count[CONSTANTS_COUNT], i, j;
-    FILE *file = NULL, *baseStatFile = NULL;
+    FILE *file = NULL;
 
     srand(time(NULL));
 
@@ -834,9 +1020,14 @@ void RandomizeGame(void)
     }
 
     // Gather all types/bs data earlier to avoid lag for wild mons.
-    baseStatFile = fopen(sBaseStatsDir, "r");
-    GatherMonBaseStatData(baseStatFile, count[CONSTANTS_SPECIES]);
-    fclose(baseStatFile);
+    file = fopen(sBaseStatsDir, "r");
+    GatherMonBaseStatData(file, count[CONSTANTS_SPECIES]);
+    fclose(file);
+
+    // Gather evolution data
+    file = fopen(sEvolutionDir, "r");
+    GatherEvolutionData(file, count[CONSTANTS_SPECIES]);
+    fclose(file);
 
     // Edit wanted files.
     for (i = 0; i < ARRAY_COUNT(sFilesToEdit); i++)
@@ -855,7 +1046,7 @@ void RandomizeGame(void)
                 if (sFilesToEdit[i].func(file, count))
                     printf("- successfully randomized %s!\n", sFilesToEdit[i].randomizedThingName);
                 else
-                    printf("...out of memory!");
+                    printf("...failed!");
             }
         }
     }

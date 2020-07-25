@@ -6,14 +6,11 @@ extern struct SaveBlock2 gSaveblock2;
 extern struct PokemonStorage gPokemonStorage;
 
 extern bool32 gFlashMemoryPresent;
-extern struct SaveBlock1 *gSaveBlock1Ptr;
-extern struct SaveBlock2 *gSaveBlock2Ptr;
-extern struct PokemonStorage *gPokemonStoragePtr;
 
 void CheckForFlashMemory(void);
 void ClearSav2(void);
 void ClearSav1(void);
-void SetSaveBlocksPointers(u16 offset);
+void SetSaveBlocksPointers(void);
 void MoveSaveBlocks_ResetHeap(void);
 u32 UseContinueGameWarp(void);
 void ClearContinueGameWarpStatus(void);
