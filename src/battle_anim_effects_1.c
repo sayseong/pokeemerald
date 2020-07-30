@@ -3034,7 +3034,7 @@ void AnimSolarbeamBigOrb(struct Sprite* sprite)
 static void AnimSolarbeamSmallOrb(struct Sprite* sprite)
 {
     InitSpritePosToAnimAttacker(sprite, TRUE);
-    
+
     if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gAnimMoveIndex == MOVE_CORE_ENFORCER)
     {
         CoreEnforcerLoadBeamTarget(sprite);
@@ -3047,7 +3047,7 @@ static void AnimSolarbeamSmallOrb(struct Sprite* sprite)
         sprite->data[3] = sprite->pos1.y;
         sprite->data[4] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET);
     }
-    
+
     InitAnimLinearTranslation(sprite);
     sprite->data[5] = gBattleAnimArgs[3];
     sprite->callback = AnimSolarbeamSmallOrb_Step;
@@ -5040,21 +5040,21 @@ static void AnimProtect(struct Sprite* sprite)
 
 static void AnimProtect_Step(struct Sprite *sprite)
 {
-    int a;
-    int i;
+    int i, id, savedPal;
     sprite->data[5] += 96;
     sprite->pos2.x = -(sprite->data[5] >> 8);
     if (++sprite->data[1] > 1)
     {
         sprite->data[1] = 0;
-        a = gPlttBufferFaded[sprite->data[2] + 1];
+        savedPal = gPlttBufferFaded[sprite->data[2] + 1];
         i = 0;
-        do
+        while (i < 6)
         {
-            gPlttBufferFaded[sprite->data[2] + ++i] = gPlttBufferFaded[sprite->data[2] + i + 1];
-        } while (i < 6);
+            id = sprite->data[2] + ++i;
+            gPlttBufferFaded[id] = gPlttBufferFaded[id + 1];
+        }
 
-        gPlttBufferFaded[sprite->data[2] + 7] = a;
+        gPlttBufferFaded[sprite->data[2] + 7] = savedPal;
     }
 
     if (sprite->data[7] > 6 && sprite->data[0] >0 && ++sprite->data[6] > 1)
@@ -6750,7 +6750,7 @@ static const union AffineAnimCmd sCompressTargetHorizontallyAffineAnimCmds[] =
 static void AnimTask_CompressTargetStep(u8 taskId)
 {
 	struct Task* task = &gTasks[taskId];
-    
+
 	if (!RunAffineAnimFromTaskData(task))
 		DestroyAnimVisualTask(taskId);
 }

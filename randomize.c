@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
+#include <dirent.h>
 
                                 /* EDIT THESE */
 
@@ -42,16 +43,31 @@
 #define RANDOMIZE_STARTERS              true
 #define STARTERS_KEEP_TYPE_TRIANGLE     true    // Each is weak against one and strong against other
 #define STARTERS_HAS_TO_EVOLVE          true    // If true, each starter has to be able to evolve at least once
+#define STARTERS_CANT_BE_EVOLVED        true    // If true, each starter cannot be an already evolved pokemon
+
+// Items
+#define RANDOMIZE_ITEMS                 true    // Randomizes items received from people, or found in pokeballs. Key items and TMs/HMs excluded.
+#define RANDOMIZE_HIDDEN_ITEMS          true    // Same as above, but with the hidden items.
 
                                 /* STOP EDITING */
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
+
+// Forward declarations.
+
+uint32_t ConstantNameToArrId(char *name, uint32_t count, uint32_t constantsId);
+bool ModifyAbilitiesInBaseStats(FILE *file, uint32_t *constantCounts, char *allocStr);
+bool ModifyLearnsets(FILE *file, uint32_t *constantCounts, char *allocStr);
+bool ModifyWildMons(FILE *file, uint32_t *constantCounts, char *allocStr);
+bool ModifyBallItems(FILE *file, uint32_t *constantCounts, char *allocStr);
+bool ModifyStarters(FILE *file, uint32_t *constantCounts, char *allocStr);
 
 enum
 {
     CONSTANTS_ABILITIES,
     CONSTANTS_MOVES,
     CONSTANTS_SPECIES,
+    CONSTANTS_ITEMS,
     CONSTANTS_COUNT,
 };
 
@@ -69,6 +85,7 @@ struct ConstantIdName
 static struct ConstantIdName sMoveConstants[1000] = {};
 static struct ConstantIdName sAbilityConstants[1000] = {};
 static struct ConstantIdName sSpeciesConstants[1000] = {};
+static struct ConstantIdName sItemsConstants[1000] = {};
 
 static char sMonTypes[1000][2][20] = {};
 static uint16_t sMonBaseStats[1000] = {0};
@@ -112,9 +129,11 @@ static const char sLearnsetsDir[] = "src/data/pokemon/level_up_learnsets.h";
 static const char sEvolutionDir[] = "src/data/pokemon/evolution.h";
 static const char sTrainerPartiesDir[] = "src/data/trainer_parties.h";
 static const char sWildMonsDir[] = "src/data/wild_encounters.json";
+static const char sItemBallsDir[] = "data/scripts/item_ball_scripts.inc";
 static const char sAbilitiesDir[] = "include/constants/abilities.h";
 static const char sMovesDir[] = "include/constants/moves.h";
 static const char sSpeciesDir[] = "include/constants/species.h";
+static const char sItemsDir[] = "include/constants/items.h";
 static const char sStarterChooseDir[] = "src/starter_choose.c";
 static const char sTempPokemonDir[] = "src/data/pokemon/temp.txt";
 
@@ -127,12 +146,44 @@ static const char *const sTriangleTypes[][3] =
     {"TYPE_FLYING", "TYPE_ROCK", "TYPE_FIGHTING"},
 };
 
+struct
+{
+    const char *const dir;
+    const char *const prefix;
+    uint32_t prefixLen;
+    const char *const msgPrefix;
+    struct ConstantIdName *structPtr;
+}
+static const sConstantsData[CONSTANTS_COUNT] =
+{
+    [CONSTANTS_ABILITIES]   = {sAbilitiesDir,   "ABILITY_", ARRAY_COUNT("ABILITY_"),    "Abilities",    sAbilityConstants},
+    [CONSTANTS_MOVES]       = {sMovesDir,       "MOVE_",    ARRAY_COUNT("MOVE_"),       "Moves",        sMoveConstants},
+    [CONSTANTS_SPECIES]     = {sSpeciesDir,     "SPECIES_", ARRAY_COUNT("SPECIES_"),    "Species",      sSpeciesConstants},
+    [CONSTANTS_ITEMS]       = {sItemsDir,       "ITEM_",    ARRAY_COUNT("ITEM_"),       "Items",        sItemsConstants},
+};
+
+struct
+{
+    const char *const dir;
+    const char *const name;
+    const char *const randomizedThingName;
+    bool toEdit;
+    bool (*func)(FILE *, uint32_t *count, char *buffer);
+}
+static const sFilesToEdit[] =
+{
+    {sBaseStatsDir, "Base Stats", "abilities", RANDOMIZE_ABILITIES, ModifyAbilitiesInBaseStats},
+    {sLearnsetsDir, "Learnsets", "learnsets", RANDOMIZE_MOVES, ModifyLearnsets},
+    {sWildMonsDir, "Wild Mons", "wild encounters", RANDOMIZE_WILD, ModifyWildMons},
+    {sItemBallsDir, "Item Balls", "Items found in poke balls", RANDOMIZE_ITEMS, ModifyBallItems},
+    {sStarterChooseDir, "starter_choose.c", "starter mons", RANDOMIZE_STARTERS, ModifyStarters},
+};
+
+
 #define SKIP_WHTSPACE(str) {while (*str == ' ' || *str == '\t') str++;}
 #define SKIP_TILL(str, c) {while (*str != c) str++;}
 #define SAME_STRINGS(str1, str2)((strcmp(str1, str2) == 0))
 #define RAND_ID(count)(((rand() % (count - 1)) + 1))
-
-uint32_t SpeciesNameToArrId(char *name, uint32_t speciesCount);
 
 uint32_t BeginsWithStr(char **str, const char *toCmpTo, bool advanceCursor)
 {
@@ -156,6 +207,23 @@ uint32_t CopyTill(char *dst, const char *src, char c)
     uint32_t i;
     for (i = 0; src[i] != c; i++)
         dst[i] = src[i];
+    dst[i] = '\0';
+    return i;
+}
+
+uint32_t CopyTillNotPrintable(char *dst, const char *src, bool allowSpace)
+{
+    uint32_t i;
+    if (allowSpace)
+    {
+        for (i = 0; isprint(src[i]); i++)
+            dst[i] = src[i];
+    }
+    else
+    {
+        for (i = 0; isprint(src[i]) && src[i] != ' '; i++)
+            dst[i] = src[i];
+    }
     dst[i] = '\0';
     return i;
 }
@@ -191,6 +259,10 @@ uint32_t GetDefines(FILE *file, const char *prefix, struct ConstantIdName *const
         if (!BeginsWithStr(&str, prefix, false))
             continue;
 
+        // Ignore all entries with COUNT in it
+        if (strstr(str, "_COUNT_") || strstr(str, "_COUNT "))
+            continue;
+
         // Copy constant define name.
         i = CopyTill((*allocChars)[count], str, ' ');
 
@@ -210,6 +282,8 @@ uint32_t GetDefines(FILE *file, const char *prefix, struct ConstantIdName *const
         str[i+1] = '\0';
 
         constants[count].str = (*allocChars)[count];
+        if (SAME_STRINGS(constants[count].str, "ITEM_MACH_BIKE")) // Don't count key items and tms as valid items
+            break;
         constants[count].id = atoi(str);
         // Check if the id was used before
         for (i = 0; i < count; i++)
@@ -367,7 +441,7 @@ void GatherEvolutionData(FILE *evoDataFile, uint32_t speciesCount)
         {
             // Copy species which has evolutions name
             i = CopyTill(name, str, ']');
-            id = SpeciesNameToArrId(name, speciesCount);
+            id = ConstantNameToArrId(name, speciesCount, CONSTANTS_SPECIES);
             if (id == 0)
                 continue;
 
@@ -395,7 +469,7 @@ void GatherEvolutionData(FILE *evoDataFile, uint32_t speciesCount)
                                     if (str[i] == '}')
                                     {
                                         *(namePtr++) = '\0';
-                                        sEvoData[id].evoTo = SpeciesNameToArrId(name, speciesCount);
+                                        sEvoData[id].evoTo = ConstantNameToArrId(name, speciesCount, CONSTANTS_SPECIES);
                                         sEvoData[sEvoData[id].evoTo].evoFrom = id;
                                         goto LOOP_CONTINUE;
                                     }
@@ -418,16 +492,16 @@ void GatherEvolutionData(FILE *evoDataFile, uint32_t speciesCount)
     }
 }
 
-uint32_t SpeciesNameToArrId(char *name, uint32_t speciesCount)
+uint32_t ConstantNameToArrId(char *name, uint32_t count, uint32_t constantsId)
 {
-    uint32_t i, j;
-    const char prefix[] = "SPECIES_";
+    uint32_t i;
     char *str = name;
-    // All species begin with that prefix, so skip past that
-    BeginsWithStr(&str, prefix, true);
-    for (i = 1; i < speciesCount; i++)
+
+    // All constants begin with a prefix, so skip past that.
+    BeginsWithStr(&str, sConstantsData[constantsId].prefix, true);
+    for (i = 1; i < count; i++)
     {
-        if (SAME_STRINGS(str, sSpeciesConstants[i].str + (ARRAY_COUNT(prefix) - 1)))
+        if (SAME_STRINGS(str, sConstantsData[constantsId].structPtr[i].str + (sConstantsData[constantsId].prefixLen - 1)))
             return i;
     }
     return 0;
@@ -435,7 +509,7 @@ uint32_t SpeciesNameToArrId(char *name, uint32_t speciesCount)
 
 bool IsInBSRange(char *oldName, uint32_t newId, uint32_t speciesCount, uint32_t rangeLow, uint32_t rangeHigh)
 {
-    uint32_t oldId = SpeciesNameToArrId(oldName, speciesCount);
+    uint32_t oldId = ConstantNameToArrId(oldName, speciesCount, CONSTANTS_SPECIES);
     //printf("\nComparing %s %u with %s %u.", oldName, sMonBaseStats[oldId], sSpeciesConstants[newId].str, sMonBaseStats[newId]);
     if (oldId != 0)
     {
@@ -488,10 +562,10 @@ void UpdateFile(FILE *file, FILE *tempFile, const char *fileDir, const char *tem
     rename(tempDir, fileDir);
 }
 
-bool ModifyWildMons(FILE *file, uint32_t *constantCounts)
+bool ModifyWildMons(FILE *file, uint32_t *constantCounts, char *allocStr)
 {
     FILE *dstFile;
-    char *allocStr = malloc(CHR_BUFF_BIG), *str, oldName[50], *newName;
+    char *str, oldName[50], *newName;
     struct WildChange *mons = malloc(sizeof(struct WildChange) * 15);
     uint16_t speciesInMap[15], inMapSpeciesId = 0;
     uint32_t i, id, mapMonsCount = 0, state = 0, count = constantCounts[CONSTANTS_SPECIES];
@@ -579,7 +653,7 @@ bool ModifyWildMons(FILE *file, uint32_t *constantCounts)
                         mapMonsCount++;
                     }
                 }
-                speciesInMap[inMapSpeciesId++] = SpeciesNameToArrId(newName, count);
+                speciesInMap[inMapSpeciesId++] = ConstantNameToArrId(newName, count, CONSTANTS_SPECIES);
                 fprintf(dstFile, "                \"species\": \"%s\"\n", newName);
                 continue;
             }
@@ -589,12 +663,124 @@ bool ModifyWildMons(FILE *file, uint32_t *constantCounts)
     }
 
     UpdateFile(file, dstFile, sWildMonsDir, sTempPokemonDir);
-    free(allocStr);
     free(mons);
     return true;
 }
 
-bool ModifyAbilitiesInBaseStats(FILE *file, uint32_t *constantCounts)
+bool ModifyHiddenItems(uint32_t itemsCount, char *allocStr)
+{
+    int state, oldId, newId;
+    bool hasHidden;
+    struct dirent *entry;
+    FILE *mapFile;
+    char oldName[50];
+    DIR *dirAllMaps = opendir("data/maps"), *dirMap;
+    char *dirName = malloc(CHR_BUFF_BIG);
+
+    if (dirAllMaps == NULL || dirName == NULL)
+        return false;
+
+    // Loop through all directories.
+    while ((entry = readdir(dirAllMaps)))
+    {
+        sprintf(dirName, "data/maps/%s/map.json", entry->d_name);
+        if ((mapFile = fopen(dirName, "r+")))
+        {
+            FILE *dstFile = fopen(sTempPokemonDir, "w+");
+            state = 0;
+            hasHidden = false;
+            while (1)
+            {
+                char *str = allocStr;
+                if (fgets(str, CHR_BUFF_BIG, mapFile) == NULL)
+                    break;
+                SKIP_WHTSPACE(str);
+
+                switch (state)
+                {
+                case 0: // Search for "hidden_item"
+                    if (strstr(str, "\"hidden_item\""))
+                        state++;
+                    break;
+                case 1: // Search for item field
+                    if (BeginsWithStr(&str, "\"item\"", true))
+                    {
+                        state = 0;
+                        SKIP_TILL(str, '"');
+                        CopyTill(oldName, ++str, '"');
+                        // We found a valid item
+                        if ((oldId = ConstantNameToArrId(oldName, itemsCount, CONSTANTS_ITEMS)))
+                        {
+                            do
+                            {
+                                newId = RAND_ID(itemsCount);
+                            } while (newId == oldId);
+                            fprintf(dstFile, "      \"item\": \"%s\",\n", sItemsConstants[newId].str);
+                            hasHidden = true;
+                            continue;
+                        }
+                    }
+                    break;
+                }
+                fputs(allocStr, dstFile);
+            }
+            // Update files
+            fclose(dstFile);
+            fclose(mapFile);
+            if (hasHidden)
+            {
+                remove(dirName);
+                rename(sTempPokemonDir, dirName);
+            }
+        }
+    }
+    closedir(dirAllMaps);
+    free(dirName);
+    return true;
+}
+
+bool ModifyBallItems(FILE *file, uint32_t *constantCounts, char *allocStr)
+{
+    FILE *dstFile;
+    char *str, name[25];
+    uint32_t oldId, newId, itemsCount = constantCounts[CONSTANTS_ITEMS];
+
+    dstFile = fopen(sTempPokemonDir, "w+");
+    if (dstFile == NULL || allocStr == NULL)
+        return false;
+
+    while (1)
+    {
+        str = allocStr;
+        if (fgets(str, CHR_BUFF_BIG, file) == NULL)
+            break;
+        SKIP_WHTSPACE(str);
+        if (BeginsWithStr(&str, "finditem", true))
+        {
+            SKIP_WHTSPACE(str);
+            CopyTillNotPrintable(name, str, false);
+            // Check if not a key item or tm
+            oldId = ConstantNameToArrId(name, itemsCount, CONSTANTS_ITEMS);
+            if (oldId != 0)
+            {
+                do
+                {
+                    newId = RAND_ID(itemsCount);
+                } while (newId == oldId);
+                fprintf(dstFile, "	finditem %s\n", sItemsConstants[newId].str);
+                continue;
+            }
+        }
+        fputs(allocStr, dstFile);
+    }
+
+    UpdateFile(file, dstFile, sItemBallsDir, sTempPokemonDir);
+    if (RANDOMIZE_HIDDEN_ITEMS)
+        ModifyHiddenItems(itemsCount, allocStr);
+    return true;
+}
+
+bool ModifyAbilitiesInBaseStats(FILE *file, uint32_t *constantCounts, char *allocStr)
 {
     FILE *dstFile;
     uint32_t i, count = constantCounts[CONSTANTS_ABILITIES];
@@ -602,7 +788,7 @@ bool ModifyAbilitiesInBaseStats(FILE *file, uint32_t *constantCounts)
     char *newAbility1, *newAbility2;
 
     char *ability1 = malloc(CHR_BUFF_SMALL), *ability2 = malloc(CHR_BUFF_SMALL);
-    char *allocStr = malloc(CHR_BUFF_BIG), *str;
+    char *str;
     if (allocStr == NULL || ability1 == NULL || ability2 == NULL)
         return false;
 
@@ -689,17 +875,15 @@ bool ModifyAbilitiesInBaseStats(FILE *file, uint32_t *constantCounts)
     }
 
     UpdateFile(file, dstFile, sBaseStatsDir, sTempPokemonDir);
-
-    free(allocStr);
     free(ability1);
     free(ability2);
     return true;
 }
 
-bool ModifyLearnsets(FILE *file, uint32_t *constantCounts)
+bool ModifyLearnsets(FILE *file, uint32_t *constantCounts, char *allocStr)
 {
     uint16_t *learnedMoves = malloc(2 * 100);
-    char *allocStr = malloc(CHR_BUFF_BIG), *str, *move;
+    char *str, *move;
     FILE *dstFile;
     uint32_t i, id, learnedCounter = 0, count = constantCounts[CONSTANTS_MOVES];
 
@@ -762,23 +946,19 @@ bool ModifyLearnsets(FILE *file, uint32_t *constantCounts)
     }
 
     UpdateFile(file, dstFile, sLearnsetsDir, sTempPokemonDir);
-    free(allocStr);
     free(learnedMoves);
     return true;
 }
 
-bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts)
+bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts, char *allocStr)
 {
     FILE *dstFile;
-    char *allocStr = malloc(CHR_BUFF_BIG), *str, oldName[30], *newName;
+    char *str, oldName[30], *newName;
     uint16_t knownMoves[4], movesId, prevMovesCount;
     uint32_t i, id, speciesCount = constantCounts[CONSTANTS_SPECIES], movesCount = constantCounts[CONSTANTS_MOVES];
 
-    if (allocStr == NULL)
-        return false;
-
     dstFile = fopen(sTempPokemonDir, "w+");
-    if (dstFile == NULL)
+    if (dstFile == NULL || allocStr == NULL)
         return false;
 
     while (1)
@@ -811,7 +991,7 @@ bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts)
                         newName = sSpeciesConstants[id].str;
                     } while (SAME_STRINGS(oldName, newName)
                              || (SAME_TRAINER_BASE_STATS && !IsInBSRange(oldName, id, speciesCount, SAME_TRAINER_STATS_RANGE_LOW, SAME_TRAINER_STATS_RANGE_HIGH))
-                             || (SAME_TRAINERS_TYPES && !ShareType(id, SpeciesNameToArrId(oldName, speciesCount))));
+                             || (SAME_TRAINERS_TYPES && !ShareType(id, ConstantNameToArrId(oldName, speciesCount, CONSTANTS_SPECIES))));
                     fprintf(dstFile, "= %s,\n", newName);
                     goto LOOP_END;
                 }
@@ -874,21 +1054,17 @@ bool ModifyTrainerMons(FILE *file, uint32_t *constantCounts)
     }
 
     UpdateFile(file, dstFile, sTrainerPartiesDir, sTempPokemonDir);
-    free(allocStr);
     return true;
 }
 
-bool ModifyStarters(FILE *starterFile, uint32_t *constantCounts)
+bool ModifyStarters(FILE *starterFile, uint32_t *constantCounts, char *allocStr)
 {
     FILE *dstFile;
-    char *allocStr = malloc(CHR_BUFF_BIG), *str;
+    char *str;
     uint32_t i, j, triangleId, state = 0, ids[3], speciesCount = constantCounts[CONSTANTS_SPECIES];
 
-    if (allocStr == NULL)
-        return false;
-
     dstFile = fopen(sTempPokemonDir, "w+");
-    if (dstFile == NULL)
+    if (dstFile == NULL || allocStr == NULL)
         return false;
 
     while (1)
@@ -951,6 +1127,11 @@ bool ModifyStarters(FILE *starterFile, uint32_t *constantCounts)
                         }
                     }
 
+                    if (STARTERS_HAS_TO_EVOLVE && sEvoData[ids[i]].evoTo == 0)
+                        continue;
+                    if (STARTERS_CANT_BE_EVOLVED && sEvoData[ids[i]].evoFrom != 0)
+                        continue;
+
                     break;
                 }
             }
@@ -966,44 +1147,14 @@ bool ModifyStarters(FILE *starterFile, uint32_t *constantCounts)
 
     if (state == 3)
         UpdateFile(starterFile, dstFile, sStarterChooseDir, sTempPokemonDir);
-    free(allocStr);
     return (state == 3);
 }
-
-struct
-{
-    const char *const dir;
-    const char *const prefix;
-    const char *const msgPrefix;
-    struct ConstantIdName *structPtr;
-}
-static const sConstantsData[CONSTANTS_COUNT] =
-{
-    [CONSTANTS_ABILITIES]   = {sAbilitiesDir, "ABILITY_", "Abilities", sAbilityConstants},
-    [CONSTANTS_MOVES]       = {sMovesDir, "MOVE_", "Moves", sMoveConstants},
-    [CONSTANTS_SPECIES]     = {sSpeciesDir, "SPECIES_", "Species", sSpeciesConstants},
-};
-
-struct
-{
-    const char *const dir;
-    const char *const name;
-    const char *const randomizedThingName;
-    bool toEdit;
-    bool (*func)(FILE *, uint32_t *count);
-}
-static const sFilesToEdit[] =
-{
-    {sBaseStatsDir, "Base Stats", "abilities", RANDOMIZE_ABILITIES, ModifyAbilitiesInBaseStats},
-    {sLearnsetsDir, "Learnsets", "learnsets", RANDOMIZE_MOVES, ModifyLearnsets},
-    {sWildMonsDir, "Wild Mons", "wild encounters", RANDOMIZE_WILD, ModifyWildMons},
-    {sStarterChooseDir, "starter_choose.c", "starter mons", RANDOMIZE_STARTERS, ModifyStarters},
-};
 
 void RandomizeGame(void)
 {
     uint32_t count[CONSTANTS_COUNT], i, j;
     FILE *file = NULL;
+    char *stringBuffer = malloc(CHR_BUFF_BIG);
 
     srand(time(NULL));
 
@@ -1043,10 +1194,10 @@ void RandomizeGame(void)
             else
             {
                 printf("found ");
-                if (sFilesToEdit[i].func(file, count))
+                if (sFilesToEdit[i].func(file, count, stringBuffer))
                     printf("- successfully randomized %s!\n", sFilesToEdit[i].randomizedThingName);
                 else
-                    printf("...failed!");
+                    printf("...failed to randomize %s!\n");
             }
         }
     }
@@ -1057,6 +1208,7 @@ void RandomizeGame(void)
         if (sConstantsData[i].structPtr[0].str != NULL)
             free(sConstantsData[i].structPtr[0].str);
     }
+    free(stringBuffer);
 }
 
 int main()

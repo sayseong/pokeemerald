@@ -264,7 +264,7 @@ static const s32 sUnknown_082EC6F4[3][4][2] =
 
 static const struct OamDimensions sOamDimensions[3][4] =
 {
-    [ST_OAM_SQUARE] = 
+    [ST_OAM_SQUARE] =
     {
         [SPRITE_SIZE(8x8)]   = {  8,  8 },
         [SPRITE_SIZE(16x16)] = { 16, 16 },
@@ -278,7 +278,7 @@ static const struct OamDimensions sOamDimensions[3][4] =
         [SPRITE_SIZE(32x16)] = { 32, 16 },
         [SPRITE_SIZE(64x32)] = { 64, 32 },
     },
-    [ST_OAM_V_RECTANGLE] = 
+    [ST_OAM_V_RECTANGLE] =
     {
         [SPRITE_SIZE(8x16)]  = {  8, 16 },
         [SPRITE_SIZE(8x32)]  = {  8, 32 },
