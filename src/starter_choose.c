@@ -124,7 +124,7 @@ static const u8 sStarterLabelCoords[][2] =
     {8, 4},
 };
 
-static const u16 sStarterMon[3] = {SPECIES_DIGLETT, SPECIES_ROWLET, SPECIES_BULBASAUR};
+static const u16 sStarterMon[3] = {SPECIES_SWABLU, SPECIES_LILEEP, SPECIES_TYROGUE};
 
 static const struct BgTemplate gUnknown_085B1E00[3] =
 {

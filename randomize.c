@@ -175,10 +175,13 @@ static const sFilesToEdit[] =
     {sBaseStatsDir, "Base Stats", "abilities", RANDOMIZE_ABILITIES, ModifyAbilitiesInBaseStats},
     {sLearnsetsDir, "Learnsets", "learnsets", RANDOMIZE_MOVES, ModifyLearnsets},
     {sWildMonsDir, "Wild Mons", "wild encounters", RANDOMIZE_WILD, ModifyWildMons},
-    {sItemBallsDir, "Item Balls", "Items found in poke balls", RANDOMIZE_ITEMS, ModifyBallItems},
+#if (RANDOMIZE_HIDDEN_ITEMS == true)
+    {sItemBallsDir, "Items",  "items found in poke balls and hidden items", RANDOMIZE_ITEMS, ModifyBallItems},
+#else
+    {sItemBallsDir, "Item Balls",  "items found in poke balls", RANDOMIZE_ITEMS, ModifyBallItems},
+    #endif
     {sStarterChooseDir, "starter_choose.c", "starter mons", RANDOMIZE_STARTERS, ModifyStarters},
 };
-
 
 #define SKIP_WHTSPACE(str) {while (*str == ' ' || *str == '\t') str++;}
 #define SKIP_TILL(str, c) {while (*str != c) str++;}
@@ -667,15 +670,27 @@ bool ModifyWildMons(FILE *file, uint32_t *constantCounts, char *allocStr)
     return true;
 }
 
+void ClearConsole(int len)
+{
+    int i;
+    for (i = 0; i < len; i++)
+    {
+        putchar(8); // Back space
+        putchar(' ');
+        putchar(8);
+    }
+}
+
 bool ModifyHiddenItems(uint32_t itemsCount, char *allocStr)
 {
-    int state, oldId, newId;
+    int state, oldId, newId, i, prevCharsCount = 0;
     bool hasHidden;
     struct dirent *entry;
     FILE *mapFile;
     char oldName[50];
     DIR *dirAllMaps = opendir("data/maps"), *dirMap;
     char *dirName = malloc(CHR_BUFF_BIG);
+    static const char text[] = "   Randomizing hidden items in  ";
 
     if (dirAllMaps == NULL || dirName == NULL)
         return false;
@@ -731,11 +746,19 @@ bool ModifyHiddenItems(uint32_t itemsCount, char *allocStr)
             {
                 remove(dirName);
                 rename(sTempPokemonDir, dirName);
+                if (prevCharsCount == 0)
+                    printf(text);
+                else
+                    ClearConsole(prevCharsCount);
+
+                prevCharsCount = strlen(dirName);
+                printf(dirName);
             }
         }
     }
     closedir(dirAllMaps);
     free(dirName);
+    ClearConsole(prevCharsCount + ARRAY_COUNT(text) - 1);
     return true;
 }
 
