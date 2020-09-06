@@ -325,6 +325,12 @@ $(FONTGFXDIR)/unused_frlg_male.fwjpnfont: $(FONTGFXDIR)/unused_japanese_frlg_mal
 $(FONTGFXDIR)/unused_frlg_female.fwjpnfont: $(FONTGFXDIR)/unused_japanese_frlg_female_font.png
 	$(GFX) $< $@
 
+$(FONTGFXDIR)/font0_chinese.latfont: $(FONTGFXDIR)/font0_chinese.png
+	$(GFX) $< $@
+
+$(FONTGFXDIR)/font1_chinese.latfont: $(FONTGFXDIR)/font1_chinese.png
+	$(GFX) $< $@
+
 $(FONTGFXDIR)/down_arrow.4bpp: %.4bpp: %.png
 	$(GFX) $< $@
 
