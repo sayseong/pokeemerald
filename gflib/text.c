@@ -11,7 +11,7 @@
 #include "blit.h"
 #include "menu.h"
 #include "dynamic_placeholder_text_util.h"
-
+//objcopy --allow-multiple-definition
 EWRAM_DATA struct TextPrinter gTempTextPrinter = {0};
 EWRAM_DATA struct TextPrinter gTextPrinters[NUM_TEXT_PRINTERS] = {0};
 
@@ -24,6 +24,7 @@ const struct FontInfo *gFonts;
 bool8 gUnknown_03002F84;
 struct Struct_03002F90 gUnknown_03002F90;
 TextFlags gTextFlags;
+void DecompressGlyphFontChinese(u16 char1, u16 char2, u8 fontId);
 
 const u8 gFontHalfRowOffsets[] =
 {
@@ -128,7 +129,8 @@ extern const u16 gFont0JapaneseGlyphs[];
 extern const u16 gFont1JapaneseGlyphs[];
 extern const u16 gFont2JapaneseGlyphs[];
 extern const u8 gFont2JapaneseGlyphWidths[];
-
+extern const u8 gFont1Chinese[];
+extern const u8 gFont0Chinese[];
 void SetFontsPointer(const struct FontInfo *fonts)
 {
     gFonts = fonts;
@@ -1040,7 +1042,9 @@ u16 RenderText(struct TextPrinter *textPrinter)
         case EOS:
             return 1;
         }
-
+        if (currChar >= 1 && currChar <= 0x1E && currChar != 0x6 && currChar != 0x1B)
+            DecompressGlyphFontChinese(currChar, *textPrinter->printerTemplate.currentChar++, subStruct->glyphId);
+        else
         switch (subStruct->glyphId)
         {
         case 0:
@@ -1395,7 +1399,15 @@ s32 GetStringWidth(u8 fontId, const u8 *str, s16 letterSpacing)
         case CHAR_PROMPT_CLEAR:
             break;
         default:
-            glyphWidth = func(*str, isJapanese);
+            if (*str >= 1 && *str <= 0x1E)
+            {
+                ++str;
+                glyphWidth = 0xC;//zh
+            }
+            else
+            {
+                glyphWidth = func(*str, isJapanese);
+            }
             if (minGlyphWidth > 0)
             {
                 if (glyphWidth < minGlyphWidth)
@@ -1825,4 +1837,29 @@ void DecompressGlyphFont9(u16 glyphId)
     DecompressGlyphTile(glyphs + 0x80, gUnknown_03002F90.unk40);
     gUnknown_03002F90.width = 8;
     gUnknown_03002F90.height = 12;
+}
+
+void DecompressGlyphFontChinese(u16 char1, u16 char2, u8 fontId) {
+    const u8 *glyphs;
+    u8 width;
+    u8 i;
+    if (char1 >= 0x1B)
+        char1 -= 2;
+    else if (char1 >= 0x6)
+        char1--;
+    char1--;
+    if (fontId == 1) {
+        glyphs = gFont1Chinese;
+        width = 0xC;
+    } else {
+        glyphs = gFont0Chinese;
+        width = 0xA;
+    }
+    gUnknown_03002F90.width  = width;//0xA
+    glyphs += (char1 << 8 | char2) * 0x40;
+    for (i = 0; i < 4; ++i)
+    {
+        DecompressGlyphTile(glyphs + 0x10 * i, gUnknown_03002F90.unk0 + 8 * i);
+    }
+    gUnknown_03002F90.height = 0xF;
 }
