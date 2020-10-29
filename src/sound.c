@@ -367,7 +367,7 @@ void PlayCry5(u16 species, u8 mode)
     gPokemonCryBGMDuckingCounter = 2;
     RestoreBGMVolumeAfterPokemonCry();
 }
-
+#include "constants/species.h"
 void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
 {
     bool32 v0;
@@ -460,6 +460,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     SetPokemonCryPriority(priority);
 
     species--;
+    if (species>SPECIES_ZYGARDE_COMPLETE) species=0;
     gMPlay_PokemonCry = SetPokemonCryTone(v0 ? &gCryTable2[species] : &gCryTable[species]);
 }
 
