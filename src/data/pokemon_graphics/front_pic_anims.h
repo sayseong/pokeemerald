@@ -14038,6 +14038,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     ANIM_CMD(LYCANROC_DUSK),
     ANIM_CMD(ZYGARDE_10),
     ANIM_CMD(ZYGARDE_COMPLETE),
+    [SPECIES_GROOKEY ... SPECIES_CALYREX] = sAnims_ZYGARDE_COMPLETE,
 };
 
 #undef ANIM_CMD
