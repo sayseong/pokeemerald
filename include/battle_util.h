@@ -114,5 +114,5 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId);
 struct Pokemon *GetIllusionMonPtr(u32 battlerId);
 void ClearIllusionMon(u32 battlerId);
 bool32 SetIllusionMon(struct Pokemon *mon, u32 battlerId);
-
+#include "dynamax.h"
 #endif // GUARD_BATTLE_UTIL_H

@@ -807,12 +807,15 @@ u8 CreateBattlerHealthboxSprites(u8 battlerId)
     healthBarSpritePtr->invisible = TRUE;
 
     // Create mega indicator sprite if is a mega evolved mon.
-    if (gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]])
-    {
-        megaIndicatorSpriteId = CreateMegaIndicatorSprite(battlerId, 0);
+    //    if (gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]])
+    //    {
+    //        megaIndicatorSpriteId = CreateMegaIndicatorSprite(battlerId, 0);
+    //        gSprites[megaIndicatorSpriteId].invisible = TRUE;
+    //    }
+    if (IsEvolutionHappened(battlerId)) {
+        megaIndicatorSpriteId = CreateIndicator(battlerId);
         gSprites[megaIndicatorSpriteId].invisible = TRUE;
     }
-
     return healthboxLeftSpriteId;
 }
 
@@ -911,13 +914,13 @@ void SetHealthboxSpriteVisible(u8 healthboxSpriteId)
     gSprites[healthboxSpriteId].invisible = FALSE;
     gSprites[gSprites[healthboxSpriteId].hMain_HealthBarSpriteId].invisible = FALSE;
     gSprites[gSprites[healthboxSpriteId].oam.affineParam].invisible = FALSE;
-    if (gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]])
+    if (IsEvolutionHappened(battlerId))//if (gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]])
     {
-        u8 spriteId = GetMegaIndicatorSpriteId(healthboxSpriteId);
+        u8 spriteId = GetIndicatorSpriteId(healthboxSpriteId);
         if (spriteId != 0xFF)
             gSprites[spriteId].invisible = FALSE;
         else
-            CreateMegaIndicatorSprite(battlerId, 0);
+            CreateIndicator(battlerId);
     }
 }
 
@@ -1008,7 +1011,7 @@ static void UpdateLvlInHealthbox(u8 healthboxSpriteId, u8 lvl)
     u8 battler = gSprites[healthboxSpriteId].hMain_Battler;
 
     // Don't print Lv char if mon is mega evolved.
-    if (gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battler)] & gBitTable[gBattlerPartyIndexes[battler]])
+    if (IsEvolutionHappened(battler))
     {
         xPos = (u32) ConvertIntToDecimalStringN(text, lvl, STR_CONV_MODE_LEFT_ALIGN, 3);
     }
@@ -1395,7 +1398,7 @@ void CreateMegaTriggerSprite(u8 battlerId, u8 palId)
     ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, palId);
 }
 
-static void SpriteCb_MegaTrigger(struct Sprite *sprite)
+void SpriteCb_MegaTrigger(struct Sprite *sprite)
 {
     s32 xSlide, xPriority, xOptimal;
     s32 yDiff;

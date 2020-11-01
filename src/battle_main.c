@@ -4572,8 +4572,9 @@ static void CheckMegaEvolutionBeforeTurn(void)
                 && !(gProtectStructs[gActiveBattler].noValidMoves))
             {
                 gBattleStruct->mega.toEvolve &= ~(gBitTable[gActiveBattler]);
-                gLastUsedItem = gBattleMons[gActiveBattler].item;
-                BattleScriptExecute(BattleScript_MegaEvolution);
+                /*gLastUsedItem = gBattleMons[gActiveBattler].item;
+                BattleScriptExecute(BattleScript_MegaEvolution);*/
+                DoEvolution(gActiveBattler);
                 return;
             }
         }

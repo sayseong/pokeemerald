@@ -100,14 +100,14 @@ static void PlayerCmdEnd(void);
 
 static void PlayerBufferRunCommand(void);
 static void HandleInputChooseTarget(void);
-static void HandleInputChooseMove(void);
+void HandleInputChooseMove(void);
 static void MoveSelectionCreateCursorAt(u8 cursorPos, u8 arg1);
 static void MoveSelectionDestroyCursorAt(u8 cursorPos);
 static void MoveSelectionDisplayPpNumber(void);
 static void MoveSelectionDisplayPpString(void);
 static void MoveSelectionDisplayMoveType(void);
 static void MoveSelectionDisplayMoveNames(void);
-static void HandleMoveSwitching(void);
+void HandleMoveSwitching(void);
 static void sub_8058FC0(void);
 static void WaitForMonSelection(void);
 static void CompleteWhenChoseItem(void);
@@ -535,7 +535,7 @@ static void TryShowAsTarget(u32 battlerId)
     }
 }
 
-static void HandleInputChooseMove(void)
+void HandleInputChooseMove(void)
 {
     u8 moveTarget;
     u32 canSelectTarget = 0;
@@ -761,7 +761,7 @@ u32 sub_8057FBC(void) // unused
     return var;
 }
 
-static void HandleMoveSwitching(void)
+void HandleMoveSwitching(void)
 {
     u8 perMovePPBonuses[MAX_MON_MOVES];
     struct ChooseMoveStruct moveStruct;
@@ -2716,8 +2716,8 @@ static void PlayerHandleChooseMove(void)
         gBattleStruct->mega.playerSelect = FALSE;
         if (!IsMegaTriggerSpriteActive())
             gBattleStruct->mega.triggerSpriteId = 0xFF;
-        if (CanMegaEvolve(gActiveBattler))
-            CreateMegaTriggerSprite(gActiveBattler, 0);
+        if (CanBattlerEvo(gActiveBattler))
+            CreateTrigger(gActiveBattler, 0);
         gBattlerControllerFuncs[gActiveBattler] = HandleChooseMoveAfterDma3;
     }
 }

@@ -414,6 +414,26 @@ struct MegaEvolutionData
     u8 battlerId;
     bool8 playerSelect;
     u8 triggerSpriteId;
+    struct DynamaxData
+    {
+        bool8 toBeUsed[MAX_BATTLERS_COUNT];
+        bool8 used[MAX_BATTLERS_COUNT];
+        s8 timer[MAX_BATTLERS_COUNT]; //Negative number means permanent
+        u8 partyIndex[2];
+        u8 shieldSpriteIds[5]; //Shields for raid battles
+        u8 shieldCount;					//The amount of shields created in a Raid Battle
+        u8 shieldsDestroyed;			//The amount of shields destroyed in a Raid Battle
+        u8 stormLevel;					//The number of Pokemon the raid boss has KO'd.
+        u8 repeatedAttacks;				//The amount of times the raid boss took another attack
+        bool8 active : 1;
+        bool8 viewing : 1;
+        bool8 raidShieldsUp : 1;
+        bool8 attackAgain : 1;
+        bool8 nullifiedStats : 1;
+        u8 backupMoveSelectionCursorPos;
+        u16 turnStartHP;
+        u16 backupRaidMonItem;
+    } dynamaxData;
 };
 
 struct Illusion
@@ -423,6 +443,17 @@ struct Illusion
     u8 broken;
     u8 partyId;
     struct Pokemon *mon;
+};
+
+struct BattleEvolutionData {
+    u8 evolutionType[2][6];
+    u8 alreadyEvolved[4];
+    u8 playerSelect;
+    u8 triggerSpriteId;
+    u8 battlerId;
+    u8 toEvolve;
+    u16 evolvedSpecies[4];
+    u16 playerEvolvedSpecies;
 };
 
 struct BattleStruct
@@ -519,7 +550,8 @@ struct BattleStruct
     bool8 ateBoost[MAX_BATTLERS_COUNT];
     u8 activeAbilityPopUps; // as bits for each battler
     bool8 throwingPokeBall;
-    struct MegaEvolutionData mega;
+    //struct MegaEvolutionData mega;
+    struct BattleEvolutionData mega;
     const u8 *trainerSlideMsg;
     bool8 trainerSlideLowHpMsgDone;
     u8 introState;

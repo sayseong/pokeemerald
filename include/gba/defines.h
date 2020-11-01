@@ -5,7 +5,9 @@
 
 #define TRUE  1
 #define FALSE 0
-
+#ifdef _MSC_VER
+#define __attribute__(x)
+#endif
 #define BSS_DATA   __attribute__((section(".bss")))
 #define IWRAM_DATA __attribute__((section("iwram_data")))
 #define EWRAM_DATA __attribute__((section("ewram_data")))
