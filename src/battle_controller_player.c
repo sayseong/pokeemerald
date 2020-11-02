@@ -702,10 +702,10 @@ void HandleInputChooseMove(void)
     }
     else if (gMain.newKeys & START_BUTTON)
     {
-        if (CanMegaEvolve(gActiveBattler))
+        if (CanBattlerEvo(gActiveBattler))
         {
             gBattleStruct->mega.playerSelect ^= 1;
-            ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, gBattleStruct->mega.playerSelect);
+            ChangeTriggerSprite(gActiveBattler, gBattleStruct->mega.playerSelect);
             PlaySE(SE_SELECT);
         }
     }

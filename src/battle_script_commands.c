@@ -7636,10 +7636,9 @@ static void Cmd_various(void)
         // Change stats.
         else if (gBattlescriptCurrInstr[3] == 1)
         {
-            /*RecalcBattlerStats(gActiveBattler, mon);
+            RecalcBattlerStats(gActiveBattler, mon);
             gBattleStruct->mega.alreadyEvolved[GetBattlerPosition(gActiveBattler)] = TRUE;
-            gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(gActiveBattler)] |= gBitTable[gBattlerPartyIndexes[gActiveBattler]];*/
-            AfterEvolutionChangeStates(gActiveBattler, mon);
+            gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(gActiveBattler)][gBattlerPartyIndexes[gActiveBattler]] = EvolutionMegaHappend;
         }
         // Update healthbox and elevation.
         else

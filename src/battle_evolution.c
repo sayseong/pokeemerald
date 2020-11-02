@@ -189,9 +189,10 @@ enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionD
 enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId) {
     return GetEvolutionType(&gBattleStruct->mega, battlerId);
 }
-void SetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId, enum BattleEvolutionType value)
+
+void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum BattleEvolutionType value)
 {
-    evolutionData->evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)] = value;
+    battleStruct->mega.evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)] = value;
 }
 
 
@@ -205,9 +206,11 @@ bool32 CanPokemonMega(struct Pokemon* mon) {
     u16 itemId;
 
     itemId = GetMonData(mon, MON_DATA_HELD_ITEM);
+#if !USE_BATTLE_DEBUG
     if (ItemId_GetHoldEffect(itemId) != HOLD_EFFECT_MEGA_STONE){
         return FALSE;
     }
+#endif
     if (GetMegaEvolutionSpecies(GetMonData(mon, MON_DATA_SPECIES), itemId) == 0)
         return FALSE;
 
@@ -220,39 +223,47 @@ void DoMegaEvolution(u32 battlerId) {
     BattleScriptExecute(BattleScript_MegaEvolution);
 }
 
+static void ChangeMegaTrigger(u8 state) {
+    ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, state);
+}
+
+static const void* const sDummyBattleEvolutionFunc[sizeof(struct BattleEvolutionFunc) / 4] = {
+    [0 ... sizeof(struct BattleEvolutionFunc) / 4 - 1] = &DummyBattleInterfaceFunc,
+};
+
 static const struct BattleEvolutionFunc sBattleEvolutionMega = {
     .CanPokemonEvolution = CanPokemonMega,
     .IsEvolutionHappened = NULL,
-    .CreateTrigger = CreateMegaTriggerSprite,
+    .CreateOrShowTrigger = CreateMegaTriggerSprite,
     .CreateIndicator = CreateMegaIndicatorSprite,
     .PrepareEvolution = NULL,
     .DoEvolution = DoMegaEvolution,
     .UndoEvolution = UndoMegaEvolution,
-    .ChangeTriggerSprite = ChangeMegaTriggerSprite,
     .HideTriggerSprite = HideMegaTriggerSprite,
-
+    .ChangeTriggerSprite = ChangeMegaTrigger,
 };
 
 static const struct BattleEvolutionFunc *const sBattleEvolutionFuncs[] =
     {
-        [EvolutionNone] = NULL,
+        [EvolutionNone] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
         [EvolutionMega] = &sBattleEvolutionMega,
-        [EvolutionDynamax] = NULL,
-        [EvolutionMegaHappend] = NULL,
-        [EvolutionDynamaxHappend] = NULL,
+        [EvolutionDynamax] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
+        [EvolutionMegaHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
+        [EvolutionDynamaxHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
     };
 
 static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke) {
     int i;
     int j;
     for (i = 0; i < 6; ++i) {
-        for (j = 0; j < sizeof(sBattleEvolutionFuncs); ++j) {
-            if (sBattleEvolutionFuncs[j]->CanPokemonEvolution(&poke[i])) {
+        for (j = 0; j < ARRAY_COUNT(sBattleEvolutionFuncs); ++j) {
+            if (sBattleEvolutionFuncs[j] && sBattleEvolutionFuncs[j]->CanPokemonEvolution(&poke[i])) {
                 array[i] = j;
             }
         }
     }
 }
+
 
 void InitBattleStruct()
 {

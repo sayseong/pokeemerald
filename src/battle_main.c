@@ -3150,7 +3150,7 @@ void FaintClearSetData(void)
     ClearBattlerAbilityHistory(gActiveBattler);
     UndoFormChange(gBattlerPartyIndexes[gActiveBattler], GET_BATTLER_SIDE(gActiveBattler));
     if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-        UndoMegaEvolution(gBattlerPartyIndexes[gActiveBattler]);
+        UndoEvolution(gBattlerPartyIndexes[gActiveBattler]);
 }
 
 static void DoBattleIntro(void)
@@ -4831,7 +4831,7 @@ static void HandleEndTurn_FinishBattle(void)
         FadeOutMapMusic(5);
         for (i = 0; i < PARTY_SIZE; i++)
         {
-            UndoMegaEvolution(i);
+            UndoEvolution(i);
             UndoFormChange(i, B_SIDE_PLAYER);
         }
         gBattleMainFunc = FreeResetData_ReturnToOvOrDoEvolutions;
