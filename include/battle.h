@@ -450,6 +450,7 @@ struct BattleEvolutionData {
     u8 alreadyEvolved[4];
     u8 playerSelect;
     u8 triggerSpriteId;
+    u8 dynamaxTriggerId;
     u8 battlerId;
     u8 toEvolve;
     u16 evolvedSpecies[4];

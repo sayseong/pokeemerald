@@ -1487,13 +1487,14 @@ static const s8 sIndicatorPosDoubles[][2] =
     [B_POSITION_OPPONENT_RIGHT] = {45, -8},
 };
 
-u32 CreateMegaIndicatorSprite(u32 battlerId, u32 which)
+
+u32 CreateMegaIndicatorSprite(u32 battlerId, const struct SpritePalette* spritePalette_MegaIndicator, const struct SpriteSheet *spriteSheet_MegaIndicator, const struct SpriteTemplate *spriteTemplate_MegaIndicator)
 {
     u32 spriteId, position;
     s16 x, y;
 
-    LoadSpritePalette(&sSpritePalette_MegaIndicator);
-    LoadSpriteSheet(&sSpriteSheet_MegaIndicator);
+    LoadSpritePalette(spritePalette_MegaIndicator);
+    LoadSpriteSheet(spriteSheet_MegaIndicator);
 
     position = GetBattlerPosition(battlerId);
     GetBattlerHealthboxCoords(battlerId, &x, &y);
@@ -1507,11 +1508,16 @@ u32 CreateMegaIndicatorSprite(u32 battlerId, u32 which)
         x += sIndicatorPosSingles[position][0];
         y += sIndicatorPosSingles[position][1];
     }
-    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_MegaIndicator, x, y, 0);
+    spriteId = CreateSpriteAtEnd(spriteTemplate_MegaIndicator, x, y, 0);
     gSprites[gSprites[gHealthboxSpriteIds[battlerId]].oam.affineParam].hOther_IndicatorSpriteId = spriteId;
 
     gSprites[spriteId].tBattler = battlerId;
     return spriteId;
+}
+
+u32 CreateMegaIndicator(u32 battlerId)
+{
+    CreateMegaIndicatorSprite(battlerId, &sSpritePalette_MegaIndicator, &sSpriteSheet_MegaIndicator, &sSpriteTemplate_MegaIndicator);
 }
 
 void DestroyMegaIndicatorSprite(u32 healthboxSpriteId)

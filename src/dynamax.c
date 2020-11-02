@@ -55,7 +55,7 @@ void HideTriggerSprite(void)
 
 u8 CreateIndicator(u32 battlerId)
 {
-    return GetBattleEvolutionFunc(battlerId)->CreateIndicator(battlerId, 0);
+    return GetBattleEvolutionFunc(battlerId)->CreateIndicator(battlerId);
 }
 
 void PrepareEvolution(u32 battlerId)

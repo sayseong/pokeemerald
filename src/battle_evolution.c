@@ -6,6 +6,7 @@
 #include "constants/hold_effects.h"
 #include "battle_interface.h"
 #include "battle_scripts.h"
+#include "palette.h"
 extern void HandleMoveSwitching(void);
 
 extern void HandleInputChooseMove(void);
@@ -13,35 +14,24 @@ extern void HandleInputChooseMove(void);
 #define gPlttBufferFaded2 (&gPlttBufferFaded[0x100])
 enum MegaGraphicsTags
 {
-    GFX_TAG_MEGA_INDICATOR = 0xFDF0,
-    GFX_TAG_ALPHA_INDICATOR,
-    GFX_TAG_OMEGA_INDICATOR,
-    GFX_TAG_ULTRA_INDICATOR,
-    GFX_TAG_MEGA_TRIGGER,
-    GFX_TAG_ULTRA_TRIGGER,
-    GFX_TAG_Z_TRIGGER,
+    GFX_TAG_MEGA_TRIGGER = TAG_MEGA_TRIGGER_TILE,
+    GFX_TAG_MEGA_INDICATOR,
     GFX_TAG_DYNAMAX_INDICATOR,
     GFX_TAG_DYNAMAX_TRIGGER,
-    GFX_TAG_RAID_SHIELD,
 };
 
-enum
-{
-    MegaTriggerNothing,
-    MegaTriggerLightUp,
-    MegaTriggerNormalColour,
-    MegaTriggerGrayscale,
-};
 
-void SpriteCb_MegaTrigger(struct Sprite* self);
-void SpriteCB_MegaIndicator(struct Sprite* self);
+extern void SpriteCb_MegaTrigger(struct Sprite* self);
+extern void SpriteCB_MegaIndicator(struct Sprite* self);
 static void DestroyDynamaxTrigger();
 
-/*extern const u32 Dynamax_IndicatorTiles[];
+static const u32 Dynamax_IndicatorTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.4bpp");
+static const u32 Dynamax_IndicatorPal[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.gbapal");
 //extern const u32 Dynamax_TriggerTiles[]; //For some reason this doesn't work
-extern const u32 Dynamax_Trigger_WorkingTiles[]; //This is used as the image until the bug is fixed
-extern const u16 Dynamax_TriggerPal[];
-static const struct CompressedSpriteSheet sDynamaxIndicatorSpriteSheet =
+static const u32 Dynamax_Trigger_WorkingTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Trigger_Working.4bpp.lz"); //This is used as the image until the bug is fixed
+static const u16 Dynamax_TriggerPal[] = INCBIN_U32("graphics/battle_interface/Dynamax_Trigger_Working.gbapal");
+
+const struct SpriteSheet sDynamaxIndicatorSpriteSheet =
     {
         Dynamax_IndicatorTiles, (8 * 8) / 2, GFX_TAG_DYNAMAX_INDICATOR
     };
@@ -52,6 +42,10 @@ static const struct CompressedSpriteSheet sDynamaxTriggerSpriteSheet =
 static const struct SpritePalette sDynamaxTriggerPalette =
     {
         Dynamax_TriggerPal, GFX_TAG_DYNAMAX_TRIGGER
+    };
+const struct SpritePalette sDynamaxIndicatorPalette =
+    {
+        Dynamax_TriggerPal, GFX_TAG_DYNAMAX_INDICATOR
     };
 static const struct OamData sIndicatorOam =
     {
@@ -89,7 +83,8 @@ static const struct SpriteTemplate sDynamaxTriggerSpriteTemplate =
         .images = NULL,
         .affineAnims = gDummySpriteAffineAnimTable,
         .callback = SpriteCb_MegaTrigger,
-    };*/
+    };
+
 #define RGB(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
 static const u16 sIgnoredTriggerColours[] =
     {
@@ -104,11 +99,6 @@ static const u16 sIgnoredTriggerColours[] =
         RGB(0, 0, 0),
     };
 
-#define TRIGGER_BANK self->data[4]
-#define PALETTE_STATE self->data[1]
-#define TAG self->template->tileTag
-#define PAL_TAG self->template->paletteTag
-
 
 static bool8 IsIgnoredTriggerColour(u16 colour)
 {
@@ -119,6 +109,10 @@ static bool8 IsIgnoredTriggerColour(u16 colour)
     }
 
     return FALSE;
+}
+
+u32 CreateDynamaxIndicator(u32 battlerId) {
+    return CreateMegaIndicatorSprite(battlerId, &sDynamaxIndicatorPalette, &sDynamaxIndicatorSpriteSheet, &sDynamaxIndicatorSpriteTemplate);
 }
 
 static u16 LightUpTriggerSymbol(u16 clra)
@@ -151,24 +145,24 @@ static u16 LightUpTriggerSymbol(u16 clra)
     return clr;
 }
 
-/*void TryLoadDynamaxTrigger(void)
-{
-    u8 spriteId;
+void ChangeDynamaxTriggerSprite(u8 state) {
+    u16* pal = &gPlttBufferFaded2[IndexOfSpritePaletteTag(GFX_TAG_DYNAMAX_TRIGGER) * 16];
+    u8 i;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI))
-        return;
+    for(i = 1; i < 16; i++)
+    {
+        if (IsIgnoredTriggerColour(Dynamax_TriggerPal[i])) continue;
 
-    if (!(gBattleTypeFlags & BATTLE_TYPE_DYNAMAX))
-        return;
-
-    LoadSpritePalette(&sDynamaxTriggerPalette);
-    LoadCompressedSpriteSheetUsingHeap(&sDynamaxTriggerSpriteSheet);
-
-    spriteId = CreateSprite(&sDynamaxTriggerSpriteTemplate, 130, 90, 1);
-    gSprites[spriteId].data[3] = 24;
-    gSprites[spriteId].pos1.x = -32;
-    gSprites[spriteId].data[4] = gActiveBattler;
-}*/
+        switch(state) {
+        case 0:
+            pal[i] = LightUpTriggerSymbol(Dynamax_TriggerPal[i]);
+            break;
+        case 1:
+            pal[i] = Dynamax_TriggerPal[i];
+            break;
+        }
+    }
+}
 
 static void DestroyDynamaxTrigger(void)
 {
@@ -180,6 +174,83 @@ static void DestroyDynamaxTrigger(void)
         if (gSprites[i].template->tileTag == GFX_TAG_DYNAMAX_TRIGGER)
             DestroySprite(&gSprites[i]);
     }
+    gBattleStruct->mega.dynamaxTriggerId = 0xFF;
+}
+
+
+static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
+    s16 xshift, yshift;
+    struct Sprite* healthbox;
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        xshift = -6;
+        yshift = -2;
+
+        if (IndexOfSpritePaletteTag(TYPE_ICON_TAG) != 0xFF) //Type icons are shown
+            xshift -= 8;
+    }
+    else
+    {
+        xshift = -5;
+        yshift = 1;
+    }
+    healthbox = &gSprites[gHealthboxSpriteIds[sprite->data[0]]];
+    u8 y = healthbox->oam.y;
+
+    if (y)
+    {
+        // Copy the healthbox's position (it has various animations)
+        //self->y = healthbox->y + 20;
+        sprite->pos1.x = (healthbox->oam.x) + xshift + sprite->data[3];
+        if (sprite->pos1.x == healthbox->pos1.x - 15)
+            DestroyDynamaxTrigger();
+        sprite->pos1.y = healthbox->pos1.y + yshift + healthbox->pos2.y;
+    }
+    else
+    {
+        // The box is offscreen, so hide this one as well
+        sprite->pos1.x = -32;
+    }
+    if (sprite->data[1])
+    {
+        if (sprite->data[3] > 0)
+            sprite->data[3] -= 2;
+        else
+            sprite->data[3] = 0;
+    }
+    else
+    {
+        if (sprite->data[3] < 24)
+            sprite->data[3] += 2;
+        else
+            sprite->data[3] = 24;
+    }
+}
+
+void TryLoadDynamaxTrigger(u8 battlerId, u8 UNUSED palId)
+{
+
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI))
+        return;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_DYNAMAX))
+        return;
+    if (gBattleStruct->mega.dynamaxTriggerId == 0xFF)
+    {
+        LoadSpritePalette(&sDynamaxTriggerPalette);
+        LoadCompressedSpriteSheetUsingHeap(&sDynamaxTriggerSpriteSheet);
+        gBattleStruct->mega.dynamaxTriggerId = CreateSprite(&sDynamaxTriggerSpriteTemplate, 130, 90, 1);
+    }
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].data[3] = 24;
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].pos1.x = -32;
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].data[0] = battlerId;
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].data[1] = 0;
+}
+
+void HideDynamaxTriggerSprite(void)
+{
+    ChangeDynamaxTriggerSprite(0);
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].data[1] = TRUE;
 }
 
 enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
@@ -202,7 +273,7 @@ bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerI
     return type > EvolutionNone && type < EvolutionMegaHappend;
 }
 
-bool32 CanPokemonMega(struct Pokemon* mon) {
+static bool32 CanPokemonMega(struct Pokemon* mon) {
     u16 itemId;
 
     itemId = GetMonData(mon, MON_DATA_HELD_ITEM);
@@ -218,7 +289,7 @@ bool32 CanPokemonMega(struct Pokemon* mon) {
     return TRUE;
 }
 
-void DoMegaEvolution(u32 battlerId) {
+static void DoMegaEvolution(u32 battlerId) {
     gLastUsedItem = gBattleMons[battlerId].item;
     BattleScriptExecute(BattleScript_MegaEvolution);
 }
@@ -227,20 +298,31 @@ static void ChangeMegaTrigger(u8 state) {
     ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, state);
 }
 
+static const bool32 DummyBattleEvolutionFunc(void) {
+    return FALSE;
+}
+
 static const void* const sDummyBattleEvolutionFunc[sizeof(struct BattleEvolutionFunc) / 4] = {
-    [0 ... sizeof(struct BattleEvolutionFunc) / 4 - 1] = &DummyBattleInterfaceFunc,
+    [0 ... sizeof(struct BattleEvolutionFunc) / 4 - 1] = &DummyBattleEvolutionFunc,
 };
 
 static const struct BattleEvolutionFunc sBattleEvolutionMega = {
     .CanPokemonEvolution = CanPokemonMega,
     .IsEvolutionHappened = NULL,
     .CreateOrShowTrigger = CreateMegaTriggerSprite,
-    .CreateIndicator = CreateMegaIndicatorSprite,
+    .CreateIndicator = CreateMegaIndicator,
     .PrepareEvolution = NULL,
     .DoEvolution = DoMegaEvolution,
     .UndoEvolution = UndoMegaEvolution,
     .HideTriggerSprite = HideMegaTriggerSprite,
     .ChangeTriggerSprite = ChangeMegaTrigger,
+};
+
+static const struct BattleEvolutionFunc sBattleEvolutionDynamax = {
+    .CreateOrShowTrigger = TryLoadDynamaxTrigger,
+    .CreateIndicator = CreateDynamaxIndicator,
+    .ChangeTriggerSprite = ChangeDynamaxTriggerSprite,
+    .HideTriggerSprite = HideDynamaxTriggerSprite
 };
 
 static const struct BattleEvolutionFunc *const sBattleEvolutionFuncs[] =
@@ -257,8 +339,9 @@ static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke) {
     int j;
     for (i = 0; i < 6; ++i) {
         for (j = 0; j < ARRAY_COUNT(sBattleEvolutionFuncs); ++j) {
-            if (sBattleEvolutionFuncs[j] && sBattleEvolutionFuncs[j]->CanPokemonEvolution(&poke[i])) {
+            if (sBattleEvolutionFuncs[j]->CanPokemonEvolution(&poke[i])) {
                 array[i] = j;
+                break;
             }
         }
     }

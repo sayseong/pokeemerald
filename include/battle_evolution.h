@@ -12,7 +12,7 @@ struct BattleEvolutionFunc {
 
     void (*CreateOrShowTrigger)(u8 battlerId, u8 palId);
     void (*DistoryTrigger)(u32 battlerId);
-    u32 (*CreateIndicator)(u32 battlerId, u32 which);
+    u32 (*CreateIndicator)(u32 battlerId);
     void (*PrepareEvolution) (u32 battlerId);
     void (*DoEvolution)(u32 battlerId);
     void (*UndoEvolution)(u32 monId);
