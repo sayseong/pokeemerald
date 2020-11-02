@@ -448,6 +448,7 @@ struct Illusion
 struct BattleEvolutionData {
     u8 evolutionType[2][6];
     u8 alreadyEvolved[4];
+    u8 partyEvolvedType[6];
     u8 playerSelect;
     u8 triggerSpriteId;
     u8 dynamaxTriggerId;

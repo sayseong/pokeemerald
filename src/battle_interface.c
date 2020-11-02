@@ -186,7 +186,7 @@ static void SpriteCB_StatusSummaryBallsOnBattleStart(struct Sprite *sprite);
 static void SpriteCB_StatusSummaryBallsOnSwitchout(struct Sprite *sprite);
 
 static void SpriteCb_MegaTrigger(struct Sprite *sprite);
-static void SpriteCb_MegaIndicator(struct Sprite *sprite);
+void SpriteCb_MegaIndicator(struct Sprite *sprite);
 
 static u8 GetStatusIconForBattlerId(u8 statusElementId, u8 battlerId);
 static s32 CalcNewBarValue(s32 maxValue, s32 currValue, s32 receivedValue, s32 *arg3, u8 arg4, u16 arg5);
@@ -1488,7 +1488,7 @@ static const s8 sIndicatorPosDoubles[][2] =
 };
 
 
-u32 CreateMegaIndicatorSprite(u32 battlerId, const struct SpritePalette* spritePalette_MegaIndicator, const struct SpriteSheet *spriteSheet_MegaIndicator, const struct SpriteTemplate *spriteTemplate_MegaIndicator)
+u32 CreateMegaIndicator(u32 battlerId, const struct SpritePalette* spritePalette_MegaIndicator, const struct SpriteSheet *spriteSheet_MegaIndicator, const struct SpriteTemplate *spriteTemplate_MegaIndicator)
 {
     u32 spriteId, position;
     s16 x, y;
@@ -1515,9 +1515,9 @@ u32 CreateMegaIndicatorSprite(u32 battlerId, const struct SpritePalette* spriteP
     return spriteId;
 }
 
-u32 CreateMegaIndicator(u32 battlerId)
+u32 CreateMegaIndicatorSprite(u32 battlerId)
 {
-    CreateMegaIndicatorSprite(battlerId, &sSpritePalette_MegaIndicator, &sSpriteSheet_MegaIndicator, &sSpriteTemplate_MegaIndicator);
+    return CreateMegaIndicator(battlerId, &sSpritePalette_MegaIndicator, &sSpriteSheet_MegaIndicator, &sSpriteTemplate_MegaIndicator);
 }
 
 void DestroyMegaIndicatorSprite(u32 healthboxSpriteId)
@@ -1544,7 +1544,7 @@ void DestroyMegaIndicatorSprite(u32 healthboxSpriteId)
     }
 }
 
-static void SpriteCb_MegaIndicator(struct Sprite *sprite)
+void SpriteCb_MegaIndicator(struct Sprite *sprite)
 {
 
 }

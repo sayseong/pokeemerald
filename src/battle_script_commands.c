@@ -7638,13 +7638,14 @@ static void Cmd_various(void)
         {
             RecalcBattlerStats(gActiveBattler, mon);
             gBattleStruct->mega.alreadyEvolved[GetBattlerPosition(gActiveBattler)] = TRUE;
-            gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(gActiveBattler)][gBattlerPartyIndexes[gActiveBattler]] = EvolutionMegaHappend;
+            if (GET_BATTLER_SIDE2(gActiveBattler) == B_SIDE_PLAYER)
+                gBattleStruct->mega.partyEvolvedType[gBattlerPartyIndexes[gActiveBattler]] = EvolutionMegaHappend;
         }
         // Update healthbox and elevation.
         else
         {
             UpdateHealthboxAttribute(gHealthboxSpriteIds[gActiveBattler], mon, HEALTHBOX_ALL);
-            CreateMegaIndicatorSprite(gActiveBattler, 0);
+            CreateIndicator(gActiveBattler);
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
                 SetBattlerShadowSpriteCallback(gActiveBattler, gBattleMons[gActiveBattler].species);
         }

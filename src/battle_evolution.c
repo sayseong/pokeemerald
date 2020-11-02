@@ -21,15 +21,15 @@ enum MegaGraphicsTags
 };
 
 
-extern void SpriteCb_MegaTrigger(struct Sprite* self);
-extern void SpriteCB_MegaIndicator(struct Sprite* self);
+static void SpriteCB_DynamaxTrigger(struct Sprite* self);
+void SpriteCb_MegaIndicator(struct Sprite *sprite);
 static void DestroyDynamaxTrigger();
 
 static const u32 Dynamax_IndicatorTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.4bpp");
-static const u32 Dynamax_IndicatorPal[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.gbapal");
+static const u16 Dynamax_IndicatorPal[] = INCBIN_U16("graphics/battle_interface/Dynamax_Indicator.gbapal");
 //extern const u32 Dynamax_TriggerTiles[]; //For some reason this doesn't work
 static const u32 Dynamax_Trigger_WorkingTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Trigger_Working.4bpp.lz"); //This is used as the image until the bug is fixed
-static const u16 Dynamax_TriggerPal[] = INCBIN_U32("graphics/battle_interface/Dynamax_Trigger_Working.gbapal");
+static const u16 Dynamax_TriggerPal[] = INCBIN_U16("graphics/battle_interface/Dynamax_Trigger_Working.gbapal");
 
 const struct SpriteSheet sDynamaxIndicatorSpriteSheet =
     {
@@ -45,7 +45,7 @@ static const struct SpritePalette sDynamaxTriggerPalette =
     };
 const struct SpritePalette sDynamaxIndicatorPalette =
     {
-        Dynamax_TriggerPal, GFX_TAG_DYNAMAX_INDICATOR
+        Dynamax_IndicatorPal, GFX_TAG_DYNAMAX_INDICATOR
     };
 static const struct OamData sIndicatorOam =
     {
@@ -71,7 +71,7 @@ static const struct SpriteTemplate sDynamaxIndicatorSpriteTemplate =
         .anims = gDummySpriteAnimTable,
         .images = NULL,
         .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCB_MegaIndicator,
+        .callback = SpriteCb_MegaIndicator,
     };
 
 static const struct SpriteTemplate sDynamaxTriggerSpriteTemplate =
@@ -82,7 +82,7 @@ static const struct SpriteTemplate sDynamaxTriggerSpriteTemplate =
         .anims = gDummySpriteAnimTable,
         .images = NULL,
         .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCb_MegaTrigger,
+        .callback = SpriteCB_DynamaxTrigger,
     };
 
 #define RGB(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
@@ -112,7 +112,7 @@ static bool8 IsIgnoredTriggerColour(u16 colour)
 }
 
 u32 CreateDynamaxIndicator(u32 battlerId) {
-    return CreateMegaIndicatorSprite(battlerId, &sDynamaxIndicatorPalette, &sDynamaxIndicatorSpriteSheet, &sDynamaxIndicatorSpriteTemplate);
+    return CreateMegaIndicator(battlerId, &sDynamaxIndicatorPalette, &sDynamaxIndicatorSpriteSheet, &sDynamaxIndicatorSpriteTemplate);
 }
 
 static u16 LightUpTriggerSymbol(u16 clra)
@@ -146,8 +146,9 @@ static u16 LightUpTriggerSymbol(u16 clra)
 }
 
 void ChangeDynamaxTriggerSprite(u8 state) {
-    u16* pal = &gPlttBufferFaded2[IndexOfSpritePaletteTag(GFX_TAG_DYNAMAX_TRIGGER) * 16];
+    u16* pal;
     u8 i;
+    pal = &gPlttBufferFaded2[IndexOfSpritePaletteTag(GFX_TAG_DYNAMAX_TRIGGER) * 16];
 
     for(i = 1; i < 16; i++)
     {
@@ -181,6 +182,7 @@ static void DestroyDynamaxTrigger(void)
 static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
     s16 xshift, yshift;
     struct Sprite* healthbox;
+    u8 y;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         xshift = -6;
@@ -195,7 +197,7 @@ static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
         yshift = 1;
     }
     healthbox = &gSprites[gHealthboxSpriteIds[sprite->data[0]]];
-    u8 y = healthbox->oam.y;
+    healthbox->oam.y;
 
     if (y)
     {
@@ -310,7 +312,7 @@ static const struct BattleEvolutionFunc sBattleEvolutionMega = {
     .CanPokemonEvolution = CanPokemonMega,
     .IsEvolutionHappened = NULL,
     .CreateOrShowTrigger = CreateMegaTriggerSprite,
-    .CreateIndicator = CreateMegaIndicator,
+    .CreateIndicator = CreateMegaIndicatorSprite,
     .PrepareEvolution = NULL,
     .DoEvolution = DoMegaEvolution,
     .UndoEvolution = UndoMegaEvolution,

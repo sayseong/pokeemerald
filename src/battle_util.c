@@ -6877,9 +6877,9 @@ bool32 CanMegaEvolve(u8 battlerId)
 
 void UndoMegaEvolution(u32 monId)
 {
-    if (gBattleStruct->mega.evolutionType[B_SIDE_PLAYER][monId] == EvolutionMegaHappend)
+    if (gBattleStruct->mega.partyEvolvedType[monId] == EvolutionMegaHappend)
     {
-        gBattleStruct->mega.evolutionType[B_SIDE_PLAYER][monId] = EvolutionNone;
+        gBattleStruct->mega.partyEvolvedType[monId] = EvolutionNone;
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->mega.playerEvolvedSpecies);
         CalculateMonStats(&gPlayerParty[monId]);
     }
