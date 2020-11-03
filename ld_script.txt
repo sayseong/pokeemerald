@@ -331,6 +331,7 @@ SECTIONS {
         src/international_string_util.o(.text);
         src/battle_evolution.o(.text);
         src/dynamax.o(.text);
+        src/battle_evocpp.o(.text*);
     } =0
 
     script_data :
@@ -694,6 +695,7 @@ SECTIONS {
         data/sound_data.o(.rodata);
         src/battle_evolution.o(.rodata);
         src/dynamax.o(.rodata);
+        src/battle_evocpp.o(.rodata*);
     } =0
 
     song_data :

@@ -250,6 +250,12 @@ ifeq ($(DINFO),1)
 override CFLAGS += -g
 endif
 
+build/emerald/src/battle_evocpp.o : src/battle_evocpp.cpp $$(c_dep)
+	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/battle_evocpp.i
+	$(PREFIX)g++ -S $(C_BUILDDIR)/battle_evocpp.i  -g -fno-rtti -std=c++14 -mthumb -mthumb-interwork -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -o $(C_BUILDDIR)/battle_evocpp.s
+	@echo -e ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/battle_evocpp.s
+	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/battle_evocpp.s
+
 $(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
 	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
 	@$(PREPROC) $(C_BUILDDIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s

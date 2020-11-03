@@ -10,7 +10,7 @@
 #include "constants/abilities.h"
 #include "random.h"
 #include "battle_scripts.h"
-#include "battle_evolution.h"
+
 void AllocateBattleResources(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)

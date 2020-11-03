@@ -33,55 +33,6 @@ bool32 CanBattlerEvo(u8 battlerId)
     return CheckEvolutionType(mega, battlerId);
 }
 
-bool32 IsEvolutionHappened(u32 battlerId)
-{
-    return GetEvolutionTypeForBattler(battlerId) >= EvolutionMegaHappend;
-}
-
-void CreateTrigger(u8 battlerId, u8 palId)
-{
-    GetBattleEvolutionFunc(battlerId)->CreateOrShowTrigger(battlerId, palId);
-}
-
-void DistoryTrigger(u32 battlerId)
-{
-    GetBattleEvolutionFunc(battlerId)->DistoryTrigger(battlerId);
-}
-
-void HideTriggerSprite(void)
-{
-    GetBattleEvolutionFunc(gActiveBattler)->HideTriggerSprite();
-}
-
-u8 CreateIndicator(u32 battlerId)
-{
-    return GetBattleEvolutionFunc(battlerId)->CreateIndicator(battlerId);
-}
-
-void PrepareEvolution(u32 battlerId)
-{
-    GetBattleEvolutionFunc(battlerId)->PrepareEvolution(battlerId);
-}
-
-void DoEvolution(u32 battlerId)
-{
-    GetBattleEvolutionFunc(battlerId)->DoEvolution(battlerId);
-}
-
-void UndoEvolution(u32 monId)
-{
-    GetBattleEvolutionFuncByPos(monId, 0)->UndoEvolution(monId);
-}
-
-void ChangeTriggerSprite(u8 battler, u8 state)
-{
-    GetBattleEvolutionFunc(battler)->ChangeTriggerSprite(state);
-}
-
-u8 GetIndicatorSpriteId(u32 healthboxSpriteId)
-{
-    return GetMegaIndicatorSpriteId(healthboxSpriteId);
-}
 
 void AfterEvolutionChangeStates(u32 battlerId, struct Pokemon* pokemon)
 {

@@ -2,14 +2,9 @@
 #include "battle.h"
 #include "battle_evolution.h"
 #include "decompress.h"
-#include "item.h"
-#include "constants/hold_effects.h"
 #include "battle_interface.h"
 #include "battle_scripts.h"
 #include "palette.h"
-extern void HandleMoveSwitching(void);
-
-extern void HandleInputChooseMove(void);
 
 #define gPlttBufferFaded2 (&gPlttBufferFaded[0x100])
 enum MegaGraphicsTags
@@ -259,6 +254,7 @@ enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionD
 {
     return evolutionData->evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)];
 }
+
 enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId) {
     return GetEvolutionType(&gBattleStruct->mega, battlerId);
 }
@@ -267,6 +263,12 @@ void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum Batt
 {
     battleStruct->mega.evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)] = value;
 }
+
+bool32 IsEvolutionHappened(u32 battlerId)
+{
+    return gBattleStruct->mega.partyEvolvedType[GET_BATTLER_POSITION(battlerId)];
+}
+
 
 
 bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
@@ -291,7 +293,7 @@ static bool32 CanPokemonMega(struct Pokemon* mon) {
     return TRUE;
 }
 
-static void DoMegaEvolution(u32 battlerId) {
+void DoMegaEvolution(u32 battlerId) {
     gLastUsedItem = gBattleMons[battlerId].item;
     BattleScriptExecute(BattleScript_MegaEvolution);
 }
@@ -308,17 +310,7 @@ static const void* const sDummyBattleEvolutionFunc[sizeof(struct BattleEvolution
     [0 ... sizeof(struct BattleEvolutionFunc) / 4 - 1] = &DummyBattleEvolutionFunc,
 };
 
-static const struct BattleEvolutionFunc sBattleEvolutionMega = {
-    .CanPokemonEvolution = CanPokemonMega,
-    .IsEvolutionHappened = NULL,
-    .CreateOrShowTrigger = CreateMegaTriggerSprite,
-    .CreateIndicator = CreateMegaIndicatorSprite,
-    .PrepareEvolution = NULL,
-    .DoEvolution = DoMegaEvolution,
-    .UndoEvolution = UndoMegaEvolution,
-    .HideTriggerSprite = HideMegaTriggerSprite,
-    .ChangeTriggerSprite = ChangeMegaTrigger,
-};
+
 
 static const struct BattleEvolutionFunc sBattleEvolutionDynamax = {
     .CreateOrShowTrigger = TryLoadDynamaxTrigger,
@@ -327,39 +319,6 @@ static const struct BattleEvolutionFunc sBattleEvolutionDynamax = {
     .HideTriggerSprite = HideDynamaxTriggerSprite
 };
 
-static const struct BattleEvolutionFunc *const sBattleEvolutionFuncs[] =
-    {
-        [EvolutionNone] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
-        [EvolutionMega] = &sBattleEvolutionMega,
-        [EvolutionDynamax] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
-        [EvolutionMegaHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
-        [EvolutionDynamaxHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
-    };
-
-static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke) {
-    int i;
-    int j;
-    for (i = 0; i < 6; ++i) {
-        for (j = 0; j < ARRAY_COUNT(sBattleEvolutionFuncs); ++j) {
-            if (sBattleEvolutionFuncs[j]->CanPokemonEvolution(&poke[i])) {
-                array[i] = j;
-                break;
-            }
-        }
-    }
-}
 
 
-void InitBattleStruct()
-{
-    InitBattleEvolutionForParty(gBattleStruct->mega.evolutionType[0], gPlayerParty);
-    InitBattleEvolutionForParty(gBattleStruct->mega.evolutionType[1], gEnemyParty);
-}
 
-const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId) {
-    return sBattleEvolutionFuncs[GetEvolutionType(&gBattleStruct->mega, battlerId)];
-}
-
-const struct BattleEvolutionFunc* GetBattleEvolutionFuncByPos(u32 monId, u8 side){
-    return sBattleEvolutionFuncs[gBattleStruct->mega.evolutionType[side][monId]];
-}
