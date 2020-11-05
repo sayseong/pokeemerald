@@ -7631,12 +7631,12 @@ static void Cmd_various(void)
             PREPARE_SPECIES_BUFFER(gBattleTextBuff1, gBattleMons[gActiveBattler].species);
 
             BtlController_EmitSetMonData(0, REQUEST_SPECIES_BATTLE, gBitTable[gBattlerPartyIndexes[gActiveBattler]], 2, &gBattleMons[gActiveBattler].species);
+            RecalcBattlerStats(gActiveBattler, mon);
             MarkBattlerForControllerExec(gActiveBattler);
         }
         // Change stats.
         else if (gBattlescriptCurrInstr[3] == 1)
         {
-            RecalcBattlerStats(gActiveBattler, mon);
             gBattleStruct->mega.alreadyEvolved[GetBattlerPosition(gActiveBattler)] = TRUE;
             if (GET_BATTLER_SIDE2(gActiveBattler) == B_SIDE_PLAYER)
                 gBattleStruct->mega.partyEvolvedType[gBattlerPartyIndexes[gActiveBattler]] = EvolutionMegaHappend;

@@ -7,9 +7,9 @@
 #include "battle_interface.h"
 #include "battle_scripts.h"
 #include "palette.h"
-extern void HandleMoveSwitching(void);
-
-extern void HandleInputChooseMove(void);
+#include "task.h"
+#include "battle_anim.h"
+extern u8 BattleScript_Dynamax[];
 
 #define gPlttBufferFaded2 (&gPlttBufferFaded[0x100])
 enum MegaGraphicsTags
@@ -175,7 +175,7 @@ static void DestroyDynamaxTrigger(void)
         if (gSprites[i].template->tileTag == GFX_TAG_DYNAMAX_TRIGGER)
             DestroySprite(&gSprites[i]);
     }
-    gBattleStruct->mega.dynamaxTriggerId = 0xFF;
+    gBattleStruct->mega.dynamaxTriggerId = 0;
 }
 
 
@@ -183,6 +183,20 @@ static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
     s16 xshift, yshift;
     struct Sprite* healthbox;
     u8 y;
+    if (sprite->data[1] == 0) //show
+    {
+        if (sprite->data[3] > 0)
+            sprite->data[3] -= 2;
+        else
+            return;
+    }
+    else //hide
+    {
+        if (sprite->data[3] < 24)
+            sprite->data[3] += 2;
+        else
+            return;
+    }
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         xshift = -6;
@@ -197,7 +211,7 @@ static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
         yshift = 1;
     }
     healthbox = &gSprites[gHealthboxSpriteIds[sprite->data[0]]];
-    healthbox->oam.y;
+    y = healthbox->oam.y;
 
     if (y)
     {
@@ -206,45 +220,31 @@ static void SpriteCB_DynamaxTrigger(struct Sprite* sprite){
         sprite->pos1.x = (healthbox->oam.x) + xshift + sprite->data[3];
         if (sprite->pos1.x == healthbox->pos1.x - 15)
             DestroyDynamaxTrigger();
-        sprite->pos1.y = healthbox->pos1.y + yshift + healthbox->pos2.y;
+        else
+            sprite->pos1.y = healthbox->pos1.y + yshift + healthbox->pos2.y;
     }
     else
     {
         // The box is offscreen, so hide this one as well
         sprite->pos1.x = -32;
     }
-    if (sprite->data[1])
-    {
-        if (sprite->data[3] > 0)
-            sprite->data[3] -= 2;
-        else
-            sprite->data[3] = 0;
-    }
-    else
-    {
-        if (sprite->data[3] < 24)
-            sprite->data[3] += 2;
-        else
-            sprite->data[3] = 24;
-    }
 }
 
 void TryLoadDynamaxTrigger(u8 battlerId, u8 UNUSED palId)
 {
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI))
+    /*if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI))
         return;
 
     if (!(gBattleTypeFlags & BATTLE_TYPE_DYNAMAX))
-        return;
-    if (gBattleStruct->mega.dynamaxTriggerId == 0xFF)
+        return;*/
+    if (gBattleStruct->mega.dynamaxTriggerId == 0)
     {
         LoadSpritePalette(&sDynamaxTriggerPalette);
         LoadCompressedSpriteSheetUsingHeap(&sDynamaxTriggerSpriteSheet);
         gBattleStruct->mega.dynamaxTriggerId = CreateSprite(&sDynamaxTriggerSpriteTemplate, 130, 90, 1);
     }
     gSprites[gBattleStruct->mega.dynamaxTriggerId].data[3] = 24;
-    gSprites[gBattleStruct->mega.dynamaxTriggerId].pos1.x = -32;
     gSprites[gBattleStruct->mega.dynamaxTriggerId].data[0] = battlerId;
     gSprites[gBattleStruct->mega.dynamaxTriggerId].data[1] = 0;
 }
@@ -290,17 +290,61 @@ static bool32 CanPokemonMega(struct Pokemon* mon) {
     // All checks passed, the mon CAN mega evolve.
     return TRUE;
 }
+#define ITEM_DYNAMAX_BRAND 0
+static bool32 CanPokemonDynamax(struct Pokemon* mon) {
+    /*if (gBattleTypeFlags & BATTLE_TYPE_DYNAMAX) {
+        if (!CanPokemonMega(mon) && CheckBagHasItem(ITEM_DYNAMAX_BRAND, 1))
+            return 1;
+    }
+    return 0;*/
+    return 1;
+}
+
+const union AffineAnimCmd sDynamaxGrowthAffineAnimCmds[] =
+        {
+                AFFINEANIMCMD_FRAME(-2, -2, 0, 64), //Double in size
+                AFFINEANIMCMD_FRAME(0, 0, 0, 64),
+                AFFINEANIMCMD_FRAME(16, 16, 0, 8),
+                AFFINEANIMCMD_END,
+        };
+
+const union AffineAnimCmd sDynamaxGrowthAttackAnimationAffineAnimCmds[] =
+        {
+                AFFINEANIMCMD_FRAME(-4, -4, 0, 32), //Double in size quicker
+                AFFINEANIMCMD_FRAME(0, 0, 0, 32), //Pause for less
+                AFFINEANIMCMD_FRAME(16, 16, 0, 8),
+                AFFINEANIMCMD_END,
+        };
+
+static void AnimTask_DynamaxGrowthStep(u8 taskId)
+{
+    if (!RunAffineAnimFromTaskData(&gTasks[taskId]))
+        DestroyAnimVisualTask(taskId);
+}
+void AnimTask_GrowAndShrink_Step(u8);
+//Arg 0: Animation for attack
+void AnimTask_GrowthAffine(u8 taskId)
+{
+    struct Task* task;
+    task = &gTasks[taskId];
+    PrepareAffineAnimInTaskData(task, GetAnimBattlerSpriteId(ANIM_ATTACKER),
+                                LoadPointerFromVars(gBattleAnimArgs[0], gBattleAnimArgs[1]));
+    task->func = AnimTask_GrowAndShrink_Step;
+}
 
 static void DoMegaEvolution(u32 battlerId) {
     gLastUsedItem = gBattleMons[battlerId].item;
     BattleScriptExecute(BattleScript_MegaEvolution);
+}
+static void DoDynamaxEvolution(u32 battlerId) {
+    BattleScriptExecute(BattleScript_Dynamax);
 }
 
 static void ChangeMegaTrigger(u8 state) {
     ChangeMegaTriggerSprite(gBattleStruct->mega.triggerSpriteId, state);
 }
 
-static const bool32 DummyBattleEvolutionFunc(void) {
+static bool32 DummyBattleEvolutionFunc(void) {
     return FALSE;
 }
 
@@ -310,10 +354,8 @@ static const void* const sDummyBattleEvolutionFunc[sizeof(struct BattleEvolution
 
 static const struct BattleEvolutionFunc sBattleEvolutionMega = {
     .CanPokemonEvolution = CanPokemonMega,
-    .IsEvolutionHappened = NULL,
     .CreateOrShowTrigger = CreateMegaTriggerSprite,
     .CreateIndicator = CreateMegaIndicatorSprite,
-    .PrepareEvolution = NULL,
     .DoEvolution = DoMegaEvolution,
     .UndoEvolution = UndoMegaEvolution,
     .HideTriggerSprite = HideMegaTriggerSprite,
@@ -324,14 +366,17 @@ static const struct BattleEvolutionFunc sBattleEvolutionDynamax = {
     .CreateOrShowTrigger = TryLoadDynamaxTrigger,
     .CreateIndicator = CreateDynamaxIndicator,
     .ChangeTriggerSprite = ChangeDynamaxTriggerSprite,
-    .HideTriggerSprite = HideDynamaxTriggerSprite
+    .HideTriggerSprite = HideDynamaxTriggerSprite,
+    .CanPokemonEvolution = CanPokemonDynamax,
+    .DoEvolution = DoDynamaxEvolution,
+    .UndoEvolution = (void*) &DummyBattleEvolutionFunc,
 };
 
 static const struct BattleEvolutionFunc *const sBattleEvolutionFuncs[] =
     {
         [EvolutionNone] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
         [EvolutionMega] = &sBattleEvolutionMega,
-        [EvolutionDynamax] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
+        [EvolutionDynamax] = &sBattleEvolutionDynamax,
         [EvolutionMegaHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
         [EvolutionDynamaxHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
     };

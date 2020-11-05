@@ -6101,6 +6101,11 @@ BattleScript_MegaEvolution::
 	switchinabilities BS_ATTACKER
 	end2
 
+BattleScript_Dynamax::
+    playanimation BS_ATTACKER, B_ANIM_DYNAMAX_EVOLUTION, NULL
+	waitanimation
+	end2
+
 BattleScript_AttackerFormChange::
 	pause 0x5
 	copybyte gBattlerAbility, gBattlerAttacker

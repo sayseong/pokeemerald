@@ -88,7 +88,7 @@ static void AnimTask_Minimize_Step(u8);
 static void CreateMinimizeSprite(struct Task *, u8);
 static void ClonedMinizeSprite_Step(struct Sprite *);
 static void AnimTask_Splash_Step(u8);
-static void AnimTask_GrowAndShrink_Step(u8);
+void AnimTask_GrowAndShrink_Step(u8);
 static void AnimTask_ThrashMoveMonHorizontal_Step(u8);
 static void AnimTask_ThrashMoveMonVertical_Step(u8);
 static void AnimTask_SketchDrawMon_Step(u8);
@@ -2267,7 +2267,7 @@ void AnimTask_GrowAndShrink(u8 taskId)
     task->func = AnimTask_GrowAndShrink_Step;
 }
 
-static void AnimTask_GrowAndShrink_Step(u8 taskId)
+void AnimTask_GrowAndShrink_Step(u8 taskId)
 {
     struct Task* task = &gTasks[taskId];
     if (!RunAffineAnimFromTaskData(task))

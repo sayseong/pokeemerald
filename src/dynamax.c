@@ -43,11 +43,6 @@ void CreateTrigger(u8 battlerId, u8 palId)
     GetBattleEvolutionFunc(battlerId)->CreateOrShowTrigger(battlerId, palId);
 }
 
-void DistoryTrigger(u32 battlerId)
-{
-    GetBattleEvolutionFunc(battlerId)->DistoryTrigger(battlerId);
-}
-
 void HideTriggerSprite(void)
 {
     GetBattleEvolutionFunc(gActiveBattler)->HideTriggerSprite();
@@ -56,11 +51,6 @@ void HideTriggerSprite(void)
 u8 CreateIndicator(u32 battlerId)
 {
     return GetBattleEvolutionFunc(battlerId)->CreateIndicator(battlerId);
-}
-
-void PrepareEvolution(u32 battlerId)
-{
-    GetBattleEvolutionFunc(battlerId)->PrepareEvolution(battlerId);
 }
 
 void DoEvolution(u32 battlerId)
@@ -81,9 +71,4 @@ void ChangeTriggerSprite(u8 battler, u8 state)
 u8 GetIndicatorSpriteId(u32 healthboxSpriteId)
 {
     return GetMegaIndicatorSpriteId(healthboxSpriteId);
-}
-
-void AfterEvolutionChangeStates(u32 battlerId, struct Pokemon* pokemon)
-{
-
 }

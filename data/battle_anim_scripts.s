@@ -777,7 +777,7 @@ gBattleAnims_General::
 	.4byte General_IllusionOff
 	.4byte General_FormChange
 	.4byte General_SlideOffScreen
-
+    .4byte General_DynamaxEvolution
 	.align 2
 gBattleAnims_Special::
 	.4byte Special_LevelUp                  @ B_ANIM_LVL_UP
@@ -24314,6 +24314,13 @@ General_SlideOffScreen:
 	createvisualtask AnimTask_SlideOffScreen, 5, ANIM_TARGET, +3
 	waitforvisualfinish
 	createvisualtask AnimTask_SetInvisible, 1, ANIM_TARGET, TRUE
+	waitforvisualfinish
+	end
+
+General_DynamaxEvolution:
+    createvisualtask AnimTask_ShakeMon, 0x2, 0x5, ANIM_ATTACKER, 0x3, 0x0, 0x18, 0x2
+	createvisualtask AnimTask_GrowthAffine, 0x5, 0x2
+	.word sDynamaxGrowthAffineAnimCmds
 	waitforvisualfinish
 	end
 
