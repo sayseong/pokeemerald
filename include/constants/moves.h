@@ -738,4 +738,23 @@
 
 #define MOVES_COUNT                 MOVES_COUNT_GEN8
 
+#define MOVE_MAX_GUARD              MOVES_COUNT_GEN8          //极巨防壁
+#define MOVE_MAX_FLARE             (MOVES_COUNT_GEN8 +  1)    //极巨火爆
+#define MOVE_MAX_FLUTTERBY         (MOVES_COUNT_GEN8 +  2)    //极巨虫蛊
+#define MOVE_MAX_LIGHTNING         (MOVES_COUNT_GEN8 +  3)    //极巨闪电
+#define MOVE_MAX_STRIKE            (MOVES_COUNT_GEN8 +  4)    //极巨攻击
+#define MOVE_MAX_KNUCKLE           (MOVES_COUNT_GEN8 +  5)    //极巨拳斗
+#define MOVE_MAX_PHANTASM          (MOVES_COUNT_GEN8 +  6)    //极巨幽魂
+#define MOVE_MAX_HAILSTORM         (MOVES_COUNT_GEN8 +  7)    //极巨寒冰
+#define MOVE_MAX_OOZE              (MOVES_COUNT_GEN8 +  8)    //极巨酸毒
+#define MOVE_MAX_GEYSER            (MOVES_COUNT_GEN8 +  9)    //极巨水流
+#define MOVE_MAX_AIRSTREAM         (MOVES_COUNT_GEN8 + 10)    //极巨飞冲
+#define MOVE_MAX_STARFALL          (MOVES_COUNT_GEN8 + 11)    //极巨妖精
+#define MOVE_MAX_WYRMWIND          (MOVES_COUNT_GEN8 + 12)    //极巨龙骑
+#define MOVE_MAX_MINDSTORM         (MOVES_COUNT_GEN8 + 13)    //极巨超能
+#define MOVE_MAX_ROCKFALL          (MOVES_COUNT_GEN8 + 14)    //极巨岩石
+#define MOVE_MAX_QUAKE             (MOVES_COUNT_GEN8 + 15)    //极巨大地
+#define MOVE_MAX_DARKNESS          (MOVES_COUNT_GEN8 + 16)    //极巨恶霸
+#define MOVE_MAX_OVERGROWTH        (MOVES_COUNT_GEN8 + 17)    //极巨草原
+#define MOVE_MAX_STEELSPIKE        (MOVES_COUNT_GEN8 + 18)    //极巨钢铁
 #endif  // GUARD_CONSTANTS_MOVES_H
