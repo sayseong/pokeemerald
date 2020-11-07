@@ -372,7 +372,7 @@ static void HandleInputChooseTarget(void)
         else
             BtlController_EmitTwoReturnValues(1, 10, gMoveSelectionCursor[gActiveBattler] | (gMultiUsePlayerCursor << 8));
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
-        HideMegaTriggerSprite();
+        HideTriggerSprite();
         PlayerBufferExecCompleted();
     }
     else if (JOY_NEW(B_BUTTON) || gPlayerDpadHoldFrames > 59)
@@ -513,7 +513,7 @@ static void HandleInputShowTargets(void)
             BtlController_EmitTwoReturnValues(1, 10, gMoveSelectionCursor[gActiveBattler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
         else
             BtlController_EmitTwoReturnValues(1, 10, gMoveSelectionCursor[gActiveBattler] | (gMultiUsePlayerCursor << 8));
-        HideMegaTriggerSprite();
+		HideTriggerSprite();
         PlayerBufferExecCompleted();
     }
     else if (gMain.newKeys & B_BUTTON || gPlayerDpadHoldFrames > 59)
@@ -605,7 +605,7 @@ void HandleInputChooseMove(void)
                 BtlController_EmitTwoReturnValues(1, 10, gMoveSelectionCursor[gActiveBattler] | RET_MEGA_EVOLUTION | (gMultiUsePlayerCursor << 8));
             else
                 BtlController_EmitTwoReturnValues(1, 10, gMoveSelectionCursor[gActiveBattler] | (gMultiUsePlayerCursor << 8));
-            HideMegaTriggerSprite();
+			HideTriggerSprite();
             PlayerBufferExecCompleted();
         }
         else if (canSelectTarget == 1)
@@ -631,7 +631,7 @@ void HandleInputChooseMove(void)
         PlaySE(SE_SELECT);
         gBattleStruct->mega.playerSelect = FALSE;
         BtlController_EmitTwoReturnValues(1, 10, 0xFFFF);
-        HideMegaTriggerSprite();
+		HideTriggerSprite();
         PlayerBufferExecCompleted();
     }
     else if (JOY_NEW(DPAD_LEFT))

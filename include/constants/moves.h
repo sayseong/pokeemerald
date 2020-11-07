@@ -736,8 +736,6 @@
 
 #define MOVES_COUNT_GEN8              (MOVES_COUNT_GEN7 + 35)
 
-#define MOVES_COUNT                 MOVES_COUNT_GEN8
-
 #define MOVE_MAX_GUARD              MOVES_COUNT_GEN8          //极巨防壁
 #define MOVE_MAX_FLARE             (MOVES_COUNT_GEN8 +  1)    //极巨火爆
 #define MOVE_MAX_FLUTTERBY         (MOVES_COUNT_GEN8 +  2)    //极巨虫蛊
@@ -757,4 +755,7 @@
 #define MOVE_MAX_DARKNESS          (MOVES_COUNT_GEN8 + 16)    //极巨恶霸
 #define MOVE_MAX_OVERGROWTH        (MOVES_COUNT_GEN8 + 17)    //极巨草原
 #define MOVE_MAX_STEELSPIKE        (MOVES_COUNT_GEN8 + 18)    //极巨钢铁
+
+#define MOVES_COUNT                 (MOVE_MAX_STEELSPIKE+1)
+
 #endif  // GUARD_CONSTANTS_MOVES_H

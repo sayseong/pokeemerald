@@ -730,6 +730,29 @@ gBattleAnims_Moves::
 	.4byte Move_ETERNA_BEAM
 	.4byte Move_STEEL_BEAM
 	.4byte Move_COUNT @ cannot be reached, because last move is Psycho Boost
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
 
 	.align 2
 gBattleAnims_StatusConditions::
@@ -24318,8 +24341,10 @@ General_SlideOffScreen:
 	end
 
 General_DynamaxEvolution:
-    createvisualtask AnimTask_ShakeMon, 0x2, 0x5, ANIM_ATTACKER, 0x3, 0x0, 0x18, 0x2
-	createvisualtask AnimTask_GrowthAffine, 0x5, 0x2
+    createvisualtask AnimTask_ShakeMon, 0x2, ANIM_ATTACKER, 0x3, 0x0, 0x18, 0x2
+	.byte 0x3
+	.word AnimTask_GrowthAffine
+	.byte 0x5,0x2
 	.word sDynamaxGrowthAffineAnimCmds
 	waitforvisualfinish
 	end

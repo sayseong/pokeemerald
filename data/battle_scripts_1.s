@@ -6104,6 +6104,11 @@ BattleScript_MegaEvolution::
 BattleScript_Dynamax::
     playanimation BS_ATTACKER, B_ANIM_DYNAMAX_EVOLUTION, NULL
 	waitanimation
+	handlemegaevo BS_ATTACKER, 1
+	handlemegaevo BS_ATTACKER, 2
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+    datahpupdate BS_ATTACKER
 	end2
 
 BattleScript_AttackerFormChange::
