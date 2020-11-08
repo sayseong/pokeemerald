@@ -456,6 +456,7 @@ struct BattleEvolutionData {
     u8 toEvolve;
     u16 evolvedSpecies[4];
     u16 playerEvolvedSpecies;
+    u8 timer[2];
 };
 
 struct BattleStruct

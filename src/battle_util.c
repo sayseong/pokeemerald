@@ -1428,6 +1428,7 @@ enum
 	ENDTURN_POWDER,
 	ENDTURN_THROAT_CHOP,
 	ENDTURN_SLOW_START,
+	ENDTURN_DYNAMAX_COUNTER,
 	ENDTURN_BATTLER_COUNT
 };
 
@@ -1921,6 +1922,11 @@ u8 DoBattlerEndTurnEffects(void)
             }
             gBattleStruct->turnEffectsTracker++;
             break;
+        case ENDTURN_DYNAMAX_COUNTER:
+        	if (gBattleStruct->mega.timer[GET_BATTLER_SIDE(gActiveBattler)] && --gBattleStruct->mega.timer[GET_BATTLER_SIDE(gActiveBattler)] == 0){
+        		effect++;
+				BattleScriptExecute(BattleScript_SlowStartEnds);
+        	}
         case ENDTURN_BATTLER_COUNT:  // done
             gBattleStruct->turnEffectsTracker = 0;
             gBattleStruct->turnEffectsBattlerId++;

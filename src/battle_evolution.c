@@ -399,6 +399,7 @@ static void DoDynamaxEvolution(u32 battlerId)
 	gBattleMons[battlerId].maxHP *= 2;
 	gBattleMoveDamage = -gBattleMons[battlerId].hp;
 	gBattleMons[battlerId].hp *= 2;
+	gBattleStruct->mega.timer[GET_BATTLER_SIDE(battlerId)] = 3;
 	for (i = 0; i < 4; ++i)
 	{
 		for(j = MOVE_MAX_GUARD;j <= MOVE_MAX_STEELSPIKE;j++){
