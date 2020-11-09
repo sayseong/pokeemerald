@@ -79,6 +79,7 @@ void HandleTerrainMove(u32 moveEffect);
 
 static const u8 gDynamaxStatChangeScript[] = { 0, 0x15, 0x3c };//donothing seteffectwithchance return
 extern const u8 BattleScript_PrintWeatherInfo[];
+extern const u8 BattleScript_DynamaxPrintTerrain[];
 
 void HandleDynamaxMoveEffect()
 {
@@ -97,6 +98,8 @@ void HandleDynamaxMoveEffect()
     }
     if (arg <= DYNAMAX_SET_PSYCHIC_TERRAIN)
     {
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_DynamaxPrintTerrain;
         HandleTerrainMove(268 + arg - DYNAMAX_SET_MISTY_TERRAIN);
         return;
     }

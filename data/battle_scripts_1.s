@@ -7650,6 +7650,12 @@ BattleScript_PrintWeatherInfo::
 	call BattleScript_WeatherFormChanges
 	return
 
+BattleScript_DynamaxPrintTerrain::
+    setterrain BattleScript_MoveEnd //its fake
+    printfromtable gTerrainStringIds
+    waitmessage 0x40
+    return
+
 BattleScript_DynamaxHit::
     setmoveeffect MOVE_EFFECT_DYNAMAX
     goto BattleScript_EffectHit
