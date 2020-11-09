@@ -15,5 +15,13 @@ enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId);
 enum BattleEvolutionType {
     EvolutionNone = 0, EvolutionMega = 1, EvolutionDynamax = 2, EvolutionMegaHappend = 3, EvolutionDynamaxHappend = 4,
 };
-
+void HandleDynamaxMoveEffect();
+#define DYNAMAX_SET_RAIN 0
+#define DYNAMAX_SET_SUNNY 1
+#define DYNAMAX_SET_SANDSTORM 2
+#define DYNAMAX_SET_HAIL 3
+#define DYNAMAX_SET_MISTY_TERRAIN 4
+#define DYNAMAX_SET_GRASS_TERRAIN 5
+#define DYNAMAX_SET_ELECTRIC_TERRAIN 6
+#define DYNAMAX_SET_PSYCHIC_TERRAIN 7
 #endif //ENGINEUPDATED_DYNAMAX_H

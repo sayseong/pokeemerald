@@ -391,7 +391,7 @@ void BattleSetup_StartWildBattle(void)
 
 void BattleSetup_StartDoubleWildBattle(void)
 {
-    DoStandardWildBattle(TRUE);
+    DoStandardWildBattle(FALSE);
 }
 
 void BattleSetup_StartBattlePikeWildBattle(void)

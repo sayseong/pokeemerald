@@ -72,3 +72,52 @@ u8 GetIndicatorSpriteId(u32 healthboxSpriteId)
 {
     return GetMegaIndicatorSpriteId(healthboxSpriteId);
 }
+
+static const u8 gDynamaxWeatherEffectCmd[] = { 0x7D, 0xBB, 0x95, 0xC8 };
+
+void HandleTerrainMove(u32 moveEffect);
+
+static const u8 gDynamaxStatChangeScript[] = { 0, 0x15, 0x3c };//donothing seteffectwithchance return
+extern const u8 BattleScript_PrintWeatherInfo[];
+
+void HandleDynamaxMoveEffect()
+{
+    u8 arg;
+    arg = gBattleMoves[gCurrentMove].argument;
+    if (arg <= DYNAMAX_SET_SANDSTORM)
+    {
+        gBattleScriptingCommandsTable[gDynamaxWeatherEffectCmd[arg]]();
+        if (gMoveResultFlags & MOVE_RESULT_MISSED) return;
+        gActiveBattler = gBattlerAttacker;
+        BtlController_EmitBattleAnimation(0, 0xA + arg, 0);
+        MarkBattlerForControllerExec(gActiveBattler);
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_PrintWeatherInfo;
+        return;
+    }
+    if (arg <= DYNAMAX_SET_PSYCHIC_TERRAIN)
+    {
+        HandleTerrainMove(268 + arg - DYNAMAX_SET_MISTY_TERRAIN);
+        return;
+    }
+    if (arg >= MOVE_EFFECT_ATK_PLUS_1 && arg <= MOVE_EFFECT_SP_DEF_MINUS_1)
+    {
+        //stat change twice
+        if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
+        {
+            gBattleScripting.moveEffect = arg;
+            BattleScriptPush(gBattlescriptCurrInstr + 1);
+            gBattlescriptCurrInstr = gDynamaxStatChangeScript;
+            gBattleScriptingCommandsTable[0x15]();
+            gBattleScripting.savedMoveEffect = 0;
+        }
+        else
+        {
+            gBattleScripting.moveEffect = arg;
+            gBattleScriptingCommandsTable[0x15]();
+            gEffectBattler = BATTLE_PARTNER(gEffectBattler);
+        }
+        return;
+    }
+
+}

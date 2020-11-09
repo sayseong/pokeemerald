@@ -3007,6 +3007,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_MoveEffectBugBite;
                 }
                 break;
+            case MOVE_EFFECT_DYNAMAX:
+                HandleDynamaxMoveEffect();
+                break;
             }
         }
     }
@@ -6687,7 +6690,7 @@ static bool32 HasAttackerFaintedTarget(void)
         return FALSE;
 }
 
-static void HandleTerrainMove(u32 moveEffect)
+void HandleTerrainMove(u32 moveEffect)
 {
     u32 statusFlag = 0;
     u8 *timer = NULL;

@@ -10017,6 +10017,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_SUNNY
 	},
 
 	[MOVE_MAX_FLUTTERBY] =
@@ -10031,6 +10032,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SP_ATK_MINUS_1
 	},
 
 	[MOVE_MAX_LIGHTNING] =
@@ -10045,6 +10047,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_ELECTRIC_TERRAIN
 	},
 
 	[MOVE_MAX_STRIKE] =
@@ -10059,6 +10062,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SPD_MINUS_1
 	},
 
 	[MOVE_MAX_KNUCKLE] =
@@ -10073,6 +10077,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument =  MOVE_EFFECT_ATK_PLUS_1
 	},
 
 	[MOVE_MAX_PHANTASM] =
@@ -10087,6 +10092,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_DEF_MINUS_1
 	},
 
 	[MOVE_MAX_HAILSTORM] =
@@ -10101,6 +10107,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_HAIL
 	},
 
 	[MOVE_MAX_OOZE] =
@@ -10115,6 +10122,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SP_ATK_PLUS_1
 	},
 
 	[MOVE_MAX_GEYSER] =
@@ -10129,6 +10137,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_RAIN
 	},
 
 	[MOVE_MAX_AIRSTREAM] =
@@ -10143,6 +10152,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SPD_PLUS_1
 	},
 
 	[MOVE_MAX_STARFALL] =
@@ -10156,7 +10166,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = 0,
-		.split = SPLIT_PHYSICAL
+		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_MISTY_TERRAIN
 	},
 
 	[MOVE_MAX_WYRMWIND] =
@@ -10171,6 +10182,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_ATK_MINUS_1
 	},
 
 	[MOVE_MAX_MINDSTORM] =
@@ -10185,6 +10197,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_PSYCHIC_TERRAIN
 	},
 
 	[MOVE_MAX_ROCKFALL] =
@@ -10199,6 +10212,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_SANDSTORM
 	},
 
 	[MOVE_MAX_QUAKE] =
@@ -10212,7 +10226,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = 0,
-		.split = SPLIT_PHYSICAL
+		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SP_DEF_MINUS_1
 	},
 
 	[MOVE_MAX_DARKNESS] =
@@ -10226,7 +10241,8 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = 0,
-		.split = SPLIT_PHYSICAL
+		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_SP_DEF_PLUS_1
 	},
 
 	[MOVE_MAX_OVERGROWTH] =
@@ -10241,6 +10257,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_SET_GRASS_TERRAIN
 	},
 
 	[MOVE_MAX_STEELSPIKE] =
@@ -10255,5 +10272,6 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = MOVE_EFFECT_DEF_PLUS_1
 	},
 };

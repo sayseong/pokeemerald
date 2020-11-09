@@ -365,7 +365,7 @@ gBattleScriptsForMoveEffects:: @ 82D86A8
 	.4byte BattleScript_EffectFairyLock
 	.4byte BattleScript_EffectAllySwitch
 	.4byte BattleScript_EffectSleepHit
-
+    .4byte BattleScript_DynamaxHit
 BattleScript_EffectSleepHit:
 	setmoveeffect MOVE_EFFECT_SLEEP
 	goto BattleScript_EffectHit
@@ -5291,6 +5291,7 @@ BattleScript_LearnMoveReturn::
 	return
 
 BattleScript_RainContinuesOrEnds::
+    waitanimation
 	printfromtable gRainContinuesStringIds
 	waitmessage 0x40
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 0x2, BattleScript_RainContinuesOrEndsEnd
@@ -7640,3 +7641,15 @@ BattleScript_PrintPlayerForfeitedLinkBattle::
 	atk57
 	waitmessage 0x40
 	end2
+
+BattleScript_PrintWeatherInfo::
+    //playanimation BS_ATTACKER, B_ANIM_RAIN_CONTINUES, NULL
+    waitanimation
+	printfromtable gMoveWeatherChangeStringIds
+	waitmessage 0x40
+	call BattleScript_WeatherFormChanges
+	return
+
+BattleScript_DynamaxHit::
+    setmoveeffect MOVE_EFFECT_DYNAMAX
+    goto BattleScript_EffectHit
