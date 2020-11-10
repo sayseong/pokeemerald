@@ -457,6 +457,8 @@ struct BattleEvolutionData {
     u16 evolvedSpecies[4];
     u16 playerEvolvedSpecies;
     u8 timer[2];
+    u8 gMaxFieldCounter;
+    u8 gMaxFieldType;
 };
 
 struct BattleStruct
