@@ -7651,7 +7651,7 @@ BattleScript_PrintWeatherInfo::
 	return
 
 BattleScript_DynamaxPrintTerrain::
-    setterrain BattleScript_MoveEnd //its fake
+    setterrain BattleScript_MoveUsedIsConfusedRet //its fake
     printfromtable gTerrainStringIds
     waitmessage 0x40
     return
@@ -7659,3 +7659,16 @@ BattleScript_DynamaxPrintTerrain::
 BattleScript_DynamaxHit::
     setmoveeffect MOVE_EFFECT_DYNAMAX
     goto BattleScript_EffectHit
+
+BattleScript_DynamaxPrintAuroraVeil::
+	setauroraveil BS_ATTACKER
+	printfromtable gReflectLightScreenSafeguardStringIds
+	waitmessage 0x40
+	return
+
+BattleScript_DynamaxTryinfatuating::
+	tryinfatuating BattleScript_MoveUsedIsConfusedRet
+	printstring STRINGID_PKMNFELLINLOVE
+	waitmessage 0x40
+	call BattleScript_TryDestinyKnotAttacker
+	return

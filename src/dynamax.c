@@ -77,9 +77,38 @@ static const u8 gDynamaxWeatherEffectCmd[] = { 0x7D, 0xBB, 0x95, 0xC8 };
 
 void HandleTerrainMove(u32 moveEffect);
 
-static const u8 gDynamaxStatChangeScript[] = { 0, 0x15, 0x3c };//donothing seteffectwithchance return
+static const u8 gDynamaxRepeatMoveEffectScript[] = { 0, 0x15, 0x3c };//donothing seteffectwithchance return
 extern const u8 BattleScript_PrintWeatherInfo[];
 extern const u8 BattleScript_DynamaxPrintTerrain[];
+
+void RepeatCommand(u8 arg, u8 cmd) {
+
+}
+
+void SetEffectTargetAll(u8 arg) {
+    if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
+    {
+        gBattleScripting.moveEffect = arg;
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = gDynamaxRepeatMoveEffectScript;
+        gBattleScriptingCommandsTable[0x15]();
+        gBattleScripting.savedMoveEffect = 0;
+        gBattleScripting.moveEffect = MOVE_EFFECT_DYNAMAX;
+    }
+    else
+    {
+        if (IsBattlerAlive(BATTLE_PARTNER(gBattlerTarget)))
+        {
+            gBattlerTarget = BATTLE_PARTNER(gBattlerTarget);//临时更改为队友
+            gBattleScripting.moveEffect = arg;
+            gBattleScriptingCommandsTable[0x15]();
+        }
+        else
+        {
+            gBattlescriptCurrInstr++;
+        }
+    }
+}
 
 void HandleDynamaxMoveEffect()
 {
@@ -106,21 +135,48 @@ void HandleDynamaxMoveEffect()
     if (arg >= MOVE_EFFECT_ATK_PLUS_1 && arg <= MOVE_EFFECT_SP_DEF_MINUS_1)
     {
         //stat change twice
-        if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
-        {
-            gBattleScripting.moveEffect = arg;
-            BattleScriptPush(gBattlescriptCurrInstr + 1);
-            gBattlescriptCurrInstr = gDynamaxStatChangeScript;
-            gBattleScriptingCommandsTable[0x15]();
-            gBattleScripting.savedMoveEffect = 0;
-        }
-        else
-        {
-            gBattleScripting.moveEffect = arg;
-            gBattleScriptingCommandsTable[0x15]();
-            gEffectBattler = BATTLE_PARTNER(gEffectBattler);
-        }
+        SetEffectTargetAll(arg);
         return;
     }
 
+}
+#include "constants/moves.h"
+#include "random.h"
+
+extern u8 BattleScript_DynamaxPrintAuroraVeil[];
+extern u8 BattleScript_DynamaxTryinfatuating[];
+void HandleGiaMaxMoveEffect()
+{
+    u8 arg;
+    arg = gBattleMoves[gCurrentMove].argument;
+    switch (arg + G_MAX_WILDFIRE)
+    {
+    case G_MAX_WILDFIRE:
+        gBattleStruct->mega.gMaxFieldCounter = 4;
+        gBattleStruct->mega.gMaxFieldType = TYPE_FIRE;
+        gBattlescriptCurrInstr++;
+        break;
+    case G_MAX_BEFUDDLE://随机异常
+        SetEffectTargetAll(MOVE_EFFECT_SLEEP +(Random() & 3));
+        break;
+    case G_MAX_VOLT_CRASH:
+        SetEffectTargetAll(MOVE_EFFECT_PARALYSIS);
+        break;
+    case G_MAX_GOLD_RUSH:
+        gPaydayMoney += (gBattleMons[gBattlerAttacker].level * 200);
+        SetEffectTargetAll(MOVE_EFFECT_CONFUSION);
+        break;
+    case G_MAX_CHI_STRIKE://FLAG_HIGH_CRIT
+        break;
+    case G_MAX_TERROR:
+        SetEffectTargetAll(MOVE_EFFECT_PREVENT_ESCAPE);
+        break;
+    case G_MAX_RESONANCE:
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_DynamaxPrintAuroraVeil;
+        break;
+    case G_MAX_CUDDLE:
+
+        break;
+    }
 }
