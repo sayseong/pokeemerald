@@ -7672,3 +7672,45 @@ BattleScript_DynamaxTryinfatuating::
 	waitmessage 0x40
 	call BattleScript_TryDestinyKnotAttacker
 	return
+
+BattleScript_DynamaxRecycleItem::
+	tryrecycleitem BattleScript_MoveUsedIsConfusedRet
+	printstring STRINGID_XFOUNDONEY
+	waitmessage 0x40
+	return
+
+BattleScript_DynamaxSetTealthrock::
+	setstealthrock BattleScript_MoveUsedIsConfusedRet
+	printstring STRINGID_POINTEDSTONESFLOAT
+	waitmessage 0x40
+	return
+
+StringClearFieldEffects:
+.string "{B_ATK_NAME_WITH_PREFIX}清除了场地效果!"
+StringClearFieldReflect:
+.string "{B_ATK_NAME_WITH_PREFIX}清除了反射!"
+StringClearFieldLightWall:
+.string "{B_ATK_NAME_WITH_PREFIX}清除了光墙!"
+
+StringClearFieldEffectsTable:
+.4byte StringClearFieldEffects
+.4byte StringClearFieldReflect
+.4byte StringClearFieldLightWall
+BattleScript_DynamaxClearFieldEffects::
+	printfromtable StringClearFieldEffectsTable
+	waitmessage 0x40
+	return
+
+BattleScript_DyanamaxHealSelfAll::
+	healthbarupdate BS_EFFECT_BATTLER
+	datahpupdate BS_EFFECT_BATTLER
+	printstring STRINGID_PKMNREGAINEDHEALTH
+	waitmessage 0x40
+	return
+
+BattleScript_DyanamaxTryppreduce::
+	tryspiteppreduce BattleScript_MoveUsedIsConfusedRet
+	printstring STRINGID_PKMNREDUCEDPP
+	waitmessage 0x40
+	return
+	
