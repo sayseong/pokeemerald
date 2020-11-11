@@ -82,12 +82,12 @@ extern const u8 BattleScript_PrintWeatherInfo[];
 extern const u8 BattleScript_DynamaxPrintTerrain[];
 
 void SetEffectTargetAll(u8 arg) {
+
     if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
     {
         gBattleScripting.moveEffect = arg;
-        BattleScriptPush(gBattlescriptCurrInstr + 1);
-        gBattlescriptCurrInstr = gDynamaxRepeatMoveEffectScript;
-        gBattleScriptingCommandsTable[0x15]();
+        gBattlescriptCurrInstr--;
+        SetMoveEffect(FALSE, MOVE_EFFECT_CERTAIN);
         gBattleScripting.savedMoveEffect = 0;
         gBattleScripting.moveEffect = MOVE_EFFECT_DYNAMAX;
     }
@@ -97,12 +97,13 @@ void SetEffectTargetAll(u8 arg) {
         {
             gBattlerTarget = BATTLE_PARTNER(gBattlerTarget);//临时更改为队友
             gBattleScripting.moveEffect = arg;
-            gBattleScriptingCommandsTable[0x15]();
+            SetMoveEffect(FALSE, MOVE_EFFECT_CERTAIN);
         }
         else
         {
             gBattlescriptCurrInstr++;
         }
+        gBattleScripting.moveEffect = 0;
     }
 }
 extern u8 BattleScript_SpikesFree[];
@@ -188,31 +189,29 @@ void HandleDynamaxMoveEffect()
         MarkBattlerForControllerExec(gActiveBattler);
         BattleScriptPush(gBattlescriptCurrInstr + 1);
         gBattlescriptCurrInstr = BattleScript_PrintWeatherInfo;
-        return;
     }
-    if (arg <= DYNAMAX_SET_PSYCHIC_TERRAIN)
+    else if (arg <= DYNAMAX_SET_PSYCHIC_TERRAIN)
     {
         BattleScriptPush(gBattlescriptCurrInstr + 1);
         gBattlescriptCurrInstr = BattleScript_DynamaxPrintTerrain;
         HandleTerrainMove(268 + arg - DYNAMAX_SET_MISTY_TERRAIN);
-        return;
     }
-    if (arg >= MOVE_EFFECT_ATK_PLUS_1 && arg <= MOVE_EFFECT_SP_DEF_MINUS_1)
+    else if (arg >= MOVE_EFFECT_ATK_PLUS_1 && arg <= MOVE_EFFECT_SP_DEF_MINUS_1)
     {
         //stat change twice
         SetEffectTargetAll(arg);
         return;
     }
-
+    gBattleScripting.moveEffect = 0;
 }
 #include "constants/moves.h"
 #include "random.h"
 
 extern u8 BattleScript_DynamaxPrintAuroraVeil[];
-extern u8 BattleScript_DynamaxTryinfatuating[];
+extern u8 BattleScript_DyamaxTryinfatuating[];
 extern u8 BattleScript_DynamaxRecycleItem[];
 extern u8 BattleScript_DynamaxSetTealthrock[];
-extern u8 BattleScript_DyanamaxHealSelfAll[];
+extern u8 BattleScript_DynamaxHealSelfAll[];
 extern u8 BattleScript_DyanamaxTryppreduce[];
 
 void HandleGiaMaxMoveEffect()
@@ -273,7 +272,7 @@ void HandleGiaMaxMoveEffect()
             {
                 gEffectBattler = gBattlerAttacker;
                 gBattleMoveDamage = gBattleMons[gEffectBattler].hp - gBattleMons[gEffectBattler].maxHP;
-                bs_push(0, BattleScript_DyanamaxHealSelfAll)
+                bs_push(0, BattleScript_DynamaxHealSelfAll)
             }
         }
         else
@@ -283,12 +282,12 @@ void HandleGiaMaxMoveEffect()
             {
                 gEffectBattler = BATTLE_PARTNER(gBattlerAttacker);
                 gBattleMoveDamage = gBattleMons[gEffectBattler].hp - gBattleMons[gEffectBattler].maxHP;
-                bs_push(0, BattleScript_DyanamaxHealSelfAll)
+                bs_push(0, BattleScript_DynamaxHealSelfAll)
             }
         }
         break;
     case G_MAX_DEPLETION:
-        bs_push(1, BattleScript_DyanamaxTryppreduce);
+        bs_push(1, BattleScript_DynamaxTryppreduce);
         break;
     case G_MAX_GRAVITAS:
         break;

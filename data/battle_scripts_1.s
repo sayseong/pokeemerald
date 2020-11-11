@@ -7701,14 +7701,14 @@ BattleScript_DynamaxClearFieldEffects::
 	waitmessage 0x40
 	return
 
-BattleScript_DyanamaxHealSelfAll::
+BattleScript_DynamaxHealSelfAll::
 	healthbarupdate BS_EFFECT_BATTLER
 	datahpupdate BS_EFFECT_BATTLER
 	printstring STRINGID_PKMNREGAINEDHEALTH
 	waitmessage 0x40
 	return
 
-BattleScript_DyanamaxTryppreduce::
+BattleScript_DynamaxTryppreduce::
 	tryspiteppreduce BattleScript_MoveUsedIsConfusedRet
 	printstring STRINGID_PKMNREDUCEDPP
 	waitmessage 0x40

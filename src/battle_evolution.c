@@ -412,8 +412,8 @@ static void DoDynamaxEvolution(u32 battlerId)
 	MarkBattlerForControllerExec(battlerId);
 }
 static void UndoDynamaxEvolution(u32 monId) {
-	gPlayerParty[monId].hp /= 2;
-	gPlayerParty[monId].maxHP /= 2;
+	/*gPlayerParty[monId].hp /= 2;
+	gPlayerParty[monId].maxHP /= 2;*/
 }
 
 static void ChangeMegaTrigger(u8 state)

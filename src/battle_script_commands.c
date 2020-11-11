@@ -3007,9 +3007,6 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_MoveEffectBugBite;
                 }
                 break;
-            case MOVE_EFFECT_DYNAMAX:
-                HandleDynamaxMoveEffect();
-                break;
             }
         }
     }
@@ -3020,7 +3017,11 @@ void SetMoveEffect(bool32 primary, u32 certain)
 static void Cmd_seteffectwithchance(void)
 {
     u32 percentChance;
-
+    if (gBattleScripting.moveEffect == MOVE_EFFECT_DYNAMAX)
+    {
+        HandleDynamaxMoveEffect();
+        return;
+    }
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE)
         percentChance = gBattleMoves[gCurrentMove].secondaryEffectChance * 2;
     else
