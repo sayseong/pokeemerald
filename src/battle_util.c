@@ -1923,10 +1923,8 @@ u8 DoBattlerEndTurnEffects(void)
             gBattleStruct->turnEffectsTracker++;
             break;
         case ENDTURN_DYNAMAX_COUNTER:
-        	if (gBattleStruct->mega.timer[GET_BATTLER_SIDE(gActiveBattler)] && --gBattleStruct->mega.timer[GET_BATTLER_SIDE(gActiveBattler)] == 0){
-        		effect++;
-				BattleScriptExecute(BattleScript_SlowStartEnds);
-        	}
+        	effect = HandleDynamaxEndTurnEffect();
+            break;
         case ENDTURN_BATTLER_COUNT:  // done
             gBattleStruct->turnEffectsTracker = 0;
             gBattleStruct->turnEffectsBattlerId++;
@@ -6883,7 +6881,7 @@ bool32 CanMegaEvolve(u8 battlerId)
 
 void UndoMegaEvolution(u32 monId)
 {
-    if (gBattleStruct->mega.partyEvolvedType[monId] == EvolutionMegaHappend)
+    if (gBattleStruct->mega.partyEvolvedType[monId] == TRUE)
     {
         gBattleStruct->mega.partyEvolvedType[monId] = EvolutionNone;
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->mega.playerEvolvedSpecies);

@@ -22,9 +22,9 @@ struct BattleEvolutionFunc {
     TypeChangeTriggerSprite ChangeTriggerSprite;
 };
 
-void InitBattleStruct();
+
 bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId);
 const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId);
-const struct BattleEvolutionFunc* GetBattleEvolutionFuncByPos(u32 monId, u8 side);
+const struct BattleEvolutionFunc* GetBattlerFuncByEvolutionType(u32 monId, u8 side);
 void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum BattleEvolutionType value);
 #endif //ENGINEUPDATED_BATTLE_EVOLUTION_H

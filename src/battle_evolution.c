@@ -37,7 +37,7 @@ enum MegaGraphicsTags
 static void SpriteCB_DynamaxTrigger(struct Sprite* self);
 void SpriteCb_MegaIndicator(struct Sprite* sprite);
 static void DestroyDynamaxTrigger();
-
+static enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId);
 static const u32 Dynamax_IndicatorTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.4bpp");
 static const u16 Dynamax_IndicatorPal[] = INCBIN_U16("graphics/battle_interface/Dynamax_Indicator.gbapal");
 //extern const u32 Dynamax_TriggerTiles[]; //For some reason this doesn't work
@@ -307,10 +307,7 @@ void HideDynamaxTriggerSprite(void)
 	gSprites[gBattleStruct->mega.dynamaxTriggerId].tHide = TRUE;
 }
 
-enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
-{
-	return evolutionData->evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)];
-}
+
 enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId)
 {
 	return GetEvolutionType(&gBattleStruct->mega, battlerId);
@@ -324,7 +321,7 @@ void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum Batt
 bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
 {
 	enum BattleEvolutionType type = GetEvolutionType(evolutionData, battlerId);
-	return type > EvolutionNone && type < EvolutionMegaHappend;
+	return type == EvolutionNone;
 }
 
 static bool32 CanPokemonMega(struct Pokemon* mon)
@@ -388,6 +385,7 @@ void AnimTask_GrowthAffine(u8 taskId)
 
 static void DoMegaEvolution(u32 battlerId)
 {
+    SetEvolutionType(gBattleStruct, battlerId, EvolutionMega);
 	gLastUsedItem = gBattleMons[battlerId].item;
 	BattleScriptExecute(BattleScript_MegaEvolution);
 }
@@ -400,6 +398,7 @@ static void DoDynamaxEvolution(u32 battlerId)
 	gBattleMoveDamage = -gBattleMons[battlerId].hp;
 	gBattleMons[battlerId].hp *= 2;
 	gBattleStruct->mega.timer[GET_BATTLER_SIDE(battlerId)] = 3;
+    SetEvolutionType(gBattleStruct, battlerId, EvolutionDynamax);
 	for (i = 0; i < 4; ++i)
 	{
 		for(j = MOVE_MAX_GUARD;j <= MOVE_MAX_STEELSPIKE;j++){
@@ -454,9 +453,7 @@ static const struct BattleEvolutionFunc* const sBattleEvolutionFuncs[] =
 	{
 		[EvolutionNone] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
 		[EvolutionMega] = &sBattleEvolutionMega,
-		[EvolutionDynamax] = &sBattleEvolutionDynamax,
-		[EvolutionMegaHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
-		[EvolutionDynamaxHappend] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
+		[EvolutionDynamax] = &sBattleEvolutionDynamax
 	};
 
 static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke)
@@ -476,10 +473,23 @@ static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke)
 	}
 }
 
-void InitBattleStruct()
+struct Pokemon* GetBankPartyData(u8 bank)
 {
-	InitBattleEvolutionForParty(gBattleStruct->mega.evolutionType[0], gPlayerParty);
-	InitBattleEvolutionForParty(gBattleStruct->mega.evolutionType[1], gEnemyParty);
+    u8 index = gBattlerPartyIndexes[bank];
+    return (GET_BATTLER_SIDE2(bank) == B_SIDE_OPPONENT) ? &gEnemyParty[index] : &gPlayerParty[index];
+}
+
+enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
+{
+    int i;
+    struct Pokemon* pokemon = GetBankPartyData(battlerId);
+    for (i = 1; i < ARRAY_COUNT(sBattleEvolutionFuncs); ++i)
+    {
+        if (sBattleEvolutionFuncs[i]->CanPokemonEvolution(pokemon)) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId)
@@ -487,7 +497,7 @@ const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId)
 	return sBattleEvolutionFuncs[GetEvolutionType(&gBattleStruct->mega, battlerId)];
 }
 
-const struct BattleEvolutionFunc* GetBattleEvolutionFuncByPos(u32 monId, u8 side)
+const struct BattleEvolutionFunc* GetBattlerFuncByEvolutionType(u32 monId, u8 side)// for evolved
 {
 	return sBattleEvolutionFuncs[gBattleStruct->mega.evolutionType[side][monId]];
 }

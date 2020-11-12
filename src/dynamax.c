@@ -35,7 +35,7 @@ bool32 CanBattlerEvo(u8 battlerId)
 
 bool32 IsEvolutionHappened(u32 battlerId)
 {
-    return GetEvolutionTypeForBattler(battlerId) >= EvolutionMegaHappend;
+    return GetEvolutionTypeForBattler(battlerId) > EvolutionNone;
 }
 
 void CreateTrigger(u8 battlerId, u8 palId)
@@ -60,7 +60,7 @@ void DoEvolution(u32 battlerId)
 
 void UndoEvolution(u32 monId)
 {
-    GetBattleEvolutionFuncByPos(monId, 0)->UndoEvolution(monId);
+    GetBattlerFuncByEvolutionType(monId, 0)->UndoEvolution(monId);
 }
 
 void ChangeTriggerSprite(u8 battler, u8 state)
@@ -77,7 +77,7 @@ static const u8 gDynamaxWeatherEffectCmd[] = { 0x7D, 0xBB, 0x95, 0xC8 };
 
 void HandleTerrainMove(u32 moveEffect);
 
-static const u8 gDynamaxRepeatMoveEffectScript[] = { 0, 0x15, 0x3c };//donothing seteffectwithchance return
+extern u8 gDynamaxRepeatMoveEffectScript[];//donothing seteffectwithchance return
 extern const u8 BattleScript_PrintWeatherInfo[];
 extern const u8 BattleScript_DynamaxPrintTerrain[];
 
@@ -86,10 +86,10 @@ void SetEffectTargetAll(u8 arg) {
     if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
     {
         gBattleScripting.moveEffect = arg;
-        gBattlescriptCurrInstr--;
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = gDynamaxRepeatMoveEffectScript;
         SetMoveEffect(FALSE, MOVE_EFFECT_CERTAIN);
         gBattleScripting.savedMoveEffect = 0;
-        gBattleScripting.moveEffect = MOVE_EFFECT_DYNAMAX;
     }
     else
     {
@@ -103,7 +103,6 @@ void SetEffectTargetAll(u8 arg) {
         {
             gBattlescriptCurrInstr++;
         }
-        gBattleScripting.moveEffect = 0;
     }
 }
 extern u8 BattleScript_SpikesFree[];
@@ -176,6 +175,16 @@ void HandleClearRocks() {
     }
 }
 
+void SetGMaxFieldData(u8 type)
+{
+    if (gBattleStruct->mega.gMaxFieldType != type || gBattleStruct->mega.gMaxFieldCounter == 0)
+    {
+        gBattleStruct->mega.gMaxFieldCounter = 4;
+        gBattleStruct->mega.gMaxFieldType = type;
+    }
+    gBattlescriptCurrInstr++;
+}
+
 void HandleDynamaxMoveEffect()
 {
     u8 arg;
@@ -213,6 +222,8 @@ extern u8 BattleScript_DynamaxRecycleItem[];
 extern u8 BattleScript_DynamaxSetTealthrock[];
 extern u8 BattleScript_DynamaxHealSelfAll[];
 extern u8 BattleScript_DyanamaxTryppreduce[];
+extern u8 BattleScript_DynamaxHealPartyStatus[];
+extern u8 BattleScript_DynamaxSetTorment[];
 
 void HandleGiaMaxMoveEffect()
 {
@@ -222,9 +233,7 @@ void HandleGiaMaxMoveEffect()
     switch (arg + G_MAX_WILDFIRE)
     {
     case G_MAX_WILDFIRE:
-        gBattleStruct->mega.gMaxFieldCounter = 4;
-        gBattleStruct->mega.gMaxFieldType = TYPE_FIRE;
-        gBattlescriptCurrInstr++;
+        SetGMaxFieldData(TYPE_FIRE);
         break;
     case G_MAX_BEFUDDLE://随机异常
         SetEffectTargetAll(MOVE_EFFECT_SLEEP +(Random() & 3));
@@ -293,7 +302,82 @@ void HandleGiaMaxMoveEffect()
         break;
     case G_MAX_VOLCALITH:
         break;
-    case G_MAX_SANDBLAST:
+    case G_MAX_SANDBLAST://MOVE_EFFECT_WRAP
+        break;
+    case G_MAX_SNOOZE://sleep
+        break;
+    case G_MAX_TARTNESS://闪避率
+        break;
+    case G_MAX_SWEETNESS:
+        bs_push(1, BattleScript_DynamaxHealPartyStatus)
+        break;
+    case G_MAX_SMITE://BattleScript_EffectConfuseHit
+        break;
+    case G_MAX_STEELSURGE:
+        break;
+    case G_MAX_MELTDOWN:
+        gBattlescriptCurrInstr = BattleScript_DynamaxSetTorment;
+        break;
+    case G_MAX_FOAM_BURST:
+        SetEffectTargetAll(MOVE_EFFECT_SPD_MINUS_2);
+        break;
+    case G_MAX_CENTIFERNO:
+        break;
+    case G_MAX_DRUM_SOLO://FLAG_TARGET_ABILITY_IGNORED
+    case G_MAX_FIREBALL:
+    case G_MAX_HYDROSNIPE:
+        break;
+    case G_MAX_VINE_LASH:
+        SetGMaxFieldData(TYPE_GRASS);
+        break;
+    case G_MAX_CANNONADE:
+        SetGMaxFieldData(TYPE_WATER);
+        break;
+    }
+}
+
+extern u8 BattleScript_SlowStartEnds[];
+
+bool32 HandleDynamaxEndTurnEffect()
+{
+    bool32 ret;
+    struct BattleEvolutionData* mega;
+    mega = &gBattleStruct->mega;
+    ret = FALSE;
+    switch (mega->gMaxEndTurnTracer)
+    {
+    case 0:
+        if (mega->timer[GET_BATTLER_SIDE2(gActiveBattler)]
+            && gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(gActiveBattler)][gBattlerPartyIndexes[gActiveBattler]] == EvolutionDynamax
+            && --mega->timer[GET_BATTLER_SIDE2(gActiveBattler)] == 0)
+        {
+            BattleScriptExecute(BattleScript_SlowStartEnds);
+            ret = TRUE;
+        }
+        gBattleStruct->mega.gMaxEndTurnTracer++;
+        break;
+    case 1:
+        gBattleStruct->mega.gMaxEndTurnTracer = 0;
+        gBattleStruct->turnEffectsBattlerId++;
+        break;
+    }
+
+    return ret;
+}
+
+#include "task.h"
+
+void GMaxAnimateTask(u8 taskId)
+{
+#define taskTracer data[0]
+    struct Task* task;
+    task = &gTasks[taskId];
+
+    switch (task->taskTracer)
+    {
+    case 0://create sprite
+        break;
+    case 1://
         break;
     }
 }

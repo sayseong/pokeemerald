@@ -17,7 +17,7 @@ void AllocateBattleResources(void)
         InitTrainerHillBattleStruct();
 
     gBattleStruct = AllocZeroed(sizeof(*gBattleStruct));
-    InitBattleStruct();
+
     gBattleResources = AllocZeroed(sizeof(*gBattleResources));
     gBattleResources->secretBase = AllocZeroed(sizeof(*gBattleResources->secretBase));
     gBattleResources->flags = AllocZeroed(sizeof(*gBattleResources->flags));

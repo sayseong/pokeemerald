@@ -7714,3 +7714,22 @@ BattleScript_DynamaxTryppreduce::
 	waitmessage 0x40
 	return
 	
+BattleScript_DynamaxHealPartyStatus::
+	healpartystatus
+	waitstate
+	printfromtable gPartyStatusHealStringIds
+	waitmessage 0x40
+	return
+
+gDynamaxRepeatMoveEffectScript::
+	.byte 0
+	sethword sMOVE_EFFECT MOVE_EFFECT_DYNAMAX
+	seteffectwithchance
+	return
+
+BattleScript_DynamaxSetTorment::
+	jumpifability BS_TARGET_SIDE, ABILITY_AROMA_VEIL, BattleScript_AromaVeilProtects
+	settorment BattleScript_ButItFailed
+	printstring STRINGID_PKMNSUBJECTEDTOTORMENT
+	waitmessage 0x40
+	goto BattleScript_MoveEnd

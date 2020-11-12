@@ -3017,17 +3017,15 @@ void SetMoveEffect(bool32 primary, u32 certain)
 static void Cmd_seteffectwithchance(void)
 {
     u32 percentChance;
-    if (gBattleScripting.moveEffect == MOVE_EFFECT_DYNAMAX)
-    {
-        HandleDynamaxMoveEffect();
-        return;
-    }
     if (GetBattlerAbility(gBattlerAttacker) == ABILITY_SERENE_GRACE)
         percentChance = gBattleMoves[gCurrentMove].secondaryEffectChance * 2;
     else
         percentChance = gBattleMoves[gCurrentMove].secondaryEffectChance;
-
-    if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN
+    if (gBattleScripting.moveEffect == MOVE_EFFECT_DYNAMAX)
+    {
+        HandleDynamaxMoveEffect();
+    }
+    else if (gBattleScripting.moveEffect & MOVE_EFFECT_CERTAIN
         && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
     {
         gBattleScripting.moveEffect &= ~(MOVE_EFFECT_CERTAIN);
@@ -7643,7 +7641,7 @@ static void Cmd_various(void)
         {
             gBattleStruct->mega.alreadyEvolved[GetBattlerPosition(gActiveBattler)] = TRUE;
             if (GET_BATTLER_SIDE2(gActiveBattler) == B_SIDE_PLAYER)
-                gBattleStruct->mega.partyEvolvedType[gBattlerPartyIndexes[gActiveBattler]] = EvolutionMegaHappend;
+                gBattleStruct->mega.partyEvolvedType[gBattlerPartyIndexes[gActiveBattler]] = TRUE;
         }
         // Update healthbox and elevation.
         else
