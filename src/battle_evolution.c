@@ -37,7 +37,6 @@ enum MegaGraphicsTags
 static void SpriteCB_DynamaxTrigger(struct Sprite* self);
 void SpriteCb_MegaIndicator(struct Sprite* sprite);
 static void DestroyDynamaxTrigger();
-static enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId);
 static const u32 Dynamax_IndicatorTiles[] = INCBIN_U32("graphics/battle_interface/Dynamax_Indicator.4bpp");
 static const u16 Dynamax_IndicatorPal[] = INCBIN_U16("graphics/battle_interface/Dynamax_Indicator.gbapal");
 //extern const u32 Dynamax_TriggerTiles[]; //For some reason this doesn't work
@@ -308,21 +307,12 @@ void HideDynamaxTriggerSprite(void)
 }
 
 
-enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId)
-{
-	return GetEvolutionType(&gBattleStruct->mega, battlerId);
-}
-
 void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum BattleEvolutionType value)
 {
-	battleStruct->mega.evolutionType[battlerId & 1][GET_BATTLER_POSITION(battlerId)] = value;
+	battleStruct->mega.evolutionType[GET_BATTLER_SIDE2(battlerId)][gBattlerPartyIndexes[battlerId]] = value;
 }
 
-bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
-{
-	enum BattleEvolutionType type = GetEvolutionType(evolutionData, battlerId);
-	return type == EvolutionNone;
-}
+
 
 static bool32 CanPokemonMega(struct Pokemon* mon)
 {
@@ -479,10 +469,11 @@ struct Pokemon* GetBankPartyData(u8 bank)
     return (GET_BATTLER_SIDE2(bank) == B_SIDE_OPPONENT) ? &gEnemyParty[index] : &gPlayerParty[index];
 }
 
-enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId)
+enum BattleEvolutionType CalEvolutionType(u8 battlerId)
 {
     int i;
-    struct Pokemon* pokemon = GetBankPartyData(battlerId);
+    struct Pokemon* pokemon;
+    pokemon = GetBankPartyData(battlerId);
     for (i = 1; i < ARRAY_COUNT(sBattleEvolutionFuncs); ++i)
     {
         if (sBattleEvolutionFuncs[i]->CanPokemonEvolution(pokemon)) {
@@ -492,9 +483,16 @@ enum BattleEvolutionType GetEvolutionType(struct BattleEvolutionData* evolutionD
     return 0;
 }
 
+enum BattleEvolutionType GetEvolutionType(u8 battlerId)
+{
+    return gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(battlerId)][gBattlerPartyIndexes[battlerId]];
+}
+
 const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId)
 {
-	return sBattleEvolutionFuncs[GetEvolutionType(&gBattleStruct->mega, battlerId)];
+    u8 type = GetEvolutionType(battlerId);
+    if (!type) type = CalEvolutionType(battlerId);
+	return sBattleEvolutionFuncs[type];
 }
 
 const struct BattleEvolutionFunc* GetBattlerFuncByEvolutionType(u32 monId, u8 side)// for evolved

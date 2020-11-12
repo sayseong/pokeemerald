@@ -22,8 +22,8 @@ struct BattleEvolutionFunc {
     TypeChangeTriggerSprite ChangeTriggerSprite;
 };
 
-
-bool32 CheckEvolutionType(struct BattleEvolutionData* evolutionData, u8 battlerId);
+enum BattleEvolutionType GetEvolutionType(u8 battlerId);
+enum BattleEvolutionType CalEvolutionType(u8 battlerId);
 const struct BattleEvolutionFunc* GetBattleEvolutionFunc(u8 battlerId);
 const struct BattleEvolutionFunc* GetBattlerFuncByEvolutionType(u32 monId, u8 side);
 void SetEvolutionType(struct BattleStruct* battleStruct, u8 battlerId, enum BattleEvolutionType value);

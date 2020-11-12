@@ -30,12 +30,12 @@ bool32 CanBattlerEvo(u8 battlerId)
             && (mega->alreadyEvolved[partnerPosition] || (mega->toEvolve & (1 << BATTLE_PARTNER(battlerId)))))
             return FALSE;
     }
-    return CheckEvolutionType(mega, battlerId);
+    return CalEvolutionType(battlerId) != 0;
 }
 
 bool32 IsEvolutionHappened(u32 battlerId)
 {
-    return GetEvolutionTypeForBattler(battlerId) > EvolutionNone;
+    return gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(battlerId)][gBattlerPartyIndexes[battlerId]] > EvolutionNone;
 }
 
 void CreateTrigger(u8 battlerId, u8 palId)

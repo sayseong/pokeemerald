@@ -11,7 +11,6 @@ void DoEvolution(u32 battlerId);
 void UndoEvolution(u32 monId);
 void ChangeTriggerSprite(u8 battlerId, u8 state);
 u8 GetIndicatorSpriteId(u32 healthboxSpriteId);
-enum BattleEvolutionType GetEvolutionTypeForBattler(u8 battlerId);
 bool32 HandleDynamaxEndTurnEffect();
 enum BattleEvolutionType {
     EvolutionNone = 0, EvolutionMega = 1, EvolutionDynamax = 2
