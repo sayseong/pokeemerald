@@ -756,40 +756,40 @@
 #define MOVE_MAX_OVERGROWTH        (MOVES_COUNT_GEN8 + 17)    //极巨草原
 #define MOVE_MAX_STEELSPIKE        (MOVES_COUNT_GEN8 + 18)    //极巨钢铁
 
-#define	G_MAX_WILDFIRE		       (MOVES_COUNT_GEN8 + 19)	//超极巨地狱灭焰
-#define	G_MAX_BEFUDDLE		       (MOVES_COUNT_GEN8 + 20)	//超极巨蝶影蛊惑
-#define	G_MAX_VOLT_CRASH		   (MOVES_COUNT_GEN8 + 21)	//超极巨万雷轰顶
-#define	G_MAX_GOLD_RUSH		       (MOVES_COUNT_GEN8 + 22)	//超极巨特大金币
-#define	G_MAX_CHI_STRIKE		   (MOVES_COUNT_GEN8 + 23)	//超极巨会心一击
-#define	G_MAX_TERROR		       (MOVES_COUNT_GEN8 + 24)	//超极巨幻影幽魂
-#define	G_MAX_RESONANCE		       (MOVES_COUNT_GEN8 + 25)	//超极巨极光旋律
-#define	G_MAX_CUDDLE		       (MOVES_COUNT_GEN8 + 26)	//超极巨热情拥抱
-#define	G_MAX_REPLENISH		       (MOVES_COUNT_GEN8 + 27)	//超极巨资源再生
-#define	G_MAX_MALODOR		       (MOVES_COUNT_GEN8 + 28)	//超极巨臭气冲天
-#define	G_MAX_STONESURGE		   (MOVES_COUNT_GEN8 + 29)	//超极巨岩阵以待
-#define	G_MAX_WIND_RAGE		       (MOVES_COUNT_GEN8 + 30)	//超极巨旋风袭卷
-#define	G_MAX_STUN_SHOCK		   (MOVES_COUNT_GEN8 + 31)	//超极巨异毒电场
-#define	G_MAX_FINALE		       (MOVES_COUNT_GEN8 + 32)	//超极巨幸福圆满
-#define	G_MAX_DEPLETION		       (MOVES_COUNT_GEN8 + 33)	//超极巨劣化衰变
-#define	G_MAX_GRAVITAS		       (MOVES_COUNT_GEN8 + 34)	//超极巨天道七星
-#define	G_MAX_VOLCALITH		       (MOVES_COUNT_GEN8 + 35)	//超极巨炎石喷发
-#define	G_MAX_SANDBLAST		       (MOVES_COUNT_GEN8 + 36)	//超极巨沙尘漫天
-#define	G_MAX_SNOOZE		       (MOVES_COUNT_GEN8 + 37)	//超极巨睡魔降临
-#define	G_MAX_TARTNESS		       (MOVES_COUNT_GEN8 + 38)	//超极巨酸不溜丢
-#define	G_MAX_SWEETNESS		       (MOVES_COUNT_GEN8 + 39)	//超极巨琼浆玉液
-#define	G_MAX_SMITE		           (MOVES_COUNT_GEN8 + 40)	//超极巨天谴雷诛
-#define	G_MAX_STEELSURGE		   (MOVES_COUNT_GEN8 + 41)	//超极巨钢铁阵法
-#define	G_MAX_MELTDOWN		       (MOVES_COUNT_GEN8 + 42)	//超极巨液金熔击
-#define	G_MAX_FOAM_BURST		   (MOVES_COUNT_GEN8 + 43)	//超极巨激漩泡涡
-#define	G_MAX_CENTIFERNO		   (MOVES_COUNT_GEN8 + 44)	//超极巨百火焚野
-#define	G_MAX_DRUM_SOLO		       (MOVES_COUNT_GEN8 + 45)	//超极巨狂擂乱打
-#define	G_MAX_FIREBALL		       (MOVES_COUNT_GEN8 + 46)	//超极巨破阵火球
-#define	G_MAX_HYDROSNIPE		   (MOVES_COUNT_GEN8 + 47)	//超极巨狙击神射
-#define	G_MAX_VINE_LASH		       (MOVES_COUNT_GEN8 + 48)	//超极巨灰飞鞭灭
-#define	G_MAX_CANNONADE		       (MOVES_COUNT_GEN8 + 49)	//超极巨水炮轰灭
-#define	G_MAX_ONE_BLOW		       (MOVES_COUNT_GEN8 + 50)	//超极巨夺命一击
-#define	G_MAX_RAPID_FLOW		   (MOVES_COUNT_GEN8 + 51)	//超极巨流水连击
+#define	MOVE_G_MAX_WILDFIRE		   (MOVES_COUNT_GEN8 + 19)	//超极巨地狱灭焰
+#define	MOVE_G_MAX_BEFUDDLE		   (MOVES_COUNT_GEN8 + 20)	//超极巨蝶影蛊惑
+#define	MOVE_G_MAX_VOLT_CRASH	   (MOVES_COUNT_GEN8 + 21)	//超极巨万雷轰顶
+#define	MOVE_G_MAX_GOLD_RUSH	   (MOVES_COUNT_GEN8 + 22)	//超极巨特大金币
+#define	MOVE_G_MAX_CHI_STRIKE	   (MOVES_COUNT_GEN8 + 23)	//超极巨会心一击
+#define	MOVE_G_MAX_TERROR		   (MOVES_COUNT_GEN8 + 24)	//超极巨幻影幽魂
+#define	MOVE_G_MAX_RESONANCE	   (MOVES_COUNT_GEN8 + 25)	//超极巨极光旋律
+#define	MOVE_G_MAX_CUDDLE		   (MOVES_COUNT_GEN8 + 26)	//超极巨热情拥抱
+#define	MOVE_G_MAX_REPLENISH	   (MOVES_COUNT_GEN8 + 27)	//超极巨资源再生
+#define	MOVE_G_MAX_MALODOR		   (MOVES_COUNT_GEN8 + 28)	//超极巨臭气冲天
+#define	MOVE_G_MAX_STONESURGE	   (MOVES_COUNT_GEN8 + 29)	//超极巨岩阵以待
+#define	MOVE_G_MAX_WIND_RAGE	   (MOVES_COUNT_GEN8 + 30)	//超极巨旋风袭卷
+#define	MOVE_G_MAX_STUN_SHOCK      (MOVES_COUNT_GEN8 + 31)	//超极巨异毒电场
+#define	MOVE_G_MAX_FINALE		   (MOVES_COUNT_GEN8 + 32)	//超极巨幸福圆满
+#define	MOVE_G_MAX_DEPLETION	   (MOVES_COUNT_GEN8 + 33)	//超极巨劣化衰变
+#define	MOVE_G_MAX_GRAVITAS		   (MOVES_COUNT_GEN8 + 34)	//超极巨天道七星
+#define	MOVE_G_MAX_VOLCALITH	   (MOVES_COUNT_GEN8 + 35)	//超极巨炎石喷发
+#define	MOVE_G_MAX_SANDBLAST	   (MOVES_COUNT_GEN8 + 36)	//超极巨沙尘漫天
+#define	MOVE_G_MAX_SNOOZE		   (MOVES_COUNT_GEN8 + 37)	//超极巨睡魔降临
+#define	MOVE_G_MAX_TARTNESS		   (MOVES_COUNT_GEN8 + 38)	//超极巨酸不溜丢
+#define	MOVE_G_MAX_SWEETNESS	   (MOVES_COUNT_GEN8 + 39)	//超极巨琼浆玉液
+#define	MOVE_G_MAX_SMITE		   (MOVES_COUNT_GEN8 + 40)	//超极巨天谴雷诛
+#define	MOVE_G_MAX_STEELSURGE	   (MOVES_COUNT_GEN8 + 41)	//超极巨钢铁阵法
+#define	MOVE_G_MAX_MELTDOWN		   (MOVES_COUNT_GEN8 + 42)	//超极巨液金熔击
+#define	MOVE_G_MAX_FOAM_BURST	   (MOVES_COUNT_GEN8 + 43)	//超极巨激漩泡涡
+#define	MOVE_G_MAX_CENTIFERNO	   (MOVES_COUNT_GEN8 + 44)	//超极巨百火焚野
+#define	MOVE_G_MAX_DRUM_SOLO	   (MOVES_COUNT_GEN8 + 45)	//超极巨狂擂乱打
+#define	MOVE_G_MAX_FIREBALL		   (MOVES_COUNT_GEN8 + 46)	//超极巨破阵火球
+#define	MOVE_G_MAX_HYDROSNIPE	   (MOVES_COUNT_GEN8 + 47)	//超极巨狙击神射
+#define	MOVE_G_MAX_VINE_LASH	   (MOVES_COUNT_GEN8 + 48)	//超极巨灰飞鞭灭
+#define	MOVE_G_MAX_CANNONADE	   (MOVES_COUNT_GEN8 + 49)	//超极巨水炮轰灭
+#define	MOVE_G_MAX_ONE_BLOW		   (MOVES_COUNT_GEN8 + 50)	//超极巨夺命一击
+#define	MOVE_G_MAX_RAPID_FLOW	   (MOVES_COUNT_GEN8 + 51)	//超极巨流水连击
 
-#define MOVES_COUNT                 (MOVE_MAX_STEELSPIKE+1)
+#define MOVES_COUNT                 (MOVES_COUNT_GEN8+1)
 
 #endif  // GUARD_CONSTANTS_MOVES_H

@@ -443,7 +443,8 @@ static const struct BattleEvolutionFunc* const sBattleEvolutionFuncs[] =
 	{
 		[EvolutionNone] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc,
 		[EvolutionMega] = &sBattleEvolutionMega,
-		[EvolutionDynamax] = &sBattleEvolutionDynamax
+		[EvolutionDynamax] = &sBattleEvolutionDynamax,
+		[EvolutionEnd] = (const struct BattleEvolutionFunc*)sDummyBattleEvolutionFunc
 	};
 
 static void InitBattleEvolutionForParty(u8* array, struct Pokemon* poke)

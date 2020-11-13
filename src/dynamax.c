@@ -111,36 +111,32 @@ extern u8 BattleScript_StickyWebFree[];
 extern u8 BattleScript_StealthRockFree[];
 extern u8 BattleScript_DynamaxClearFieldEffects[];
 
-void HandleClearRocks() {
+void* HandleClearRocks() {
     u8 atkSide = GET_BATTLER_SIDE2(gBattlerAttacker);
 
     if (gSideStatuses[atkSide] & SIDE_STATUS_SPIKES)
     {
         gSideStatuses[atkSide] &= ~(SIDE_STATUS_SPIKES);
         gSideTimers[atkSide].spikesAmount = 0;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_SpikesFree;
+        return BattleScript_SpikesFree;
     }
     else if (gSideStatuses[atkSide] & SIDE_STATUS_TOXIC_SPIKES)
     {
         gSideStatuses[atkSide] &= ~(SIDE_STATUS_TOXIC_SPIKES);
         gSideTimers[atkSide].toxicSpikesAmount = 0;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_ToxicSpikesFree;
+        return BattleScript_ToxicSpikesFree;
     }
     else if (gSideStatuses[atkSide] & SIDE_STATUS_STICKY_WEB)
     {
         gSideStatuses[atkSide] &= ~(SIDE_STATUS_STICKY_WEB);
         gSideTimers[atkSide].stickyWebAmount = 0;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_StickyWebFree;
+        return BattleScript_StickyWebFree;
     }
     else if (gSideStatuses[atkSide] & SIDE_STATUS_STEALTH_ROCK)
     {
         gSideStatuses[atkSide] &= ~(SIDE_STATUS_STEALTH_ROCK);
         gSideTimers[atkSide].stealthRockAmount = 0;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_StealthRockFree;
+        return BattleScript_StealthRockFree;
     }
     else if (gFieldStatuses > 0)
     {
@@ -150,28 +146,25 @@ void HandleClearRocks() {
         gFieldTimers.electricTerrainTimer = 0;
         gFieldTimers.psychicTerrainTimer = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_DynamaxClearFieldEffects;
+        return BattleScript_DynamaxClearFieldEffects;
     }
     else if (gSideTimers[BATTLE_OPPOSITE(atkSide)].reflectTimer)
     {
         gSideStatuses[BATTLE_OPPOSITE(atkSide)] &= ~(SIDE_STATUS_REFLECT);
         gSideTimers[BATTLE_OPPOSITE(atkSide)].reflectTimer = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_DynamaxClearFieldEffects;
+        return BattleScript_DynamaxClearFieldEffects;
     }
     else if (gSideTimers[BATTLE_OPPOSITE(atkSide)].lightscreenTimer)
     {
         gSideStatuses[BATTLE_OPPOSITE(atkSide)] &= ~(SIDE_STATUS_LIGHTSCREEN);
         gSideTimers[BATTLE_OPPOSITE(atkSide)].lightscreenTimer = 0;
         gBattleCommunication[MULTISTRING_CHOOSER] = 2;
-        BattleScriptPushCursor();
-        gBattlescriptCurrInstr = BattleScript_DynamaxClearFieldEffects;
+        return BattleScript_DynamaxClearFieldEffects;
     }
     else
     {
-        gBattlescriptCurrInstr++;
+        return NULL;
     }
 }
 
@@ -182,7 +175,6 @@ void SetGMaxFieldData(u8 type)
         gBattleStruct->mega.gMaxFieldCounter = 4;
         gBattleStruct->mega.gMaxFieldType = type;
     }
-    gBattlescriptCurrInstr++;
 }
 
 void HandleDynamaxMoveEffect()
@@ -221,59 +213,68 @@ extern u8 BattleScript_DyamaxTryinfatuating[];
 extern u8 BattleScript_DynamaxRecycleItem[];
 extern u8 BattleScript_DynamaxSetTealthrock[];
 extern u8 BattleScript_DynamaxHealSelfAll[];
-extern u8 BattleScript_DyanamaxTryppreduce[];
+extern u8 BattleScript_DynamaxTryppreduce[];
 extern u8 BattleScript_DynamaxHealPartyStatus[];
 extern u8 BattleScript_DynamaxSetTorment[];
 
+void BattleScriptPushCurrent(void* newPtr)
+{
+    BattleScriptPushCursor();
+    gBattlescriptCurrInstr = newPtr;
+}
+
 void HandleGiaMaxMoveEffect()
 {
-    u8 arg;
-    arg = gBattleMoves[gCurrentMove].argument;
-#define bs_push(co, ptr) BattleScriptPush(gBattlescriptCurrInstr+co);gBattlescriptCurrInstr = BattleScript_DynamaxSetTealthrock;
-    switch (arg + G_MAX_WILDFIRE)
+#define bs_push(co, ptr) BattleScriptPush(gBattlescriptCurrInstr+co);gBattlescriptCurrInstr = ptr;
+    switch (gCurrentMove)
     {
-    case G_MAX_WILDFIRE:
+    case MOVE_G_MAX_WILDFIRE:
         SetGMaxFieldData(TYPE_FIRE);
+        gBattlescriptCurrInstr++;
         break;
-    case G_MAX_BEFUDDLE://随机异常
+    case MOVE_G_MAX_BEFUDDLE://随机异常
         SetEffectTargetAll(MOVE_EFFECT_SLEEP +(Random() & 3));
         break;
-    case G_MAX_VOLT_CRASH:
+    case MOVE_G_MAX_VOLT_CRASH:
         SetEffectTargetAll(MOVE_EFFECT_PARALYSIS);
         break;
-    case G_MAX_GOLD_RUSH:
+    case MOVE_G_MAX_GOLD_RUSH:
         gPaydayMoney += (gBattleMons[gBattlerAttacker].level * 200);
         SetEffectTargetAll(MOVE_EFFECT_CONFUSION);
         break;
-    case G_MAX_CHI_STRIKE://FLAG_HIGH_CRIT
+    case MOVE_G_MAX_CHI_STRIKE://FLAG_HIGH_CRIT
         break;
-    case G_MAX_TERROR:
+    case MOVE_G_MAX_TERROR:
         SetEffectTargetAll(MOVE_EFFECT_PREVENT_ESCAPE);
         break;
-    case G_MAX_RESONANCE:
+    case MOVE_G_MAX_RESONANCE:
         BattleScriptPush(gBattlescriptCurrInstr + 1);
         gBattlescriptCurrInstr = BattleScript_DynamaxPrintAuroraVeil;
         break;
-    case G_MAX_CUDDLE:
+    case MOVE_G_MAX_CUDDLE:
 
         break;
-    case G_MAX_REPLENISH:
+    case MOVE_G_MAX_REPLENISH:
         BattleScriptPush(gBattlescriptCurrInstr + 1);
         gBattlescriptCurrInstr = BattleScript_DynamaxRecycleItem;
         break;
-    case G_MAX_MALODOR:
+    case MOVE_G_MAX_MALODOR:
         SetEffectTargetAll(MOVE_EFFECT_POISON);
         break;
-    case G_MAX_STONESURGE:
+    case MOVE_G_MAX_STONESURGE:
         bs_push(1, BattleScript_DynamaxSetTealthrock)
         break;
-    case G_MAX_WIND_RAGE:
-        HandleClearRocks();
+    case MOVE_G_MAX_WIND_RAGE:
+    {
+        void* ptr = HandleClearRocks();
+        if (ptr) BattleScriptPushCurrent(ptr);
+        else gBattlescriptCurrInstr++;
+    }
         break;
-    case G_MAX_STUN_SHOCK:
+    case MOVE_G_MAX_STUN_SHOCK:
         SetEffectTargetAll(Random() & 1 ? MOVE_EFFECT_POISON : MOVE_EFFECT_PARALYSIS);
         break;
-    case G_MAX_FINALE:
+    case MOVE_G_MAX_FINALE:
         if (gBattleScripting.savedMoveEffect == MOVE_EFFECT_DYNAMAX)
         {
             gBattleScripting.savedMoveEffect = 0;
@@ -295,45 +296,48 @@ void HandleGiaMaxMoveEffect()
             }
         }
         break;
-    case G_MAX_DEPLETION:
+    case MOVE_G_MAX_DEPLETION:
         bs_push(1, BattleScript_DynamaxTryppreduce);
         break;
-    case G_MAX_GRAVITAS:
+    case MOVE_G_MAX_GRAVITAS:
         break;
-    case G_MAX_VOLCALITH:
+    case MOVE_G_MAX_VOLCALITH:
         break;
-    case G_MAX_SANDBLAST://MOVE_EFFECT_WRAP
+    case MOVE_G_MAX_SANDBLAST://MOVE_EFFECT_WRAP
         break;
-    case G_MAX_SNOOZE://sleep
+    case MOVE_G_MAX_SNOOZE://sleep
         break;
-    case G_MAX_TARTNESS://闪避率
+    case MOVE_G_MAX_TARTNESS://闪避率
         break;
-    case G_MAX_SWEETNESS:
+    case MOVE_G_MAX_SWEETNESS:
         bs_push(1, BattleScript_DynamaxHealPartyStatus)
         break;
-    case G_MAX_SMITE://BattleScript_EffectConfuseHit
+    case MOVE_G_MAX_SMITE://BattleScript_EffectConfuseHit
         break;
-    case G_MAX_STEELSURGE:
+    case MOVE_G_MAX_STEELSURGE:
         break;
-    case G_MAX_MELTDOWN:
+    case MOVE_G_MAX_MELTDOWN:
         gBattlescriptCurrInstr = BattleScript_DynamaxSetTorment;
         break;
-    case G_MAX_FOAM_BURST:
+    case MOVE_G_MAX_FOAM_BURST:
         SetEffectTargetAll(MOVE_EFFECT_SPD_MINUS_2);
         break;
-    case G_MAX_CENTIFERNO:
+    case MOVE_G_MAX_CENTIFERNO:
         break;
-    case G_MAX_DRUM_SOLO://FLAG_TARGET_ABILITY_IGNORED
-    case G_MAX_FIREBALL:
-    case G_MAX_HYDROSNIPE:
+    case MOVE_G_MAX_DRUM_SOLO://FLAG_TARGET_ABILITY_IGNORED
+    case MOVE_G_MAX_FIREBALL:
+    case MOVE_G_MAX_HYDROSNIPE:
         break;
-    case G_MAX_VINE_LASH:
+    case MOVE_G_MAX_VINE_LASH:
         SetGMaxFieldData(TYPE_GRASS);
+        gBattlescriptCurrInstr++;
         break;
-    case G_MAX_CANNONADE:
+    case MOVE_G_MAX_CANNONADE:
         SetGMaxFieldData(TYPE_WATER);
+        gBattlescriptCurrInstr++;
         break;
     }
+#undef bs_push
 }
 
 extern u8 BattleScript_SlowStartEnds[];

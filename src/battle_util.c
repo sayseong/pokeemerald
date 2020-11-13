@@ -6883,7 +6883,7 @@ void UndoMegaEvolution(u32 monId)
 {
     if (gBattleStruct->mega.partyEvolvedType[monId] == TRUE)
     {
-        gBattleStruct->mega.partyEvolvedType[monId] = EvolutionNone;
+        gBattleStruct->mega.partyEvolvedType[monId] = EvolutionEnd;
         SetMonData(&gPlayerParty[monId], MON_DATA_SPECIES, &gBattleStruct->mega.playerEvolvedSpecies);
         CalculateMonStats(&gPlayerParty[monId]);
     }

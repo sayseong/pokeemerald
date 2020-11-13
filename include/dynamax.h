@@ -13,7 +13,7 @@ void ChangeTriggerSprite(u8 battlerId, u8 state);
 u8 GetIndicatorSpriteId(u32 healthboxSpriteId);
 bool32 HandleDynamaxEndTurnEffect();
 enum BattleEvolutionType {
-    EvolutionNone = 0, EvolutionMega = 1, EvolutionDynamax = 2
+    EvolutionNone = 0, EvolutionMega = 1, EvolutionDynamax = 2, EvolutionEnd = 3
 };
 void HandleDynamaxMoveEffect();
 #define DYNAMAX_SET_RAIN 0
@@ -24,4 +24,5 @@ void HandleDynamaxMoveEffect();
 #define DYNAMAX_SET_GRASS_TERRAIN 5
 #define DYNAMAX_SET_ELECTRIC_TERRAIN 6
 #define DYNAMAX_SET_PSYCHIC_TERRAIN 7
+#define DYNAMAX_GMAX_1 0x20
 #endif //ENGINEUPDATED_DYNAMAX_H
