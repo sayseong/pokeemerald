@@ -45,6 +45,7 @@ void CreateTrigger(u8 battlerId, u8 palId)
 
 void HideTriggerSprite(void)
 {
+    gBattleStruct->mega.playerSelect = FALSE;
     GetBattleEvolutionFunc(gActiveBattler)->HideTriggerSprite();
 }
 
@@ -176,7 +177,7 @@ void SetGMaxFieldData(u8 type)
         gBattleStruct->mega.gMaxFieldType = type;
     }
 }
-
+void HandleGiaMaxMoveEffect();
 void HandleDynamaxMoveEffect()
 {
     u8 arg;
@@ -201,7 +202,10 @@ void HandleDynamaxMoveEffect()
     {
         //stat change twice
         SetEffectTargetAll(arg);
-        return;
+    }
+    else if (arg == DYNAMAX_GMAX_1)
+    {
+        HandleGiaMaxMoveEffect();
     }
     gBattleScripting.moveEffect = 0;
 }
@@ -217,7 +221,7 @@ extern u8 BattleScript_DynamaxTryppreduce[];
 extern u8 BattleScript_DynamaxHealPartyStatus[];
 extern u8 BattleScript_DynamaxSetTorment[];
 
-void BattleScriptPushCurrent(void* newPtr)
+inline void BattleScriptPushCurrent(void* newPtr)
 {
     BattleScriptPushCursor();
     gBattlescriptCurrInstr = newPtr;
@@ -350,7 +354,7 @@ bool32 HandleDynamaxEndTurnEffect()
     ret = FALSE;
     switch (mega->gMaxEndTurnTracer)
     {
-    case 0:
+    case 0://revert
         if (mega->timer[GET_BATTLER_SIDE2(gActiveBattler)]
             && gBattleStruct->mega.evolutionType[GET_BATTLER_SIDE2(gActiveBattler)][gBattlerPartyIndexes[gActiveBattler]] == EvolutionDynamax
             && --mega->timer[GET_BATTLER_SIDE2(gActiveBattler)] == 0)
@@ -360,7 +364,7 @@ bool32 HandleDynamaxEndTurnEffect()
         }
         gBattleStruct->mega.gMaxEndTurnTracer++;
         break;
-    case 1:
+    case 1://field
         gBattleStruct->mega.gMaxEndTurnTracer = 0;
         gBattleStruct->turnEffectsBattlerId++;
         break;

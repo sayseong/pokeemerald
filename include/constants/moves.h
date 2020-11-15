@@ -790,6 +790,6 @@
 #define	MOVE_G_MAX_ONE_BLOW		   (MOVES_COUNT_GEN8 + 50)	//超极巨夺命一击
 #define	MOVE_G_MAX_RAPID_FLOW	   (MOVES_COUNT_GEN8 + 51)	//超极巨流水连击
 
-#define MOVES_COUNT                 (MOVES_COUNT_GEN8+1)
+#define MOVES_COUNT                 (MOVE_G_MAX_RAPID_FLOW+1)
 
 #endif  // GUARD_CONSTANTS_MOVES_H

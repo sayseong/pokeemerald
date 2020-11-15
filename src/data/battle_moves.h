@@ -1,4 +1,4 @@
-const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
+const struct BattleMove gBattleMoves[MOVES_COUNT] =
 {
     [MOVE_NONE] =
     {
@@ -10286,6 +10286,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_BEFUDDLE] =
@@ -10300,7 +10301,8 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
-	},
+        .argument = DYNAMAX_GMAX_1,
+    },
 
 	[MOVE_G_MAX_VOLT_CRASH] =
 	{
@@ -10314,6 +10316,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_GOLD_RUSH] =
@@ -10328,6 +10331,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_CHI_STRIKE] =
@@ -10342,6 +10346,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_TERROR] =
@@ -10356,6 +10361,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_RESONANCE] =
@@ -10370,6 +10376,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_CUDDLE] =
@@ -10384,6 +10391,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_REPLENISH] =
@@ -10398,6 +10406,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
 	[MOVE_G_MAX_MALODOR] =
@@ -10412,6 +10421,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
     [MOVE_G_MAX_STONESURGE] =
@@ -10426,6 +10436,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_WIND_RAGE] =
@@ -10440,6 +10451,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_STUN_SHOCK] =
@@ -10454,6 +10466,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_FINALE] =
@@ -10468,6 +10481,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_DEPLETION] =
@@ -10482,6 +10496,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_GRAVITAS]=
@@ -10496,6 +10511,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_VOLCALITH]=
@@ -10510,6 +10526,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_SANDBLAST]=
@@ -10524,6 +10541,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_SNOOZE]=
@@ -10538,6 +10556,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_TARTNESS]=
@@ -10552,6 +10571,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_SWEETNESS]=
@@ -10566,6 +10586,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_SMITE]=
@@ -10580,6 +10601,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_STEELSURGE]=
@@ -10594,6 +10616,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
 	[MOVE_G_MAX_MELTDOWN] =
@@ -10608,6 +10631,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 
 	},
 
@@ -10623,6 +10647,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
 	[MOVE_G_MAX_CENTIFERNO] =
@@ -10637,6 +10662,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
 		.priority = 0,
 		.flags = 0,
 		.split = SPLIT_PHYSICAL,
+		.argument = DYNAMAX_GMAX_1,
 	},
 
     [MOVE_G_MAX_DRUM_SOLO] =
@@ -10651,6 +10677,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_FIREBALL] =
@@ -10665,6 +10692,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_HYDROSNIPE] =
@@ -10679,6 +10707,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_VINE_LASH] =
@@ -10693,6 +10722,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_CANNONADE] =
@@ -10707,6 +10737,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_ONE_BLOW] =
@@ -10721,6 +10752,7 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 
     [MOVE_G_MAX_RAPID_FLOW] =
@@ -10735,5 +10767,6 @@ const struct BattleMove gBattleMoves[MOVE_G_MAX_RAPID_FLOW+1] =
         .priority = 0,
         .flags = 0,
         .split = SPLIT_PHYSICAL,
+        .argument = DYNAMAX_GMAX_1,
     },
 };

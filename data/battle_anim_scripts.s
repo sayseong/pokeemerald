@@ -753,6 +753,46 @@ gBattleAnims_Moves::
     .4byte Move_POUND
     .4byte Move_POUND
     .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
+    .4byte Move_POUND
 
 	.align 2
 gBattleAnims_StatusConditions::

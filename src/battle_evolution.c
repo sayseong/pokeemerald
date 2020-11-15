@@ -251,12 +251,12 @@ static void SpriteCB_DynamaxTrigger(struct Sprite* sprite)
 	if (sprite->tHide)
 	{
 		if (sprite->pos1.x != gSprites[gHealthboxSpriteIds[sprite->tBattler]].pos1.x - xSlide)
-			sprite->pos1.x++;
+			sprite->pos1.x += 2;
 		if (sprite->pos1.x >= gSprites[gHealthboxSpriteIds[sprite->tBattler]].pos1.x - xPriority)
 			sprite->oam.priority = 2;
 		else
 			sprite->oam.priority = 1;
-		if (sprite->pos1.x == gSprites[gHealthboxSpriteIds[sprite->tBattler]].pos1.x - xSlide)
+		if (sprite->pos1.x >= gSprites[gHealthboxSpriteIds[sprite->tBattler]].pos1.x - xSlide)
 			DestroyDynamaxTrigger();
 	}
 	else
@@ -296,8 +296,10 @@ void TryLoadDynamaxTrigger(u8 battlerId, u8 UNUSED palId)
 		LoadCompressedSpriteSheetUsingHeap(&sDynamaxTriggerSpriteSheet);
 		gBattleStruct->mega.dynamaxTriggerId = CreateSprite(&sDynamaxTriggerSpriteTemplate, x, y, 2);
 	}
-	gSprites[gBattleStruct->mega.dynamaxTriggerId].data[0] = battlerId;
-	gSprites[gBattleStruct->mega.dynamaxTriggerId].data[1] = 0;
+	gSprites[gBattleStruct->mega.dynamaxTriggerId].tBattler = battlerId;
+	gSprites[gBattleStruct->mega.dynamaxTriggerId].tHide = 0;
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].pos1.y = y;
+    gSprites[gBattleStruct->mega.dynamaxTriggerId].pos1.x = x;
 }
 
 void HideDynamaxTriggerSprite(void)
@@ -319,11 +321,11 @@ static bool32 CanPokemonMega(struct Pokemon* mon)
 	u16 itemId;
 
 	itemId = GetMonData(mon, MON_DATA_HELD_ITEM);
-#if !USE_BATTLE_DEBUG
+
 	if (ItemId_GetHoldEffect(itemId) != HOLD_EFFECT_MEGA_STONE){
 		return FALSE;
 	}
-#endif
+
 	if (GetMegaEvolutionSpecies(GetMonData(mon, MON_DATA_SPECIES), itemId) == 0)
 		return FALSE;
 
@@ -380,23 +382,94 @@ static void DoMegaEvolution(u32 battlerId)
 	BattleScriptExecute(BattleScript_MegaEvolution);
 }
 #include "constants/moves.h"
+#include "constants/species.h"
+
+static const u16 gDynamaxSpieces[][2] =
+{
+    {SPECIES_CHARIZARD, MOVE_G_MAX_WILDFIRE},
+    {SPECIES_BUTTERFREE, MOVE_G_MAX_BEFUDDLE},
+    {SPECIES_PIKACHU, MOVE_G_MAX_VOLT_CRASH},
+    {SPECIES_MEOWTH, MOVE_G_MAX_GOLD_RUSH},
+    {SPECIES_MACHAMP, MOVE_G_MAX_CHI_STRIKE},
+    {SPECIES_GENGAR, MOVE_G_MAX_TERROR},
+    {SPECIES_KINGLER, MOVE_G_MAX_FOAM_BURST},
+    {SPECIES_LAPRAS, MOVE_G_MAX_RESONANCE},
+    {SPECIES_EEVEE, MOVE_G_MAX_CUDDLE},
+    {SPECIES_SNORLAX, MOVE_G_MAX_REPLENISH},
+    {SPECIES_GARBODOR, MOVE_G_MAX_MALODOR},
+    {SPECIES_MELMETAL, MOVE_G_MAX_MELTDOWN},
+    {SPECIES_DREDNAW, MOVE_G_MAX_STONESURGE},
+    {SPECIES_CORVIKNIGHT, MOVE_G_MAX_WIND_RAGE},
+    {SPECIES_TOXTRICITY, MOVE_G_MAX_STUN_SHOCK},
+    {SPECIES_ALCREMIE, MOVE_G_MAX_FINALE},
+    {SPECIES_DURALUDON, MOVE_G_MAX_DEPLETION},
+    {SPECIES_ORBEETLE, MOVE_G_MAX_GRAVITAS},
+    {SPECIES_COALOSSAL, MOVE_G_MAX_VOLCALITH},
+    {SPECIES_SANDACONDA, MOVE_G_MAX_SANDBLAST},
+    {SPECIES_GRIMMSNARL, MOVE_G_MAX_SNOOZE},
+    {SPECIES_FLAPPLE, MOVE_G_MAX_TARTNESS},
+    {SPECIES_APPLETUN, MOVE_G_MAX_SWEETNESS},
+    {SPECIES_HATTERENE, MOVE_G_MAX_SMITE},
+    {SPECIES_COPPERAJAH, MOVE_G_MAX_STEELSURGE},
+    {SPECIES_CENTISKORCH, MOVE_G_MAX_CENTIFERNO},
+    {SPECIES_RILLABOOM, MOVE_G_MAX_DRUM_SOLO},
+    {SPECIES_CINDERACE, MOVE_G_MAX_FIREBALL},
+    {SPECIES_INTELEON, MOVE_G_MAX_HYDROSNIPE},
+    {SPECIES_VENUSAUR, MOVE_G_MAX_VINE_LASH},
+    {SPECIES_BLASTOISE, MOVE_G_MAX_CANNONADE},
+    {SPECIES_URSHIFU, MOVE_G_MAX_ONE_BLOW},
+    {SPECIES_URSHIFU, MOVE_G_MAX_RAPID_FLOW},
+};
+
+void GetMaxMove(struct BattlePokemon* mon)
+{
+    u16* moveResult = mon->moves;
+    int i,j,pokeMoveType;
+    u16 gMaxMove = 0,gMaxMoveType = 0xFF;
+    for(i = 0;i < ARRAY_COUNT(gDynamaxSpieces); i++)
+    {
+        if (mon->species == gDynamaxSpieces[i][0])
+        {
+            gMaxMove = gDynamaxSpieces[i][1];
+            gMaxMoveType = gBattleMoves[gMaxMove].type;
+        }
+    }
+    for (i = 0; i < 4; ++i)
+    {
+        if (mon->moves[i] == 0) break;
+        pokeMoveType = gBattleMoves[mon->moves[i]].type;
+        if (pokeMoveType == gMaxMoveType)
+        {
+            *moveResult++ = gMaxMove;
+        }
+        else if (gBattleMoves[mon->moves[i]].split == SPLIT_STATUS)
+        {
+            *moveResult++ = MOVE_MAX_GUARD;
+        }
+        else
+        {
+            for(j = MOVE_MAX_FLARE;j <= MOVE_MAX_STEELSPIKE;j++)
+            {
+                if (pokeMoveType == gBattleMoves[j].type)
+                {
+                    *moveResult++ = j;
+                    break;
+                }
+            }
+        }
+    }
+}
+
 static void DoDynamaxEvolution(u32 battlerId)
 {
-	int i, j;
 	BattleScriptExecute(BattleScript_Dynamax);
 	gBattleMons[battlerId].maxHP *= 2;
 	gBattleMoveDamage = -gBattleMons[battlerId].hp;
 	gBattleMons[battlerId].hp *= 2;
 	gBattleStruct->mega.timer[GET_BATTLER_SIDE(battlerId)] = 3;
     SetEvolutionType(gBattleStruct, battlerId, EvolutionDynamax);
-	for (i = 0; i < 4; ++i)
-	{
-		for(j = MOVE_MAX_GUARD;j <= MOVE_MAX_STEELSPIKE;j++){
-			if (gBattleMons[battlerId].moves[i]>0 && gBattleMoves[gBattleMons[battlerId].moves[i]].type == gBattleMoves[j].type){
-				gBattleMons[battlerId].moves[i] = j;
-			}
-		}
-	}
+	GetMaxMove(&gBattleMons[battlerId]);
+    gChosenMoveByBattler[gActiveBattler] = gBattleMons[battlerId].moves[gBattleStruct->chosenMovePositions[gActiveBattler]];
 	BtlController_EmitSetMonData(0, REQUEST_MAX_HP_BATTLE, 0, 2, &gBattleMons[gActiveBattler].maxHP);
 	MarkBattlerForControllerExec(battlerId);
 }
