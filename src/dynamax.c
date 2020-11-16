@@ -30,7 +30,7 @@ bool32 CanBattlerEvo(u8 battlerId)
             && (mega->alreadyEvolved[partnerPosition] || (mega->toEvolve & (1 << BATTLE_PARTNER(battlerId)))))
             return FALSE;
     }
-    return CalEvolutionType(battlerId) != 0;
+    return CalEvolutionType(battlerId) != EvolutionNone;
 }
 
 bool32 IsEvolutionHappened(u32 battlerId)
@@ -40,33 +40,39 @@ bool32 IsEvolutionHappened(u32 battlerId)
 
 void CreateTrigger(u8 battlerId, u8 palId)
 {
-    GetBattleEvolutionFunc(battlerId)->CreateOrShowTrigger(battlerId, palId);
+    TypeCreateOrShowTrigger func = GetBattleEvolutionFunc(battlerId)->CreateOrShowTrigger;
+    func(battlerId, palId);//for debugger can step into
 }
 
 void HideTriggerSprite(void)
 {
+    TypeHideTriggerSprite func = GetBattleEvolutionFunc(gActiveBattler)->HideTriggerSprite;
+    func();
     gBattleStruct->mega.playerSelect = FALSE;
-    GetBattleEvolutionFunc(gActiveBattler)->HideTriggerSprite();
 }
 
 u8 CreateIndicator(u32 battlerId)
 {
-    return GetBattleEvolutionFunc(battlerId)->CreateIndicator(battlerId);
+     TypeCreateIndicator func = GetBattleEvolutionFunc(battlerId)->CreateIndicator;
+     return func(battlerId);
 }
 
 void DoEvolution(u32 battlerId)
 {
-    GetBattleEvolutionFunc(battlerId)->DoEvolution(battlerId);
+    TypeDoEvolution func = GetBattleEvolutionFunc(battlerId)->DoEvolution;
+    func(battlerId);
 }
 
 void UndoEvolution(u32 monId)
 {
-    GetBattlerFuncByEvolutionType(monId, 0)->UndoEvolution(monId);
+    TypeUndoEvolution func = GetBattlerFuncByEvolutionType(monId, 0)->UndoEvolution;
+    func(monId);
 }
 
 void ChangeTriggerSprite(u8 battler, u8 state)
 {
-    GetBattleEvolutionFunc(battler)->ChangeTriggerSprite(state);
+    TypeChangeTriggerSprite func = GetBattleEvolutionFunc(battler)->ChangeTriggerSprite;
+    func(state);
 }
 
 u8 GetIndicatorSpriteId(u32 healthboxSpriteId)
