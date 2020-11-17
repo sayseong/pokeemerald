@@ -383,8 +383,20 @@ static void DoMegaEvolution(u32 battlerId)
 }
 #include "constants/moves.h"
 #include "constants/species.h"
-
-static const u16 gDynamaxSpieces[][2] =
+#pragma pack(push,2)
+struct GMaxSpeciesInfo
+{
+    u16 species;
+    u16 move;
+    u16 targetSpecies;
+};
+#pragma pack(pop)
+struct GMaxInfo
+{
+    struct GMaxSpeciesInfo speciesInfo;
+    u8 type;
+};
+static const struct GMaxSpeciesInfo gDynamaxSpecies[] =
 {
     {SPECIES_CHARIZARD, MOVE_G_MAX_WILDFIRE},
     {SPECIES_BUTTERFREE, MOVE_G_MAX_BEFUDDLE},
@@ -419,28 +431,38 @@ static const u16 gDynamaxSpieces[][2] =
     {SPECIES_BLASTOISE, MOVE_G_MAX_CANNONADE},
     {SPECIES_URSHIFU, MOVE_G_MAX_ONE_BLOW},
     {SPECIES_URSHIFU, MOVE_G_MAX_RAPID_FLOW},
+    {0xFFFF, 0xFFFF}
 };
+
+struct GMaxInfo GetGMaxSpeciesInfo(u16 species)
+{
+    u16 i;
+    struct GMaxInfo ret;
+    for(i = 0;i < ARRAY_COUNT(gDynamaxSpecies); i++)
+    {
+        if (species == gDynamaxSpecies[i].species)
+        {
+            break;
+        }
+    }
+    ret.speciesInfo = gDynamaxSpecies[i];
+    if (i<ARRAY_COUNT(gDynamaxSpecies)) ret.type = gBattleMoves[gDynamaxSpecies[i].move].type;
+    else ret.type = 0xff;
+    return ret;
+}
 
 void GetMaxMove(struct BattlePokemon* mon)
 {
     u16* moveResult = mon->moves;
     int i,j,pokeMoveType;
-    u16 gMaxMove = 0,gMaxMoveType = 0xFF;
-    for(i = 0;i < ARRAY_COUNT(gDynamaxSpieces); i++)
-    {
-        if (mon->species == gDynamaxSpieces[i][0])
-        {
-            gMaxMove = gDynamaxSpieces[i][1];
-            gMaxMoveType = gBattleMoves[gMaxMove].type;
-        }
-    }
+    struct GMaxInfo gMaxSpeciesInfo = GetGMaxSpeciesInfo(mon->species);
     for (i = 0; i < 4; ++i)
     {
         if (mon->moves[i] == 0) break;
         pokeMoveType = gBattleMoves[mon->moves[i]].type;
-        if (pokeMoveType == gMaxMoveType)
+        if (pokeMoveType == gMaxSpeciesInfo.type)
         {
-            *moveResult++ = gMaxMove;
+            *moveResult++ = gMaxSpeciesInfo.speciesInfo.move;
         }
         else if (gBattleMoves[mon->moves[i]].split == SPLIT_STATUS)
         {
@@ -647,3 +669,11 @@ const u32 gMonBackPic_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_bac
 const u32 gMonPalette_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_front.gbapal.lz");
 const u32 gMonShinyPalette_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_back.gbapal.lz");
 
+void AnimTaskSwapDynamaxSprite(u8 taskId)
+{
+    if (GetGMaxSpeciesInfo(gBattleMons[gActiveBattler].species).type != 0xFF)
+    {
+        BattleLoadSubstituteOrMonSpriteGfx(gActiveBattler, TRUE);
+    }
+    DestroyAnimVisualTask(taskId);
+}
