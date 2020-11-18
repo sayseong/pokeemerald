@@ -673,13 +673,38 @@ const u32 gMonBackPic_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22
 const u32 gMonPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_normal.gbapal.lz");
 const u32 gMonShinyPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_shiny.gbapal.lz");
 #include "data.h"
+
+static const struct SpriteTemplate sPokemonSpriteTemplate =
+{
+    .tileTag = 9527,
+    .paletteTag = 9527,
+    .oam = &gOamData_831ACA8,
+    .anims = gDummySpriteAnimTable,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+void AnimTaskSwapDynamaxSpriteCopySprite()
+{
+    struct CompressedSpritePalette palette;
+    struct SpriteSheet spriteSheet;
+    struct Sprite* poke = &gSprites[GetAnimBattlerSpriteId(gBattleAnimAttacker)];
+    palette.tag = sPokemonSpriteTemplate.paletteTag;
+    palette.data = GetMonSpritePalStruct(GetBankPartyData(gBattleAnimAttacker))->data;
+    LoadCompressedSpritePalette(&palette);
+    spriteSheet.tag = palette.tag;
+    spriteSheet.data =  gMonSpritesGfxPtr->sprites[GET_BATTLER_POSITION(gBattleAnimAttacker)];
+    spriteSheet.size = 0x800;
+    LoadSpriteSheet(&spriteSheet);
+    CreateSprite(&sPokemonSpriteTemplate, poke->pos1.x, poke->pos1.y, 0);
+}
+
 void AnimTaskSwapDynamaxSprite(u8 taskId)
 {
     struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
-    u16 species = info.speciesInfo->targetSpecies;
-    u16 paletteOffset;
     if (info.type != 0xFF)
     {
+        //AnimTaskSwapDynamaxSpriteCopySprite();
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].transformSpecies = info.speciesInfo->targetSpecies;
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].dynamax = 1;
         LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, 1, GetAnimBattlerSpriteId(gBattleAnimAttacker));
@@ -687,3 +712,4 @@ void AnimTaskSwapDynamaxSprite(u8 taskId)
     }
     DestroyAnimVisualTask(taskId);
 }
+
