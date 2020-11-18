@@ -412,25 +412,25 @@ static const struct GMaxSpeciesInfo gDynamaxSpecies[] =
     {SPECIES_SNORLAX, MOVE_G_MAX_REPLENISH, SPECIES_SNORLAX_GIGA},
     {SPECIES_GARBODOR, MOVE_G_MAX_MALODOR, SPECIES_GARBODOR_GIGA},
     {SPECIES_MELMETAL, MOVE_G_MAX_MELTDOWN, SPECIES_MELMETAL_GIGA},
-    {SPECIES_RILLABOOM, MOVE_G_MAX_DRUM_SOLO,SPECIES_RILLABOOM_GIGA},
-    {SPECIES_CINDERACE, MOVE_G_MAX_FIREBALL, SPECIES_CINDERACE_GIGA},
-    {SPECIES_INTELEON, MOVE_G_MAX_HYDROSNIPE, SPECIES_INTELEON_GIGA},
+//	{SPECIES_RILLABOOM, MOVE_G_MAX_DRUM_SOLO,SPECIES_RILLABOOM_GIGA},
+//	{SPECIES_CINDERACE, MOVE_G_MAX_FIREBALL, SPECIES_CINDERACE_GIGA},
+//	{SPECIES_INTELEON, MOVE_G_MAX_HYDROSNIPE, SPECIES_INTELEON_GIGA},
     {SPECIES_CORVIKNIGHT, MOVE_G_MAX_WIND_RAGE, SPECIES_CORVIKNIGHT_GIGA},
     {SPECIES_ORBEETLE, MOVE_G_MAX_GRAVITAS, SPECIES_ORBEETLE_GIGA},
     {SPECIES_DREDNAW, MOVE_G_MAX_STONESURGE, SPECIES_DREDNAW_GIGA},
     {SPECIES_COALOSSAL, MOVE_G_MAX_VOLCALITH, SPECIES_COALOSSAL_GIGA},
     {SPECIES_FLAPPLE, MOVE_G_MAX_TARTNESS, SPECIES_FLAPPLE_GIGA},
-    {SPECIES_APPLETUN, MOVE_G_MAX_SWEETNESS, SPECIES_APPLETUN_GIGA},
+//	{SPECIES_APPLETUN, MOVE_G_MAX_SWEETNESS, SPECIES_APPLETUN_GIGA},
     {SPECIES_SANDACONDA, MOVE_G_MAX_SANDBLAST, SPECIES_SANDACONDA_GIGA},
     {SPECIES_TOXTRICITY, MOVE_G_MAX_STUN_SHOCK, SPECIES_TOXTRICITY_GIGA},
-    {SPECIES_CENTISKORCH, MOVE_G_MAX_CENTIFERNO, SPECIES_CENTISKORCH_GIGA},
+//	{SPECIES_CENTISKORCH, MOVE_G_MAX_CENTIFERNO, SPECIES_CENTISKORCH_GIGA},
     {SPECIES_HATTERENE, MOVE_G_MAX_SMITE, SPECIES_HATTERENE_GIGA},
-    {SPECIES_GRIMMSNARL, MOVE_G_MAX_SNOOZE, SPECIES_GRIMMSNARL_GIGA},
-    {SPECIES_ALCREMIE, MOVE_G_MAX_FINALE, SPECIES_ALCREMIE_GIGA},
-    {SPECIES_COPPERAJAH, MOVE_G_MAX_STEELSURGE, SPECIES_COPPERAJAH_GIGA},
+//	{SPECIES_GRIMMSNARL, MOVE_G_MAX_SNOOZE, SPECIES_GRIMMSNARL_GIGA},
+//	{SPECIES_ALCREMIE, MOVE_G_MAX_FINALE, SPECIES_ALCREMIE_GIGA},
+//	{SPECIES_COPPERAJAH, MOVE_G_MAX_STEELSURGE, SPECIES_COPPERAJAH_GIGA},
     {SPECIES_DURALUDON, MOVE_G_MAX_DEPLETION, SPECIES_DURALUDON_GIGA},
-    {SPECIES_URSHIFU, MOVE_G_MAX_RAPID_FLOW, SPECIES_URSHIFU_SINGLE_GIGA},
-    {SPECIES_URSHIFU, MOVE_G_MAX_ONE_BLOW, SPECIES_URSHIFU_RAPID_GIGA},
+//	{SPECIES_URSHIFU, MOVE_G_MAX_RAPID_FLOW, SPECIES_URSHIFU_SINGLE_GIGA},
+//	{SPECIES_URSHIFU, MOVE_G_MAX_ONE_BLOW, SPECIES_URSHIFU_RAPID_GIGA},
     {0xFFFF, 0xFFFF, 0}
 };
 
@@ -580,100 +580,110 @@ const struct BattleEvolutionFunc* GetBattlerFuncByEvolutionType(u32 monId, u8 si
 	return sBattleEvolutionFuncs[gBattleStruct->mega.evolutionType[side][monId]];
 }
 
-const u32 gMonFrontPic_Dynamax_1[] = INCBIN_U32("graphics/pokemon/dynamax/1_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_1[] = INCBIN_U32("graphics/pokemon/dynamax/1_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_1[] = INCBIN_U32("graphics/pokemon/dynamax/1_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_1[] = INCBIN_U32("graphics/pokemon/dynamax/1_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_2[] = INCBIN_U32("graphics/pokemon/dynamax/2_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_2[] = INCBIN_U32("graphics/pokemon/dynamax/2_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_2[] = INCBIN_U32("graphics/pokemon/dynamax/2_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_2[] = INCBIN_U32("graphics/pokemon/dynamax/2_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_3[] = INCBIN_U32("graphics/pokemon/dynamax/3_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_3[] = INCBIN_U32("graphics/pokemon/dynamax/3_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_3[] = INCBIN_U32("graphics/pokemon/dynamax/3_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_3[] = INCBIN_U32("graphics/pokemon/dynamax/3_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_4[] = INCBIN_U32("graphics/pokemon/dynamax/4_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_4[] = INCBIN_U32("graphics/pokemon/dynamax/4_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_4[] = INCBIN_U32("graphics/pokemon/dynamax/4_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_4[] = INCBIN_U32("graphics/pokemon/dynamax/4_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_5[] = INCBIN_U32("graphics/pokemon/dynamax/5_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_5[] = INCBIN_U32("graphics/pokemon/dynamax/5_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_5[] = INCBIN_U32("graphics/pokemon/dynamax/5_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_5[] = INCBIN_U32("graphics/pokemon/dynamax/5_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_6[] = INCBIN_U32("graphics/pokemon/dynamax/6_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_6[] = INCBIN_U32("graphics/pokemon/dynamax/6_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_6[] = INCBIN_U32("graphics/pokemon/dynamax/6_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_6[] = INCBIN_U32("graphics/pokemon/dynamax/6_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_7[] = INCBIN_U32("graphics/pokemon/dynamax/7_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_7[] = INCBIN_U32("graphics/pokemon/dynamax/7_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_7[] = INCBIN_U32("graphics/pokemon/dynamax/7_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_7[] = INCBIN_U32("graphics/pokemon/dynamax/7_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_8[] = INCBIN_U32("graphics/pokemon/dynamax/8_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_8[] = INCBIN_U32("graphics/pokemon/dynamax/8_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_8[] = INCBIN_U32("graphics/pokemon/dynamax/8_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_8[] = INCBIN_U32("graphics/pokemon/dynamax/8_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_9[] = INCBIN_U32("graphics/pokemon/dynamax/9_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_9[] = INCBIN_U32("graphics/pokemon/dynamax/9_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_9[] = INCBIN_U32("graphics/pokemon/dynamax/9_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_9[] = INCBIN_U32("graphics/pokemon/dynamax/9_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_10[] = INCBIN_U32("graphics/pokemon/dynamax/10_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_10[] = INCBIN_U32("graphics/pokemon/dynamax/10_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_10[] = INCBIN_U32("graphics/pokemon/dynamax/10_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_10[] = INCBIN_U32("graphics/pokemon/dynamax/10_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_11[] = INCBIN_U32("graphics/pokemon/dynamax/11_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_11[] = INCBIN_U32("graphics/pokemon/dynamax/11_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_11[] = INCBIN_U32("graphics/pokemon/dynamax/11_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_11[] = INCBIN_U32("graphics/pokemon/dynamax/11_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_12[] = INCBIN_U32("graphics/pokemon/dynamax/12_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_12[] = INCBIN_U32("graphics/pokemon/dynamax/12_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_12[] = INCBIN_U32("graphics/pokemon/dynamax/12_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_12[] = INCBIN_U32("graphics/pokemon/dynamax/12_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_13[] = INCBIN_U32("graphics/pokemon/dynamax/13_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_13[] = INCBIN_U32("graphics/pokemon/dynamax/13_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_13[] = INCBIN_U32("graphics/pokemon/dynamax/13_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_13[] = INCBIN_U32("graphics/pokemon/dynamax/13_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_14[] = INCBIN_U32("graphics/pokemon/dynamax/14_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_14[] = INCBIN_U32("graphics/pokemon/dynamax/14_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_14[] = INCBIN_U32("graphics/pokemon/dynamax/14_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_14[] = INCBIN_U32("graphics/pokemon/dynamax/14_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_15[] = INCBIN_U32("graphics/pokemon/dynamax/15_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_15[] = INCBIN_U32("graphics/pokemon/dynamax/15_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_15[] = INCBIN_U32("graphics/pokemon/dynamax/15_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_15[] = INCBIN_U32("graphics/pokemon/dynamax/15_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_16[] = INCBIN_U32("graphics/pokemon/dynamax/16_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_16[] = INCBIN_U32("graphics/pokemon/dynamax/16_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_16[] = INCBIN_U32("graphics/pokemon/dynamax/16_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_16[] = INCBIN_U32("graphics/pokemon/dynamax/16_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_17[] = INCBIN_U32("graphics/pokemon/dynamax/17_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_17[] = INCBIN_U32("graphics/pokemon/dynamax/17_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_17[] = INCBIN_U32("graphics/pokemon/dynamax/17_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_17[] = INCBIN_U32("graphics/pokemon/dynamax/17_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_18[] = INCBIN_U32("graphics/pokemon/dynamax/18_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_18[] = INCBIN_U32("graphics/pokemon/dynamax/18_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_18[] = INCBIN_U32("graphics/pokemon/dynamax/18_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_18[] = INCBIN_U32("graphics/pokemon/dynamax/18_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_19[] = INCBIN_U32("graphics/pokemon/dynamax/19_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_19[] = INCBIN_U32("graphics/pokemon/dynamax/19_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_19[] = INCBIN_U32("graphics/pokemon/dynamax/19_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_19[] = INCBIN_U32("graphics/pokemon/dynamax/19_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_20[] = INCBIN_U32("graphics/pokemon/dynamax/20_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_20[] = INCBIN_U32("graphics/pokemon/dynamax/20_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_20[] = INCBIN_U32("graphics/pokemon/dynamax/20_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_20[] = INCBIN_U32("graphics/pokemon/dynamax/20_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_21[] = INCBIN_U32("graphics/pokemon/dynamax/21_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_21[] = INCBIN_U32("graphics/pokemon/dynamax/21_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_21[] = INCBIN_U32("graphics/pokemon/dynamax/21_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_21[] = INCBIN_U32("graphics/pokemon/dynamax/21_back.gbapal.lz");
-const u32 gMonFrontPic_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_front.4bpp.lz");
-const u32 gMonBackPic_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_back.4bpp.lz");
-const u32 gMonPalette_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_front.gbapal.lz");
-const u32 gMonShinyPalette_Dynamax_22[] = INCBIN_U32("graphics/pokemon/dynamax/22_back.gbapal.lz");
-
+const u32 gMonFrontPic_VENUSAUR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/0_front.4bpp.lz");
+const u32 gMonBackPic_VENUSAUR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/0_back.4bpp.lz");
+const u32 gMonPalette_VENUSAUR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/0_normal.gbapal.lz");
+const u32 gMonShinyPalette_VENUSAUR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/0_shiny.gbapal.lz");
+const u32 gMonFrontPic_CHARIZARD_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/1_front.4bpp.lz");
+const u32 gMonBackPic_CHARIZARD_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/1_back.4bpp.lz");
+const u32 gMonPalette_CHARIZARD_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/1_normal.gbapal.lz");
+const u32 gMonShinyPalette_CHARIZARD_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/1_shiny.gbapal.lz");
+const u32 gMonFrontPic_BLASTOISE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/2_front.4bpp.lz");
+const u32 gMonBackPic_BLASTOISE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/2_back.4bpp.lz");
+const u32 gMonPalette_BLASTOISE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/2_normal.gbapal.lz");
+const u32 gMonShinyPalette_BLASTOISE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/2_shiny.gbapal.lz");
+const u32 gMonFrontPic_BUTTERFREE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/3_front.4bpp.lz");
+const u32 gMonBackPic_BUTTERFREE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/3_back.4bpp.lz");
+const u32 gMonPalette_BUTTERFREE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/3_normal.gbapal.lz");
+const u32 gMonShinyPalette_BUTTERFREE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/3_shiny.gbapal.lz");
+const u32 gMonFrontPic_PIKACHU_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/4_front.4bpp.lz");
+const u32 gMonBackPic_PIKACHU_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/4_back.4bpp.lz");
+const u32 gMonPalette_PIKACHU_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/4_normal.gbapal.lz");
+const u32 gMonShinyPalette_PIKACHU_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/4_shiny.gbapal.lz");
+const u32 gMonFrontPic_MEOWTH_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/5_front.4bpp.lz");
+const u32 gMonBackPic_MEOWTH_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/5_back.4bpp.lz");
+const u32 gMonPalette_MEOWTH_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/5_normal.gbapal.lz");
+const u32 gMonShinyPalette_MEOWTH_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/5_shiny.gbapal.lz");
+const u32 gMonFrontPic_MACHAMP_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/6_front.4bpp.lz");
+const u32 gMonBackPic_MACHAMP_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/6_back.4bpp.lz");
+const u32 gMonPalette_MACHAMP_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/6_normal.gbapal.lz");
+const u32 gMonShinyPalette_MACHAMP_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/6_shiny.gbapal.lz");
+const u32 gMonFrontPic_GENGAR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/7_front.4bpp.lz");
+const u32 gMonBackPic_GENGAR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/7_back.4bpp.lz");
+const u32 gMonPalette_GENGAR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/7_normal.gbapal.lz");
+const u32 gMonShinyPalette_GENGAR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/7_shiny.gbapal.lz");
+const u32 gMonFrontPic_KINGLER_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/8_front.4bpp.lz");
+const u32 gMonBackPic_KINGLER_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/8_back.4bpp.lz");
+const u32 gMonPalette_KINGLER_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/8_normal.gbapal.lz");
+const u32 gMonShinyPalette_KINGLER_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/8_shiny.gbapal.lz");
+const u32 gMonFrontPic_LAPRAS_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/9_front.4bpp.lz");
+const u32 gMonBackPic_LAPRAS_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/9_back.4bpp.lz");
+const u32 gMonPalette_LAPRAS_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/9_normal.gbapal.lz");
+const u32 gMonShinyPalette_LAPRAS_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/9_shiny.gbapal.lz");
+const u32 gMonFrontPic_EEVEE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/10_front.4bpp.lz");
+const u32 gMonBackPic_EEVEE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/10_back.4bpp.lz");
+const u32 gMonPalette_EEVEE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/10_normal.gbapal.lz");
+const u32 gMonShinyPalette_EEVEE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/10_shiny.gbapal.lz");
+const u32 gMonFrontPic_SNORLAX_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/11_front.4bpp.lz");
+const u32 gMonBackPic_SNORLAX_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/11_back.4bpp.lz");
+const u32 gMonPalette_SNORLAX_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/11_normal.gbapal.lz");
+const u32 gMonShinyPalette_SNORLAX_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/11_shiny.gbapal.lz");
+const u32 gMonFrontPic_GARBODOR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/12_front.4bpp.lz");
+const u32 gMonBackPic_GARBODOR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/12_back.4bpp.lz");
+const u32 gMonPalette_GARBODOR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/12_normal.gbapal.lz");
+const u32 gMonShinyPalette_GARBODOR_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/12_shiny.gbapal.lz");
+const u32 gMonFrontPic_MELMETAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/13_front.4bpp.lz");
+const u32 gMonBackPic_MELMETAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/13_back.4bpp.lz");
+const u32 gMonPalette_MELMETAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/13_normal.gbapal.lz");
+const u32 gMonShinyPalette_MELMETAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/13_shiny.gbapal.lz");
+const u32 gMonFrontPic_CORVIKNIGHT_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/14_front.4bpp.lz");
+const u32 gMonBackPic_CORVIKNIGHT_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/14_back.4bpp.lz");
+const u32 gMonPalette_CORVIKNIGHT_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/14_normal.gbapal.lz");
+const u32 gMonShinyPalette_CORVIKNIGHT_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/14_shiny.gbapal.lz");
+const u32 gMonFrontPic_ORBEETLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/15_front.4bpp.lz");
+const u32 gMonBackPic_ORBEETLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/15_back.4bpp.lz");
+const u32 gMonPalette_ORBEETLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/15_normal.gbapal.lz");
+const u32 gMonShinyPalette_ORBEETLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/15_shiny.gbapal.lz");
+const u32 gMonFrontPic_DREDNAW_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/16_front.4bpp.lz");
+const u32 gMonBackPic_DREDNAW_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/16_back.4bpp.lz");
+const u32 gMonPalette_DREDNAW_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/16_normal.gbapal.lz");
+const u32 gMonShinyPalette_DREDNAW_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/16_shiny.gbapal.lz");
+const u32 gMonFrontPic_COALOSSAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/17_front.4bpp.lz");
+const u32 gMonBackPic_COALOSSAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/17_back.4bpp.lz");
+const u32 gMonPalette_COALOSSAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/17_normal.gbapal.lz");
+const u32 gMonShinyPalette_COALOSSAL_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/17_shiny.gbapal.lz");
+const u32 gMonFrontPic_FLAPPLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/18_front.4bpp.lz");
+const u32 gMonBackPic_FLAPPLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/18_back.4bpp.lz");
+const u32 gMonPalette_FLAPPLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/18_normal.gbapal.lz");
+const u32 gMonShinyPalette_FLAPPLE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/18_shiny.gbapal.lz");
+const u32 gMonFrontPic_SANDACONDA_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/19_front.4bpp.lz");
+const u32 gMonBackPic_SANDACONDA_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/19_back.4bpp.lz");
+const u32 gMonPalette_SANDACONDA_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/19_normal.gbapal.lz");
+const u32 gMonShinyPalette_SANDACONDA_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/19_shiny.gbapal.lz");
+const u32 gMonFrontPic_TOXTRICITY_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/20_front.4bpp.lz");
+const u32 gMonBackPic_TOXTRICITY_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/20_back.4bpp.lz");
+const u32 gMonPalette_TOXTRICITY_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/20_normal.gbapal.lz");
+const u32 gMonShinyPalette_TOXTRICITY_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/20_shiny.gbapal.lz");
+const u32 gMonFrontPic_HATTERENE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/21_front.4bpp.lz");
+const u32 gMonBackPic_HATTERENE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/21_back.4bpp.lz");
+const u32 gMonPalette_HATTERENE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/21_normal.gbapal.lz");
+const u32 gMonShinyPalette_HATTERENE_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/21_shiny.gbapal.lz");
+const u32 gMonFrontPic_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_front.4bpp.lz");
+const u32 gMonBackPic_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_back.4bpp.lz");
+const u32 gMonPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_normal.gbapal.lz");
+const u32 gMonShinyPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_shiny.gbapal.lz");
+#include "data.h"
 void AnimTaskSwapDynamaxSprite(u8 taskId)
 {
-    if (GetGMaxSpeciesInfo(gBattleMons[gActiveBattler].species).type != 0xFF)
+    struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
+    u16 species = info.speciesInfo->targetSpecies;
+    u16 paletteOffset;
+    if (info.type != 0xFF)
     {
-        BattleLoadSubstituteOrMonSpriteGfx(gActiveBattler, TRUE);
+        gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].transformSpecies = info.speciesInfo->targetSpecies;
+        gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].dynamax = 1;
+        LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, 1, GetAnimBattlerSpriteId(gBattleAnimAttacker));
+        //gSprites[GetAnimBattlerSpriteId(gBattleAnimAttacker)].pos1.y = GetBattlerSpriteDefault_Y(gBattleAnimAttacker);
     }
     DestroyAnimVisualTask(taskId);
 }

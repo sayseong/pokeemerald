@@ -378,20 +378,3 @@ bool32 HandleDynamaxEndTurnEffect()
 
     return ret;
 }
-
-#include "task.h"
-
-void GMaxAnimateTask(u8 taskId)
-{
-#define taskTracer data[0]
-    struct Task* task;
-    task = &gTasks[taskId];
-
-    switch (task->taskTracer)
-    {
-    case 0://create sprite
-        break;
-    case 1://
-        break;
-    }
-}
