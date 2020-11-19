@@ -6103,6 +6103,8 @@ BattleScript_MegaEvolution::
 	end2
 
 BattleScript_Dynamax::
+    printstring STRINGID_CLOAKEDINAFREEZINGLIGHT+1
+    waitmessage 0x20
     playanimation BS_ATTACKER, B_ANIM_DYNAMAX_EVOLUTION, NULL
 	waitanimation
 	handlemegaevo BS_ATTACKER, 1

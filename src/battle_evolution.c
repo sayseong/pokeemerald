@@ -347,7 +347,7 @@ const union AffineAnimCmd sDynamaxGrowthAffineAnimCmds[] =
 	{
 		AFFINEANIMCMD_FRAME(-2, -2, 0, 64), //Double in size
 		AFFINEANIMCMD_FRAME(0, 0, 0, 64),
-		AFFINEANIMCMD_FRAME(16, 16, 0, 8),
+		AFFINEANIMCMD_FRAME(2, 2, 0, 64),
 		AFFINEANIMCMD_END,
 	};
 
@@ -358,22 +358,6 @@ const union AffineAnimCmd sDynamaxGrowthAttackAnimationAffineAnimCmds[] =
 		AFFINEANIMCMD_FRAME(16, 16, 0, 8),
 		AFFINEANIMCMD_END,
 	};
-
-static void AnimTask_DynamaxGrowthStep(u8 taskId)
-{
-	if (!RunAffineAnimFromTaskData(&gTasks[taskId]))
-		DestroyAnimVisualTask(taskId);
-}
-void AnimTask_GrowAndShrink_Step(u8);
-//Arg 0: Animation for attack
-void AnimTask_GrowthAffine(u8 taskId)
-{
-	struct Task* task;
-	task = &gTasks[taskId];
-	PrepareAffineAnimInTaskData(task, GetAnimBattlerSpriteId(ANIM_ATTACKER),
-		LoadPointerFromVars(gBattleAnimArgs[0], gBattleAnimArgs[1]));
-	task->func = AnimTask_DynamaxGrowthStep;
-}
 
 static void DoMegaEvolution(u32 battlerId)
 {
@@ -491,6 +475,7 @@ static void DoDynamaxEvolution(u32 battlerId)
 	gBattleStruct->mega.timer[GET_BATTLER_SIDE(battlerId)] = 3;
     SetEvolutionType(gBattleStruct, battlerId, EvolutionDynamax);
 	GetMaxMove(&gBattleMons[battlerId]);
+    gBattleCommunication[MULTISTRING_CHOOSER] = 0;
     gChosenMoveByBattler[gActiveBattler] = gBattleMons[battlerId].moves[gBattleStruct->chosenMovePositions[gActiveBattler]];
 	BtlController_EmitSetMonData(0, REQUEST_MAX_HP_BATTLE, 0, 2, &gBattleMons[gActiveBattler].maxHP);
 	MarkBattlerForControllerExec(battlerId);
@@ -684,7 +669,7 @@ static const struct SpriteTemplate sPokemonSpriteTemplate =
     .callback = SpriteCallbackDummy,
 };
 
-void AnimTaskSwapDynamaxSpriteCopySprite()
+u8 AnimTaskSwapDynamaxSpriteCopySprite()
 {
     struct CompressedSpritePalette palette;
     struct SpriteSheet spriteSheet;
@@ -696,20 +681,43 @@ void AnimTaskSwapDynamaxSpriteCopySprite()
     spriteSheet.data =  gMonSpritesGfxPtr->sprites[GET_BATTLER_POSITION(gBattleAnimAttacker)];
     spriteSheet.size = 0x800;
     LoadSpriteSheet(&spriteSheet);
-    CreateSprite(&sPokemonSpriteTemplate, poke->pos1.x, poke->pos1.y, 0);
+    return CreateSprite(&sPokemonSpriteTemplate, poke->pos1.x, poke->pos1.y, 0);
+}
+
+
+#include "gpu_regs.h"
+
+static void AnimTask_DynamaxGrowthStep(u8 taskId)
+{
+    struct Task* task = &gTasks[taskId];
+    if (!RunAffineAnimFromTaskData(&gTasks[taskId]))
+    {
+        DestroyAnimVisualTask(taskId);
+    }
+    if (task->data[4] && task->data[7] == 1)
+    {
+        SetGpuReg(REG_OFFSET_BLDCNT, 0);
+        SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+        DestroySpriteAndFreeResources(&gSprites[task->data[3]]);
+    }
 }
 
 void AnimTaskSwapDynamaxSprite(u8 taskId)
 {
     struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
+    struct Task* task = &gTasks[taskId];
+    PrepareAffineAnimInTaskData(task, GetAnimBattlerSpriteId(ANIM_ATTACKER), sDynamaxGrowthAffineAnimCmds);
     if (info.type != 0xFF)
     {
-        //AnimTaskSwapDynamaxSpriteCopySprite();
+        task->data[3] = AnimTaskSwapDynamaxSpriteCopySprite();
+        task->data[4] = TRUE;
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].transformSpecies = info.speciesInfo->targetSpecies;
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].dynamax = 1;
         LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, 1, GetAnimBattlerSpriteId(gBattleAnimAttacker));
-        //gSprites[GetAnimBattlerSpriteId(gBattleAnimAttacker)].pos1.y = GetBattlerSpriteDefault_Y(gBattleAnimAttacker);
+        SetGpuReg(REG_OFFSET_BLDCNT, (BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL));
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(8, 4));
+        PrepareBattlerSpriteForRotScale(GetAnimBattlerSpriteId(ANIM_ATTACKER), ST_OAM_OBJ_BLEND);
     }
-    DestroyAnimVisualTask(taskId);
+    task->func = AnimTask_DynamaxGrowthStep;
 }
 
