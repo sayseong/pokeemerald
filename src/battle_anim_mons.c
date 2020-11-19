@@ -199,7 +199,7 @@ u8 GetBattlerYDelta(u8 battlerId, u16 species)
         {
             ret = sCastformBackSpriteYCoords[gBattleMonForms[battlerId]];
         }
-        else if (species > NUM_SPECIES)
+        else if (species > NUM_SPECIES_PIC)
         {
             ret = gMonBackPicCoords[0].y_offset;
         }
@@ -225,7 +225,7 @@ u8 GetBattlerYDelta(u8 battlerId, u16 species)
         {
             ret = gCastformFrontSpriteCoords[gBattleMonForms[battlerId]].y_offset;
         }
-        else if (species > NUM_SPECIES)
+        else if (species > NUM_SPECIES_PIC)
         {
             ret = gMonFrontPicCoords[0].y_offset;
         }

@@ -4713,4 +4713,6 @@ const struct MonCoords gMonBackPicCoords[] =
     [SPECIES_GLASTRIER] = {.y_offset = 2},
     [SPECIES_SPECTRIER] = {.y_offset = 2},
     [SPECIES_CALYREX] = {.y_offset = 9},
+    [SPECIES_VENUSAUR_GIGA] = {.y_offset = 11},
+    [SPECIES_CHARIZARD_GIGA] = {.y_offset = 3}
 };
