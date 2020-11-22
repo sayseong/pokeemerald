@@ -706,8 +706,8 @@ void AnimTaskSwapDynamaxSprite(u8 taskId)
 {
     struct Task* task = &gTasks[taskId];
     u8 spriteId = GetAnimBattlerSpriteId(ANIM_ATTACKER);
-    PrepareAffineAnimInTaskData(task, spriteId, sDynamaxGrowthAffineAnimCmds);
     struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
+    PrepareAffineAnimInTaskData(task, spriteId, sDynamaxGrowthAffineAnimCmds);
     if (info.type != 0xFF)
     {
         task->data[3] = AnimTaskSwapDynamaxSpriteCopySprite();
