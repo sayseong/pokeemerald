@@ -657,7 +657,7 @@ const u32 gMonFrontPic_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/2
 const u32 gMonBackPic_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_back.4bpp.lz");
 const u32 gMonPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_normal.gbapal.lz");
 const u32 gMonShinyPalette_DURALUDON_GIGA[] = INCBIN_U32("graphics/pokemon/dynamax/22_shiny.gbapal.lz");
-#include "data.h"
+
 
 static const struct SpriteTemplate sPokemonSpriteTemplate =
 {
@@ -704,19 +704,20 @@ static void AnimTask_DynamaxGrowthStep(u8 taskId)
 
 void AnimTaskSwapDynamaxSprite(u8 taskId)
 {
-    struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
     struct Task* task = &gTasks[taskId];
-    PrepareAffineAnimInTaskData(task, GetAnimBattlerSpriteId(ANIM_ATTACKER), sDynamaxGrowthAffineAnimCmds);
+    u8 spriteId = GetAnimBattlerSpriteId(ANIM_ATTACKER);
+    PrepareAffineAnimInTaskData(task, spriteId, sDynamaxGrowthAffineAnimCmds);
+    struct GMaxInfo info = GetGMaxSpeciesInfo(gBattleMons[gBattleAnimAttacker].species);
     if (info.type != 0xFF)
     {
         task->data[3] = AnimTaskSwapDynamaxSpriteCopySprite();
         task->data[4] = TRUE;
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].transformSpecies = info.speciesInfo->targetSpecies;
         gBattleSpritesDataPtr->battlerData[gBattleAnimAttacker].dynamax = 1;
-        LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, 1, GetAnimBattlerSpriteId(gBattleAnimAttacker));
+        LoadBattleMonGfxAndAnimate(gBattleAnimAttacker, 1, spriteId);
         SetGpuReg(REG_OFFSET_BLDCNT, (BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL));
         SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(8, 4));
-        PrepareBattlerSpriteForRotScale(GetAnimBattlerSpriteId(ANIM_ATTACKER), ST_OAM_OBJ_BLEND);
+        PrepareBattlerSpriteForRotScale(spriteId, ST_OAM_OBJ_BLEND);
     }
     task->func = AnimTask_DynamaxGrowthStep;
 }
