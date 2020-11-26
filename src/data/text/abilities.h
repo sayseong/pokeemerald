@@ -229,8 +229,8 @@ static const u8 sPsychicSurgeDescription[] = _("出场时，会布下精神场�
 static const u8 sMistySurgeDescription[] = _("出场时，会布下薄雾场地.");
 static const u8 sGrassySurgeDescription[] = _("出场时，会布下青草场地.");
 static const u8 sFullMetalBodyDescription[] = _("不会降低能力.");
-static const u8 sShadowShieldDescription[] = _("HP全满时受到的伤害会变少");
-static const u8 sPrismArmorDescription[] = _("受到效果绝佳攻击伤害减少");
+//static const u8 sShadowShieldDescription[] = _("HP全满时受到的伤害会变少");
+//static const u8 sPrismArmorDescription[] = _("受到效果绝佳攻击伤害减少");
 static const u8 sNeuroforceDescription[] = _("效果绝佳的攻击威力增强");
 
 
