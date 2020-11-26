@@ -3176,6 +3176,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 gSpecialStatuses[battler].intimidatedMon = 1;
             }
             break;
+        case ABILITY_INTREPID_SWORD:
+            effect = STAT_ATK;
+            goto InnerAbilityRaiseStat;
+        case ABILITY_DAUNTLESS_SHIELD:
+            effect = STAT_DEF;
+            InnerAbilityRaiseStat:
+            if (gBattleMons[battler].statStages[effect] != 12)
+            {
+                gBattleMons[battler].statStages[effect]++;
+                SET_STATCHANGER(effect, 1, FALSE);
+                PREPARE_STAT_BUFFER(gBattleTextBuff1, effect);
+                BattleScriptPushCursorAndCallback(BattleScript_AttackerAbilityStatRaiseEnd3);
+            } else effect = 0;
+            break;
         case ABILITY_FORECAST:
         case ABILITY_FLOWER_GIFT:
             effect = TryWeatherFormChange(battler);
