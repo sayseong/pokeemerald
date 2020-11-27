@@ -2893,7 +2893,7 @@ static u8 ForewarnChooseMove(u32 battler)
     free(data);
 }
 
-u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveArg)
+u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 moveArg)
 {
     u8 effect = 0;
     u32 speciesAtk, speciesDef;
@@ -3854,6 +3854,9 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u8 special, u16 moveA
                 gHitMarker |= HITMARKER_IGNORE_SAFEGUARD;
                 effect++;
             }
+            break;
+        case ABILITY_COTTON_DOWN:
+
             break;
         case ABILITY_CUTE_CHARM:
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)

@@ -1056,7 +1056,7 @@ static void Cmd_attackcanceler(void)
 
     // Check Protean activation.
     GET_MOVE_TYPE(gCurrentMove, moveType);
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_PROTEAN
+    if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_PROTEAN || GetBattlerAbility(gBattlerAttacker) == ABILITY_LIBERO)
         && (gBattleMons[gBattlerAttacker].type1 != moveType || gBattleMons[gBattlerAttacker].type2 != moveType ||
             (gBattleMons[gBattlerAttacker].type3 != moveType && gBattleMons[gBattlerAttacker].type3 != TYPE_MYSTERY))
         && gCurrentMove != MOVE_STRUGGLE)
@@ -7296,14 +7296,15 @@ static void Cmd_various(void)
         MarkBattlerForControllerExec(gActiveBattler);
         break;
     case VARIOUS_TRY_ACTIVATE_MOXIE:
-        if (GetBattlerAbility(gActiveBattler) == ABILITY_MOXIE
+        j = STAT_ATK; i = GetBattlerAbility(gActiveBattler);
+        if ((i == ABILITY_MOXIE || i == ABILITY_CHILLING_NEIGH || (i == ABILITY_GRIM_NEIGH && (j = STAT_SPATK)))
             && HasAttackerFaintedTarget()
             && !NoAliveMonsForEitherParty()
-            && gBattleMons[gBattlerAttacker].statStages[STAT_ATK] != 12)
+            && gBattleMons[gBattlerAttacker].statStages[j] != 12)
         {
-            gBattleMons[gBattlerAttacker].statStages[STAT_ATK]++;
-            SET_STATCHANGER(STAT_ATK, 1, FALSE);
-            PREPARE_STAT_BUFFER(gBattleTextBuff1, STAT_ATK);
+            gBattleMons[gBattlerAttacker].statStages[j]++;
+            SET_STATCHANGER(j, 1, FALSE);
+            PREPARE_STAT_BUFFER(gBattleTextBuff1, j);
             BattleScriptPush(gBattlescriptCurrInstr + 3);
             gBattlescriptCurrInstr = BattleScript_AttackerAbilityStatRaise;
             return;

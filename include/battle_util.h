@@ -77,7 +77,7 @@ u8 AtkCanceller_UnableToUseMove2(void);
 bool8 HasNoMonsToSwitch(u8 battlerId, u8 r1, u8 r2);
 u8 TryWeatherFormChange(u8 battlerId);
 bool32 TryChangeBattleWeather(u8 battler, u32 weatherEnumId, bool32 viaAbility);
-u8 AbilityBattleEffects(u8 caseID, u8 battlerId, u8 ability, u8 special, u16 moveArg);
+u8 AbilityBattleEffects(u8 caseID, u8 battlerId, u8 ability, u16 special, u16 moveArg);
 u32 GetBattlerAbility(u8 battlerId);
 u32 IsAbilityOnSide(u32 battlerId, u32 ability);
 u32 IsAbilityOnOpposingSide(u32 battlerId, u32 ability);

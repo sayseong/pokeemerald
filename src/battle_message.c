@@ -575,9 +575,9 @@ static const u8 sText_MudSportEnds[] = _("The effects of Mud Sport have faded.")
 static const u8 sText_WaterSportEnds[] = _("The effects of Water Sport have faded.");
 static const u8 sText_GravityEnds[] = _("Gravity returned to normal!");
 static const u8 sText_AquaRingHeal[] = _("Aqua Ring restored\n{B_ATK_NAME_WITH_PREFIX}'s HP!");
-static const u8 sText_TargetAbilityRaisedStat[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nraised its {B_BUFF1}!");
-static const u8 sText_TargetAbilityLoweredStat[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nlowered its {B_BUFF1}!");
-static const u8 sText_AttackerAbilityRaisedStat[] = _("{B_ATK_NAME_WITH_PREFIX}'s {B_ATK_ABILITY}\nraised its {B_BUFF1}!");
+static const u8 sText_TargetAbilityRaisedStat[] = _("{B_DEF_NAME_WITH_PREFIX}的特性{B_DEF_ABILITY}\n提高了它的{B_BUFF1}!");
+static const u8 sText_TargetAbilityLoweredStat[] = _("{B_DEF_NAME_WITH_PREFIX}的特性{B_DEF_ABILITY}\n降低了它的{B_BUFF1}!");
+static const u8 sText_AttackerAbilityRaisedStat[] = _("{B_ATK_NAME_WITH_PREFIX}的特性{B_ATK_ABILITY}\n提高了它的{B_BUFF1}!");
 static const u8 sText_ScriptingAbilityRaisedStat[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nraised its {B_BUFF1}!");
 static const u8 sText_AuroraVeilEnds[] = _("{B_DEF_NAME_WITH_PREFIX}'s {B_DEF_ABILITY}\nwore off!");
 static const u8 sText_ElectricTerrainEnds[] = _("The electricity disappeared\nfrom the battlefield.");
@@ -3035,16 +3035,16 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 toCpy = gAbilityNames[gLastUsedAbility];
                 break;
             case B_TXT_ATK_ABILITY: // attacker ability
-                toCpy = gAbilityNames[sBattlerAbilities[gBattlerAttacker]];
+                toCpy = gAbilityNames[gBattleMsgDataPtr->abilities[gBattlerAttacker]];
                 break;
             case B_TXT_DEF_ABILITY: // target ability
-                toCpy = gAbilityNames[sBattlerAbilities[gBattlerTarget]];
+                toCpy = gAbilityNames[gBattleMsgDataPtr->abilities[gBattlerTarget]];
                 break;
             case B_TXT_SCR_ACTIVE_ABILITY: // scripting active ability
-                toCpy = gAbilityNames[sBattlerAbilities[gBattleScripting.battler]];
+                toCpy = gAbilityNames[gBattleMsgDataPtr->abilities[gBattleScripting.battler]];
                 break;
             case B_TXT_EFF_ABILITY: // effect battlerId ability
-                toCpy = gAbilityNames[sBattlerAbilities[gEffectBattler]];
+                toCpy = gAbilityNames[gBattleMsgDataPtr->abilities[gEffectBattler]];
                 break;
             case B_TXT_TRAINER1_CLASS: // trainer class name
                 toCpy = BattleStringGetOpponentClassByTrainerId(gTrainerBattleOpponent_A);

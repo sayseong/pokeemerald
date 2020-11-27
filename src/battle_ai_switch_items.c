@@ -138,7 +138,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
 static bool8 FindMonThatAbsorbsOpponentsMove(void)
 {
     u8 battlerIn1, battlerIn2;
-    u8 absorbingTypeAbility;
+    u16 absorbingTypeAbility;
     s32 firstId;
     s32 lastId; // + 1
     struct Pokemon *party;

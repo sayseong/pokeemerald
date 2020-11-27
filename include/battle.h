@@ -228,7 +228,7 @@ struct WishFutureKnock
 
 struct AI_SavedBattleMon
 {
-    u8 ability;
+    u16 ability;
     u16 moves[MAX_MON_MOVES];
     u16 heldItem;
     u16 species;
@@ -253,7 +253,7 @@ struct AI_ThinkingStruct
 
 struct BattleHistory
 {
-    u8 abilities[MAX_BATTLERS_COUNT];
+    u16 abilities[MAX_BATTLERS_COUNT];
     u8 itemEffects[MAX_BATTLERS_COUNT];
     u16 usedMoves[MAX_BATTLERS_COUNT][MAX_MON_MOVES];
     u16 moveHistory[MAX_BATTLERS_COUNT][AI_MOVE_HISTORY_COUNT]; // 3 last used moves for each battler
@@ -787,7 +787,7 @@ extern s32 gBattleMoveDamage;
 extern s32 gHpDealt;
 extern s32 gTakenDmg[MAX_BATTLERS_COUNT];
 extern u16 gLastUsedItem;
-extern u8 gLastUsedAbility;
+extern u16 gLastUsedAbility;
 extern u8 gBattlerAttacker;
 extern u8 gBattlerTarget;
 extern u8 gBattlerFainted;
