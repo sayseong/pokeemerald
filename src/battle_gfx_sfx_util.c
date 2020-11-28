@@ -428,7 +428,7 @@ void InitAndLaunchChosenStatusAnimation(bool8 isStatus2, u32 status)
 }
 
 #define tBattlerId data[0]
-
+#include "constants/abilities.h"
 bool8 TryHandleLaunchBattleTableAnimation(u8 activeBattler, u8 atkBattler, u8 defBattler, u8 tableId, u16 argument)
 {
     u8 taskId;
@@ -460,6 +460,8 @@ bool8 TryHandleLaunchBattleTableAnimation(u8 activeBattler, u8 atkBattler, u8 de
 
     gBattleAnimAttacker = atkBattler;
     gBattleAnimTarget = defBattler;
+    if (tableId == B_ANIM_STATS_CHANGE && GetBattlerAbility(gActiveBattler) == ABILITY_MIRROR_ARMOR && gActiveBattler == gBattlerTarget)
+        gBattleAnimAttacker = gBattlerAttacker;
     gBattleSpritesDataPtr->animationData->animArg = argument;
     LaunchBattleAnimation(gBattleAnims_General, tableId, FALSE);
     taskId = CreateTask(Task_ClearBitWhenBattleTableAnimDone, 10);

@@ -3856,7 +3856,20 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 move
             }
             break;
         case ABILITY_COTTON_DOWN:
-
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                && gBattleMons[gBattlerAttacker].hp != 0
+                && gBattleMons[gBattlerAttacker].statStages[STAT_SPEED] != 0
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && TARGET_TURN_DAMAGED
+                && IsMoveMakingContact(move, gBattlerAttacker))
+            {
+                gBattleScripting.moveEffect = MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_SPD_MINUS_1;
+                PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_AbilityStatusEffect;
+                gHitMarker |= HITMARKER_IGNORE_SAFEGUARD;
+                effect++;
+            }
             break;
         case ABILITY_CUTE_CHARM:
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
