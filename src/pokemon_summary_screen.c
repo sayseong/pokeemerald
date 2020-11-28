@@ -3855,6 +3855,7 @@ static void SetTypeSpritePosAndPal(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
     sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[typeId];
     sprite->pos1.x = x + 16;
     sprite->pos1.y = y + 8;
+    if (typeId <= TYPE_FAIRY) sprite->pos1.y += 2;//temperary for new type icon
     SetSpriteInvisibility(spriteArrayId, FALSE);
 }
 
