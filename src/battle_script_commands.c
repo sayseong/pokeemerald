@@ -8579,6 +8579,8 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
 
     if (flags & MOVE_EFFECT_AFFECTS_USER)
         gActiveBattler = gBattlerAttacker;
+    else if (GetBattlerAbility(gBattlerTarget) == ABILITY_MIRROR_ARMOR)
+        gActiveBattler = gBattlerAttacker;
     else
         gActiveBattler = gBattlerTarget;
 
