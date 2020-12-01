@@ -3871,6 +3871,21 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 move
                 effect++;
             }
             break;
+        case ABILITY_STEAM_ENGINE:
+            if(!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+               && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+               && TARGET_TURN_DAMAGED
+               && (IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_FIRE) || IS_BATTLER_OF_TYPE(gBattlerAttacker, TYPE_WATER)))
+            {
+                if (gBattleMons[gBattlerTarget].statStages[STAT_SPEED] != 12)
+                {
+                    SET_STATCHANGER(STAT_SPEED, 6, FALSE);
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaise;
+                    effect++;
+                }
+            }
+            break;
         case ABILITY_CUTE_CHARM:
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && gBattleMons[gBattlerAttacker].hp != 0
