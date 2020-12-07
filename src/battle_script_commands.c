@@ -12197,7 +12197,6 @@ static void Cmd_battleasm()
     function();
 }
 
-void PlayerPrintString(u8*);
 static void Cmd_printstringt()
 {
     u8* stringPtr;

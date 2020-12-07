@@ -298,5 +298,5 @@ void SetControllerToLinkOpponent(void);
 
 // link partner
 void SetControllerToLinkPartner(void);
-
+void PlayerPrintString(u8*);
 #endif // GUARD_BATTLE_CONTROLLERS_H
