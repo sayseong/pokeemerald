@@ -626,6 +626,17 @@ void BattleScriptPop(void)
     gBattlescriptCurrInstr = gBattleResources->battleScriptsStack->ptr[--gBattleResources->battleScriptsStack->size];
 }
 
+static bool32 ItemCheckRipen(u32 battlerId, s32* dataTo2)
+{
+    bool32 ret = GetBattlerAbility(battlerId) == ABILITY_RIPEN;
+    if (ret)
+    {
+        CreateAbilityPopUp(battlerId);
+        *dataTo2 *= 2;
+    }
+    return ret;
+}
+
 static bool32 IsGravityPreventingMove(u32 move)
 {
     if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
@@ -3886,6 +3897,18 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 move
                 }
             }
             break;
+        case ABILITY_SAND_SPIT:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && TARGET_TURN_DAMAGED)
+            {
+                if (TryChangeBattleWeather(battler, ENUM_WEATHER_SANDSTORM, TRUE))
+                {
+                    BattleScriptPushCursorAndCallback(BattleScript_SandstreamActivates);
+                    effect++;
+                }
+            }
+            break;
         case ABILITY_CUTE_CHARM:
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && gBattleMons[gBattlerAttacker].hp != 0
@@ -4363,8 +4386,8 @@ static u8 StatRaiseBerry(u32 battlerId, u32 itemId, u32 statId)
 
 static u8 RandomStatRaiseBerry(u32 battlerId, u32 itemId)
 {
-    s32 i;
-
+    s32 i, stat = 2;
+    ItemCheckRipen(battlerId, &stat);
     for (i = 0; i < 5; i++)
     {
         if (gBattleMons[battlerId].statStages[STAT_ATK + i] < 0xC)
@@ -4389,7 +4412,7 @@ static u8 RandomStatRaiseBerry(u32 battlerId, u32 itemId)
         gBattleTextBuff2[7] = EOS;
 
         gEffectBattler = battlerId;
-        SET_STATCHANGER(i + 1, 2, FALSE);
+        SET_STATCHANGER(i + 1, stat, FALSE);
         gBattleScripting.animArg1 = 0x21 + i + 6;
         gBattleScripting.animArg2 = 0;
         BattleScriptExecute(BattleScript_BerryStatRaiseEnd2);
@@ -4406,7 +4429,6 @@ static u8 ItemHealHp(u32 battlerId, u32 itemId, bool32 end2, bool32 percentHeal)
             gBattleMoveDamage = (gBattleMons[battlerId].maxHP * GetBattlerHoldEffectParam(battlerId) / 100) * -1;
         else
             gBattleMoveDamage = GetBattlerHoldEffectParam(battlerId) * -1;
-
         if (end2)
         {
             BattleScriptExecute(BattleScript_ItemHealHP_RemoveItemEnd2);
@@ -4416,6 +4438,7 @@ static u8 ItemHealHp(u32 battlerId, u32 itemId, bool32 end2, bool32 percentHeal)
             BattleScriptPushCursor();
             gBattlescriptCurrInstr = BattleScript_ItemHealHP_RemoveItemRet;
         }
+        ItemCheckRipen(battlerId, &gBattleMoveDamage);
         return ITEM_HP_CHANGE;
     }
     return 0;
@@ -6483,6 +6506,7 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
 {
     u32 percentBoost;
     u32 abilityAtk = GetBattlerAbility(battlerAtk);
+    u32 abilityAtkPartner = GetBattlerAbility(BATTLE_PARTNER(battlerAtk));
     u32 abilityDef = GetBattlerAbility(battlerDef);
     u32 defSide = GET_BATTLER_SIDE(battlerDef);
     u16 finalModifier = UQ_4_12(1.0);
@@ -6555,6 +6579,25 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         if (typeEffectivenessModifier >= UQ_4_12(2.0))
             MulModifier(&finalModifier, UQ_4_12(1.25));
         break;
+    case ABILITY_PUNK_ROCK:
+        if (gBattleMoves[move].flags & FLAG_SOUND)
+            MulModifier(&finalModifier, UQ_4_12(1.3));
+        break;
+    case ABILITY_STEELY_SPIRIT:
+        if (moveType == TYPE_STEEL)
+            MulModifier(&finalModifier, UQ_4_12(1.5));
+        break;
+    }
+
+    switch (abilityAtkPartner)
+    {
+    case ABILITY_POWER_SPOT:
+        MulModifier(&finalModifier,  UQ_4_12(1.3));
+        break;
+    case ABILITY_STEELY_SPIRIT:
+        if (moveType == TYPE_STEEL)
+            MulModifier(&finalModifier, UQ_4_12(1.5));
+        break;
     }
 
     // target's abilities
@@ -6570,6 +6613,10 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
     case ABILITY_PRISM_ARMOR:
         if (typeEffectivenessModifier >= UQ_4_12(2.0))
             MulModifier(&finalModifier, UQ_4_12(0.75));
+        break;
+    case ABILITY_PUNK_ROCK:
+        if (gBattleMoves[move].flags & FLAG_SOUND)
+            MulModifier(&finalModifier, UQ_4_12(0.5));
         break;
     }
 

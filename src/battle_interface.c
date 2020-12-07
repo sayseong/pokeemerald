@@ -2957,11 +2957,11 @@ static void RestoreOverwrittenPixels(u8 *tiles)
 	Free(buffer);
 }
 
-void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle)
+void CreateAbilityPopUp(u8 battlerId)
 {
     const s16 (*coords)[2];
     u8 spriteId1, spriteId2, battlerPosition, taskId;
-
+    u32 isDoubleBattle = (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0, ability = gBattleMons[battlerId].ability;
     if (B_ABILITY_POP_UP < GEN_5)
         return;
 
