@@ -227,7 +227,7 @@ extern u8 BattleScript_DynamaxTryppreduce[];
 extern u8 BattleScript_DynamaxHealPartyStatus[];
 extern u8 BattleScript_DynamaxSetTorment[];
 
-inline void BattleScriptPushCurrent(void* newPtr)
+void BattleScriptPushCurrent(void* newPtr)
 {
     BattleScriptPushCursor();
     gBattlescriptCurrInstr = newPtr;

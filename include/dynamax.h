@@ -16,6 +16,7 @@ enum BattleEvolutionType {
     EvolutionNone = 0, EvolutionMega = 1, EvolutionDynamax = 2, EvolutionEnd = 3
 };
 void HandleDynamaxMoveEffect();
+void BattleScriptPushCurrent(void* newPtr);
 #define DYNAMAX_SET_RAIN 0
 #define DYNAMAX_SET_SUNNY 1
 #define DYNAMAX_SET_SANDSTORM 2

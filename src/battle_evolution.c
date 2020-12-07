@@ -721,4 +721,70 @@ void AnimTaskSwapDynamaxSprite(u8 taskId)
     }
     task->func = AnimTask_DynamaxGrowthStep;
 }
+u8* StoreU32(u8* src,u8 b, const void* mPtr)
+{
+    u32 ptr = *(u32*)&mPtr;
+    src[0] = b;
+    src[1] = ptr;
+    src[2] = ptr >> 8;
+    src[3] = ptr >> 16;
+    src[4] = ptr >> 24;
+    return src + 5;
+}
 
+u8* StoreU16(u8* src,u8 b, u16 value)
+{
+    src[0] = b;
+    src[1] = value;
+    src[2] = value >> 8;
+    return src + 3;
+}
+
+void PrintStringAndWaitMsg(const u8* stringToPrint, u8 battler)
+{
+    u8* inst = &gBattleResources->bufferB[battler][0x100];
+    u8* ins = inst;
+    inst = StoreU32(inst, 0x2e, &gActiveBattler);//setbyte gActiveBattler battler
+    *inst++ = battler;
+    inst = StoreU32(inst, 0xff, stringToPrint);//printstringt stringToPrint
+    inst = StoreU16(inst, 0x12, 0x20);//waitmsg 0x20
+    inst[0] = 0x3c;//return
+    BattleScriptPushCurrent(ins);
+}
+
+#include "constants/abilities.h"
+
+void TryActivateMimicryForBank(u8 bank)
+{
+    u8 monType = 0xFF;
+    u8 gTerrainType;
+    static const u8 gMimicryForTerrain[] = {TYPE_GRASS, TYPE_FAIRY, TYPE_ELECTRIC, TYPE_PSYCHIC};
+    static const u8 stringToPrint[] = _("123333");
+    for (gTerrainType = 0; gTerrainType < 4; gTerrainType++) {
+        if (gFieldStatuses & (STATUS_FIELD_GRASSY_TERRAIN << gTerrainType))
+        {
+            monType = gMimicryForTerrain[gTerrainType];
+            break;
+        }
+    }
+    if (GetBattlerAbility(bank) == ABILITY_MIMICRY) {
+        struct Pokemon* mon = GetBankPartyData(bank);
+
+        if (monType == 0xFF) {
+            u8 type1 = gBattleMons[bank].type1;
+            u8 type2 = gBattleMons[bank].type2;
+            if (gBattleMons[bank].type1 != type1 || gBattleMons[bank].type2 != type2) {
+                gBattleMons[bank].type1 = type1;
+                gBattleMons[bank].type2 = type2;
+                gBattleMons[bank].type3 = TYPE_NONE;
+                PrintStringAndWaitMsg(stringToPrint, bank);
+            }
+        }
+        else {
+            if (gBattleMons[bank].type1 != monType || gBattleMons[bank].type2 != monType) {
+                SET_BATTLER_TYPE(bank, monType);
+                PrintStringAndWaitMsg(stringToPrint, bank);
+            }
+        }
+    }
+}
