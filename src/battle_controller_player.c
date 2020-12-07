@@ -3226,3 +3226,15 @@ static void PlayerHandleBattleDebug(void)
 static void PlayerCmdEnd(void)
 {
 }
+
+void PlayerPrintString(u8* stringPtr)
+{
+    gBattle_BG0_X = 0;
+    gBattle_BG0_Y = 0;
+    gBattleCommunication[MSG_DISPLAY] = 1;
+    gActiveBattler = gBattlerAttacker;
+    gBattlerControllerFuncs[gActiveBattler] = CompleteOnInactiveTextPrinter2;
+    MarkBattlerForControllerExec(gActiveBattler);
+    BattleStringExpandPlaceholdersToDisplayedString(stringPtr);
+    BattlePutTextOnWindow(gDisplayedStringBattle, 0);
+}

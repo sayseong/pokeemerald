@@ -332,13 +332,13 @@ static void Cmd_settelekinesis(void);
 static void Cmd_swapstatstages(void);
 static void Cmd_averagestats(void);
 static void Cmd_jumpifoppositegenders(void);
-static void Cmd_trygetbaddreamstarget(void);
-static void Cmd_tryworryseed(void);
-static void Cmd_metalburstdamagecalculator(void);
+static void Cmd_battleasm(void);
+static void Cmd_printstringt();
+static void Cmd_printstringf();
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
-	Cmd_attackcanceler, // 0x0
+    Cmd_attackcanceler, // 0x0
 	Cmd_accuracycheck, // 0x1
 	Cmd_attackstring, // 0x2
 	Cmd_ppreduce, // 0x3
@@ -591,9 +591,9 @@ void (* const gBattleScriptingCommandsTable[])(void) =
 	Cmd_swapstatstages, // 0xFA
 	Cmd_averagestats, // 0xFB
 	Cmd_jumpifoppositegenders, // 0xFC
-	Cmd_trygetbaddreamstarget, // 0xFD
-	Cmd_tryworryseed, // 0xFE
-	Cmd_metalburstdamagecalculator, // 0xFF
+	Cmd_printstringf, // 0xFD
+    Cmd_battleasm, // 0xFE
+    Cmd_printstringt, // 0xFF
 };
 
 struct StatFractions
@@ -12086,7 +12086,7 @@ static void Cmd_jumpifoppositegenders(void)
         gBattlescriptCurrInstr += 5;
 }
 
-static void Cmd_trygetbaddreamstarget(void)
+void Cmd_trygetbaddreamstarget(void)
 {
     u8 badDreamsMonSide = GetBattlerSide(gBattlerAttacker);
     for (;gBattlerTarget < gBattlersCount; gBattlerTarget++)
@@ -12099,12 +12099,10 @@ static void Cmd_trygetbaddreamstarget(void)
     }
 
     if (gBattlerTarget >= gBattlersCount)
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
-    else
-        gBattlescriptCurrInstr += 5;
+        Cmd_end3();
 }
 
-static void Cmd_tryworryseed(void)
+void Cmd_tryworryseed(void)
 {
     switch (gBattleMons[gBattlerTarget].ability)
     {
@@ -12113,16 +12111,15 @@ static void Cmd_tryworryseed(void)
     case ABILITY_TRUANT:
     case ABILITY_STANCE_CHANGE:
     case ABILITY_DISGUISE:
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_ButItFailed;
         break;
     default:
         gBattleMons[gBattlerTarget].ability = ABILITY_INSOMNIA;
-        gBattlescriptCurrInstr += 5;
         break;
     }
 }
 
-static void Cmd_metalburstdamagecalculator(void)
+void Cmd_metalburstdamagecalculator(void)
 {
     u8 sideAttacker = GetBattlerSide(gBattlerAttacker);
     u8 sideTarget = 0;
@@ -12138,7 +12135,7 @@ static void Cmd_metalburstdamagecalculator(void)
         else
             gBattlerTarget = gProtectStructs[gBattlerAttacker].physicalBattlerId;
 
-        gBattlescriptCurrInstr += 5;
+        //gBattlescriptCurrInstr += 5;
     }
     else if (gProtectStructs[gBattlerAttacker].specialDmg
              && sideAttacker != (sideTarget = GetBattlerSide(gProtectStructs[gBattlerAttacker].specialBattlerId))
@@ -12151,12 +12148,12 @@ static void Cmd_metalburstdamagecalculator(void)
         else
             gBattlerTarget = gProtectStructs[gBattlerAttacker].specialBattlerId;
 
-        gBattlescriptCurrInstr += 5;
+        //gBattlescriptCurrInstr += 5;
     }
     else
     {
         gSpecialStatuses[gBattlerAttacker].ppNotAffectedByPressure = 1;
-        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+        gBattlescriptCurrInstr = BattleScript_ButItFailedAtkStringPpReduce;
     }
 }
 
@@ -12184,3 +12181,35 @@ static bool32 CriticalCapture(u32 odds)
     return FALSE;
 }
 
+static u32 ScriptReadPtr(u8 offset, u8 toAdd)
+{
+    const u8* u = gBattlescriptCurrInstr + offset;
+    u32 ret = (u)[0] | ((u)[1] << 8) | ((u)[2] << 16) | ((u)[3] << 24);
+    gBattlescriptCurrInstr += toAdd;
+    return ret;
+}
+
+static void Cmd_battleasm()
+{
+    void (*function) ();
+    function = (void*) (ScriptReadPtr(1, 5)|1);
+    gBattlescriptCurrInstr += 5;
+    function();
+}
+
+void PlayerPrintString(u8*);
+static void Cmd_printstringt()
+{
+    u8* stringPtr;
+    if (gBattleControllerExecFlags != 0) return;
+    stringPtr = (u8*) ScriptReadPtr(1, 5);
+    PlayerPrintString(stringPtr);
+}
+
+static void Cmd_printstringf()
+{
+    u8** stringPtr;
+    if (gBattleControllerExecFlags != 0) return;
+    stringPtr = (u8**) ScriptReadPtr(1, 5);
+    PlayerPrintString(stringPtr[gBattleCommunication[MULTISTRING_CHOOSER]]);
+}

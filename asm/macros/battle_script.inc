@@ -1283,17 +1283,17 @@
 	.4byte \ptr
 	.endm
 	
-	.macro trygetbaddreamstarget ptr:req
+	.macro printstringf ptr:req
 	.byte 0xfd
 	.4byte \ptr
 	.endm
 	
-	.macro tryworryseed ptr:req
+	.macro battleasm ptr:req
 	.byte 0xfe
 	.4byte \ptr
 	.endm
 	
-	.macro metalburstdamagecalculator ptr:req
+	.macro printstringt ptr:req
 	.byte 0xff
 	.4byte \ptr
 	.endm

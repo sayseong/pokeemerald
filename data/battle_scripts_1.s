@@ -1626,7 +1626,7 @@ BattleScript_EffectLuckyChant:
 
 BattleScript_EffectMetalBurst:
 	attackcanceler
-	metalburstdamagecalculator BattleScript_ButItFailedAtkStringPpReduce
+	battleasm Cmd_metalburstdamagecalculator
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
@@ -1685,7 +1685,7 @@ BattleScript_EffectWorrySeed:
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackstring
 	ppreduce
-	tryworryseed BattleScript_ButItFailed
+	battleasm Cmd_tryworryseed
 	attackanimation
 	waitanimation
 	printstring STRINGID_PKMNACQUIREDABILITY
@@ -6103,7 +6103,7 @@ BattleScript_MegaEvolution::
 	end2
 
 BattleScript_Dynamax::
-    printstring STRINGID_CLOAKEDINAFREEZINGLIGHT+1
+    printstringt BattleScript_Dynamax_String
     waitmessage 0x20
     playanimation BS_ATTACKER, B_ANIM_DYNAMAX_EVOLUTION, NULL
 	waitanimation
@@ -6113,7 +6113,8 @@ BattleScript_Dynamax::
 	healthbarupdate BS_ATTACKER
     datahpupdate BS_ATTACKER
 	end2
-
+BattleScript_Dynamax_String::
+.string "开始极巨化$"
 BattleScript_AttackerFormChange::
 	pause 0x5
 	copybyte gBattlerAbility, gBattlerAttacker
@@ -6807,7 +6808,7 @@ BattleScript_BadDreamsActivates::
 	setbyte gBattlerTarget, 0
 	call BattleScript_AbilityPopUp
 BattleScript_BadDreamsLoop:
-	trygetbaddreamstarget BattleScript_BadDreamsEnd
+	battleasm Cmd_trygetbaddreamstarget
 	dmg_1_8_targethp
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_x100000
 	printstring STRINGID_BADDREAMSDMG
@@ -7688,11 +7689,11 @@ BattleScript_DynamaxSetTealthrock::
 	return
 
 StringClearFieldEffects:
-.string "{B_ATK_NAME_WITH_PREFIX}清除了场地效果!"
+.string "{B_ATK_NAME_WITH_PREFIX}清除了场地效果.$"
 StringClearFieldReflect:
-.string "{B_ATK_NAME_WITH_PREFIX}清除了反射!"
+.string "{B_ATK_NAME_WITH_PREFIX}清除了反射.$"
 StringClearFieldLightWall:
-.string "{B_ATK_NAME_WITH_PREFIX}清除了光墙!"
+.string "{B_ATK_NAME_WITH_PREFIX}清除了光墙.$"
 
 StringClearFieldEffectsTable:
 .4byte StringClearFieldEffects

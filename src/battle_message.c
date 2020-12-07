@@ -676,7 +676,6 @@ static const u8 sText_PkmnAbsorbingPower[] = _("{B_ATK_NAME_WITH_PREFIX}正在�
 static const u8 sText_NoOneWillBeAbleToRun[] = _("在下个回合之前\n双方都无法交换或逃跑!");
 static const u8 sText_DestinyKnotActivates[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}由于\n{B_LAST_ITEM}而陷入爱恋!");
 static const u8 sText_CloakedInAFreezingLight[] = _("{B_ATK_NAME_WITH_PREFIX}在寒光中消失了!");
-static const u8 sText_DynamaxString[] = _("极巨化开始");
 
 const u8 *const gBattleStringsTable[] =
 {
@@ -1216,7 +1215,6 @@ const u8 *const gBattleStringsTable[] =
     [STRINGID_GRASSYTERRAINHEALS - 12] = sText_GrassyTerrainHeals,
     [STRINGID_ELECTRICTERRAINPREVENTS - 12] = sText_ElectricTerrainPreventsSleep,
     [STRINGID_PSYCHICTERRAINPREVENTS - 12] = sText_PsychicTerrainPreventsPriority,
-    [STRINGID_CLOAKEDINAFREEZINGLIGHT - 12 + 1] = sText_DynamaxString,
 };
 
 const u16 gTerrainStringIds[] =
