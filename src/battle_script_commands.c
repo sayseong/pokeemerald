@@ -6800,6 +6800,38 @@ static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 
     return FALSE;
 }
+#undef DEFOG_CLEAR
+#define DEFOG_CLEAR(status, structField, battlescript, move)\
+if (*sideStatuses & status)                                 \
+{                                                           \
+    PREPARE_MOVE_BUFFER(gBattleTextBuff1, move);            \
+    *sideStatuses &= ~(status);                             \
+    sideTimer->structField = 0;                             \
+    return battlescript;                                    \
+}
+
+const u8* RunScreenCleaner()
+{
+    for (; gBattlerAttacker < 2; gBattlerAttacker++) {
+        struct SideTimer *sideTimer = &gSideTimers[gBattlerAttacker];
+        u32 *sideStatuses = &gSideStatuses[gBattlerAttacker];
+
+        DEFOG_CLEAR(SIDE_STATUS_REFLECT, reflectTimer, BattleScript_SideStatusWoreOffReturn, MOVE_REFLECT);
+        DEFOG_CLEAR(SIDE_STATUS_LIGHTSCREEN, lightscreenTimer, BattleScript_SideStatusWoreOffReturn, MOVE_LIGHT_SCREEN);
+        DEFOG_CLEAR(SIDE_STATUS_AURORA_VEIL, auroraVeilTimer, BattleScript_SideStatusWoreOffReturn, MOVE_AURORA_VEIL);
+    }
+    return FALSE;
+}
+
+void CallAsmRunScreenCleaner()
+{
+    const u8* script = RunScreenCleaner();
+    if (script) {
+        gBattlescriptCurrInstr -= 5;
+        BattleScriptPushCursor();
+        gBattlescriptCurrInstr = script;
+    }
+}
 
 u32 IsFlowerVeilProtected(u32 battler)
 {

@@ -7736,3 +7736,17 @@ BattleScript_DynamaxSetTorment::
 	printstring STRINGID_PKMNSUBJECTEDTOTORMENT
 	waitmessage 0x40
 	goto BattleScript_MoveEnd
+BattleScript_ScreenCleaner::
+    call BattleScript_AbilityPopUp
+    battleasm CallAsmRunScreenCleaner
+    end3
+BattleScript_PERISH_BODY::
+    call BattleScript_AbilityPopUp
+    printstring STRINGID_FAINTINTHREE
+    waitmessage 0x20
+    return
+BattleScript_WANDERING_SPIRIT_string:
+.string "交换了特性$"
+BattleScript_WANDERING_SPIRIT::
+    printstringt BattleScript_WANDERING_SPIRIT_string
+    return

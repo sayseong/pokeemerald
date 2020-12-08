@@ -17,6 +17,10 @@ enum BattleEvolutionType {
 };
 void HandleDynamaxMoveEffect();
 void BattleScriptPushCurrent(void* newPtr);
+struct Pokemon* GetBankPartyData(u8 bank);
+extern const u8 BattleScript_ScreenCleaner[];
+extern const u8 BattleScript_PERISH_BODY[];
+extern const u8 BattleScript_WANDERING_SPIRIT[];
 #define DYNAMAX_SET_RAIN 0
 #define DYNAMAX_SET_SUNNY 1
 #define DYNAMAX_SET_SANDSTORM 2

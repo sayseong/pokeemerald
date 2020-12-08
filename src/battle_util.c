@@ -3241,6 +3241,14 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 move
                 effect++;
             }
             break;
+        case ABILITY_SCREEN_CLEANER:
+            effect = (gSideStatuses[0] & (SIDE_STATUS_REFLECT|SIDE_STATUS_LIGHTSCREEN|SIDE_STATUS_AURORA_VEIL))
+                     || (gSideStatuses[1] & (SIDE_STATUS_REFLECT|SIDE_STATUS_LIGHTSCREEN|SIDE_STATUS_AURORA_VEIL));
+            if (effect) {
+                gBattlerAttacker = 0;
+                BattleScriptPushCursorAndCallback(BattleScript_ScreenCleaner);
+            }
+            break;
         }
         break;
     case ABILITYEFFECT_ENDTURN: // 1
@@ -3894,6 +3902,50 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u8 ability, u16 special, u16 move
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaise;
                     effect++;
+                }
+            }
+            break;
+        case ABILITY_PERISH_BODY:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                && TARGET_TURN_DAMAGED
+                && IsMoveMakingContact(move, gBattlerAttacker))
+            {
+                if (!(gStatuses3[gBattlerAttacker] & STATUS3_PERISH_SONG))
+                {
+                    gStatuses3[gBattlerAttacker] |= STATUS3_PERISH_SONG;
+                    gDisableStructs[gBattlerAttacker].perishSongTimer = 3;
+                    gDisableStructs[gBattlerAttacker].perishSongTimerStartValue = 3;
+                    effect = 1;
+                }
+                if (!(gStatuses3[gBattlerAttacker] & STATUS3_PERISH_SONG))
+                {
+                    gStatuses3[gBattlerAttacker] |= STATUS3_PERISH_SONG;
+                    gDisableStructs[gBattlerAttacker].perishSongTimer = 3;
+                    gDisableStructs[gBattlerAttacker].perishSongTimerStartValue = 3;
+                    effect = 1;
+                }
+                if (effect)
+                {
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_PERISH_BODY;
+                }
+            }
+            break;
+        case ABILITY_WANDERING_SPIRIT:
+            if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+                && TARGET_TURN_DAMAGED
+                && IsMoveMakingContact(move, gBattlerAttacker))
+            {
+                i = GetMonAbility(GetBankPartyData(gBattlerAttacker));
+                if (i != ABILITY_WANDERING_SPIRIT && i != ABILITY_WONDER_GUARD && gBattleMons[gBattlerAttacker].ability != ABILITY_WANDERING_SPIRIT)
+                {
+                    CreateAbilityPopUp(gBattlerTarget);
+                    gBattleMons[gBattlerTarget].ability = i;
+                    gBattleMons[gBattlerAttacker].ability = ABILITY_WANDERING_SPIRIT;
+                    effect++;
+                    BattleScriptPushCursor();
+                    gBattlescriptCurrInstr = BattleScript_WANDERING_SPIRIT;
                 }
             }
             break;
