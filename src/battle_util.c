@@ -6625,7 +6625,10 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         break;
     case ABILITY_SNIPER:
         if (isCrit)
+        {
+            dmg1_5:
             MulModifier(&finalModifier, UQ_4_12(1.5));
+        }
         break;
     case ABILITY_NEUROFORCE:
         if (typeEffectivenessModifier >= UQ_4_12(2.0))
@@ -6637,7 +6640,15 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         break;
     case ABILITY_STEELY_SPIRIT:
         if (moveType == TYPE_STEEL)
-            MulModifier(&finalModifier, UQ_4_12(1.5));
+            goto dmg1_5;
+        break;
+    case ABILITY_TRANSISTOR:
+        if (moveType == TYPE_ELECTRIC)
+            goto dmg1_5;
+        break;
+    case ABILITY_DRAGON_MAW:
+        if (moveType == TYPE_DRAGON)
+            goto dmg1_5;
         break;
     }
 
