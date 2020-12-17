@@ -6422,7 +6422,7 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
     return ApplyModifier(modifier, atkStat);
 }
 
-static bool32 CanEvolve(u32 species)
+bool32 CanEvolve(u32 species)
 {
     u32 i;
 
