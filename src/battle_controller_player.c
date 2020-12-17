@@ -3218,9 +3218,9 @@ static void WaitForDebug(void)
 
 static void PlayerHandleBattleDebug(void)
 {
-    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
-    SetMainCallback2(CB2_BattleDebugMenu);
-    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
+//    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
+//    SetMainCallback2(CB2_BattleDebugMenu);
+//    gBattlerControllerFuncs[gActiveBattler] = WaitForDebug;
 }
 
 static void PlayerCmdEnd(void)
