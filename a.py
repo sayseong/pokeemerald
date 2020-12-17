@@ -24,8 +24,18 @@ class AsmGenerator:
         while True:
             line = self.reader.readline()
             if line == "": return
-            line = line.rstrip()
-            print(line)
+            line = line.strip()
+            if line.startswith(".size"):
+                symbol = line.split()[1].split(",")[0]
+                value = self.table.get(symbol)
+                if value is None:
+                    print(line)
+                elif line.startswith(".incbin"):
+                    print(".size " + symbol + ',' + value[8:].split(",")[2])
+                else:
+                    print(".size " + symbol + ',' + str(((len(value) - 5) // 5)))
+            else:
+                print(line)
             proccessline = line
             if not proccessline.endswith(":"): continue
             symbol = proccessline[0:len(proccessline) - 1]
@@ -73,6 +83,7 @@ class AsmGenerator:
         while True:
             line = self.reader.readline().strip()
             if not (line.startswith(".byte") or line.startswith(".space")):
+                print(line)
                 break
         if line.startswith(".size"):
             if value.startswith(".incbin"):
