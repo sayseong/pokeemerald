@@ -77,9 +77,9 @@ void SetSaveBlocksPointers(u16 offset)
 
     offset = (offset + Random()) & (SAVEBLOCK_MOVE_RANGE - 4);
 
-    gSaveBlock2Ptr = (void*)(&gSaveblock2) + offset;
-    *sav1_LocalVar = (void*)(&gSaveblock1) + offset;
-    gPokemonStoragePtr = (void*)(&gPokemonStorage) + offset;
+    gSaveBlock2Ptr = (void*)(&gSaveblock2) + 0;
+    *sav1_LocalVar = (void*)(&gSaveblock1) + 0;
+    gPokemonStoragePtr = (void*)(&gPokemonStorage) + 0;
 
     SetBagItemsPointers();
     SetDecorationInventoriesPointers();
