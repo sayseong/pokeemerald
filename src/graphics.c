@@ -668,11 +668,7 @@ const u16 gBattleInterface_BallDisplayPal[] = INCBIN_U16("graphics/battle_interf
 //Originally an array?
 const u8 gHealthboxElementsGfxTable[] = INCBIN_U8("graphics/battle_interface/hpbar.4bpp",
                                                   "graphics/battle_interface/expbar.4bpp",
-                                                  "graphics/battle_interface/status_psn.4bpp",
-                                                  "graphics/battle_interface/status_par.4bpp",
-                                                  "graphics/battle_interface/status_slp.4bpp",
-                                                  "graphics/battle_interface/status_frz.4bpp",
-                                                  "graphics/battle_interface/status_brn.4bpp",
+                                                  "graphics/battle_interface/status0.4bpp",
                                                   "graphics/battle_interface/misc.4bpp",
                                                   "graphics/battle_interface/hpbar_anim.4bpp",
                                                   "graphics/battle_interface/misc_frameend.4bpp");
@@ -681,9 +677,9 @@ const u8 gBattleInterface_BallDisplayGfx[] = INCBIN_U8("graphics/battle_interfac
 
 //Originally an array?
 const u8 gUnknown_08C1249C[] = INCBIN_U8("graphics/battle_interface/ball_display_unused_extra.4bpp");
-const u8 gBattleInterfaceGfx_Status2[] = INCBIN_U8("graphics/battle_interface/status2.4bpp"); // these three duplicate sets of graphics are for the opponent pokemon
-const u8 gBattleInterfaceGfx_Status3[] = INCBIN_U8("graphics/battle_interface/status3.4bpp"); // and are also for use in double battles. they use dynamic palettes so
-const u8 gBattleInterfaceGfx_Status4[] = INCBIN_U8("graphics/battle_interface/status4.4bpp"); // coloring them is an extreme headache and wont be done for now
+const u8 gBattleInterfaceGfx_Status2[] = INCBIN_U8("graphics/battle_interface/status0.4bpp"); // these three duplicate sets of graphics are for the opponent pokemon
+const u8 gBattleInterfaceGfx_Status3[] = INCBIN_U8("graphics/battle_interface/status0.4bpp"); // and are also for use in double battles. they use dynamic palettes so
+const u8 gBattleInterfaceGfx_Status4[] = INCBIN_U8("graphics/battle_interface/status0.4bpp"); // coloring them is an extreme headache and wont be done for now
 const u8 gUnknown_D12FEC[] = INCBIN_U8("graphics/unknown/unknown_D12FEC.4bpp");
 const u8 gUnknown_D1300C[] = INCBIN_U8("graphics/unknown/unknown_D1300C.4bpp");
 const u32 gBattleInterfaceGfx_UnusedWindow3[] = INCBIN_U32("graphics/battle_interface/unused_window3.4bpp.lz");
