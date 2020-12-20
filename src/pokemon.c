@@ -2560,8 +2560,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else
         personality = Random32();
 
-    SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
-
     //Determine original trainer ID
     if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
     {
@@ -2579,11 +2577,24 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else //Player is the OT
     {
         value = gSaveBlock2Ptr->playerTrainerId[0]
-                | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-                | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-                | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+              | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
+              | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
+              | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+
+        if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
+        {
+            u32 shinyValue;
+            u32 rolls = 0;
+            do
+            {
+                personality = Random32();
+                shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
+                rolls++;
+            } while (shinyValue >= SHINY_ODDS && rolls < SHINY_CHARM_REROLLS);
+        }
     }
 
+    SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     SetBoxMonData(boxMon, MON_DATA_OT_ID, &value);
 
     checksum = CalculateBoxMonChecksum(boxMon);
@@ -2984,53 +2995,53 @@ bool8 sub_80688F8(u8 caseId, u8 battlerId)
 {
     switch (caseId)
     {
-        case 0:
-        default:
+    case 0:
+    default:
+        return FALSE;
+    case 1:
+        if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
             return FALSE;
-        case 1:
-            if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
-                return FALSE;
+        if (!gMain.inBattle)
+            return FALSE;
+        if (gLinkPlayers[GetMultiplayerId()].id == battlerId)
+            return FALSE;
+        break;
+    case 2:
+        break;
+    case 3:
+        if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+            return FALSE;
+        if (!gMain.inBattle)
+            return FALSE;
+        if (battlerId == 1 || battlerId == 4 || battlerId == 5)
+            return TRUE;
+        return FALSE;
+    case 4:
+        break;
+    case 5:
+        if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+        {
             if (!gMain.inBattle)
                 return FALSE;
-            if (gLinkPlayers[GetMultiplayerId()].id == battlerId)
-                return FALSE;
-            break;
-        case 2:
-            break;
-        case 3:
-            if (!(gBattleTypeFlags & BATTLE_TYPE_MULTI))
-                return FALSE;
-            if (!gMain.inBattle)
-                return FALSE;
-            if (battlerId == 1 || battlerId == 4 || battlerId == 5)
-                return TRUE;
-            return FALSE;
-        case 4:
-            break;
-        case 5:
-            if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+            if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
             {
-                if (!gMain.inBattle)
+                if (gLinkPlayers[GetMultiplayerId()].id == battlerId)
                     return FALSE;
-                if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
-                {
-                    if (gLinkPlayers[GetMultiplayerId()].id == battlerId)
-                        return FALSE;
-                }
-                else
-                {
-                    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
-                        return FALSE;
-                }
             }
             else
             {
-                if (!gMain.inBattle)
-                    return FALSE;
                 if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
                     return FALSE;
             }
-            break;
+        }
+        else
+        {
+            if (!gMain.inBattle)
+                return FALSE;
+            if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
+                return FALSE;
+        }
+        break;
     }
 
     return TRUE;
@@ -4740,7 +4751,7 @@ bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, 
 bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 moveIndex, u8 e)
 {
     u32 dataUnsigned;
-    s32 dataSigned;
+    s32 dataSigned, evCap;
     s32 friendship;
     s32 cmdIndex;
     bool8 retVal = TRUE;
@@ -4924,147 +4935,153 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         dataUnsigned = GetMonData(mon, MON_DATA_PP_BONUSES, NULL) + gPPUpAddMask[moveIndex];
                         SetMonData(mon, MON_DATA_PP_BONUSES, &dataUnsigned);
 
-                        dataUnsigned = CalculatePPWithBonus(GetMonData(mon, MON_DATA_MOVE1 + moveIndex, NULL), dataUnsigned, moveIndex) - var_38;
-                        dataUnsigned = GetMonData(mon, MON_DATA_PP1 + moveIndex, NULL) + dataUnsigned;
-                        SetMonData(mon, MON_DATA_PP1 + moveIndex, &dataUnsigned);
-                        retVal = FALSE;
-                    }
+                    dataUnsigned = CalculatePPWithBonus(GetMonData(mon, MON_DATA_MOVE1 + moveIndex, NULL), dataUnsigned, moveIndex) - var_38;
+                    dataUnsigned = GetMonData(mon, MON_DATA_PP1 + moveIndex, NULL) + dataUnsigned;
+                    SetMonData(mon, MON_DATA_PP1 + moveIndex, &dataUnsigned);
+                    retVal = FALSE;
                 }
-                var_38 = 0;
-                while (r10 != 0)
+            }
+            var_38 = 0;
+            while (r10 != 0)
+            {
+                if (r10 & 1)
                 {
-                    if (r10 & 1)
+                    switch (var_38)
                     {
-                        switch (var_38)
+                    case 0:
+                    case 1:
+                        // ev raise
+                        evCount = GetMonEVCount(mon);
+                        r5 = itemEffect[var_3C];
+                        dataSigned = GetMonData(mon, sGetMonDataEVConstants[var_38], NULL);
+                        r2 = r5;
+                        if (r2 > 0)
                         {
-                            case 0:
-                            case 1:
-                                // ev raise
-                                evCount = GetMonEVCount(mon);
-                                r5 = itemEffect[var_3C];
-                                dataSigned = GetMonData(mon, sGetMonDataEVConstants[var_38], NULL);
-                                r2 = r5;
-                                if (r2 > 0)
-                                {
-                                    if (evCount >= MAX_TOTAL_EVS)
-                                        return TRUE;
-                                    if (dataSigned >= EV_ITEM_RAISE_LIMIT)
-                                        break;
+                            if (evCount >= MAX_TOTAL_EVS)
+                                return TRUE;
 
-                                    if (dataSigned + r2 > EV_ITEM_RAISE_LIMIT)
-                                        r5 = EV_ITEM_RAISE_LIMIT - (dataSigned + r2) + r2;
-                                    else
-                                        r5 = r2;
+                            if (itemEffect[10] & ITEM10_IS_VITAMIN)
+                                evCap = EV_ITEM_RAISE_LIMIT;
+                            else
+                                evCap = 252;
 
-                                    if (evCount + r5 > MAX_TOTAL_EVS)
-                                        r5 += MAX_TOTAL_EVS - (evCount + r5);
-                                    dataSigned += r5;
-                                }
-                                else
-                                {
-                                    if (dataSigned == 0)
-                                    {
-                                        var_28 = 1;
-                                        var_3C++;
-                                        break;
-                                    }
-                                    dataSigned += r2;
-                                    if (dataSigned < 0)
-                                        dataSigned = 0;
-                                }
-                                SetMonData(mon, sGetMonDataEVConstants[var_38], &dataSigned);
-                                CalculateMonStats(mon);
+                            if (dataSigned >= evCap)
+                                break;
+
+                            if (dataSigned + r2 > evCap)
+                                r5 = evCap - (dataSigned + r2) + r2;
+                            else
+                                r5 = r2;
+
+                            if (evCount + r5 > MAX_TOTAL_EVS)
+                                r5 += MAX_TOTAL_EVS - (evCount + r5);
+                            dataSigned += r5;
+                        }
+                        else
+                        {
+                            if (dataSigned == 0)
+                            {
+                                var_28 = 1;
                                 var_3C++;
-                                retVal = FALSE;
                                 break;
-                            case 2:
-                                // revive
-                                if (r10 & 0x10)
+                            }
+                            dataSigned += r2;
+                            if (dataSigned < 0)
+                                dataSigned = 0;
+                        }
+                        SetMonData(mon, sGetMonDataEVConstants[var_38], &dataSigned);
+                        CalculateMonStats(mon);
+                        var_3C++;
+                        retVal = FALSE;
+                        break;
+                    case 2:
+                        // revive
+                        if (r10 & 0x10)
+                        {
+                            if (GetMonData(mon, MON_DATA_HP, NULL) != 0)
+                            {
+                                var_3C++;
+                                break;
+                            }
+                            if (gMain.inBattle)
+                            {
+                                if (battlerId != 4)
                                 {
-                                    if (GetMonData(mon, MON_DATA_HP, NULL) != 0)
-                                    {
-                                        var_3C++;
-                                        break;
-                                    }
-                                    if (gMain.inBattle)
-                                    {
-                                        if (battlerId != 4)
-                                        {
-                                            gAbsentBattlerFlags &= ~gBitTable[battlerId];
-                                            CopyPlayerPartyMonToBattleData(battlerId, GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battlerId]));
-                                            if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
-                                                gBattleResults.numRevivesUsed++;
-                                        }
-                                        else
-                                        {
-                                            gAbsentBattlerFlags &= ~gBitTable[gActiveBattler ^ 2];
-                                            if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
-                                                gBattleResults.numRevivesUsed++;
-                                        }
-                                    }
+                                    gAbsentBattlerFlags &= ~gBitTable[battlerId];
+                                    CopyPlayerPartyMonToBattleData(battlerId, GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battlerId]));
+                                    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
+                                        gBattleResults.numRevivesUsed++;
                                 }
                                 else
                                 {
-                                    if (GetMonData(mon, MON_DATA_HP, NULL) == 0)
-                                    {
-                                        var_3C++;
-                                        break;
-                                    }
+                                    gAbsentBattlerFlags &= ~gBitTable[gActiveBattler ^ 2];
+                                    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
+                                        gBattleResults.numRevivesUsed++;
                                 }
-                                dataUnsigned = itemEffect[var_3C++];
-                                switch (dataUnsigned)
-                                {
-                                    case 0xFF:
-                                        dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL) - GetMonData(mon, MON_DATA_HP, NULL);
-                                        break;
-                                    case 0xFE:
-                                        dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL) / 2;
-                                        if (dataUnsigned == 0)
-                                            dataUnsigned = 1;
-                                        break;
-                                    case 0xFD:
-                                        dataUnsigned = gBattleScripting.field_23;
-                                        break;
-                                }
-                                if (GetMonData(mon, MON_DATA_MAX_HP, NULL) != GetMonData(mon, MON_DATA_HP, NULL))
-                                {
-                                    if (e == 0)
-                                    {
-                                        dataUnsigned = GetMonData(mon, MON_DATA_HP, NULL) + dataUnsigned;
-                                        if (dataUnsigned > GetMonData(mon, MON_DATA_MAX_HP, NULL))
-                                            dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL);
-                                        SetMonData(mon, MON_DATA_HP, &dataUnsigned);
-                                        if (gMain.inBattle && battlerId != 4)
-                                        {
-                                            gBattleMons[battlerId].hp = dataUnsigned;
-                                            if (!(r10 & 0x10) && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
-                                            {
-                                                if (gBattleResults.numHealingItemsUsed < 255)
-                                                    gBattleResults.numHealingItemsUsed++;
-                                                // I have to re-use this variable to match.
-                                                r5 = gActiveBattler;
-                                                gActiveBattler = battlerId;
-                                                BtlController_EmitGetMonData(0, REQUEST_ALL_BATTLE, 0);
-                                                MarkBattlerForControllerExec(gActiveBattler);
-                                                gActiveBattler = r5;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        gBattleMoveDamage = -dataUnsigned;
-                                    }
-                                    retVal = FALSE;
-                                }
-                                r10 &= 0xEF;
+                            }
+                        }
+                        else
+                        {
+                            if (GetMonData(mon, MON_DATA_HP, NULL) == 0)
+                            {
+                                var_3C++;
                                 break;
-                            case 3:
-                                // Heal pp in all moves.
-                                if (!(r10 & 2))
+                            }
+                        }
+                        dataUnsigned = itemEffect[var_3C++];
+                        switch (dataUnsigned)
+                        {
+                        case 0xFF:
+                            dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL) - GetMonData(mon, MON_DATA_HP, NULL);
+                            break;
+                        case 0xFE:
+                            dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL) / 2;
+                            if (dataUnsigned == 0)
+                                dataUnsigned = 1;
+                            break;
+                        case 0xFD:
+                            dataUnsigned = gBattleScripting.field_23;
+                            break;
+                        }
+                        if (GetMonData(mon, MON_DATA_MAX_HP, NULL) != GetMonData(mon, MON_DATA_HP, NULL))
+                        {
+                            if (e == 0)
+                            {
+                                dataUnsigned = GetMonData(mon, MON_DATA_HP, NULL) + dataUnsigned;
+                                if (dataUnsigned > GetMonData(mon, MON_DATA_MAX_HP, NULL))
+                                    dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL);
+                                SetMonData(mon, MON_DATA_HP, &dataUnsigned);
+                                if (gMain.inBattle && battlerId != 4)
                                 {
-                                    for (r5 = 0; (signed)(r5) < (signed)(4); r5++)
+                                    gBattleMons[battlerId].hp = dataUnsigned;
+                                    if (!(r10 & 0x10) && GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
                                     {
-                                        u16 moveId;
+                                        if (gBattleResults.numHealingItemsUsed < 255)
+                                            gBattleResults.numHealingItemsUsed++;
+                                        // I have to re-use this variable to match.
+                                        r5 = gActiveBattler;
+                                        gActiveBattler = battlerId;
+                                        BtlController_EmitGetMonData(0, REQUEST_ALL_BATTLE, 0);
+                                        MarkBattlerForControllerExec(gActiveBattler);
+                                        gActiveBattler = r5;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                gBattleMoveDamage = -dataUnsigned;
+                            }
+                            retVal = FALSE;
+                        }
+                        r10 &= 0xEF;
+                        break;
+                    case 3:
+                        // Heal pp in all moves.
+                        if (!(r10 & 2))
+                        {
+                            for (r5 = 0; (signed)(r5) < (signed)(4); r5++)
+                            {
+                                u16 moveId;
 
                                         dataUnsigned = GetMonData(mon, MON_DATA_PP1 + r5, NULL);
                                         moveId = GetMonData(mon, MON_DATA_MOVE1 + r5, NULL);
@@ -5117,48 +5134,54 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                             {
                                 u16 targetSpecies = GetEvolutionTargetSpecies(mon, 2, item);
 
-                                if (targetSpecies != SPECIES_NONE)
-                                {
-                                    BeginEvolutionScene(mon, targetSpecies, 0, partyIndex);
-                                    return FALSE;
-                                }
+                            if (targetSpecies != SPECIES_NONE)
+                            {
+                                BeginEvolutionScene(mon, targetSpecies, 0, partyIndex);
+                                return FALSE;
                             }
-                                break;
                         }
+                        break;
                     }
-                    var_38++;
-                    r10 >>= 1;
                 }
-                break;
-                // EV and friendship
-            case 5:
-                r10 = itemEffect[cmdIndex];
-                var_38 = 0;
-                while (r10 != 0)
+                var_38++;
+                r10 >>= 1;
+            }
+            break;
+        // EV and friendship
+        case 5:
+            r10 = itemEffect[cmdIndex];
+            var_38 = 0;
+            while (r10 != 0)
+            {
+                if (r10 & 1)
                 {
-                    if (r10 & 1)
+                    switch (var_38)
                     {
-                        switch (var_38)
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        evCount = GetMonEVCount(mon);
+                        r5 = itemEffect[var_3C];
+                        dataSigned = GetMonData(mon, sGetMonDataEVConstants[var_38 + 2], NULL);
+                        r2 = r5;
+                        if (r2 > 0)
                         {
-                            case 0:
-                            case 1:
-                            case 2:
-                            case 3:
-                                evCount = GetMonEVCount(mon);
-                                r5 = itemEffect[var_3C];
-                                dataSigned = GetMonData(mon, sGetMonDataEVConstants[var_38 + 2], NULL);
-                                r2 = r5;
-                                if (r2 > 0)
-                                {
-                                    if (evCount >= MAX_TOTAL_EVS)
-                                        return TRUE;
-                                    if (dataSigned >= EV_ITEM_RAISE_LIMIT)
-                                        break;
+                            if (evCount >= MAX_TOTAL_EVS)
+                                return TRUE;
 
-                                    if (dataSigned + r2 > EV_ITEM_RAISE_LIMIT)
-                                        r5 = EV_ITEM_RAISE_LIMIT - (dataSigned + r2) + r2;
-                                    else
-                                        r5 = r2;
+                            if (itemEffect[10] & ITEM10_IS_VITAMIN)
+                                evCap = EV_ITEM_RAISE_LIMIT;
+                            else
+                                evCap = 252;
+
+                            if (dataSigned >= evCap)
+                                break;
+
+                            if (dataSigned + r2 > evCap)
+                                r5 = evCap - (dataSigned + r2) + r2;
+                            else
+                                r5 = r2;
 
                                     if (evCount + r5 > MAX_TOTAL_EVS)
                                         r5 += MAX_TOTAL_EVS - (evCount + r5);
@@ -7114,14 +7137,14 @@ struct Unknown_806F160_Struct *sub_806F2AC(u8 id, u8 arg1)
 
         switch (structPtr->field_3_1)
         {
-            case 2:
-                sub_806F1FC(structPtr);
-                break;
-            case 0:
-            case 1:
-            default:
-                sub_806F160(structPtr);
-                break;
+        case 2:
+            sub_806F1FC(structPtr);
+            break;
+        case 0:
+        case 1:
+        default:
+            sub_806F160(structPtr);
+            break;
         }
     }
 
@@ -7175,7 +7198,7 @@ void sub_806F47C(u8 id)
         if (structPtr->templates != NULL)
         FREE_AND_SET_NULL(structPtr->templates);
         if (structPtr->byteArrays != NULL)
-        FREE_AND_SET_NULL(structPtr->byteArrays);
+            FREE_AND_SET_NULL(structPtr->byteArrays);
         if (structPtr->bytes != NULL)
         FREE_AND_SET_NULL(structPtr->bytes);
 
