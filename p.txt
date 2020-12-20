@@ -1,8 +1,6 @@
 gDecorations=.incbin "data.bin",9147,3872;STRUCT
-gItems=.incbin "data.bin",14033,16588;STRUCT
 gTypeNames=.incbin "data.bin",30621,126;ARRAY2
 gTrainerClassNames=.incbin "data.bin",30747,858;ARRAY2
-gBerries=.incbin "data.bin",31605,1204;STRUCT
 gTrainers=.incbin "data.bin",32809,34200;STRUCT
 gApprentices=.incbin "data.bin",67009,1408;STRUCT
 sIngameTrades=.incbin "data.bin",68417,240;STRUCT
