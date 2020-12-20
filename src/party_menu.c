@@ -4623,7 +4623,7 @@ bool8 IsMoveHm(u16 move)
     for (i = 0; i < NUM_HIDDEN_MACHINES; i++)
     {
         if (sTMHMMoves[i + NUM_TECHNICAL_MACHINES] == move)
-            return TRUE;
+            return i + NUM_TECHNICAL_MACHINES;
     }
     return FALSE;
 }

@@ -1710,7 +1710,7 @@ bool8 ScrCmd_setmonmove(struct ScriptContext *ctx)
 
 bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
 {
-    u8 i;
+    u8 i, hm;
     u16 moveId = ScriptReadHalfword(ctx);
 
     gSpecialVar_Result = PARTY_SIZE;
@@ -1719,7 +1719,8 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
         u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
         if (!species)
             break;
-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsMove(&gPlayerParty[i], moveId) == TRUE)
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) &&
+            (MonKnowsMove(&gPlayerParty[i], moveId) == TRUE || (hm=IsMoveHm(moveId) && CanMonLearnTMHM(&gPlayerParty[i], hm))))
         {
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
