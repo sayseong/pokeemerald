@@ -6630,7 +6630,7 @@ const struct Item gItems[] =
 
     [ITEM_GENGARITE] =
     {
-        .name = _("耿鬼进化石"),
+        .name = _("耿鬼石"),
         .itemId = ITEM_GENGARITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6643,7 +6643,7 @@ const struct Item gItems[] =
 
     [ITEM_GARDEVOIRITE] =
     {
-        .name = _("沙奈朵进化石"),
+        .name = _("沙奈朵石"),
         .itemId = ITEM_GARDEVOIRITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6656,7 +6656,7 @@ const struct Item gItems[] =
 
     [ITEM_AMPHAROSITE] =
     {
-        .name = _("电龙进化石"),
+        .name = _("电龙石"),
         .itemId = ITEM_AMPHAROSITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6669,7 +6669,7 @@ const struct Item gItems[] =
 
     [ITEM_VENUSAURITE] =
     {
-        .name = _("妙蛙花进化石"),
+        .name = _("妙蛙花石"),
         .itemId = ITEM_VENUSAURITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6695,7 +6695,7 @@ const struct Item gItems[] =
 
     [ITEM_BLASTOISINITE] =
     {
-        .name = _("水箭龟进化石"),
+        .name = _("水箭龟石"),
         .itemId = ITEM_BLASTOISINITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6708,7 +6708,7 @@ const struct Item gItems[] =
 
     [ITEM_MEWTWONITE_X] =
     {
-        .name = _("超梦X进化石"),
+        .name = _("超梦X石"),
         .itemId = ITEM_MEWTWONITE_X,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6721,7 +6721,7 @@ const struct Item gItems[] =
 
     [ITEM_MEWTWONITE_Y] =
     {
-        .name = _("超梦Y进化石"),
+        .name = _("超梦Y石"),
         .itemId = ITEM_MEWTWONITE_Y,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6734,7 +6734,7 @@ const struct Item gItems[] =
 
     [ITEM_BLAZIKENITE] =
     {
-        .name = _("火焰鸡进化石"),
+        .name = _("火焰鸡石"),
         .itemId = ITEM_BLAZIKENITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6747,7 +6747,7 @@ const struct Item gItems[] =
 
     [ITEM_MEDICHAMITE] =
     {
-        .name = _("恰雷姆进化石"),
+        .name = _("恰雷姆石"),
         .itemId = ITEM_MEDICHAMITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6760,7 +6760,7 @@ const struct Item gItems[] =
 
     [ITEM_HOUNDOOMINITE] =
     {
-        .name = _("黑鲁加进化石"),
+        .name = _("黑鲁加石"),
         .itemId = ITEM_HOUNDOOMINITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6825,7 +6825,7 @@ const struct Item gItems[] =
 
     [ITEM_PINSIRITE] =
     {
-        .name = _("凯罗斯进化石"),
+        .name = _("凯罗斯石"),
         .itemId = ITEM_PINSIRITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6864,7 +6864,7 @@ const struct Item gItems[] =
 
     [ITEM_ABOMASITE] =
     {
-        .name = _("暴雪王进化石"),
+        .name = _("暴雪王石"),
         .itemId = ITEM_ABOMASITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6877,7 +6877,7 @@ const struct Item gItems[] =
 
     [ITEM_KANGASKHANITE] =
     {
-        .name = _("袋兽进化石"),
+        .name = _("袋兽石"),
         .itemId = ITEM_KANGASKHANITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6890,7 +6890,7 @@ const struct Item gItems[] =
 
     [ITEM_GYARADOSITE] =
     {
-        .name = _("暴鲤龙进化石"),
+        .name = _("暴鲤龙石"),
         .itemId = ITEM_GYARADOSITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6929,7 +6929,7 @@ const struct Item gItems[] =
 
     [ITEM_ALAKAZITE] =
     {
-        .name = _("胡地进化石"),
+        .name = _("胡地石"),
         .itemId = ITEM_ALAKAZITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6955,7 +6955,7 @@ const struct Item gItems[] =
 
     [ITEM_MAWILITE] =
     {
-        .name = _("大嘴娃进化石"),
+        .name = _("大嘴娃石"),
         .itemId = ITEM_MAWILITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6968,7 +6968,7 @@ const struct Item gItems[] =
 
     [ITEM_MANECTITE] =
     {
-        .name = _("雷电兽进化石"),
+        .name = _("雷电兽石"),
         .itemId = ITEM_MANECTITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7020,7 +7020,7 @@ const struct Item gItems[] =
 
     [ITEM_SWAMPERTITE] =
     {
-        .name = _("巨沼怪进化石"),
+        .name = _("巨沼怪石"),
         .itemId = ITEM_SWAMPERTITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7033,7 +7033,7 @@ const struct Item gItems[] =
 
     [ITEM_SCEPTILITE] =
     {
-        .name = _("蜥蜴王进化石"),
+        .name = _("蜥蜴王石"),
         .itemId = ITEM_SCEPTILITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7046,7 +7046,7 @@ const struct Item gItems[] =
 
     [ITEM_SABLENITE] =
     {
-        .name = _("勾魂眼进化石"),
+        .name = _("勾魂眼石"),
         .itemId = ITEM_SABLENITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7098,7 +7098,7 @@ const struct Item gItems[] =
 
     [ITEM_METAGROSSITE] =
     {
-        .name = _("巨金怪进化石"),
+        .name = _("巨金怪石"),
         .itemId = ITEM_METAGROSSITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7111,7 +7111,7 @@ const struct Item gItems[] =
 
     [ITEM_SHARPEDONITE] =
     {
-        .name = _("巨牙鲨进化石"),
+        .name = _("巨牙鲨石"),
         .itemId = ITEM_SHARPEDONITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7124,7 +7124,7 @@ const struct Item gItems[] =
 
     [ITEM_SLOWBRONITE] =
     {
-        .name = _("呆壳兽进化石"),
+        .name = _("呆壳兽石"),
         .itemId = ITEM_SLOWBRONITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7137,7 +7137,7 @@ const struct Item gItems[] =
 
     [ITEM_STEELIXITE] =
     {
-        .name = _("大钢蛇进化石"),
+        .name = _("大钢蛇石"),
         .itemId = ITEM_STEELIXITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7150,7 +7150,7 @@ const struct Item gItems[] =
 
     [ITEM_PIDGEOTITE] =
     {
-        .name = _("大比鸟进化石"),
+        .name = _("大比鸟石"),
         .itemId = ITEM_PIDGEOTITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7163,7 +7163,7 @@ const struct Item gItems[] =
 
     [ITEM_GLALITITE] =
     {
-        .name = _("冰鬼护进化石"),
+        .name = _("冰鬼护石"),
         .itemId = ITEM_GLALITITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7176,7 +7176,7 @@ const struct Item gItems[] =
 
     [ITEM_DIANCITE] =
     {
-        .name = _("蒂安希进化石"),
+        .name = _("蒂安希石"),
         .itemId = ITEM_DIANCITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7189,7 +7189,7 @@ const struct Item gItems[] =
 
     [ITEM_CAMERUPTITE] =
     {
-        .name = _("喷火驼进化石"),
+        .name = _("喷火驼石"),
         .itemId = ITEM_CAMERUPTITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7202,7 +7202,7 @@ const struct Item gItems[] =
 
     [ITEM_LOPUNNITE] =
     {
-        .name = _("长耳兔进化石"),
+        .name = _("长耳兔石"),
         .itemId = ITEM_LOPUNNITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7215,7 +7215,7 @@ const struct Item gItems[] =
 
     [ITEM_SALAMENCITE] =
     {
-        .name = _("暴飞龙进化石"),
+        .name = _("暴飞龙石"),
         .itemId = ITEM_SALAMENCITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -7228,7 +7228,7 @@ const struct Item gItems[] =
 
     [ITEM_BEEDRILLITE] =
     {
-        .name = _("大针蜂进化石"),
+        .name = _("大针蜂石"),
         .itemId = ITEM_BEEDRILLITE,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
