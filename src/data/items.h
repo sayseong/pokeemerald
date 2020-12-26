@@ -5685,7 +5685,7 @@ const struct Item gItems[] =
 
     [ITEM_ELECTRIC_MEMORY] =
     {
-        .name = _("电储存碟"),
+        .name = _("电子存储碟"),
         .itemId = ITEM_ELECTRIC_MEMORY,
         .price = 1000,
         .holdEffect = HOLD_EFFECT_MEMORY,
@@ -5713,7 +5713,7 @@ const struct Item gItems[] =
 
     [ITEM_FIGHTING_MEMORY] =
     {
-        .name = _("格斗储存碟"),
+        .name = _("战斗存储碟"),
         .itemId = ITEM_FIGHTING_MEMORY,
         .price = 1000,
         .holdEffect = HOLD_EFFECT_MEMORY,
@@ -5825,7 +5825,7 @@ const struct Item gItems[] =
 
     [ITEM_PSYCHIC_MEMORY] =
     {
-        .name = _("超能储存碟"),
+        .name = _("精神存储碟"),
         .itemId = ITEM_PSYCHIC_MEMORY,
         .price = 1000,
         .holdEffect = HOLD_EFFECT_MEMORY,
@@ -6682,7 +6682,7 @@ const struct Item gItems[] =
 
     [ITEM_CHARIZARDITE_X] =
     {
-        .name = _("喷火龙X石"),
+        .name = _("喷火龙石X"),
         .itemId = ITEM_CHARIZARDITE_X,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6708,7 +6708,7 @@ const struct Item gItems[] =
 
     [ITEM_MEWTWONITE_X] =
     {
-        .name = _("超梦X石"),
+        .name = _("超梦石X"),
         .itemId = ITEM_MEWTWONITE_X,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6721,7 +6721,7 @@ const struct Item gItems[] =
 
     [ITEM_MEWTWONITE_Y] =
     {
-        .name = _("超梦Y石"),
+        .name = _("超梦石Y"),
         .itemId = ITEM_MEWTWONITE_Y,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
@@ -6916,7 +6916,7 @@ const struct Item gItems[] =
 
     [ITEM_CHARIZARDITE_Y] =
     {
-        .name = _("喷火龙Y石"),
+        .name = _("喷火龙石Y"),
         .itemId = ITEM_CHARIZARDITE_Y,
         .price = 200,
         .holdEffect = HOLD_EFFECT_MEGA_STONE,

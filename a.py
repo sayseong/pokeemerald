@@ -8,6 +8,8 @@ def init_table():
     dic = {}
     while True:
         line = reader.readline()
+        if line.startswith("#"):  # comment support
+            continue
         if line == "":
             break
         key, value = line.strip().split('=')

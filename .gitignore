@@ -33,5 +33,6 @@ porymap.project.cfg
 .vscode/
 *.a
 .fuse_hidden*
-cmake-build-debug
+cmake-build-debug*
 .vs
+CMakeLists.txt
