@@ -57,6 +57,7 @@ struct SpeciesItem
 };
 
 // this file's functions
+extern u32 GetPlayerIDAsU32();
 static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon);
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static void EncryptBoxMon(struct BoxPokemon *boxMon);
@@ -3599,22 +3600,22 @@ void SetMultiuseSpriteTemplateToTrainerFront(u16 arg0, u8 battlerPosition)
 
 static void EncryptBoxMon(struct BoxPokemon *boxMon)
 {
-    u32 i;
+    /*u32 i;
     for (i = 0; i < 12; i++)
     {
         boxMon->secure.raw[i] ^= boxMon->personality;
         boxMon->secure.raw[i] ^= boxMon->otId;
-    }
+    }*/
 }
 
 static void DecryptBoxMon(struct BoxPokemon *boxMon)
 {
-    u32 i;
+   /* u32 i;
     for (i = 0; i < 12; i++)
     {
         boxMon->secure.raw[i] ^= boxMon->otId;
         boxMon->secure.raw[i] ^= boxMon->personality;
-    }
+    }*/
 }
 
 #define SUBSTRUCT_CASE(n, v1, v2, v3, v4)                               \
@@ -3800,7 +3801,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
             retVal = boxMon->personality;
             break;
         case MON_DATA_OT_ID:
-            retVal = boxMon->otId;
+            retVal = GetPlayerIDAsU32();
             break;
         case MON_DATA_NICKNAME:
         {
@@ -3858,7 +3859,7 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
 
             while (retVal < PLAYER_NAME_LENGTH)
             {
-                data[retVal] = boxMon->otName[retVal];
+                /*data[retVal] = boxMon->otName[retVal];*/data[retVal] = gSaveBlock2Ptr->playerName[retVal];
                 retVal++;
             }
 
@@ -4200,7 +4201,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             SET32(boxMon->personality);
             break;
         case MON_DATA_OT_ID:
-            SET32(boxMon->otId);
+//            SET32(boxMon->otId);
             break;
         case MON_DATA_NICKNAME:
         {
@@ -4223,9 +4224,10 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         case MON_DATA_OT_NAME:
         {
-            s32 i;
+            /*s32 i;
             for (i = 0; i < PLAYER_NAME_LENGTH; i++)
-                boxMon->otName[i] = data[i];
+                boxMon->otName[i] = data[i];*/
+            boxMon->isOtherTrainer = 1;
             break;
         }
         case MON_DATA_MARKINGS:
@@ -6646,16 +6648,16 @@ s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor)
 
 bool8 IsTradedMon(struct Pokemon *mon)
 {
-    u8 otName[PLAYER_NAME_LENGTH + 1];
+    /*u8 otName[PLAYER_NAME_LENGTH + 1];
     u32 otId;
     GetMonData(mon, MON_DATA_OT_NAME, otName);
     otId = GetMonData(mon, MON_DATA_OT_ID, 0);
-    return IsOtherTrainer(otId, otName);
+    return IsOtherTrainer(otId, otName);*/return FALSE;
 }
 
 bool8 IsOtherTrainer(u32 otId, u8 *otName)
 {
-    if (otId ==
+    /*if (otId ==
         (gSaveBlock2Ptr->playerTrainerId[0]
          | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
          | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
@@ -6669,7 +6671,7 @@ bool8 IsOtherTrainer(u32 otId, u8 *otName)
         return FALSE;
     }
 
-    return TRUE;
+    return TRUE;*/return FALSE;
 }
 
 void MonRestorePP(struct Pokemon *mon)
