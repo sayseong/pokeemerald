@@ -680,147 +680,147 @@ static const u8  sDOUBLE_IRON_BASHDescription[] = _("迅猛无比的电击.必�
     
 // GEN 8
 static const u8 sDYNAMAX_CANNONDescription[] = _(
-    "Fires a strong beam. Deals\n"
-    "2x damage to Dynamaxed foes.");
+    "从核心放出光束进行攻击\n"
+    "2倍伤害于极巨化的敌人.");
     
 static const u8 sSNIPE_SHOTDescription[] = _(
-    "The user ignores effects\n"
-    "that draw in moves.");
+    "能无视具有吸引对手招式\n"
+    "效果的特性或招式的影响.");
     
 static const u8 sJAW_LOCKDescription[] = _(
-    "Prevents the user and\n"
-    "the target from escaping.");
+    "使双方直到一方濒死为止\n"
+    "无法替换宝可梦.");
     
 static const u8 sSTUFF_CHEEKSDescription[] = _(
-    "Consumes the user's Berry,\n"
-    "then sharply raises Def.");
+    "吃掉携带的树果,\n"
+    "大幅提高防御.");
     
 static const u8 sNO_RETREATDescription[] = _(
-    "Raises all of the user's\n"
-    "stats but prevents escape.");
+    "提高自己的所有能力\n"
+    "但无法替换或逃走.");
     
 static const u8 sTAR_SHOTDescription[] = _(
-    "Lowers the foe's Speed and\n"
-    "makes it weak to Fire.");
+    "降低对手的速度\n"
+    "使对手的弱点变为火.");
     
 static const u8 sMAGIC_POWDERDescription[] = _(
-    "Magic powder changes the\n"
-    "target into a Psychic-type.");
+    "向对手喷洒魔法粉\n"
+    "使对手变为超能力属性.");
     
 static const u8 sDRAGON_DARTSDescription[] = _(
-    "The user attacks twice. Two\n"
-    "targets are hit once each.");
+    "让多龙梅西亚\n"
+    "进行2次攻击.");
     
 static const u8 sTEATIMEDescription[] = _(
-    "All Pokémon have teatime\n"
-    "and eat their Berries.");
+    "场上的所有宝可梦都\n"
+    "会吃掉自己携带的树果.");
     
 static const u8 sOCTOLOCKDescription[] = _(
-    "Traps the foe to lower Def\n"
-    "and Sp. Def fall each turn.");
+    "对手被固定后每回合都会\n"
+    "降低防御和特防.");
     
 static const u8 sBOLT_BEAKDescription[] = _(
-    "Double power if the user\n"
-    "moves before the target.");
-    
-static const u8 sFISHIOUS_RENDDescription[] = _(
-    "Double power if the user\n"
-    "moves before the target.");
+    "如果比对手先出手攻击"
+    "招式的威力会变成2倍.");
+#define sFISHIOUS_RENDDescription sBOLT_BEAKDescription
+//static const u8 sFISHIOUS_RENDDescription[] = _(
+//    "Double power if the user\n"
+//    "moves before the target.");
     
 static const u8 sCOURT_CHANGEDescription[] = _(
-    "The user swaps effects on\n"
-    "either side of the field.");
+    "用神奇的力量交换\n"
+    "双方的场地效果.");
     
 static const u8 sCLANGOROUS_SOULDescription[] = _(
-    "The user uses some of its\n"
-    "HP to raise all its stats.");
+    "削减少许自己的HP\n"
+    "使所有能力都提高.");
     
 static const u8 sBODY_PRESSDescription[] = _(
-    "Does more damage the\n"
-    "higher the user's Def.");
+    "防御越高\n"
+    "给予的伤害就越高.");
     
 static const u8 sDECORATEDescription[] = _(
-    "The user sharply raises\n"
-    "the target's Atk and Sp.Atk");
+    "通过装饰,大幅提高\n"
+    "对方的攻击和特攻");
     
 static const u8 sDRUM_BEATINGDescription[] = _(
-    "Plays a drum to attack.\n"
-    "The foe's Speed is lowered.");
+    "降低对手的速度."
+    );
     
 static const u8 sSNAP_TRAPDescription[] = _(
-    "Snares the target in a snap\n"
-    "trap for four to five turns.");
+    "在4-5回合内\n"
+    "夹住对手进行攻击.");
     
 static const u8 sPYRO_BALLDescription[] = _(
-    "Launches a fiery ball at the\n"
-    "target. It may cause a burn.");
+    "形成火球攻击对手\n"
+    "有时会使对手陷入灼伤状态.");
     
 static const u8 sBEHEMOTH_BLADEDescription[] = _(
-    "Strikes as a sword. It deals\n"
-    "2x damage to Dynamaxed foes.");
+    "变身为巨大的剑\n"
+    "挥斩对手.");
     
 static const u8 sBEHEMOTH_BASHDescription[] = _(
-    "Attacks as a sheild. Deals\n"
-    "2x damage to Dynamaxed foes.");
+    "变身为巨大的盾\n"
+    "撞击对手.");
     
 static const u8 sAURA_WHEELDescription[] = _(
-    "Raises Speed to attack. The\n"
-    "Type is based on its form.");
+    "攻击并提高速度\n"
+    "属性也会随着样子改变.");
     
 static const u8 sBREAKING_SWIPEDescription[] = _(
-    "Swings its tail to attack.\n"
-    "Lowers the Atk of those hit.");
+    "用坚韧的尾巴猛扫对手\n"
+    "从而降低对手的攻击.");
     
 static const u8 sBRANCH_POKEDescription[] = _(
-    "The user pokes the target\n"
-    "with a pointed branch.");
+    "使用尖锐的树枝\n"
+    "刺向对手进行攻击.");
     
 static const u8 sOVERDRIVEDescription[] = _(
-    "The user twangs its guitar,\n"
-    "causing strong vibrations.");
+    "释放出发出巨响的剧烈,\n"
+    "震动攻击对手.");
     
 static const u8 sAPPLE_ACIDDescription[] = _(
-    "Attacks with tart apple acid\n"
-    "to lower the foe's Sp. Def.");
+    "使用从酸苹果中提取\n"
+    "出来的酸性液体进行攻击.");
     
 static const u8 sGRAV_APPLEDescription[] = _(
-    "Drops an apple from above.\n"
-    "Lowers the foe's Defense.");
+    "从高处落下苹果\n"
+    "给予对手伤害.");
     
 static const u8 sSPIRIT_BREAKDescription[] = _(
-    "Attacks with spirit-breaking\n"
-    "force. Lowers Sp. Atk.");
+    "用足以让对手一蹶不振\n"
+    "的气势进行攻击.");
     
 static const u8 sSTRANGE_STEAMDescription[] = _(
-    "Emits a strange steam to\n"
-    "potentially confuse the foe.");
+    "喷出烟雾攻击对手\n"
+    "有时会使对手混乱.");
     
 static const u8 sLIFE_DEWDescription[] = _(
-    "Scatters water to restore\n"
-    "the HP of itself and allies.");
+    "喷洒出神奇的水\n"
+    "回复自己和场上同伴的HP.");
     
 static const u8 sOBSTRUCTDescription[] = _(
-    "Protects itself, harshly\n"
-    "lowering Def on contact.");
+    "完全抵挡对手的攻击\n"
+    "连续使出则容易失败");
     
 static const u8 sFALSE_SURRENDERDescription[] = _(
-    "Bows to stab the foe\n"
-    "with hair. It never misses.");
+    "用凌乱的头发进行突刺\n"
+    "攻击必定会命中.");
     
 static const u8 sMETEOR_ASSAULTDescription[] = _(
-    "Attacks with a thick leek.\n"
-    "The user must then rest.");
+    "大力挥舞粗壮的茎进行攻击\n"
+    "下一回合自己将无法动弹.");
     
 static const u8 sETERNABEAMDescription[] = _(
-    "Eternatus' strongest move.\n"
-    "The user rests next turn.");
+    "无极汰那发动的最强攻击\n"
+    "下一回合自己将无法动弹.");
     
 static const u8 sSTEEL_BEAMDescription[] = _(
-    "Fires a beam of steel from\n"
-    "its body. It hurts the user.");
+    "聚集全身的钢铁化为光束\n"
+    "发射,自己也会受到伤害.");
 
 static const u8 sNotDoneYetDescription[] = _(
-	"Not done yet.");
+	"无");
 
 
 // MOVE_NONE is ignored in this table. Make sure to always subtract 1 before getting the right pointer.
