@@ -2541,7 +2541,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     // Add field moves to action list
     for (j = 0; sFieldMoves[j] != FIELD_MOVE_TERMINATOR; j++)
     {
-        hm = IsMoveHm(hm);
+        hm = IsMoveHm(sFieldMoves[j]);
         if (hm) hm = CanMonLearnTMHM(&mons[slotId], hm) && CheckBagHasItem(hm + ITEM_TM01_FOCUS_PUNCH, 1);
         for (i = 0; i < MAX_MON_MOVES; i++)
         {
