@@ -2534,16 +2534,18 @@ static void SetPartyMonSelectionActions(struct Pokemon *mons, u8 slotId, u8 acti
 static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 {
     u8 i, j;
-
+    u16 hm;
     sPartyMenuInternal->numActions = 0;
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SUMMARY);
 
     // Add field moves to action list
-    for (i = 0; i < MAX_MON_MOVES; i++)
+    for (j = 0; sFieldMoves[j] != FIELD_MOVE_TERMINATOR; j++)
     {
-        for (j = 0; sFieldMoves[j] != FIELD_MOVE_TERMINATOR; j++)
+        hm = IsMoveHm(hm);
+        if (hm) hm = CanMonLearnTMHM(&mons[slotId], hm) && CheckBagHasItem(hm + ITEM_TM01_FOCUS_PUNCH, 1);
+        for (i = 0; i < MAX_MON_MOVES; i++)
         {
-            if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[j])
+            if (GetMonData(&mons[slotId], i + MON_DATA_MOVE1) == sFieldMoves[j] || hm)
             {
                 AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + MENU_FIELD_MOVES);
                 break;
