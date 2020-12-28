@@ -2480,7 +2480,7 @@ void PrintTMHMMoveData(u16 itemId)
     else
     {
         moveId = ItemIdToBattleMoveId(itemId);
-        blit_move_info_icon(4, gBattleMoves[moveId].type + 1, 0, 0);
+        blit_move_info_icon(4, gBattleMoves[moveId].type == TYPE_FAIRY ? 25:gBattleMoves[moveId].type + 1, 0, 0);
         if (gBattleMoves[moveId].power <= 1)
         {
             text = gText_ThreeDashes;

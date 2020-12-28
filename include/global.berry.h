@@ -6,7 +6,7 @@
 
 struct Berry
 {
-    const u8 name[BERRY_NAME_LENGTH + 1];
+    const u8 *name;
     u8 firmness;
     u16 size;
     u8 maxYield;
