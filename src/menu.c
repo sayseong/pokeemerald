@@ -124,7 +124,7 @@ const struct MoveMenuInfoIcon gMoveMenuInfoIcons[] =
     { 42, 12, 0xC8 },       // -Accuracy- icon
     { 42, 12, 0xE0 },       // -PP- icon
     { 42, 12, 0xE8 },       // -Effect- icon
-    {  8,  8, 0xAE },       // Unused (Small white pokeball)
+    { 32, 12, 0x1c },       // Unused (Small white pokeball)
     {  8,  8, 0xAF },       // Unused (Small dark pokeball)
 };
 
