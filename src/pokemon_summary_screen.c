@@ -174,6 +174,18 @@ static EWRAM_DATA struct PokemonSummaryScreenData
     s16 switchCounter; // Used for various switch statement cases that decompress/load graphics or pokemon data
     u8 unk_filler4[6];
     u8 splitIconSpriteId;
+    struct {
+        struct Sprite * sprites[11];
+        u16 x[11];
+        u16 tileTag;
+        u16 palTag;
+    } exp_bar_sprite;
+    struct {
+        struct Sprite * sprites[10];
+        u16 x[10];
+        u16 tileTag;
+        u16 palTag;
+    } hp_bar_sprite;
 } *sMonSummaryScreen = NULL;
 
 EWRAM_DATA u8 gLastViewedMonIndex = 0;
@@ -464,24 +476,24 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .paletteNum = 6,
         .baseBlock = 173,
     },
-    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT] = {
-        .bg = 0,
-        .tilemapLeft = 10,
-        .tilemapTop = 7,
-        .width = 6,
-        .height = 6,
-        .paletteNum = 6,
-        .baseBlock = 209,
-    },
-    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT] = {
-        .bg = 0,
-        .tilemapLeft = 22,
-        .tilemapTop = 7,
-        .width = 5,
-        .height = 6,
-        .paletteNum = 6,
-        .baseBlock = 245,
-    },
+//    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT] = {
+//        .bg = 0,
+//        .tilemapLeft = 10,
+//        .tilemapTop = 7,
+//        .width = 6,
+//        .height = 6,
+//        .paletteNum = 6,
+//        .baseBlock = 209,
+//    },
+//    [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT] = {
+//        .bg = 0,
+//        .tilemapLeft = 22,
+//        .tilemapTop = 7,
+//        .width = 5,
+//        .height = 6,
+//        .paletteNum = 6,
+//        .baseBlock = 245,
+//    },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP] = {
         .bg = 0,
         .tilemapLeft = 10,
@@ -520,12 +532,12 @@ static const struct WindowTemplate sSummaryTemplate[] =
     },
     [PSS_LABEL_WINDOW_UNUSED2] = {
         .bg = 0,
-        .tilemapLeft = 22,
-        .tilemapTop = 4,
-        .width = 0,
-        .height = 2,
+        .tilemapLeft = 20,
+        .tilemapTop = 2,
+        .width = 9,
+        .height = 4,
         .paletteNum = 6,
-        .baseBlock = 387,
+        .baseBlock = 209,
     },
 //    [PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER] = {
 //        .bg = 0,
@@ -545,15 +557,15 @@ static const struct WindowTemplate sSummaryTemplate[] =
 //        .paletteNum = 6,
 //        .baseBlock = 680,
 //    },
-    [PSS_LABEL_WINDOW_PORTRAIT_SPECIES] = {
-        .bg = 0,
-        .tilemapLeft = 20,
-        .tilemapTop = 2,
-        .width = 9,
-        .height = 4,
-        .paletteNum = 6,
-        .baseBlock = 485,
-    },
+//    [PSS_LABEL_WINDOW_PORTRAIT_SPECIES] = {
+//        .bg = 0,
+//        .tilemapLeft = 20,
+//        .tilemapTop = 2,
+//        .width = 9,
+//        .height = 4,
+//        .paletteNum = 6,
+//        .baseBlock = 485,
+//    },
     [PSS_LABEL_WINDOW_END] = DUMMY_WIN_TEMPLATE
 };
 static const struct WindowTemplate sPageInfoTemplate[] =
@@ -617,8 +629,8 @@ static const struct WindowTemplate sPageSkillsTemplate[] =
     },
     [PSS_DATA_WINDOW_SKILLS_STATS_LEFT] = {
         .bg = 0,
-        .tilemapLeft = 16,
-        .tilemapTop = 7,
+        .tilemapLeft = 9,
+        .tilemapTop = 2,
         .width = 6,
         .height = 6,
         .paletteNum = 6,
@@ -626,8 +638,8 @@ static const struct WindowTemplate sPageSkillsTemplate[] =
     },
     [PSS_DATA_WINDOW_SKILLS_STATS_RIGHT] = {
         .bg = 0,
-        .tilemapLeft = 27,
-        .tilemapTop = 7,
+        .tilemapLeft = 9,
+        .tilemapTop = 8,
         .width = 3,
         .height = 6,
         .paletteNum = 6,
@@ -1222,6 +1234,304 @@ static void CB2_InitSummaryScreen(void)
     while (MenuHelpers_CallLinkSomething() != TRUE && LoadGraphics() != TRUE && MenuHelpers_LinkSomething() != TRUE);
 }
 
+
+static const union AnimCmd sUnknown_8463A1C[] =
+{
+    ANIMCMD_FRAME(0, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A24[] =
+{
+    ANIMCMD_FRAME(1, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A2C[] =
+{
+    ANIMCMD_FRAME(2, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A34[] =
+{
+    ANIMCMD_FRAME(3, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A3C[] =
+{
+    ANIMCMD_FRAME(4, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A44[] =
+{
+    ANIMCMD_FRAME(5, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A4C[] =
+{
+    ANIMCMD_FRAME(6, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A54[] =
+{
+    ANIMCMD_FRAME(7, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A5C[] =
+{
+    ANIMCMD_FRAME(8, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A64[] =
+{
+    ANIMCMD_FRAME(9, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A6C[] =
+{
+    ANIMCMD_FRAME(10, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd sUnknown_8463A74[] =
+{
+    ANIMCMD_FRAME(11, 20),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd * const sUnknown_8463A7C[] =
+{
+    sUnknown_8463A1C,
+    sUnknown_8463A24,
+    sUnknown_8463A2C,
+    sUnknown_8463A34,
+    sUnknown_8463A3C,
+    sUnknown_8463A44,
+    sUnknown_8463A4C,
+    sUnknown_8463A54,
+    sUnknown_8463A5C,
+    sUnknown_8463A64,
+    sUnknown_8463A6C,
+    sUnknown_8463A74
+};
+
+extern u8 GetHPBarLevel(s16 hp, s16 maxhp);
+
+static void ProcessHpBar(bool8 hide)
+{
+    u8 numWholeHpBarTiles = 0;
+    u8 i;
+    u8 animNum;
+    u8 two = 2;
+    u8 hpBarPalOffset = 0;
+    u32 curHp;
+    u32 maxHp;
+    s64 v0;
+    s64 v1;
+    for(i = 0;i < 9; i++){
+        sMonSummaryScreen->hp_bar_sprite.sprites[i]->invisible = hide;
+    }
+    if (hide) return;
+    if (sMonSummaryScreen->summary.isEgg)
+        return;
+
+    curHp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP);
+    maxHp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MAX_HP);
+
+    if (maxHp / 5 >= curHp)
+        hpBarPalOffset = 2;
+    else if (maxHp / 2 >= curHp)
+        hpBarPalOffset = 1;
+
+    switch (GetHPBarLevel(curHp, maxHp))
+    {
+    case 3:
+    default:
+        hpBarPalOffset = 0;
+        break;
+    case 2:
+        hpBarPalOffset = 1;
+        break;
+    case 1:
+        hpBarPalOffset = 2;
+        break;
+    }
+
+    for (i = 0; i < 9; i++)
+        sMonSummaryScreen->hp_bar_sprite.sprites[i]->oam.paletteNum = IndexOfSpritePaletteTag(sMonSummaryScreen->hp_bar_sprite.palTag) + hpBarPalOffset;
+
+    if (curHp == maxHp)
+        for (i = two; i < 8; i++)
+            StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[i], 8);
+
+    else
+    {
+        v0 = (maxHp << 2) / 6;
+        v1 = (curHp << 2);
+
+        while (TRUE)
+        {
+            if (v1 <= v0)
+                break;
+            v1 -= v0;
+            numWholeHpBarTiles++;
+        }
+
+        numWholeHpBarTiles += two;
+
+        for (i = two; i < numWholeHpBarTiles; i++)
+            StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[i], 8);
+
+        animNum = (v1 * 6) / v0;
+        StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[numWholeHpBarTiles], animNum);
+
+        for (i = numWholeHpBarTiles + 1; i < 8; i++)
+            StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[i], 0);
+    }
+
+    StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[0], 9);
+    StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[1], 10);
+    StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[8], 11);
+}
+
+static void ProcessExpBar(bool8 hide)
+{
+    u8 numWholeExpBarTiles = 0;
+    u8 i;
+    u8 level;
+    u32 exp;
+    u32 totalExpToNextLevel;
+    u32 curExpToNextLevel;
+    u16 species;
+    s64 v0;
+    s64 v1;
+    u8 animNum;
+    u8 two = 2;
+    ProcessHpBar(hide);
+    for(i = 0;i < 11; i++) {
+        sMonSummaryScreen->exp_bar_sprite.sprites[i]->invisible = hide;
+    }
+    if (hide) return;
+    if (sMonSummaryScreen->summary.isEgg)
+        return;
+
+    exp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_EXP);
+    level = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_LEVEL);
+    species = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPECIES);
+
+    if (level < 100)
+    {
+        totalExpToNextLevel = gExperienceTables[gBaseStats[species].growthRate][level + 1] -
+            gExperienceTables[gBaseStats[species].growthRate][level];
+        curExpToNextLevel = exp - gExperienceTables[gBaseStats[species].growthRate][level];
+        v0 = ((totalExpToNextLevel << 2) / 8);
+        v1 = (curExpToNextLevel << 2);
+
+        while (TRUE)
+        {
+            if (v1 <= v0)
+                break;
+            v1 -= v0;
+            numWholeExpBarTiles++;
+        }
+
+        numWholeExpBarTiles += two;
+
+        for (i = two; i < numWholeExpBarTiles; i++)
+            StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[i], 8);
+
+        if (numWholeExpBarTiles >= 10)
+        {
+            if (totalExpToNextLevel == curExpToNextLevel)
+                return;
+            else
+                StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[9], 7);
+        }
+
+        animNum = (v1 * 8) / v0;
+        StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[numWholeExpBarTiles], animNum);
+
+        for (i = numWholeExpBarTiles + 1; i < 10; i++)
+            StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[i], 0);
+    }
+    else
+        for (i = two; i < 10; i++)
+            StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[i], 0);
+
+    StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[0], 9);
+    StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[1], 10);
+    StartSpriteAnim(sMonSummaryScreen->exp_bar_sprite.sprites[10], 11);
+}
+
+#define exp_bar_tag  30008
+#define hp_bar_tag  30009
+static const struct SpriteTemplate exp_template = {
+    .tileTag = exp_bar_tag,
+    .paletteTag = exp_bar_tag,
+    .oam = &gOamData_AffineOff_ObjNormal_8x8,
+    .anims = sUnknown_8463A7C,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+static const struct SpriteTemplate hp_template = {
+    .tileTag = hp_bar_tag,
+    .paletteTag = exp_bar_tag,
+    .oam = &gOamData_AffineOff_ObjNormal_8x8,
+    .anims = sUnknown_8463A7C,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+static const u32 exp_bar_gfx[] = INCBIN_U32("graphics/interface_new/exp_bar.4bpp.lz");
+static const u32 hp_bar_gfx[] = INCBIN_U32("graphics/interface_new/hp_bar.4bpp.lz");
+static const u16 exp_bar_pal[] = INCBIN_U16("graphics/interface_new/exp_bar.gbapal");
+
+static void LoadHpExpBarGraphics()
+{
+    u8 i=0, id;
+    struct CompressedSpriteSheet sheet = {.data = exp_bar_gfx,.size = 0x20 * 12,.tag = exp_bar_tag};
+    struct SpritePalette palette = {.data = exp_bar_pal, .tag = exp_bar_tag};
+
+    if (sMonSummaryScreen->exp_bar_sprite.tileTag != 0) return;
+    LoadSpritePalette(&palette);
+    LoadCompressedSpriteSheet(&sheet);
+    sheet.tag = hp_bar_tag;
+    sheet.data = hp_bar_gfx;
+    LoadCompressedSpriteSheet(&sheet);
+    for (; i < 11; i++)
+    {
+        sMonSummaryScreen->exp_bar_sprite.x[i] = i * 8 + 139;
+        id = CreateSprite(&exp_template, sMonSummaryScreen->exp_bar_sprite.x[i], 127, 0);
+        sMonSummaryScreen->exp_bar_sprite.sprites[i] = &gSprites[id];
+        sMonSummaryScreen->exp_bar_sprite.sprites[i]->oam.priority = 0;
+    }
+    sMonSummaryScreen->exp_bar_sprite.tileTag = exp_bar_tag;
+    sMonSummaryScreen->exp_bar_sprite.palTag = exp_bar_tag;
+    for (i = 0; i < 9; i++)
+    {
+        sMonSummaryScreen->hp_bar_sprite.x[i] = i * 8 + 70;
+        id = CreateSprite(&hp_template, sMonSummaryScreen->hp_bar_sprite.x[i], 33, 0);
+        sMonSummaryScreen->hp_bar_sprite.sprites[i] = &gSprites[id];
+        sMonSummaryScreen->hp_bar_sprite.sprites[i]->oam.priority = 0;
+        StartSpriteAnim(sMonSummaryScreen->hp_bar_sprite.sprites[i], 8);
+    }
+    sMonSummaryScreen->hp_bar_sprite.tileTag = hp_bar_tag;
+    sMonSummaryScreen->hp_bar_sprite.palTag = exp_bar_tag;
+    ProcessExpBar(1);
+#undef hp_bar_tag
+#undef exp_bar_tag
+}
+
 static bool8 LoadGraphics(void)
 {
     switch (gMain.state)
@@ -1339,6 +1649,10 @@ static bool8 LoadGraphics(void)
     case 24:
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
         gPaletteFade.bufferTransferDisabled = 0;
+        gMain.state++;
+        break;
+    case 25:
+        LoadHpExpBarGraphics();
         gMain.state++;
         break;
     default:
@@ -1929,7 +2243,8 @@ static void PssScrollLeftEnd(u8 taskId) // display left
 static void TryDrawExperienceProgressBar(void)
 {
     if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
-        DrawExperienceProgressBar(&sMonSummaryScreen->currentMon);
+        ProcessExpBar(0);
+    else ProcessExpBar(1);
 }
 
 static void SwitchToMoveSelection(u8 taskId)
@@ -2692,44 +3007,45 @@ static void SetDexNumberColor(bool8 isMonShiny)
 
 static void DrawExperienceProgressBar(struct Pokemon *unused)
 {
-    s64 numExpProgressBarTicks;
-    struct PokeSummary *summary = &sMonSummaryScreen->summary;
-    u16 *dst;
-    u8 i;
-
-    if (summary->level < MAX_LEVEL)
-    {
-        u32 expBetweenLevels = gExperienceTables[gBaseStats[summary->species].growthRate][summary->level + 1] - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
-        u32 expSinceLastLevel = summary->exp - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
-
-        // Calculate the number of 1-pixel "ticks" to illuminate in the experience progress bar.
-        // There are 8 tiles that make up the bar, and each tile has 8 "ticks". Hence, the numerator
-        // is multiplied by 64.
-        numExpProgressBarTicks = expSinceLastLevel * 64 / expBetweenLevels;
-        if (numExpProgressBarTicks == 0 && expSinceLastLevel != 0)
-            numExpProgressBarTicks = 1;
-    }
-    else
-    {
-        numExpProgressBarTicks = 0;
-    }
-
-    dst = &sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][1][0x255];
-    for (i = 0; i < 8; i++)
-    {
-        if (numExpProgressBarTicks > 7)
-            dst[i] = 0x206A;
-        else
-            dst[i] = 0x2062 + (numExpProgressBarTicks % 8);
-        numExpProgressBarTicks -= 8;
-        if (numExpProgressBarTicks < 0)
-            numExpProgressBarTicks = 0;
-    }
-
-    if (GetBgTilemapBuffer(1) == sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][0])
-        ScheduleBgCopyTilemapToVram(1);
-    else
-        ScheduleBgCopyTilemapToVram(2);
+//    s64 numExpProgressBarTicks;
+//    struct PokeSummary *summary = &sMonSummaryScreen->summary;
+//    u16 *dst;
+//    u8 i;
+//
+//    if (summary->level < MAX_LEVEL)
+//    {
+//        u32 expBetweenLevels = gExperienceTables[gBaseStats[summary->species].growthRate][summary->level + 1] - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
+//        u32 expSinceLastLevel = summary->exp - gExperienceTables[gBaseStats[summary->species].growthRate][summary->level];
+//
+//        // Calculate the number of 1-pixel "ticks" to illuminate in the experience progress bar.
+//        // There are 8 tiles that make up the bar, and each tile has 8 "ticks". Hence, the numerator
+//        // is multiplied by 64.
+//        numExpProgressBarTicks = expSinceLastLevel * 64 / expBetweenLevels;
+//        if (numExpProgressBarTicks == 0 && expSinceLastLevel != 0)
+//            numExpProgressBarTicks = 1;
+//    }
+//    else
+//    {
+//        numExpProgressBarTicks = 0;
+//    }
+//
+//    dst = &sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][1][0x255];
+//    for (i = 0; i < 8; i++)
+//    {
+//        if (numExpProgressBarTicks > 7)
+//            dst[i] = 0x206A;
+//        else
+//            dst[i] = 0x2062 + (numExpProgressBarTicks % 8);
+//        numExpProgressBarTicks -= 8;
+//        if (numExpProgressBarTicks < 0)
+//            numExpProgressBarTicks = 0;
+//    }
+//
+//    if (GetBgTilemapBuffer(1) == sMonSummaryScreen->bgTilemapBuffers[PSS_PAGE_SKILLS][0])
+//        ScheduleBgCopyTilemapToVram(1);
+//    else
+//        ScheduleBgCopyTilemapToVram(2);
+    ProcessExpBar(0);
 }
 
 static void DrawContestMoveHearts(u16 move)
@@ -2838,16 +3154,16 @@ static void PrintNotEggInfo(void)
     StringCopy(gStringVar1, gText_LevelSymbol);
     ConvertIntToDecimalStringN(gStringVar2, summary->level, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringAppend(gStringVar1, gStringVar2);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_SPECIES, gStringVar1, 0, 12, 0, 1);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_UNUSED2, gStringVar1, 0, 12, 0, 1);
 
 //    GetMonNickname(mon, gStringVar1);
 //    PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, gStringVar1, 0, 12, 0, 1);
     //strArray[0] = CHAR_SLASH;
     StringCopy(&strArray[0], &gSpeciesNames[summary->species2][0]);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_SPECIES, strArray, 0, 1, 0, 1);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_UNUSED2, strArray, 0, 1, 0, 1);
     PrintGenderSymbol(mon, summary->species2);
 //    PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_NICKNAME);
-    PutWindowTilemap(PSS_LABEL_WINDOW_PORTRAIT_SPECIES);
+    PutWindowTilemap(PSS_LABEL_WINDOW_UNUSED2);
 }
 
 static void PrintEggInfo(void)
@@ -2916,24 +3232,24 @@ static void PrintPageNamesAndStats(void)
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL, gText_RentalPkmn, 0, 1, 0, 1);
 //    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_INFO_TYPE, gText_TypeSlash, 0, 1, 0, 0);
     statsXPos = 6 + GetStringCenterAlignXOffset(1, gText_HP4, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_HP4, statsXPos, 1, 0, 1);
-    statsXPos = 6 + GetStringCenterAlignXOffset(1, gText_Attack3, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Attack3, statsXPos, 17, 0, 1);
-    statsXPos = 6 + GetStringCenterAlignXOffset(1, gText_Defense3, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Defense3, statsXPos, 33, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_SpAtk4, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpAtk4, statsXPos, 1, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_SpDef4, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpDef4, statsXPos, 17, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_Speed2, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 33, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 17, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 2, 1, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Power, 0, 1, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Accuracy2, 0, 17, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Appeal, 0, 1, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Jam, 0, 17, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_HP4, statsXPos, 1, 0, 1);
+//    statsXPos = 6 + GetStringCenterAlignXOffset(1, gText_Attack3, 42);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Attack3, statsXPos, 17, 0, 1);
+//    statsXPos = 6 + GetStringCenterAlignXOffset(1, gText_Defense3, 42);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Defense3, statsXPos, 33, 0, 1);
+//    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_SpAtk4, 36);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpAtk4, statsXPos, 1, 0, 1);
+//    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_SpDef4, 36);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpDef4, statsXPos, 17, 0, 1);
+//    statsXPos = 2 + GetStringCenterAlignXOffset(1, gText_Speed2, 36);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 33, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 17, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 2, 1, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Power, 0, 1, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Accuracy2, 0, 17, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Appeal, 0, 1, 0, 1);
+//    PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_APPEAL_JAM, gText_Jam, 0, 17, 0, 1);
 }
 
 static void PutPageWindowTilemaps(u8 page)
@@ -2956,9 +3272,9 @@ static void PutPageWindowTilemaps(u8 page)
         break;
     case PSS_PAGE_SKILLS:
         PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_TITLE);
-        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT);
-        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT);
-        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP);
+//        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT);
+//        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT);
+//        PutWindowTilemap(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP);
         break;
     case PSS_PAGE_BATTLE_MOVES:
         PutWindowTilemap(PSS_LABEL_WINDOW_BATTLE_MOVES_TITLE);
@@ -3381,7 +3697,7 @@ static void PrintEggMemo(void)
 static void PrintSkillsPageText(void)
 {
 //    PrintHeldItemName();
-    PrintRibbonCount();
+//    PrintRibbonCount();
     BufferLeftColumnStats();
     PrintLeftColumnStats();
     BufferRightColumnStats();
@@ -3399,7 +3715,7 @@ static void Task_PrintSkillsPage(u8 taskId)
 //        PrintHeldItemName();
         break;
     case 2:
-        PrintRibbonCount();
+//        PrintRibbonCount();
         break;
     case 3:
         BufferLeftColumnStats();
