@@ -534,7 +534,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .bg = 0,
         .tilemapLeft = 20,
         .tilemapTop = 2,
-        .width = 9,
+        .width = 10,
         .height = 4,
         .paletteNum = 6,
         .baseBlock = 209,
@@ -609,48 +609,48 @@ static const struct WindowTemplate sPageInfoTemplate[] =
 };
 static const struct WindowTemplate sPageSkillsTemplate[] =
 {
-    [PSS_DATA_WINDOW_SKILLS_HELD_ITEM] = {
-        .bg = 0,
-        .tilemapLeft = 11,
-        .tilemapTop = 10,
-        .width = 10,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 449,
-    },
-    [PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT] = {
-        .bg = 0,
-        .tilemapLeft = 20,
-        .tilemapTop = 4,
-        .width = 10,
-        .height = 2,
-        .paletteNum = 6,
-        .baseBlock = 469,
-    },
+//    [PSS_DATA_WINDOW_SKILLS_HELD_ITEM] = {
+//        .bg = 0,
+//        .tilemapLeft = 11,
+//        .tilemapTop = 10,
+//        .width = 10,
+//        .height = 2,
+//        .paletteNum = 6,
+//        .baseBlock = 449,
+//    },
+//    [PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT] = {
+//        .bg = 0,
+//        .tilemapLeft = 20,
+//        .tilemapTop = 4,
+//        .width = 10,
+//        .height = 2,
+//        .paletteNum = 6,
+//        .baseBlock = 469,
+//    },
     [PSS_DATA_WINDOW_SKILLS_STATS_LEFT] = {
         .bg = 0,
         .tilemapLeft = 9,
         .tilemapTop = 2,
         .width = 6,
-        .height = 6,
+        .height = 14,
         .paletteNum = 6,
-        .baseBlock = 489,
+        .baseBlock = 449,
     },
-    [PSS_DATA_WINDOW_SKILLS_STATS_RIGHT] = {
+    [PSS_DATA_WINDOW_SKILLS_STATS_RIGHT] = {//打印特性
         .bg = 0,
-        .tilemapLeft = 9,
-        .tilemapTop = 8,
-        .width = 3,
+        .tilemapLeft = 3,
+        .tilemapTop = 15,
+        .width = 18,
         .height = 6,
         .paletteNum = 6,
-        .baseBlock = 525,
+        .baseBlock = 580,
     },
     [PSS_DATA_WINDOW_EXP] = {
         .bg = 0,
-        .tilemapLeft = 24,
-        .tilemapTop = 14,
-        .width = 6,
-        .height = 4,
+        .tilemapLeft = 9,
+        .tilemapTop = 12,
+        .width = 12,
+        .height = 2,
         .paletteNum = 6,
         .baseBlock = 543,
     },
@@ -2244,7 +2244,6 @@ static void TryDrawExperienceProgressBar(void)
 {
     if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
         ProcessExpBar(0);
-    else ProcessExpBar(1);
 }
 
 static void SwitchToMoveSelection(u8 taskId)
@@ -3182,10 +3181,10 @@ static void PrintGenderSymbol(struct Pokemon *mon, u16 species)
         switch (GetMonGender(mon))
         {
         case MON_MALE:
-            PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_SPECIES, gText_MaleSymbol, 57, 0, 0, 3);
+            PrintTextOnWindow(PSS_LABEL_WINDOW_UNUSED2, gText_MaleSymbol, 57+14, 0, 0, 3);
             break;
         case MON_FEMALE:
-            PrintTextOnWindow(PSS_LABEL_WINDOW_PORTRAIT_SPECIES, gText_FemaleSymbol, 57, 0, 0, 4);
+            PrintTextOnWindow(PSS_LABEL_WINDOW_UNUSED2, gText_FemaleSymbol, 57+14, 0, 0, 4);
             break;
         }
     }
@@ -3499,14 +3498,14 @@ static void PrintMonOTID(void)
 
 static void PrintMonAbilityName(void)
 {
-//    u8 ability = GetAbilityBySpecies(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.abilityNum);
-////    PrintTextOnWindow(AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_ABILITY), gAbilityNames[ability], 0, 1, 0, 1);
+    u8 ability = GetAbilityBySpecies(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.abilityNum);
+   PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gAbilityNames[ability], 3, 5, 0, 1);
 }
 
 static void PrintMonAbilityDescription(void)
 {
-//    u8 ability = GetAbilityBySpecies(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.abilityNum);
-//    PrintTextOnWindow(AddWindowFromTemplateList(sPageInfoTemplate, PSS_DATA_WINDOW_INFO_ABILITY), gAbilityDescriptionPointers[ability], 0, 17, 0, 0);
+    u8 ability = GetAbilityBySpecies(sMonSummaryScreen->summary.species, sMonSummaryScreen->summary.abilityNum);
+    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gAbilityDescriptionPointers[ability], 3, 22, 0, 0);
 }
 
 static void BufferMonTrainerMemo(void)
@@ -3786,17 +3785,17 @@ static void PrintRibbonCount(void)
 
 static void BufferLeftColumnStats(void)
 {
-    u8 *currentHPString = Alloc(8);
-    u8 *maxHPString = Alloc(8);
-    u8 *attackString = Alloc(8);
-    u8 *defenseString = Alloc(8);
+    u8 *currentHPString = &gStringVar4[0];
+    u8 *attackString = &gStringVar4[8];
+    u8 *defenseString = &gStringVar4[16];
 
-    ConvertIntToDecimalStringN(currentHPString, sMonSummaryScreen->summary.currentHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(maxHPString, sMonSummaryScreen->summary.maxHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(attackString, sMonSummaryScreen->summary.atk, STR_CONV_MODE_RIGHT_ALIGN, 7);
-    ConvertIntToDecimalStringN(defenseString, sMonSummaryScreen->summary.def, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    currentHPString = ConvertIntToDecimalStringN(currentHPString, sMonSummaryScreen->summary.currentHP, STR_CONV_MODE_RIGHT_ALIGN, 4);
+    *currentHPString++ = CHAR_SLASH;
+    ConvertIntToDecimalStringN(currentHPString, sMonSummaryScreen->summary.maxHP, STR_CONV_MODE_LEFT_ALIGN, 4);
+    ConvertIntToDecimalStringN(attackString, sMonSummaryScreen->summary.atk, STR_CONV_MODE_RIGHT_ALIGN, 4);
+    ConvertIntToDecimalStringN(defenseString, sMonSummaryScreen->summary.def, STR_CONV_MODE_RIGHT_ALIGN, 4);
 
-    DynamicPlaceholderTextUtil_Reset();
+/*    DynamicPlaceholderTextUtil_Reset();
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, currentHPString);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, maxHPString);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, attackString);
@@ -3806,30 +3805,36 @@ static void BufferLeftColumnStats(void)
     Free(currentHPString);
     Free(maxHPString);
     Free(attackString);
-    Free(defenseString);
+    Free(defenseString);*/
 }
 
 static void PrintLeftColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 1, 0, 0);
+    u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT);
+    PrintTextOnWindow(windowId, gStringVar4, 4, 0, 0, 0);
+    PrintTextOnWindow(windowId, &gStringVar4[8], 4, 18, 0, 0);
+    PrintTextOnWindow(windowId, &gStringVar4[16], 4, 31, 0, 0);
 }
 
 static void BufferRightColumnStats(void)
 {
-    ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.spatk, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(gStringVar2, sMonSummaryScreen->summary.spdef, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    ConvertIntToDecimalStringN(gStringVar3, sMonSummaryScreen->summary.speed, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.spatk, STR_CONV_MODE_RIGHT_ALIGN, 4);
+    ConvertIntToDecimalStringN(gStringVar2, sMonSummaryScreen->summary.spdef, STR_CONV_MODE_RIGHT_ALIGN, 4);
+    ConvertIntToDecimalStringN(gStringVar3, sMonSummaryScreen->summary.speed, STR_CONV_MODE_RIGHT_ALIGN, 4);
 
-    DynamicPlaceholderTextUtil_Reset();
-    DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
-    DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gStringVar2);
-    DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, gStringVar3);
-    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
+//    DynamicPlaceholderTextUtil_Reset();
+//    DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gStringVar1);
+//    DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gStringVar2);
+//    DynamicPlaceholderTextUtil_SetPlaceholderPtr(2, gStringVar3);
+//    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
 
 static void PrintRightColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar4, 2, 1, 0, 0);
+    u8 id = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT);
+    PrintTextOnWindow(id, gStringVar1, 4, 43, 0, 0);
+    PrintTextOnWindow(id, gStringVar2, 4, 55, 0, 0);
+    PrintTextOnWindow(id, gStringVar3, 4, 67, 0, 0);
 }
 
 static void PrintExpPointsNextLevel(void)
@@ -3838,19 +3843,18 @@ static void PrintExpPointsNextLevel(void)
     u8 windowId = AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_EXP);
     int x;
     u32 expToNextLevel;
-
-    ConvertIntToDecimalStringN(gStringVar1, sum->exp, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    u8* text = ConvertIntToDecimalStringN(gStringVar1, sum->exp, STR_CONV_MODE_RIGHT_ALIGN, 7);
     x = GetStringRightAlignXOffset(1, gStringVar1, 42) + 2;
-    PrintTextOnWindow(windowId, gStringVar1, x, 1, 0, 0);
 
     if (sum->level < MAX_LEVEL)
         expToNextLevel = gExperienceTables[gBaseStats[sum->species].growthRate][sum->level + 1] - sum->exp;
     else
         expToNextLevel = 0;
-
-    ConvertIntToDecimalStringN(gStringVar1, expToNextLevel, STR_CONV_MODE_RIGHT_ALIGN, 6);
-    x = GetStringRightAlignXOffset(1, gStringVar1, 42) + 2;
-    PrintTextOnWindow(windowId, gStringVar1, x, 17, 0, 0);
+    *text++ = CHAR_SLASH;
+    ConvertIntToDecimalStringN(text, expToNextLevel, STR_CONV_MODE_LEFT_ALIGN, 6);
+    PrintTextOnWindow(windowId, gStringVar1, x, 0, 0, 1);
+    PrintMonAbilityName();
+    PrintMonAbilityDescription();
 }
 
 static void PrintBattleMoves(void)
@@ -4168,6 +4172,7 @@ static void HidePageSpecificSprites(void)
         if (sMonSummaryScreen->spriteIds[i] != 0xFF)
             SetSpriteInvisibility(i, TRUE);
     }
+    ProcessExpBar(1);
 }
 
 static void SetTypeIcons(void)
@@ -4451,7 +4456,7 @@ static void CreateCaughtBallSprite(struct Pokemon *mon)
     u8 ball = ItemIdToBallId(GetMonData(mon, MON_DATA_POKEBALL));
 
     LoadBallGfx(ball);
-    sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = CreateSprite(&gBallSpriteTemplates[ball], 230, 39, 0);
+    sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL] = CreateSprite(&gBallSpriteTemplates[ball], 234, 36, 0);
     gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL]].callback = SpriteCallbackDummy;
     gSprites[sMonSummaryScreen->spriteIds[SPRITE_ARR_ID_BALL]].oam.priority = 3;
 }
