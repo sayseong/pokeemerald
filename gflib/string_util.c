@@ -3,10 +3,10 @@
 #include "text.h"
 #include "strings.h"
 
-EWRAM_DATA u8 gStringVar1[0x100] = {0};
-EWRAM_DATA u8 gStringVar2[0x100] = {0};
-EWRAM_DATA u8 gStringVar3[0x100] = {0};
-EWRAM_DATA u8 gStringVar4[0x100] = {0};//0x3E8
+EWRAM_DATA u8 gStringVar1[0xC0] = {0};
+EWRAM_DATA u8 gStringVar2[0xC0] = {0};
+EWRAM_DATA u8 gStringVar3[0xC0] = {0};
+EWRAM_DATA u8 gStringVar4[0x150] = {0};//0x3E8
 EWRAM_DATA static u8 sUnknownStringVar[16] = {0};
 
 static const u8 sDigits[] = __("0123456789ABCDEF");
