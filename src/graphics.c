@@ -1642,15 +1642,15 @@ const u32 gStatusPal_Icons[] = INCBIN_U32("graphics/interface/status_icons.gbapa
 const u32 gMoveTypes_Gfx[] = INCBIN_U32("graphics/types/move_types.4bpp.lz");
 const u32 gMoveTypes_Pal[] = INCBIN_U32("graphics/types/move_types.gbapal.lz");
 
-const u32 gSummaryMoveSelect_Gfx[] = INCBIN_U32("graphics/interface/summary_frames.4bpp.lz");
-const u32 gSummaryMoveSelect_Pal[] = INCBIN_U32("graphics/interface/summary_frames.gbapal.lz");
+const u32 gSummaryMoveSelect_Gfx[] = INCBIN_U32("graphics/interface_new/move_selector.4bpp.lz");
+const u32 gSummaryMoveSelect_Pal[] = INCBIN_U32("graphics/interface_new/move_selector.gbapal.lz");
 
 const u32 gStatusScreenBitmap[] = INCBIN_U32("graphics/interface_new/interface.4bpp.lz");
 const u32 gStatusScreenPalette[] = INCBIN_U32("graphics/interface_new/interface.gbapal.lz");
 const u32 gPageInfoTilemap[] = INCBIN_U32("graphics/interface_new/interface_bg1.bin.lz");
 const u32 gPageSkillsTilemap[] = INCBIN_U32("graphics/interface_new/page.bin.lz");
-const u32 gPageBattleMovesTilemap[] = INCBIN_U32("graphics/interface/status_tilemap2.bin.lz");
-const u32 gPageContestMovesTilemap[] = INCBIN_U32("graphics/interface/status_tilemap3.bin.lz");
+const u32 gPageContestMovesTilemap[] = {};
+const u32 gPageBattleMovesTilemap[] = INCBIN_U32("graphics/interface_new/move.bin.lz");
 const u32 gUnknown_08D98CC8[] = INCBIN_U32("graphics/interface_new/interface_bg2.bin.lz");
 
 const u32 gBagMaleTiles[] = INCBIN_U32("graphics/misc/bag_male.4bpp.lz");

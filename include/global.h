@@ -23,7 +23,7 @@
 #define __(x) x
 
 // Fool CLion IDE
-#define INCBIN(x) {0}
+#define INCBIN(...) {0}
 #define INCBIN_U8 INCBIN
 #define INCBIN_U16 INCBIN
 #define INCBIN_U32 INCBIN
