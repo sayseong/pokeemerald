@@ -93,7 +93,7 @@ struct SaveSectionLocation gRamSaveSectionLocations[SECTOR_SAVE_SLOT_LENGTH];
 u16 gSaveUnusedVar2;
 u16 gSaveAttemptStatus;
 
-//EWRAM_DATA struct SaveSection gSaveDataBuffer = {0};
+EWRAM_DATA struct SaveSection gSaveDataBuffer = {0};
 EWRAM_DATA static u8 sUnusedVar = 0;
 
 void ClearSaveData(void)
