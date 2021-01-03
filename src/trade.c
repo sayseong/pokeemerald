@@ -1009,13 +1009,13 @@ static bool8 BufferTradeParties(void)
     case 8:
         if (_GetBlockReceivedStatus() == 3)
         {
-            Trade_Memcpy(&gEnemyParty[2], gBlockRecvBuffer[id ^ 1], 200);
+            Trade_Memcpy(&gEnemyParty[2], gBlockRecvBuffer[id ^ 1], sizeof(struct Pokemon) * 2);
             TradeResetReceivedFlags();
             sTradeMenuData->bufferPartyState++;
         }
         break;
     case 9:
-        Trade_Memcpy(gBlockSendBuffer, &gPlayerParty[4], 200);
+        Trade_Memcpy(gBlockSendBuffer, &gPlayerParty[4], sizeof(struct Pokemon) * 2);
         sTradeMenuData->bufferPartyState++;
         break;
     case 11:
@@ -1028,7 +1028,7 @@ static bool8 BufferTradeParties(void)
     case 12:
         if (_GetBlockReceivedStatus() == 3)
         {
-            Trade_Memcpy(&gEnemyParty[4], gBlockRecvBuffer[id ^ 1], 200);
+            Trade_Memcpy(&gEnemyParty[4], gBlockRecvBuffer[id ^ 1], sizeof(struct Pokemon) * 2);
             TradeResetReceivedFlags();
             sTradeMenuData->bufferPartyState++;
         }
@@ -1047,7 +1047,7 @@ static bool8 BufferTradeParties(void)
     case 16:
         if (_GetBlockReceivedStatus() == 3)
         {
-            Trade_Memcpy(gTradeMail, gBlockRecvBuffer[id ^ 1], sizeof(gTradeMail));
+            Trade_Memcpy(gTradeMail, gBlockRecvBuffer[id ^ 1], sizeof(struct MailStruct) * PARTY_SIZE);
             TradeResetReceivedFlags();
             sTradeMenuData->bufferPartyState++;
         }
