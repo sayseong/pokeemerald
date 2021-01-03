@@ -940,17 +940,18 @@ static void SetTradePartyMonsVisible(void)
 }
 
 // why not just use memcpy?
-static void Trade_Memcpy(void *dataDest, const void *dataSrc, u32 count)
-{
-    u8 *dest = dataDest;
-    const u8 *src = dataSrc;
-    u32 i;
-
-    for (i = 0; i < count; i++)
-    {
-        dest[i] = src[i];
-    }
-}
+#define Trade_Memcpy memcpy
+//static void Trade_Memcpy(void *dataDest, const void *dataSrc, u32 count)
+//{
+//    u8 *dest = dataDest;
+//    const u8 *src = dataSrc;
+//    u32 i;
+//
+//    for (i = 0; i < count; i++)
+//    {
+//        dest[i] = src[i];
+//    }
+//}
 
 static bool8 BufferTradeParties(void)
 {
@@ -1046,7 +1047,7 @@ static bool8 BufferTradeParties(void)
     case 16:
         if (_GetBlockReceivedStatus() == 3)
         {
-            Trade_Memcpy(gTradeMail, gBlockRecvBuffer[id ^ 1], 216);
+            Trade_Memcpy(gTradeMail, gBlockRecvBuffer[id ^ 1], sizeof(gTradeMail));
             TradeResetReceivedFlags();
             sTradeMenuData->bufferPartyState++;
         }

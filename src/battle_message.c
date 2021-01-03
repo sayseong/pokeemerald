@@ -2693,22 +2693,21 @@ static void GetBattlerNick(u32 battlerId, u8 *dst)
     StringGetEnd10(dst);
 }
 
-#define HANDLE_NICKNAME_STRING_CASE(battlerId)                          \
-    if (GetBattlerSide(battlerId) != B_SIDE_PLAYER)                     \
-    {                                                                   \
-        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)                     \
-            toCpy = sText_FoePkmnPrefix;                                \
-        else                                                            \
-            toCpy = sText_WildPkmnPrefix;                               \
-        while (*toCpy != EOS)                                           \
-        {                                                               \
-            dst[dstID] = *toCpy;                                        \
-            dstID++;                                                    \
-            toCpy++;                                                    \
-        }                                                               \
-    }                                                                   \
-    GetBattlerNick(battlerId, text);                                    \
-    toCpy = text;
+u8* handle_nickname_string_case(u8 battlerId, u8* text)
+{
+    const u8 *toCpy;
+    if (GetBattlerSide(battlerId) != B_SIDE_PLAYER)
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+            toCpy = sText_FoePkmnPrefix;
+        else
+            toCpy = sText_WildPkmnPrefix;
+        text = StringCopy(text, toCpy);
+    }
+    GetBattlerNick(battlerId, text);
+    return text;
+}
+#define HANDLE_NICKNAME_STRING_CASE(battlerId) toCpy=handle_nickname_string_case(battlerId, text);
 
 static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text, u8 multiplayerId, u8 battlerId)
 {
@@ -2846,7 +2845,7 @@ static const u8 *BattleStringGetOpponentClassByTrainerId(u16 trainerId)
 
 u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
 {
-    u32 dstID = 0; // if they used dstID, why not use srcID as well?
+    //u32 dstID = 0; // if they used dstID, why not use srcID as well?
     const u8 *toCpy = NULL;
     u8 text[30];
     u8 multiplayerId;
@@ -2996,9 +2995,10 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                             if ((gBattleScripting.multiplayerId != 0 && (gPotentialItemEffectBattler & BIT_SIDE))
                                 || (gBattleScripting.multiplayerId == 0 && !(gPotentialItemEffectBattler & BIT_SIDE)))
                             {
-                                StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
-                                StringAppend(text, sText_BerrySuffix);
-                                toCpy = text;
+//                                StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
+//                                StringAppend(text, sText_BerrySuffix);
+//                                toCpy = text;
+                                goto label_cpy_item_name2;
                             }
                             else
                             {
@@ -3009,6 +3009,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                         {
                             if (gLinkPlayers[gBattleScripting.multiplayerId].id == gPotentialItemEffectBattler)
                             {
+                            label_cpy_item_name2:
                                 StringCopy(text, gEnigmaBerries[gPotentialItemEffectBattler].name);
                                 StringAppend(text, sText_BerrySuffix);
                                 toCpy = text;
@@ -3019,12 +3020,12 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                     }
                     else
                     {
-                        CopyItemName(gLastUsedItem, text);
-                        toCpy = text;
+                        goto label_cpy_item_name;
                     }
                 }
                 else
                 {
+                label_cpy_item_name:
                     CopyItemName(gLastUsedItem, text);
                     toCpy = text;
                 }
@@ -3103,12 +3104,13 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                         toCpy = sText_FoePkmnPrefix;
                     else
                         toCpy = sText_WildPkmnPrefix;
-                    while (*toCpy != EOS)
-                    {
-                        dst[dstID] = *toCpy;
-                        dstID++;
-                        toCpy++;
-                    }
+//                    while (*toCpy != EOS)
+//                    {
+//                        dst[dstID] = *toCpy;
+//                        dstID++;
+//                        toCpy++;
+//                    }
+                    dst = StringCopy(dst, toCpy);
                     GetMonData(&gEnemyParty[gBattleStruct->field_52], MON_DATA_NICKNAME, text);
                 }
                 else
@@ -3249,35 +3251,37 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
 
             if (toCpy != NULL)
             {
-                while (*toCpy != EOS)
-                {
-                    dst[dstID] = *toCpy;
-                    dstID++;
-                    toCpy++;
-                }
+//                while (*toCpy != EOS)
+//                {
+//                    dst[dstID] = *toCpy;
+//                    dstID++;
+//                    toCpy++;
+//                }
+                dst = StringCopy(dst, toCpy);
             }
 
             if (*src == B_TXT_TRAINER1_LOSE_TEXT || *src == B_TXT_TRAINER2_LOSE_TEXT
                 || *src == B_TXT_TRAINER1_WIN_TEXT || *src == B_TXT_TRAINER2_WIN_TEXT)
             {
-                dst[dstID] = EXT_CTRL_CODE_BEGIN;
-                dstID++;
-                dst[dstID] = EXT_CTRL_CODE_PAUSE_UNTIL_PRESS;
-                dstID++;
+//                dst[dstID] = EXT_CTRL_CODE_BEGIN;
+//                dstID++;
+//                dst[dstID] = EXT_CTRL_CODE_PAUSE_UNTIL_PRESS;
+//                dstID++;
+                *dst++ = EXT_CTRL_CODE_BEGIN;
+                *dst++ = EXT_CTRL_CODE_PAUSE_UNTIL_PRESS;
             }
         }
         else
         {
-            dst[dstID] = *src;
-            dstID++;
+            *dst++ = *src;
+            //dstID++;
         }
         src++;
     }
 
-    dst[dstID] = *src;
-    dstID++;
+    *dst++ = *src;
 
-    return dstID;
+    return 0;
 }
 
 static void IllusionNickHack(u32 battlerId, u32 partyId, u8 *dst)

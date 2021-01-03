@@ -87,7 +87,7 @@ union PokemonSubstruct
     u16 raw[6];
 };
 
-struct BoxPokemon
+struct BoxPokemon//每个68字节，还多余了两个
 {
     u32 personality;
     //u32 otId;
