@@ -9,6 +9,10 @@ elif [ "$1" == "final" ]; then
   make -j8 MODERN=1
 elif [ "$1" == "finalf" ]; then
   make -j8 MODERN=1  -f fast.mk elf
+elif [ "$1" == "md" ]; then
+  make -j8 MODERN=1 DINFO=1
+elif [ "$1" == "mdf" ]; then
+  make -j8 MODERN=1 DINFO=1 -f fast.mk elf
 elif [ "$1" == "fastrun" ]; then
   make DINFO=1 -f fast.mk elf
   mgba --gdb pokeemerald.gba &
