@@ -2793,3 +2793,9 @@ static const u8 sShinyCharmDesc[] = _(
 	"A charm that will\n"
     "raise the chance\n"
     "of Shiny Pokémon.");
+
+static const u8 sDynamaxBraceletDesc[] = _(
+    "内部嵌入了许愿星,\n"
+    "在能量点就会发出光芒,\n"
+    "使宝可梦极巨化."
+    );

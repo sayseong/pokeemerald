@@ -7461,4 +7461,15 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .secondaryId = 0,
     },
+    [ITEM_DYNAMAX_BAND] =
+    {
+        .name = _("极巨腕带"),
+        .itemId = ITEM_DYNAMAX_BAND,
+        .price = 200,
+        .description = sDynamaxBraceletDesc,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = 4,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = 0,
+    },
 };

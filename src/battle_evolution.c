@@ -333,22 +333,17 @@ static bool32 CanPokemonMega(struct Pokemon* mon)
 	return TRUE;
 }
 
-#define ITEM_DYNAMAX_BRAND 0xFFFF
 bool32 CanEvolve(u32 species);
-
+#define ITEM_DYNAMAX_BAND 617
 static bool32 CanPokemonDynamax(struct Pokemon* mon)
 {
-#if ITEM_DYNAMAX_BRAND == 0xFFFF
     if (gBattleTypeFlags & BATTLE_TYPE_DYNAMAX)
     {
-        if (!CanPokemonMega(mon) && CheckBagHasItem(ITEM_DYNAMAX_BRAND, 1) &&
+        if (!CanPokemonMega(mon) && CheckBagHasItem(ITEM_DYNAMAX_BAND, 1) &&
             !CanEvolve(GetMonData(mon, MON_DATA_SPECIES)))
             return 1;
     }
     return 0;
-#elif ITEM_DYNAMAX_BRAND == 0
-    return !CanPokemonMega(mon);
-#endif
 }
 
 const union AffineAnimCmd sDynamaxGrowthAffineAnimCmds[] =
