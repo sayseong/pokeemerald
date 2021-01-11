@@ -1,8 +1,8 @@
 if [ "$1" == "fast" ]; then
   #rm build/emerald/src/pokemon.o
-  make DINFO=1 -f fast.mk elf
+  make DINFO=1 -j8 -f fast.mk elf
 elif [ "$1" == "fastn" ]; then
-  make DINFO=1 NODEP=0 -f fast.mk elf
+  make DINFO=1 -j8 NODEP=0 -f fast.mk elf
 elif [ "$1" == "full" ]; then
   make -j8 DINFO=1
 elif [ "$1" == "final" ]; then
