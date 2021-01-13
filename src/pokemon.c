@@ -2647,9 +2647,13 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
     }
 
-    if (gBaseStats[species].abilities[1])
+    if (((personality & 3) != 2) && gBaseStats[species].abilities[1])
     {
         value = personality & 1;
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+    } else if (((personality & 3) == 2) && gBaseStats[species].abilityHidden)
+    {
+        value = 2;
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
     }
 

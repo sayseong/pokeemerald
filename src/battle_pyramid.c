@@ -1393,9 +1393,9 @@ void GenerateBattlePyramidWildMon(void)
     {
     case 0:
     case 1:
+    case ABILITY_RANDOM:
         SetMonData(&gEnemyParty[0], MON_DATA_ABILITY_NUM, &wildMons[id].abilityNum);
         break;
-    case ABILITY_RANDOM:
     default:
         if (gBaseStats[wildMons[id].species].abilities[1])
         {
